@@ -32,7 +32,7 @@ class LaunchView: UIView {
             self.imageView.alpha = self.imageView.alpha > 0 ? 0 : 1
         }
         
-        UIView.animateKeyframes(withDuration: 1.21, delay: 0.0, options: [.calculationModeCubic], animations: {
+        UIView.animateKeyframes(withDuration: 2.21, delay: 0.0, options: [.calculationModeCubic], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.00, relativeDuration: 0.03, animations: {
                 toggle()
             })
