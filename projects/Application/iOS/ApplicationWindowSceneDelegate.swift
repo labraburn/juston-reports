@@ -34,6 +34,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     enum ViewControllerType {
         
         case loading
+        case onboarding
         case dashboard
     }
     
@@ -46,10 +47,17 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension ApplicationWindowSceneDelegate: OnboardingViewControllerDelegate {
+    
+    func onboardingViewControllerDidComplete(_ viewController: OnboardingViewController) {
+        setApplicationController(with: .dashboard)
+    }
+}
+
 extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
     
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
-        setApplicationController(with: .dashboard)
+        setApplicationController(with: .onboarding)
     }
 }
 
@@ -63,6 +71,10 @@ extension ApplicationWindowSceneDelegate.ViewControllerType {
             return viewController
         case .dashboard:
             let viewController = DashboardViewController()
+            return viewController
+        case .onboarding:
+            let viewController = OnboardingViewController()
+            viewController.delegate = sceneDelegate
             return viewController
         }
     }
