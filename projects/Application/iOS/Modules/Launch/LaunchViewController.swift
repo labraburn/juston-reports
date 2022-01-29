@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BilftUI
 
 protocol LaunchViewControllerDelegate: AnyObject {
     
@@ -14,24 +15,27 @@ protocol LaunchViewControllerDelegate: AnyObject {
 
 class LaunchViewController: UIViewController {
     
-    private var launchView: LaunchView { view as! LaunchView }
+    @IBOutlet weak var logoView: AnimatedLogoView!
     weak var delegate: LaunchViewControllerDelegate? = nil
-    
-    override func loadView() {
-        let view = LaunchView()
-        self.view = view
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        launchView.animate(completion: { finished in
-            self.laucnhDidComplete(finished)
-        })
+        logoView.animate(
+            with: [
+                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
+                .init(b: .off, l: .off, i: .off, f: .off, t: .off),
+                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
+                .init(b: .on, l: .off, i: .on, f: .off, t: .off),
+                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
+                .init(b: .on, l: .off, i: .on, f: .off, t: .on),
+                .init(b: .on, l: .off, i: .on, f: .on, t: .on),
+                .init(b: .on, l: .on, i: .on, f: .on, t: .on),
+            ],
+            duration: 1.2,
+            completion: { finished in
+                self.laucnhDidComplete(finished)
+            }
+        )
     }
     
     // MARK: Private

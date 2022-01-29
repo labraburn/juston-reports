@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */; };
 		F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */; };
 		F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */; };
 		F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0995F6B27A0B7CB003A090C /* Assets.xcassets */; };
@@ -19,11 +20,9 @@
 		F0995FA527A0BB54003A090C /* BilftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F0995FA427A0BB54003A090C /* BilftUI */; };
 		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
-		F0995FAC27A0C90C003A090C /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FAB27A0C90C003A090C /* LaunchView.swift */; };
 		F0995FAE27A0CB6D003A090C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FAD27A0CB6D003A090C /* DashboardView.swift */; };
-		F099D0F927A18DBE00CC62C2 /* Onboarding.sks in Resources */ = {isa = PBXBuildFile; fileRef = F099D0F827A18DBE00CC62C2 /* Onboarding.sks */; };
 		F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */; };
-		F099D0FD27A1A08D00CC62C2 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */; };
+		F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,11 +41,10 @@
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
 		F0995FA727A0BCA3003A090C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		F0995FAB27A0C90C003A090C /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		F0995FAD27A0CB6D003A090C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		F099D0F827A18DBE00CC62C2 /* Onboarding.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Onboarding.sks; sourceTree = "<group>"; };
 		F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
+		F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				F0995F6D27A0B7CB003A090C /* Launch.storyboard */,
-				F0995FAB27A0C90C003A090C /* LaunchView.swift */,
+				F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */,
 				F0995FA727A0BCA3003A090C /* LaunchViewController.swift */,
 			);
 			path = Launch;
@@ -160,7 +158,6 @@
 		F099D0F727A18DA400CC62C2 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				F099D0F827A18DBE00CC62C2 /* Onboarding.sks */,
 				F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */,
 				F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */,
 			);
@@ -228,8 +225,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F099D0F927A18DBE00CC62C2 /* Onboarding.sks in Resources */,
-				F099D0FD27A1A08D00CC62C2 /* OnboardingView.xib in Resources */,
+				F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */,
+				F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
 			);
@@ -243,7 +240,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
-				F0995FAC27A0C90C003A090C /* LaunchView.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,

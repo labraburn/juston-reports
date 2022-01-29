@@ -239,7 +239,23 @@ private class TransitionView: UIView {
         }
     }
 
+    private let substrateView = UIView()
     private(set) var containerViews: [ContainerView] = []
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    private func initialize() {
+        substrateView.backgroundColor = .clear
+        addSubview(substrateView)
+    }
     
     func containerView(for level: Int) -> ContainerView {
         var calculatedLevel = level
@@ -256,7 +272,7 @@ private class TransitionView: UIView {
             let containerView = ContainerView()
             containerView.frame = bounds
             
-            insertSubview(containerView, at: level)
+            substrateView.insertSubview(containerView, at: level)
             containerViews.insert(containerView, at: level)
             
             result = containerView
@@ -278,6 +294,7 @@ private class TransitionView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        substrateView.frame = bounds
         containerViews.forEach { $0.frame = bounds }
     }
 }

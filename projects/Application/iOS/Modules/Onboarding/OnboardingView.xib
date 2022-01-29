@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingViewController" customModule="BILFT" customModuleProvider="target">
             <connections>
                 <outlet property="continueButton" destination="ezf-cs-AFt" id="eDa-am-Fk7"/>
-                <outlet property="skview" destination="LkM-In-wHp" id="rnV-O5-fY0"/>
+                <outlet property="logoView" destination="SAZ-bl-u3e" id="Jo8-vW-FE6"/>
                 <outlet property="view" destination="iN0-l3-epB" id="US6-1R-ZQu"/>
             </connections>
         </placeholder>
@@ -22,12 +22,9 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <skView contentMode="scaleToFill" sceneName="Onboarding.sks" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-In-wHp">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                </skView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezf-cs-AFt">
                     <rect key="frame" x="42" y="766" width="330" height="54"/>
-                    <color key="backgroundColor" name="TextPrimary"/>
+                    <color key="backgroundColor" name="BackgroundPrimaryInverted"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="65h-XI-3Kw"/>
                     </constraints>
@@ -39,33 +36,33 @@
                         <action selector="continueButtonDidClick:" destination="-1" eventType="touchUpInside" id="oMX-Cq-gfg"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-Zi-EHe">
-                    <rect key="frame" x="97.5" y="68" width="219" height="50"/>
-                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAZ-bl-u3e" customClass="AnimatedLogoView" customModule="BilftUI">
+                    <rect key="frame" x="79" y="44" width="256" height="96"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="256" id="Emu-eU-8fD"/>
+                        <constraint firstAttribute="height" constant="96" id="MPe-fh-uxV"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="LkM-In-wHp" secondAttribute="bottom" id="9PU-Tf-cDX"/>
-                <constraint firstItem="4xg-Zi-EHe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JrD-eW-LPy"/>
+                <constraint firstItem="SAZ-bl-u3e" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2hH-wg-Aao"/>
+                <constraint firstItem="SAZ-bl-u3e" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="BEu-3f-0fA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ezf-cs-AFt" secondAttribute="bottom" constant="42" id="MLH-Xr-rkW"/>
-                <constraint firstItem="LkM-In-wHp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="R0p-xJ-adR"/>
-                <constraint firstItem="4xg-Zi-EHe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="24" id="S2W-v5-UwL"/>
-                <constraint firstAttribute="trailing" secondItem="LkM-In-wHp" secondAttribute="trailing" id="UNa-71-4YP"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ezf-cs-AFt" secondAttribute="trailing" constant="42" id="ocm-FQ-hM4"/>
-                <constraint firstItem="LkM-In-wHp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xKr-Jg-DZv"/>
                 <constraint firstItem="ezf-cs-AFt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="42" id="xyF-pM-ZJ5"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
         </view>
     </objects>
     <resources>
-        <image name="AppLogo" width="219" height="50"/>
         <namedColor name="BackgroundPrimary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="TextPrimary">
-            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.10999999940395355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="BackgroundPrimaryInverted">
+            <color red="0.13333333333333333" green="0.015686274509803921" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

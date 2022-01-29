@@ -57,7 +57,7 @@ extension ApplicationWindowSceneDelegate: OnboardingViewControllerDelegate {
 extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
     
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
-        setApplicationController(with: .onboarding)
+        setApplicationController(with: .onboarding, animated: false)
     }
 }
 

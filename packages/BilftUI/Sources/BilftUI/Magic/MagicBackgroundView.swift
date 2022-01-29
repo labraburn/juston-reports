@@ -16,10 +16,17 @@ public class MagicBackgroundView: UIView {
         get { visualEffectView.backgroundColor }
     }
     
+    #if targetEnvironment(simulator)
+    public var color: UIColor {
+        set { visualEffectView.tintColor = newValue }
+        get { visualEffectView.tintColor }
+    }
+    #else
     public var color: UIColor {
         set { backgroundView.color = newValue }
         get { backgroundView.color }
     }
+    #endif
     
     public var effect: UIVisualEffect? {
         didSet {
