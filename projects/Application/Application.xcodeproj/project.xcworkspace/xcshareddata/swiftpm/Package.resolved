@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftyTON",
+        "repositoryURL": "https://github.com/bilft/SwiftyTON",
+        "state": {
+          "branch": "main",
+          "revision": "fa191754d6ce762da6ab343049582d95fa809eda",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

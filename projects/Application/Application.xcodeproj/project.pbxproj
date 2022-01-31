@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = F01E909C27A7A93E00BD1BDF /* SwiftyTON */; };
 		F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */; };
 		F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */; };
 		F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F0290C8927A7A9FE00FEEBA5 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
 		F0995F5F27A0B7CA003A090C /* BILFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BILFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowSceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */,
 				F0995FA527A0BB54003A090C /* BilftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +136,7 @@
 		F0995FA027A0BA7C003A090C /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				F0290C8927A7A9FE00FEEBA5 /* SwiftyTON */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
 				F0995FA127A0BA91003A090C /* BilftUI */,
 			);
@@ -182,6 +186,7 @@
 			name = iOS;
 			packageProductDependencies = (
 				F0995FA427A0BB54003A090C /* BilftUI */,
+				F01E909C27A7A93E00BD1BDF /* SwiftyTON */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* BILFT.app */;
@@ -211,6 +216,9 @@
 				Base,
 			);
 			mainGroup = F0995F5627A0B7CA003A090C;
+			packageReferences = (
+				F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */,
+			);
 			productRefGroup = F0995F6027A0B7CA003A090C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -466,7 +474,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bilft/SwiftyTON";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		F01E909C27A7A93E00BD1BDF /* SwiftyTON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */;
+			productName = SwiftyTON;
+		};
 		F0995FA427A0BB54003A090C /* BilftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BilftUI;
