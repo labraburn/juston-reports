@@ -9,7 +9,7 @@ import UIKit
 
 public final class AnimatedLogoView: UIView {
     
-    public struct Presentation {
+    public struct Presentation: Equatable {
         
         public static let off = Presentation(b: .off, l: .off, i: .off, f: .off, t: .off)
         public static let on = Presentation(b: .on, l: .on, i: .on, f: .on, t: .on)
@@ -71,16 +71,88 @@ public final class AnimatedLogoView: UIView {
         updateImageViews()
     }
     
+    public func prepareLoadingAnimation(with progress: CGFloat) {
+        stopAllAnimations()
+        
+        let _progress = max(min(progress, 1), 0)
+        var presentation: Presentation
+        
+        if _progress >= 0.8 {
+            presentation = Presentation(b: .off, l: .off, i: .off, f: .off, t: .off)
+        } else if _progress >= 0.6 {
+            presentation = Presentation(b: .off, l: .off, i: .on, f: .off, t: .off)
+        } else if _progress >= 0.3 {
+            presentation = Presentation(b: .off, l: .on, i: .on, f: .on, t: .off)
+        } else {
+            presentation = Presentation(b: .on, l: .on, i: .on, f: .on, t: .on)
+        }
+        
+        animate(with: [presentation], duration: 2.1, completion: { _ in })
+    }
+    
+    public func startLoadingAnimation() {
+        stopAllAnimations()
+        
+        animate(with: [
+            Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
+            Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
+            Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
+            Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
+            Presentation(b: .on, l: .on, i: .on, f: .on, t: .off),
+            Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+            Presentation(b: .off, l: .on, i: .on, f: .on, t: .on),
+            Presentation(b: .off, l: .off, i: .on, f: .on, t: .on),
+            Presentation(b: .off, l: .off, i: .off, f: .on, t: .on),
+            Presentation(b: .off, l: .off, i: .off, f: .off, t: .on),
+            Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
+            Presentation(b: .off, l: .off, i: .off, f: .off, t: .on),
+            Presentation(b: .off, l: .off, i: .off, f: .on, t: .on),
+            Presentation(b: .off, l: .off, i: .on, f: .on, t: .on),
+            Presentation(b: .off, l: .on, i: .on, f: .on, t: .on),
+            Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+            Presentation(b: .on, l: .on, i: .on, f: .on, t: .off),
+            Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
+            Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
+            Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
+        ], duration: 2.1, completion: { [weak self] finished in
+            guard finished
+            else {
+                return
+            }
+            
+            self?.startLoadingAnimation()
+        })
+    }
+    
+    public func stopLoadingAnimation() {
+        stopAllAnimations()
+        DispatchQueue.main.async(execute: {
+            self.animate(with: [.on], duration: 0.1, completion: { _ in })
+        })
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        let spacing = CGFloat(8)
+        let originalSpacing = CGFloat(8)
+        let originalLetterHeight = CGFloat(74)
         
-        b.bounds.size = CGSize(width: 50, height: 50)
-        l.bounds.size = CGSize(width: 15, height: 50)
-        i.bounds.size = CGSize(width: 33, height: 50)
-        f.bounds.size = CGSize(width: 41, height: 50)
-        t.bounds.size = CGSize(width: 43, height: 50)
+        let heightRatio = originalLetterHeight / CGFloat(96)
+        let height = bounds.height * heightRatio
+        
+        let widthRatio = height / originalLetterHeight
+        let spacing = originalSpacing * widthRatio
+        
+        guard height != 0
+        else {
+            return
+        }
+        
+        b.bounds.size = CGSize(width: 50 * widthRatio, height: height)
+        l.bounds.size = CGSize(width: 15 * widthRatio, height: height)
+        i.bounds.size = CGSize(width: 33 * widthRatio, height: height)
+        f.bounds.size = CGSize(width: 41 * widthRatio, height: height)
+        t.bounds.size = CGSize(width: 43 * widthRatio, height: height)
         
         let views = [b, l, i, f, t]
         let width = views.reduce(into: CGFloat(0), { $0 += $1.bounds.width }) + spacing * 4
@@ -106,6 +178,8 @@ public final class AnimatedLogoView: UIView {
         duration: TimeInterval,
         completion: @escaping (Bool) -> Void
     ) {
+        stopAllAnimations()
+        
         guard presentations.count > 0
         else {
             completion(true)
@@ -113,7 +187,7 @@ public final class AnimatedLogoView: UIView {
         }
         
         let step = duration / TimeInterval(presentations.count)
-        let transition = { [weak self] (_ to: Presentation, _ completion: ((Bool) -> Void)?) in
+        let transition = { [weak self] (_ to: Presentation) in
             guard let self = self
             else {
                 return
@@ -122,8 +196,7 @@ public final class AnimatedLogoView: UIView {
             let views = [self.b, self.l, self.i, self.f, self.t]
             let key = "transition"
             
-            let transition = LogoViewTransition()
-            transition.completion = completion
+            let transition = CATransition()
             transition.duration = step
             transition.type = .fade
             transition.timingFunction = .init(name: .easeInEaseOut)
@@ -139,11 +212,11 @@ public final class AnimatedLogoView: UIView {
         
         guard presentations.count > 1
         else {
-            transition(presentations[0], completion)
+            transition(presentations[0])
             return
         }
         
-        transition(presentations[0], nil)
+        transition(presentations[0])
         
         for i in 1..<presentations.count {
             let presentation = presentations[i]
@@ -158,20 +231,47 @@ public final class AnimatedLogoView: UIView {
                         y: self.animation.center.y + 1
                     )
                 },
-                completion: { _ in
-                    let completion = i + 1 == presentations.count ? completion : nil
-                    transition(presentation, completion)
+                completion: { finished in
+                    guard finished
+                    else {
+                        return
+                    }
+                    
+                    transition(presentation)
                 }
             )
         }
+        
+        UIView.animate(
+            withDuration: duration + step / 2,
+            delay: 0,
+            options: [.curveLinear],
+            animations: {
+                // UIKit doesn't run animations if no chages
+                self.animation.center = CGPoint(
+                    x: self.animation.center.x + 1,
+                    y: self.animation.center.y + 1
+                )
+            },
+            completion: { finished in
+                self.animation.center = .zero
+                completion(finished)
+            }
+        )
     }
     
     // MARK: Private
     
+    private func stopAllAnimations() {
+        layer.removeAllAnimations()
+        animation.layer.removeAllAnimations()
+        [b, l, i, f, t].forEach { $0.layer.removeAllAnimations() }
+    }
+    
     private func updateImageViews() {
         b.image = UIImage(named: "Letters/B/\(presentation.b.name)", in: .module, with: nil)
-        l.image = UIImage(named: "Letters/I/\(presentation.i.name)", in: .module, with: nil)
-        i.image = UIImage(named: "Letters/L/\(presentation.l.name)", in: .module, with: nil)
+        l.image = UIImage(named: "Letters/I/\(presentation.l.name)", in: .module, with: nil)
+        i.image = UIImage(named: "Letters/L/\(presentation.i.name)", in: .module, with: nil)
         f.image = UIImage(named: "Letters/F/\(presentation.f.name)", in: .module, with: nil)
         t.image = UIImage(named: "Letters/T/\(presentation.t.name)", in: .module, with: nil)
     }
@@ -179,29 +279,7 @@ public final class AnimatedLogoView: UIView {
     static func imageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.clipsToBounds = false
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFill
         return imageView
-    }
-}
-
-fileprivate class LogoViewTransition: CATransition, CAAnimationDelegate {
-    
-    var completion: ((Bool) -> Void)?
-    
-    override init() {
-        super.init()
-        delegate = self
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        delegate = self
-    }
-    
-    // MARK: CAAnimationDelegate
-    
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        delegate = nil
-        completion?(flag)
     }
 }

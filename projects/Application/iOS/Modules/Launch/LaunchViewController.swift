@@ -7,6 +7,7 @@
 
 import UIKit
 import BilftUI
+import SwiftyTON
 
 protocol LaunchViewControllerDelegate: AnyObject {
     
@@ -16,12 +17,46 @@ protocol LaunchViewControllerDelegate: AnyObject {
 class LaunchViewController: UIViewController {
     
     @IBOutlet weak var logoView: AnimatedLogoView!
+    @IBOutlet weak var logoViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logoViewTopConstraint: NSLayoutConstraint!
+    
     weak var delegate: LaunchViewControllerDelegate? = nil
+    
+    private var isAppeared = false
+    private var isAnimationFinished = false
+    private var isTONInitialized = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        Task {
+            do {
+                try await TON.shared.initialize()
+                
+                self.isTONInitialized = true
+                self.completeLoadingIfNeeded()
+            } catch {
+                self.presentAlertViewController(
+                    with: error,
+                    title: "Can't initialize TON. :("
+                )
+            }
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard !isAppeared
+        else {
+            return
+        }
+        
+        isAppeared = true
         logoView.animate(
             with: [
+                .off,
+                .off,
                 .init(b: .on, l: .off, i: .off, f: .off, t: .off),
                 .init(b: .off, l: .off, i: .off, f: .off, t: .off),
                 .init(b: .on, l: .off, i: .off, f: .off, t: .off),
@@ -29,18 +64,38 @@ class LaunchViewController: UIViewController {
                 .init(b: .on, l: .off, i: .off, f: .off, t: .off),
                 .init(b: .on, l: .off, i: .on, f: .off, t: .on),
                 .init(b: .on, l: .off, i: .on, f: .on, t: .on),
-                .init(b: .on, l: .on, i: .on, f: .on, t: .on),
+                .on,
             ],
-            duration: 1.2,
+            duration: 1.1,
+            completion: { _ in }
+        )
+        
+        self.logoViewHeightConstraint.constant = 64
+        
+        UIView.animate(
+            withDuration: 0.64,
+            delay: 0.8,
+            usingSpringWithDamping: 0.6,
+            initialSpringVelocity: 0.0,
+            options: [.curveEaseOut],
+            animations: {
+                self.view.layoutIfNeeded()
+            },
             completion: { finished in
-                self.laucnhDidComplete(finished)
+                self.isAnimationFinished = true
+                self.completeLoadingIfNeeded()
             }
         )
     }
     
     // MARK: Private
     
-    private func laucnhDidComplete(_ finished: Bool) {
-        delegate?.launchViewController(self, didFinishAnimation: finished)
+    private func completeLoadingIfNeeded() {
+        guard isTONInitialized, isAnimationFinished
+        else {
+            return
+        }
+        
+        delegate?.launchViewController(self, didFinishAnimation: true)
     }
 }

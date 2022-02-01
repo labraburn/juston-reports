@@ -23,6 +23,9 @@
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
 		F0995FAE27A0CB6D003A090C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FAD27A0CB6D003A090C /* DashboardView.swift */; };
 		F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */; };
+		F0E22C5327A9DDD2004E2E2A /* TON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5227A9DDD2004E2E2A /* TON.swift */; };
+		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
+		F0E22C5827A9E921004E2E2A /* DashboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0E22C5727A9E921004E2E2A /* DashboardView.xib */; };
 		F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +49,9 @@
 		F0995FAD27A0CB6D003A090C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
+		F0E22C5227A9DDD2004E2E2A /* TON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TON.swift; sourceTree = "<group>"; };
+		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F0E22C5727A9E921004E2E2A /* DashboardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardView.xib; sourceTree = "<group>"; };
 		F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +94,8 @@
 				F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */,
 				F0995F9A27A0B9C5003A090C /* ApplicationWindow.swift */,
 				F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */,
+				F0E22C5427A9DEC9004E2E2A /* Extensions */,
+				F0E22C5127A9DDAE004E2E2A /* Services */,
 				F0995F9427A0B861003A090C /* Modules */,
 				F0995F9327A0B85A003A090C /* Resources */,
 				F0995F9227A0B847003A090C /* Supporting */,
@@ -153,6 +161,7 @@
 		F0995FA627A0BC67003A090C /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				F0E22C5727A9E921004E2E2A /* DashboardView.xib */,
 				F0995FAD27A0CB6D003A090C /* DashboardView.swift */,
 				F0995FA927A0BE1A003A090C /* DashboardViewController.swift */,
 			);
@@ -166,6 +175,22 @@
 				F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F0E22C5127A9DDAE004E2E2A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F0E22C5227A9DDD2004E2E2A /* TON.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F0E22C5427A9DEC9004E2E2A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +261,7 @@
 				F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */,
 				F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
+				F0E22C5827A9E921004E2E2A /* DashboardView.xib in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,11 +274,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
+				F0E22C5327A9DDD2004E2E2A /* TON.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F0995FAE27A0CB6D003A090C /* DashboardView.swift in Sources */,
+				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
 				F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,

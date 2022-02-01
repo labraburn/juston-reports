@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LaunchViewController" customModule="BILFT" customModuleProvider="target">
             <connections>
                 <outlet property="logoView" destination="5Go-yD-FKQ" id="eQs-cv-bYK"/>
+                <outlet property="logoViewHeightConstraint" destination="3pw-Fm-UqL" id="5bB-QZ-mJa"/>
+                <outlet property="logoViewTopConstraint" destination="i2w-D4-rah" id="YjK-tB-Ah5"/>
                 <outlet property="view" destination="iN0-l3-epB" id="byX-ce-Eph"/>
             </connections>
         </placeholder>
@@ -25,7 +27,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="96" id="3pw-Fm-UqL"/>
-                        <constraint firstAttribute="width" constant="256" id="Zto-Ys-EzH"/>
+                        <constraint firstAttribute="width" secondItem="5Go-yD-FKQ" secondAttribute="height" multiplier="8:3" id="fFY-D0-4TQ"/>
                     </constraints>
                 </view>
             </subviews>

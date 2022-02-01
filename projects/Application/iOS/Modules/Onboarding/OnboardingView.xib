@@ -12,7 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingViewController" customModule="BILFT" customModuleProvider="target">
             <connections>
-                <outlet property="continueButton" destination="ezf-cs-AFt" id="eDa-am-Fk7"/>
+                <outlet property="createWalletButton" destination="Ccy-by-aeW" id="OJh-gV-3My"/>
+                <outlet property="importWalletButton" destination="ezf-cs-AFt" id="ubh-vp-688"/>
                 <outlet property="logoView" destination="SAZ-bl-u3e" id="Jo8-vW-FE6"/>
                 <outlet property="view" destination="iN0-l3-epB" id="US6-1R-ZQu"/>
             </connections>
@@ -31,27 +32,42 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                     <color key="tintColor" name="BackgroundPrimary"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Continue"/>
-                    <connections>
-                        <action selector="continueButtonDidClick:" destination="-1" eventType="touchUpInside" id="oMX-Cq-gfg"/>
-                    </connections>
+                    <state key="normal" title="Import Wallet"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAZ-bl-u3e" customClass="AnimatedLogoView" customModule="BilftUI">
-                    <rect key="frame" x="79" y="44" width="256" height="96"/>
+                    <rect key="frame" x="121.5" y="44" width="171" height="64"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="256" id="Emu-eU-8fD"/>
-                        <constraint firstAttribute="height" constant="96" id="MPe-fh-uxV"/>
+                        <constraint firstAttribute="height" constant="64" id="MPe-fh-uxV"/>
+                        <constraint firstAttribute="width" secondItem="SAZ-bl-u3e" secondAttribute="height" multiplier="8:3" id="SVQ-W2-Hy0"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ccy-by-aeW">
+                    <rect key="frame" x="42" y="696" width="330" height="54"/>
+                    <color key="backgroundColor" name="BackgroundPrimaryInverted"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="1XW-QC-qCd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                    <color key="tintColor" name="BackgroundPrimary"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Create Wallet"/>
+                    <connections>
+                        <action selector="createWalletButtonDidClick:" destination="-1" eventType="touchUpInside" id="EaV-Nb-K9o"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="SAZ-bl-u3e" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="2hH-wg-Aao"/>
                 <constraint firstItem="SAZ-bl-u3e" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="BEu-3f-0fA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ezf-cs-AFt" secondAttribute="bottom" constant="42" id="MLH-Xr-rkW"/>
+                <constraint firstItem="Ccy-by-aeW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="42" id="Ufj-77-IMn"/>
+                <constraint firstItem="ezf-cs-AFt" firstAttribute="top" secondItem="Ccy-by-aeW" secondAttribute="bottom" constant="16" id="fwq-bp-7vT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ezf-cs-AFt" secondAttribute="trailing" constant="42" id="ocm-FQ-hM4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ccy-by-aeW" secondAttribute="trailing" constant="42" id="wK3-HU-ciK"/>
                 <constraint firstItem="ezf-cs-AFt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="42" id="xyF-pM-ZJ5"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
@@ -62,7 +78,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BackgroundPrimaryInverted">
-            <color red="0.13333333333333333" green="0.015686274509803921" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.13300000131130219" green="0.016000000759959221" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

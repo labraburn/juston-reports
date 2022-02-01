@@ -22,8 +22,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo/Off" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-7n-wWe">
                                 <rect key="frame" x="79" y="50" width="256" height="96"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="256" id="oou-kk-KhN"/>
                                     <constraint firstAttribute="height" constant="96" id="ouh-fw-YFy"/>
+                                    <constraint firstAttribute="width" secondItem="xuU-7n-wWe" secondAttribute="height" multiplier="8:3" id="wj9-VQ-e5d"/>
                                 </constraints>
                             </imageView>
                         </subviews>
