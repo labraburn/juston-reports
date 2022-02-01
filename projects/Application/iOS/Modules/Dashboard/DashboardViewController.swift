@@ -44,7 +44,7 @@ class DashboardViewController: UIViewController {
                 view.progressLabel.text = "Syncing.. \(progress)"
                 self.dashboardView.logoView.startLoadingAnimation()
             } else {
-                view.progressLabel.text = nil
+                view.progressLabel.text = "Synced."
                 self.dashboardView.logoView.stopLoadingAnimation()
             }
         }).store(in: &cancellables)
