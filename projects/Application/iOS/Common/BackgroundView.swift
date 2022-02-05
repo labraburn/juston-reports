@@ -11,6 +11,9 @@ import UIKit
 class BackgroundView: UIView {
     
     private let imageView = UIImageView()
+    
+    @IBInspectable
+    var isParallaxEnabled: Bool = true
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +46,10 @@ class BackgroundView: UIView {
 
         let group = UIMotionEffectGroup()
         group.motionEffects = [horizontal, vertical]
-        imageView.addMotionEffect(group)
+        
+        if isParallaxEnabled {
+            imageView.addMotionEffect(group)
+        }
         
         addSubview(imageView)
         backgroundColor = .bui_backgroundPrimary

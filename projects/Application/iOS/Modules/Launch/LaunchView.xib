@@ -26,6 +26,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mI2-Ou-0Il" customClass="BackgroundView" customModule="BILFT" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isParallaxEnabled" value="NO"/>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Go-yD-FKQ" customClass="AnimatedLogoView" customModule="BilftUI">
                     <rect key="frame" x="79" y="44" width="256" height="96"/>
