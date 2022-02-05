@@ -49,7 +49,14 @@ public final class AnimatedLogoView: UIView {
     private let f: UIImageView = AnimatedLogoView.imageView()
     private let t: UIImageView = AnimatedLogoView.imageView()
     
+    private let progress = UIProgressView()
+    private let label = UILabel()
     private let animation = UIView()
+    
+    public var text: String? {
+        get { label.text }
+        set { label.text = newValue }
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,9 +74,23 @@ public final class AnimatedLogoView: UIView {
         animation.backgroundColor = .clear
         addSubview(animation)
         
+        progress.alpha = 0
+        progress.isHidden = true
+        addSubview(progress)
+        
+        label.textColor = .bui_textPrimary
+        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.alpha = 0
+        label.isHidden = true
+        addSubview(label)
+        
         [b, l, i, f, t].forEach { addSubview($0) }
         updateImageViews()
     }
+    
+    // Animations
     
     public func prepareLoadingAnimation(with progress: CGFloat) {
         stopAllAnimations()
@@ -77,21 +98,46 @@ public final class AnimatedLogoView: UIView {
         let _progress = max(min(progress, 1), 0)
         var presentation: Presentation
         
-        if _progress >= 0.8 {
+        if _progress >= 0.9 {
             presentation = Presentation(b: .off, l: .off, i: .off, f: .off, t: .off)
-        } else if _progress >= 0.6 {
+        } else if _progress >= 0.7 {
             presentation = Presentation(b: .off, l: .off, i: .on, f: .off, t: .off)
-        } else if _progress >= 0.3 {
+        } else if _progress >= 0.2 {
             presentation = Presentation(b: .off, l: .on, i: .on, f: .on, t: .off)
         } else {
             presentation = Presentation(b: .on, l: .on, i: .on, f: .on, t: .on)
         }
         
+        if label.isHidden {
+            label.alpha = 0
+            label.isHidden = false
+        }
+        
+        UIView.animate(
+            withDuration: 0.12,
+            animations: {
+                self.label.alpha = min(_progress * 0.7, 0.7)
+            }
+        )
         animate(with: [presentation], duration: 2.1, completion: { _ in })
     }
     
-    public func startLoadingAnimation() {
+    public func startLoadingAnimation(isInitial: Bool = true) {
         stopAllAnimations()
+        
+        if isInitial {
+            progress.alpha = 0
+            progress.progress = 0
+            progress.isHidden = false
+            
+            UIView.animate(
+                withDuration: 0.24,
+                animations: {
+                    self.progress.alpha = 1
+                },
+                completion: nil
+            )
+        }
         
         animate(with: [
             Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
@@ -120,16 +166,39 @@ public final class AnimatedLogoView: UIView {
                 return
             }
             
-            self?.startLoadingAnimation()
+            self?.startLoadingAnimation(isInitial: false)
         })
+    }
+    
+    public func updateLoadingAnimationWithProgress(_ progress: Double) {
+        let __progress = max(min(progress, 1), 0)
+        let _progress = Float(Int(__progress * 10)) / 10
+        self.progress.setProgress(_progress, animated: true)
     }
     
     public func stopLoadingAnimation() {
         stopAllAnimations()
+        
+        progress.setProgress(1, animated: true)
+        
+        UIView.animate(
+            withDuration: 0.24,
+            animations: {
+                self.progress.alpha = 0
+                self.label.alpha = 0
+            },
+            completion: { _ in
+                self.progress.isHidden = true
+                self.label.isHidden = true
+            }
+        )
+        
         DispatchQueue.main.async(execute: {
             self.animate(with: [.on], duration: 0.1, completion: { _ in })
         })
     }
+    
+    // Layout
     
     public override func layoutSubviews() {
         super.layoutSubviews()
@@ -166,7 +235,21 @@ public final class AnimatedLogoView: UIView {
             )
             offset = view.frame.maxX + spacing
         }
+        
+        progress.frame = CGRect(
+            x: b.frame.minX - 1,
+            y: b.frame.maxX + 10,
+            width: t.frame.maxX - b.frame.minX + 2,
+            height: 2
+        )
+        
+        var labelFrame = progress.frame
+        labelFrame.origin.y = progress.frame.maxY + 4
+        labelFrame.size.height = 17
+        label.frame = labelFrame
     }
+    
+    // MARK: Presentation
     
     public func update(presentation: Presentation) {
         self.presentation = presentation
@@ -260,10 +343,10 @@ public final class AnimatedLogoView: UIView {
         )
     }
     
-    // MARK: Private
+    // MARK: Utilites
     
     private func stopAllAnimations() {
-        layer.removeAllAnimations()
+//        layer.removeAllAnimations()
         animation.layer.removeAllAnimations()
         [b, l, i, f, t].forEach { $0.layer.removeAllAnimations() }
     }

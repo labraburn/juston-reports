@@ -8,9 +8,8 @@
 import UIKit
 import BilftUI
 
-class DashboardView: UIView {
+class DashboardView: CollectionCompositionView {
     
-    @IBOutlet weak var logoView: AnimatedLogoView!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var progressLabel: UILabel!
+//    @IBOutlet weak var addressLabel: UILabel!
+//    @IBOutlet weak var progressLabel: UILabel!
 }

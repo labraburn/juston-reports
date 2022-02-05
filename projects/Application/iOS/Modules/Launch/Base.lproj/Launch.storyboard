@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,9 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="qNx-Xi-3Ds">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo/Off" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-7n-wWe">
                                 <rect key="frame" x="79" y="50" width="256" height="96"/>
                                 <constraints>
@@ -26,16 +24,19 @@
                                     <constraint firstAttribute="width" secondItem="xuU-7n-wWe" secondAttribute="height" multiplier="8:3" id="wj9-VQ-e5d"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stars" translatesAutoresizingMaskIntoConstraints="NO" id="HvJ-kr-FPu">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="BackgroundPrimary"/>
                         <constraints>
-                            <constraint firstItem="qNx-Xi-3Ds" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="11h-rL-RHf"/>
-                            <constraint firstAttribute="bottom" secondItem="qNx-Xi-3Ds" secondAttribute="bottom" id="1yM-7a-QBz"/>
+                            <constraint firstItem="HvJ-kr-FPu" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MQZ-rW-Wel"/>
+                            <constraint firstItem="HvJ-kr-FPu" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="NsA-6H-tsb"/>
                             <constraint firstItem="xuU-7n-wWe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YQy-LB-STq"/>
+                            <constraint firstAttribute="trailing" secondItem="HvJ-kr-FPu" secondAttribute="trailing" id="b1U-6J-Exg"/>
+                            <constraint firstAttribute="bottom" secondItem="HvJ-kr-FPu" secondAttribute="bottom" id="bhK-y7-m99"/>
                             <constraint firstItem="xuU-7n-wWe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="fSv-nF-SdC"/>
-                            <constraint firstItem="qNx-Xi-3Ds" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="mc5-Gg-o4D"/>
-                            <constraint firstAttribute="trailing" secondItem="qNx-Xi-3Ds" secondAttribute="trailing" id="und-09-a51"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -46,6 +47,9 @@
     </scenes>
     <resources>
         <image name="AppLogo/Off" width="256" height="96"/>
-        <image name="Background" width="1366" height="2048"/>
+        <image name="Stars" width="1022" height="812"/>
+        <namedColor name="BackgroundPrimary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

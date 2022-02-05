@@ -13,22 +13,9 @@ class ApplicationWindowViewController: LevelViewController {
 //    override var prefersStatusBarHidden: Bool { true }
 //    override var childForStatusBarHidden: UIViewController? { nil }
     
-    private let backgroundImageView = UIImageView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        backgroundImageView.image = UIImage(named: "Background")
-        backgroundImageView.contentMode = .scaleAspectFill
-        
-        view.backgroundColor = .black
-        view.addSubview(backgroundImageView)
-        view.sendSubviewToBack(backgroundImageView)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        backgroundImageView.frame = view.bounds
+        view.backgroundColor = .bui_backgroundPrimary
     }
     
     @available(*, unavailable, message: "Use `exhange(_ viewControllerToPresent:at:animated:completion:)` instead.")

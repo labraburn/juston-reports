@@ -10,6 +10,5 @@ import SwiftyTON
 
 extension TON {
     
-    private static let configurationURL = URL(string: "https://newton-blockchain.github.io/global.config.json")!
-    static let shared = TON(configuration: .url(network: .main, value: TON.configurationURL))
+    static let shared = TON(configuration: .test)
 }

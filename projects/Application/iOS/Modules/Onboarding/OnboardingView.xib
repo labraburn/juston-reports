@@ -23,6 +23,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cC2-dm-k30" customClass="BackgroundView" customModule="BILFT" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezf-cs-AFt">
                     <rect key="frame" x="42" y="766" width="330" height="54"/>
                     <color key="backgroundColor" name="BackgroundPrimaryInverted"/>
@@ -65,10 +69,14 @@
                 <constraint firstItem="SAZ-bl-u3e" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="BEu-3f-0fA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ezf-cs-AFt" secondAttribute="bottom" constant="42" id="MLH-Xr-rkW"/>
                 <constraint firstItem="Ccy-by-aeW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="42" id="Ufj-77-IMn"/>
+                <constraint firstItem="cC2-dm-k30" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bgU-Y2-SLQ"/>
+                <constraint firstItem="cC2-dm-k30" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="exv-nI-Ubo"/>
                 <constraint firstItem="ezf-cs-AFt" firstAttribute="top" secondItem="Ccy-by-aeW" secondAttribute="bottom" constant="16" id="fwq-bp-7vT"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ezf-cs-AFt" secondAttribute="trailing" constant="42" id="ocm-FQ-hM4"/>
+                <constraint firstAttribute="bottom" secondItem="cC2-dm-k30" secondAttribute="bottom" id="vhZ-xo-ksp"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Ccy-by-aeW" secondAttribute="trailing" constant="42" id="wK3-HU-ciK"/>
                 <constraint firstItem="ezf-cs-AFt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="42" id="xyF-pM-ZJ5"/>
+                <constraint firstAttribute="trailing" secondItem="cC2-dm-k30" secondAttribute="trailing" id="zfS-r0-47D"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="144.64285714285714"/>
         </view>
