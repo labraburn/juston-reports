@@ -236,7 +236,7 @@ extension CollectionCompositionView: UICollectionViewDelegate {
         let reloadOffset = CollectionCompositionView.reloadOffset
         let contentOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
         
-        updateVisualEffectViewHidden(contentOffset <= additionalInset)
+        updateVisualEffectViewHidden(contentOffset <= 0)
         
         let additionalOffset = -contentOffset / 2
         additionalLogoViewOffset = max(additionalOffset, 0)
