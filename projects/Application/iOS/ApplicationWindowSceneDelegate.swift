@@ -36,7 +36,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         case loading
         case onboarding
-        case dashboard(address: String)
+        case dashboard(address: Address)
     }
     
     private func setApplicationController(with type: ViewControllerType, animated: Bool = true) {
@@ -53,12 +53,13 @@ extension ApplicationWindowSceneDelegate: OnboardingViewControllerDelegate {
     func onboardingViewControllerDidComplete(_ viewController: OnboardingViewController) {
         Task {
             do {
-                guard let address = (try await TON.shared.storage.addresses()).first
+                let storage = SecureStorage()
+                guard let key = (try await storage.keys()).first
                 else {
                     fatalError("Address not found.")
                 }
                 
-                self.setApplicationController(with: .dashboard(address: address), animated: false)
+                self.setApplicationController(with: .dashboard(address: key.address), animated: false)
             } catch {
                 viewController.presentAlertViewController(
                     with: error,
@@ -74,8 +75,9 @@ extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
         Task {
             do {
-                if let address = (try await TON.shared.storage.addresses()).first {
-                    self.setApplicationController(with: .dashboard(address: address), animated: false)
+                let storage = SecureStorage()
+                if let key = (try await storage.keys()).first {
+                    self.setApplicationController(with: .dashboard(address: key.address), animated: false)
                 } else {
                     self.setApplicationController(with: .onboarding, animated: false)
                 }

@@ -25,13 +25,13 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mI2-Ou-0Il" customClass="BackgroundView" customModule="BILFT" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="BackgroundPrimary"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isParallaxEnabled" value="NO"/>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Go-yD-FKQ" customClass="AnimatedLogoView" customModule="BilftUI">
-                    <rect key="frame" x="79" y="44" width="256" height="96"/>
+                    <rect key="frame" x="79" y="32" width="256" height="96"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="96" id="3pw-Fm-UqL"/>
@@ -46,7 +46,7 @@
                 <constraint firstItem="5Go-yD-FKQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="978-00-8cG"/>
                 <constraint firstAttribute="bottom" secondItem="mI2-Ou-0Il" secondAttribute="bottom" id="Qy0-i7-lVV"/>
                 <constraint firstItem="mI2-Ou-0Il" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zlp-Ob-jwG"/>
-                <constraint firstItem="5Go-yD-FKQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="i2w-D4-rah"/>
+                <constraint firstItem="5Go-yD-FKQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-12" id="i2w-D4-rah"/>
                 <constraint firstAttribute="trailing" secondItem="mI2-Ou-0Il" secondAttribute="trailing" id="yfK-Gw-wJ4"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="143.97321428571428"/>

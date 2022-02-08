@@ -48,11 +48,11 @@ class OnboardingViewController: UIViewController {
         Task {
             self.setLoading(true)
             do {
-                let result = try await TON.shared.createKeyWithUserPasswordAndSave(
-                    Data(),
-                    mnemonicPassword: Data()
-                )
-
+                let result = try await Key.create(password: Data(), mnemonic: Data())
+                
+                let storage = SecureStorage()
+                try await storage.save(key: result.0)
+                
                 print(result)
 
                 self.setLoading(false)

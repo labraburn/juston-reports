@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import BilftUI
 
 class ApplicationDelegate: UIResponder, UIApplicationDelegate {
+    
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+        UIApplication.cleanLaunchScreenCache()
+        return true
+    }
     
     // MARK: UISceneSession Lifecycle
 

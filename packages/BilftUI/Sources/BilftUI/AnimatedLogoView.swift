@@ -49,8 +49,7 @@ public final class AnimatedLogoView: UIView {
     private let f: UIImageView = AnimatedLogoView.imageView()
     private let t: UIImageView = AnimatedLogoView.imageView()
     
-    private let progress = UIProgressView()
-    private let label = UILabel()
+    public let label = UILabel()
     private let animation = UIView()
     
     public var text: String? {
@@ -74,10 +73,6 @@ public final class AnimatedLogoView: UIView {
         animation.backgroundColor = .clear
         addSubview(animation)
         
-        progress.alpha = 0
-        progress.isHidden = true
-        addSubview(progress)
-        
         label.textColor = .bui_textPrimary
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.textAlignment = .center
@@ -98,54 +93,72 @@ public final class AnimatedLogoView: UIView {
         let _progress = max(min(progress, 1), 0)
         var presentation: Presentation
         
-        if _progress >= 0.9 {
+        if _progress >= 1 {
             presentation = Presentation(b: .off, l: .off, i: .off, f: .off, t: .off)
-        } else if _progress >= 0.7 {
-            presentation = Presentation(b: .off, l: .off, i: .on, f: .off, t: .off)
+        } else if _progress >= 0.8 {
+            presentation = Presentation(b: .on, l: .off, i: .off, f: .off, t: .off)
+        } else if _progress >= 0.6 {
+            presentation = Presentation(b: .on, l: .on, i: .off, f: .off, t: .off)
+        } else if _progress >= 0.4 {
+            presentation = Presentation(b: .on, l: .on, i: .on, f: .off, t: .off)
         } else if _progress >= 0.2 {
-            presentation = Presentation(b: .off, l: .on, i: .on, f: .on, t: .off)
+            presentation = Presentation(b: .on, l: .on, i: .on, f: .on, t: .off)
         } else {
             presentation = Presentation(b: .on, l: .on, i: .on, f: .on, t: .on)
         }
         
+        showTextLabel(progress: progress)
+        
+        animate(with: [presentation], duration: 2.1, completion: { _ in })
+    }
+    
+    public func showTextLabel(progress: Double = 1) {
         if label.isHidden {
             label.alpha = 0
             label.isHidden = false
         }
         
+        let _progress = max(min(progress, 1), 0)
         UIView.animate(
             withDuration: 0.12,
             animations: {
                 self.label.alpha = min(_progress * 0.7, 0.7)
             }
         )
-        animate(with: [presentation], duration: 2.1, completion: { _ in })
     }
     
     public func startLoadingAnimation(isInitial: Bool = true) {
         stopAllAnimations()
         
+        var presentations: [Presentation] = []
+        
         if isInitial {
-            progress.alpha = 0
-            progress.progress = 0
-            progress.isHidden = false
-            
-            UIView.animate(
-                withDuration: 0.24,
-                animations: {
-                    self.progress.alpha = 1
-                },
-                completion: nil
-            )
+            if presentation == .off {
+                presentations.append(contentsOf: [
+                    Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
+                    Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
+                    Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
+                    Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
+                    Presentation(b: .on, l: .on, i: .on, f: .on, t: .off),
+                    Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+                ])
+            } else if presentation == .on {
+                presentations.append(contentsOf: [
+                    Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+                ])
+            }
+        } else {
+            presentations.append(contentsOf: [
+                Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
+                Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
+                Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
+                Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
+                Presentation(b: .on, l: .on, i: .on, f: .on, t: .off),
+                Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+            ])
         }
         
-        animate(with: [
-            Presentation(b: .off, l: .off, i: .off, f: .off, t: .off),
-            Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
-            Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
-            Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
-            Presentation(b: .on, l: .on, i: .on, f: .on, t: .off),
-            Presentation(b: .on, l: .on, i: .on, f: .on, t: .on),
+        presentations.append(contentsOf: [
             Presentation(b: .off, l: .on, i: .on, f: .on, t: .on),
             Presentation(b: .off, l: .off, i: .on, f: .on, t: .on),
             Presentation(b: .off, l: .off, i: .off, f: .on, t: .on),
@@ -160,7 +173,9 @@ public final class AnimatedLogoView: UIView {
             Presentation(b: .on, l: .on, i: .on, f: .off, t: .off),
             Presentation(b: .on, l: .on, i: .off, f: .off, t: .off),
             Presentation(b: .on, l: .off, i: .off, f: .off, t: .off),
-        ], duration: 2.1, completion: { [weak self] finished in
+        ])
+        
+        animate(with: presentations, duration: 2.1, completion: { [weak self] finished in
             guard finished
             else {
                 return
@@ -170,25 +185,15 @@ public final class AnimatedLogoView: UIView {
         })
     }
     
-    public func updateLoadingAnimationWithProgress(_ progress: Double) {
-        let __progress = max(min(progress, 1), 0)
-        let _progress = Float(Int(__progress * 10)) / 10
-        self.progress.setProgress(_progress, animated: true)
-    }
-    
     public func stopLoadingAnimation() {
         stopAllAnimations()
-        
-        progress.setProgress(1, animated: true)
         
         UIView.animate(
             withDuration: 0.24,
             animations: {
-                self.progress.alpha = 0
                 self.label.alpha = 0
             },
             completion: { _ in
-                self.progress.isHidden = true
                 self.label.isHidden = true
             }
         )
@@ -236,17 +241,12 @@ public final class AnimatedLogoView: UIView {
             offset = view.frame.maxX + spacing
         }
         
-        progress.frame = CGRect(
+        label.frame = CGRect(
             x: b.frame.minX - 1,
-            y: b.frame.maxX + 10,
+            y: b.frame.minX - 30,
             width: t.frame.maxX - b.frame.minX + 2,
-            height: 2
+            height: 17
         )
-        
-        var labelFrame = progress.frame
-        labelFrame.origin.y = progress.frame.maxY + 4
-        labelFrame.size.height = 17
-        label.frame = labelFrame
     }
     
     // MARK: Presentation
@@ -346,7 +346,6 @@ public final class AnimatedLogoView: UIView {
     // MARK: Utilites
     
     private func stopAllAnimations() {
-//        layer.removeAllAnimations()
         animation.layer.removeAllAnimations()
         [b, l, i, f, t].forEach { $0.layer.removeAllAnimations() }
     }

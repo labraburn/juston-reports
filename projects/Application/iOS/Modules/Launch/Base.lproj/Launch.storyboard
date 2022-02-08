@@ -18,25 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo/Off" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-7n-wWe">
-                                <rect key="frame" x="79" y="50" width="256" height="96"/>
+                                <rect key="frame" x="79" y="38" width="256" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="ouh-fw-YFy"/>
                                     <constraint firstAttribute="width" secondItem="xuU-7n-wWe" secondAttribute="height" multiplier="8:3" id="wj9-VQ-e5d"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Stars" translatesAutoresizingMaskIntoConstraints="NO" id="HvJ-kr-FPu">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="BackgroundPrimary"/>
                         <constraints>
-                            <constraint firstItem="HvJ-kr-FPu" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MQZ-rW-Wel"/>
-                            <constraint firstItem="HvJ-kr-FPu" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="NsA-6H-tsb"/>
                             <constraint firstItem="xuU-7n-wWe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YQy-LB-STq"/>
-                            <constraint firstAttribute="trailing" secondItem="HvJ-kr-FPu" secondAttribute="trailing" id="b1U-6J-Exg"/>
-                            <constraint firstAttribute="bottom" secondItem="HvJ-kr-FPu" secondAttribute="bottom" id="bhK-y7-m99"/>
-                            <constraint firstItem="xuU-7n-wWe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="fSv-nF-SdC"/>
+                            <constraint firstItem="xuU-7n-wWe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-6" id="fSv-nF-SdC"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -47,7 +40,6 @@
     </scenes>
     <resources>
         <image name="AppLogo/Off" width="256" height="96"/>
-        <image name="Stars" width="1022" height="812"/>
         <namedColor name="BackgroundPrimary">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

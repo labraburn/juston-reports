@@ -31,7 +31,7 @@ class LaunchViewController: UIViewController {
         
         Task {
             do {
-                try await TON.shared.initialize()
+                try await SwiftyTONConfigurate(.test)
                 
                 self.isTONInitialized = true
                 self.completeLoadingIfNeeded()

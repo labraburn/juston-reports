@@ -10,23 +10,47 @@ import BilftUI
 import SwiftyTON
 import Combine
 
+// Balance: ?
+// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4
+// Words: []
+
+// Balance: ?
+// Address: "EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM" // united
+// Words: []
+
+// Balance: 14.9
+// Address: EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
+// Address: EQCIJiFJrN8kuwdXEIfmJ-D7qwP-QfLX8YtCAhaY6AoSKxUv ????????????????????????????????
+// Words: ["episode", "diary", "tower", "either", "void", "into", "until", "universe", "loan", "answer", "own", "ribbon", "adapt", "step", "tuna", "innocent", "accident", "female", "already", "nasty", "wrist", "tenant", "toast", "post"]
+
 class DashboardViewController: UIViewController {
     
     private var dashboardView: DashboardView { view as! DashboardView }
-    private let address: String
+    private let address: Address
+    private let storage = CodableStorage.target
     
     private var cancellables: Set<AnyCancellable> = []
-    private var isUpdating = false
-    private var dataSource: UICollectionViewDiffableDataSource<Int, Int>?
+    private var task: Task<(), Never>? = nil
     
-    init(address: String) {
-        self.address = address
+    private lazy var dataSource: DashboardDiffableDataSource = {
+        let dataSource = DashboardDiffableDataSource(collectionView: dashboardView.collectionView)
+        return dataSource
+    }()
+    
+    init(address: Address) {
+//        self.address = address
+        self.address = Address(rawValue: "EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk")
         super.init(nibName: nil, bundle: nil)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        cancellables.forEach({ $0.cancel() })
+        task?.cancel()
     }
     
     override func loadView() {
@@ -38,102 +62,87 @@ class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dashboardView.logoLoadingAddiotionlText = "Last updated \(10) min"
+
+        dashboardView.logoView.update(presentation: .on)
+        dashboardView.refreshControlValue = .text(value: "")
         dashboardView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
-        dataSource = UICollectionViewDiffableDataSource(
-            collectionView: dashboardView.collectionView,
-            cellProvider: { collectionView, indexPath, itemIdentifier in
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: "cell",
-                    for: indexPath
-                )
-                cell.backgroundColor = .black
-                return cell
-            }
-        )
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
-        snapshot.appendSections([0])
-        snapshot.appendItems([0, 1, 2], toSection: 0)
-        
-        dataSource?.apply(snapshot, animatingDifferences: false)
-        
-//        dashboardView.logoView.update(presentation: .on)
-//        dashboardView.addressLabel.text = address
-        
-        let ton = TON.shared
-        ton.synchronization.receive(on: RunLoop.main).sink(receiveValue: { [weak self] progress in
-            guard let self = self
-            else {
-                return
-            }
+        SwiftyTONSynchronization()
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] progress in
+                guard let self = self, progress > 0, progress < 1
+                else {
+                    return
+                }
             
-            let view = self.dashboardView
-            view.updateLoadingAnimationWithProgress(progress)
-        }).store(in: &cancellables)
-        
-        dashboardView.startLoadingAnimation()
-        updateIfNeeded()
+                let view = self.dashboardView
+                view.refreshControlValue = .synchronization(value: progress)
+            })
+            .store(in: &cancellables)
     }
     
-    private func updateIfNeeded() {
-        guard !isUpdating
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Task {
+            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: address)) {
+                reload(wallet)
+            } else {
+                dashboardView.startLoadingAnimation()
+                updateWalletIfAvailable()
+            }
+        }
+    }
+    
+    // MARK: Private
+    
+    private func updateWalletIfAvailable() {
+        guard task == nil
         else {
             return
         }
         
-        isUpdating = true
-        let ton = TON.shared
+        task = Task {
+            do {
+                let wallet = try await Wallet.download(for: address)
+                reload(wallet)
+            } catch {
+                dashboardView.finishLoadingAnimationIfNeeded()
+                presentAlertViewController(with: error)
+            }
+
+            task = nil
+        }
+    }
+    
+    private func reload(_ wallet: Wallet, animated: Bool = true) {
+        let storage = storage
+        let address = address
         
         Task {
-            do {
-//                let state = try await ton.accountStateWithAddress("EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81") // v4
-//                let state = try await ton.accountStateWithAddress("EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM") // united
-                let state = try await ton.accountStateWithAddress("EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk") // main
-                
-                let key = try await ton.storage.key(for: self.address)!
-                let words = try await ton.wordsForKey(key, userPassword: Data())
-                
-                print(self.address)
-                print(words)
-                
-//                var value = "0"
-//                if state.balance > 0 {
-//                    let string = "\(state.balance)"
-//                    let last = string[lower: (string.count - 9), upper: string.count]
-//                }
-                
-//                self.dashboardView.progressLabel.text = "\(state.balance)"
-                print(state)
-            } catch {
-                self.presentAlertViewController(with: error)
-            }
-            
-            self.isUpdating = false
-            self.dashboardView.finishLoadingAnimationIfNeeded()
+            try await storage.save(value: wallet, forKey: .wallet(for: address))
         }
+        
+        dashboardView.refreshControlValue = .lastUpdatedDate(date: wallet.info.synchronizationDate)
+        dashboardView.finishLoadingAnimationIfNeeded()
+        
+        dataSource.apply(
+            wallet,
+            animated: animated && viewIfLoaded?.window != nil
+        )
     }
 }
 
 extension DashboardViewController: CollectionCompositionViewDelegate {
     
     func collectionCompositionViewShouldStartReload(_ view: CollectionCompositionView) -> Bool {
-        updateIfNeeded()
+        updateWalletIfAvailable()
         return true
     }
 }
 
-
-
-
-
-//
-//
-//
-//
-//
-// 14.9
-// EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
-// ["episode", "diary", "tower", "either", "void", "into", "until", "universe", "loan", "answer", "own", "ribbon", "adapt", "step", "tuna", "innocent", "accident", "female", "already", "nasty", "wrist", "tenant", "toast", "post"]
+fileprivate extension CodableStorage.Key {
+    
+    static func wallet(for address: Address) -> CodableStorage.Key {
+        CodableStorage.Key(rawValue: "wallet_\(address.rawValue)")
+    }
+}
