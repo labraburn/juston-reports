@@ -15,6 +15,7 @@
                 <outlet property="logoView" destination="5Go-yD-FKQ" id="eQs-cv-bYK"/>
                 <outlet property="logoViewHeightConstraint" destination="3pw-Fm-UqL" id="5bB-QZ-mJa"/>
                 <outlet property="logoViewTopConstraint" destination="i2w-D4-rah" id="YjK-tB-Ah5"/>
+                <outlet property="logoViewWidthConstraint" destination="BsQ-We-aom" id="veh-Sk-n1I"/>
                 <outlet property="view" destination="iN0-l3-epB" id="byX-ce-Eph"/>
             </connections>
         </placeholder>
@@ -23,38 +24,27 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mI2-Ou-0Il" customClass="BackgroundView" customModule="BILFT" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" name="BackgroundPrimary"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isParallaxEnabled" value="NO"/>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Go-yD-FKQ" customClass="AnimatedLogoView" customModule="BilftUI">
-                    <rect key="frame" x="79" y="32" width="256" height="96"/>
+                    <rect key="frame" x="71" y="32" width="272" height="96"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="96" id="3pw-Fm-UqL"/>
-                        <constraint firstAttribute="width" secondItem="5Go-yD-FKQ" secondAttribute="height" multiplier="8:3" id="fFY-D0-4TQ"/>
+                        <constraint firstAttribute="width" constant="272" id="BsQ-We-aom"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" name="BackgroundPrimary"/>
+            <color key="backgroundColor" name="BackgroundSecondary"/>
             <constraints>
-                <constraint firstItem="mI2-Ou-0Il" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0FX-VH-t9f"/>
                 <constraint firstItem="5Go-yD-FKQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="978-00-8cG"/>
-                <constraint firstAttribute="bottom" secondItem="mI2-Ou-0Il" secondAttribute="bottom" id="Qy0-i7-lVV"/>
-                <constraint firstItem="mI2-Ou-0Il" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zlp-Ob-jwG"/>
                 <constraint firstItem="5Go-yD-FKQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-12" id="i2w-D4-rah"/>
-                <constraint firstAttribute="trailing" secondItem="mI2-Ou-0Il" secondAttribute="trailing" id="yfK-Gw-wJ4"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="143.97321428571428"/>
         </view>
     </objects>
     <resources>
-        <namedColor name="BackgroundPrimary">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="BackgroundSecondary">
+            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

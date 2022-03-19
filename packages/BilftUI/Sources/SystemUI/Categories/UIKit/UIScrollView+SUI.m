@@ -33,7 +33,7 @@
 }
 
 - (void)sui_updateScrollViewObserversIfNeeded {
-    [self sui_updateScrollViewObserversIfNeededWithResponder:self.nextResponder];
+    [self sui_updateScrollViewObserversIfNeededWithResponder:self];
 }
 
 - (void)sui_updateScrollViewObserversIfNeededWithResponder:(UIResponder *)responder {

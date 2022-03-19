@@ -18,9 +18,9 @@ public struct SecureStorage {
     ///
     /// - parameter address: The address of key
     /// - returns: Optional `Key` for given `address`
-    func key(for address: Address) async throws -> Key? {
+    func key(for rawAddress: Address.RawAddress) async throws -> Key? {
         let keys = try await keys()
-        return keys.first(where: { $0.address == address })
+        return keys.first(where: { $0.rawAddress == rawAddress })
     }
     
     /// Returns all stored keys in keychain
@@ -82,6 +82,21 @@ public struct SecureStorage {
             data: try self.encoder.encode(keys),
             account: account
         )
+    }
+    
+    /// Removes all stored keys
+    func removeAllKeys() async throws {
+        let account = "keys"
+        return try await withCheckedThrowingContinuation({ continuation in
+            queue.async(execute: {
+                do {
+                    try KeychainOperation.delete(service: service, account: account)
+                    continuation.resume(returning: ())
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            })
+        })
     }
     
     private func save(data: Data, account: String) async throws {

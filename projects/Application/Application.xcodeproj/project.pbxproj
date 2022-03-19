@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F00BE9F227DCC20B0084FF1C /* DashboardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */; };
+		F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */; };
 		F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = F01E909C27A7A93E00BD1BDF /* SwiftyTON */; };
+		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
 		F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */; };
+		F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12727E6363200BB952F /* CodableStorage+Keys.swift */; };
+		F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
+		F086EDB127BBA33D0041709B /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F086EDB027BBA33D0041709B /* DebugViewController.swift */; };
 		F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */; };
 		F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */; };
 		F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0995F6B27A0B7CB003A090C /* Assets.xcassets */; };
@@ -23,22 +29,26 @@
 		F0995FA527A0BB54003A090C /* BilftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F0995FA427A0BB54003A090C /* BilftUI */; };
 		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
-		F0995FAE27A0CB6D003A090C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FAD27A0CB6D003A090C /* DashboardView.swift */; };
 		F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */; };
 		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
-		F0A3845B27B2BF120061C0F7 /* DashboardWalletCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845A27B2BF120061C0F7 /* DashboardWalletCollectionViewCell.swift */; };
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0B0AA2427B275B5007B55F1 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */; };
 		F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
-		F0EA238227AE761000D682B2 /* CollectionCompositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EA238127AE761000D682B2 /* CollectionCompositionView.swift */; };
+		F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */; };
 		F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackView.swift; sourceTree = "<group>"; };
+		F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackCardView.swift; sourceTree = "<group>"; };
 		F0290C8927A7A9FE00FEEBA5 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
+		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
+		F062B12727E6363200BB952F /* CodableStorage+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableStorage+Keys.swift"; sourceTree = "<group>"; };
+		F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionHeaderView.swift; sourceTree = "<group>"; };
+		F086EDB027BBA33D0041709B /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		F0995F5F27A0B7CA003A090C /* BILFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BILFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowSceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,18 +64,16 @@
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
 		F0995FA727A0BCA3003A090C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		F0995FAD27A0CB6D003A090C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
-		F0A3845A27B2BF120061C0F7 /* DashboardWalletCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWalletCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		F0EA238127AE761000D682B2 /* CollectionCompositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCompositionView.swift; sourceTree = "<group>"; };
+		F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardParameters.swift; sourceTree = "<group>"; };
 		F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +92,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F00BE9F327DE02F50084FF1C /* DashboardStackView */ = {
+			isa = PBXGroup;
+			children = (
+				F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */,
+				F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */,
+			);
+			path = DashboardStackView;
+			sourceTree = "<group>";
+		};
+		F032A94827DC9F3200DACFC5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F00BE9F327DE02F50084FF1C /* DashboardStackView */,
+				F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */,
+				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F062B12627E6361E00BB952F /* CodableStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */,
+				F062B12727E6363200BB952F /* CodableStorage+Keys.swift */,
+			);
+			path = CodableStorage;
+			sourceTree = "<group>";
+		};
+		F086EDAF27BBA3260041709B /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				F086EDB027BBA33D0041709B /* DebugViewController.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
 		F0995F5627A0B7CA003A090C = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +185,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F086EDAF27BBA3260041709B /* Debug */,
 				F099D0F727A18DA400CC62C2 /* Onboarding */,
 				F0995FA627A0BC67003A090C /* Dashboard */,
 				F0995F9527A0B878003A090C /* Launch */,
@@ -178,11 +223,8 @@
 		F0995FA627A0BC67003A090C /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				F0A3845A27B2BF120061C0F7 /* DashboardWalletCollectionViewCell.swift */,
-				F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */,
-				F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */,
+				F032A94827DC9F3200DACFC5 /* Views */,
 				F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */,
-				F0995FAD27A0CB6D003A090C /* DashboardView.swift */,
 				F0995FA927A0BE1A003A090C /* DashboardViewController.swift */,
 			);
 			path = Dashboard;
@@ -197,12 +239,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		F0A3845727B2BE140061C0F7 /* CollectionCompositionView */ = {
+		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				F0EA238127AE761000D682B2 /* CollectionCompositionView.swift */,
+				F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */,
+				F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */,
+				F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */,
 			);
-			path = CollectionCompositionView;
+			path = DashboardCollectionView;
 			sourceTree = "<group>";
 		};
 		F0B0AA1C27B25823007B55F1 /* DateFormatters */ = {
@@ -216,8 +260,8 @@
 		F0E22C5127A9DDAE004E2E2A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F062B12627E6361E00BB952F /* CodableStorage */,
 				F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */,
-				F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -233,10 +277,18 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				F0A3845727B2BE140061C0F7 /* CollectionCompositionView */,
+				F0EBB9B727DE286E00CD4068 /* CreditCardParameters */,
 				F0B0AA1C27B25823007B55F1 /* DateFormatters */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		F0EBB9B727DE286E00CD4068 /* CreditCardParameters */ = {
+			isa = PBXGroup;
+			children = (
+				F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */,
+			);
+			path = CreditCardParameters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,21 +372,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */,
 				F0B0AA2427B275B5007B55F1 /* SecureStorage.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
-				F0EA238227AE761000D682B2 /* CollectionCompositionView.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
-				F0A3845B27B2BF120061C0F7 /* DashboardWalletCollectionViewCell.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
-				F0995FAE27A0CB6D003A090C /* DashboardView.swift in Sources */,
+				F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */,
+				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
+				F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
+				F00BE9F227DCC20B0084FF1C /* DashboardStackView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
+				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
 				F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */,
 				F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */,
+				F086EDB127BBA33D0041709B /* DebugViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,

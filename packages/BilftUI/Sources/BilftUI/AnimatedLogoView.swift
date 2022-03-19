@@ -74,7 +74,7 @@ public final class AnimatedLogoView: UIView {
         addSubview(animation)
         
         label.textColor = .bui_textPrimary
-        label.font = .systemFont(ofSize: 12, weight: .medium)
+        label.font = .systemFont(ofSize: 10, weight: .regular)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.alpha = 0
@@ -208,14 +208,12 @@ public final class AnimatedLogoView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        let originalSpacing = CGFloat(8)
         let originalLetterHeight = CGFloat(74)
         
         let heightRatio = originalLetterHeight / CGFloat(96)
         let height = bounds.height * heightRatio
         
         let widthRatio = height / originalLetterHeight
-        let spacing = originalSpacing * widthRatio
         
         guard height != 0
         else {
@@ -229,9 +227,10 @@ public final class AnimatedLogoView: UIView {
         t.bounds.size = CGSize(width: 43 * widthRatio, height: height)
         
         let views = [b, l, i, f, t]
-        let width = views.reduce(into: CGFloat(0), { $0 += $1.bounds.width }) + spacing * 4
+        let width = views.reduce(into: CGFloat(0), { $0 += $1.bounds.width })
+        let spacing = (bounds.width - width) / 4
         
-        var offset = (max(bounds.width, width) - width) / 2
+        var offset = CGFloat(0)
         for i in 0..<views.count {
             let view = views[i]
             view.center = CGPoint(
@@ -243,9 +242,9 @@ public final class AnimatedLogoView: UIView {
         
         label.frame = CGRect(
             x: b.frame.minX - 1,
-            y: b.frame.minX - 30,
+            y: b.frame.maxY + 3,
             width: t.frame.maxX - b.frame.minX + 2,
-            height: 17
+            height: 14
         )
     }
     

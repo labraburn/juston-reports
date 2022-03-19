@@ -14,10 +14,17 @@ protocol LaunchViewControllerDelegate: AnyObject {
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool)
 }
 
+extension AnimatedLogoView {
+    
+    static var applicationHeight = CGFloat(64)
+    static var applicationWidth = CGFloat(169)
+}
+
 class LaunchViewController: UIViewController {
     
     @IBOutlet weak var logoView: AnimatedLogoView!
     @IBOutlet weak var logoViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logoViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var logoViewTopConstraint: NSLayoutConstraint!
     
     weak var delegate: LaunchViewControllerDelegate? = nil
@@ -31,7 +38,7 @@ class LaunchViewController: UIViewController {
         
         Task {
             do {
-                try await SwiftyTONConfigurate(.test)
+                try await SwiftyTONConfigurate(.main)
                 
                 self.isTONInitialized = true
                 self.completeLoadingIfNeeded()
@@ -70,7 +77,9 @@ class LaunchViewController: UIViewController {
             completion: { _ in }
         )
         
-        self.logoViewHeightConstraint.constant = 64
+        self.logoViewTopConstraint.constant = 0
+        self.logoViewHeightConstraint.constant = AnimatedLogoView.applicationHeight
+        self.logoViewWidthConstraint.constant = AnimatedLogoView.applicationWidth
         
         UIView.animate(
             withDuration: 0.64,

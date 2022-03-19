@@ -24,6 +24,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
         window.windowRootViewController.exchange(
+//            UINavigationController(rootViewController: DebugViewController()),
             viewController,
             at: .application,
             animated: false
@@ -36,7 +37,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         case loading
         case onboarding
-        case dashboard(address: Address)
+        case dashboard(address: Address.RawAddress)
     }
     
     private func setApplicationController(with type: ViewControllerType, animated: Bool = true) {
@@ -59,7 +60,7 @@ extension ApplicationWindowSceneDelegate: OnboardingViewControllerDelegate {
                     fatalError("Address not found.")
                 }
                 
-                self.setApplicationController(with: .dashboard(address: key.address), animated: false)
+                self.setApplicationController(with: .dashboard(address: key.rawAddress), animated: false)
             } catch {
                 viewController.presentAlertViewController(
                     with: error,
@@ -77,7 +78,7 @@ extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
             do {
                 let storage = SecureStorage()
                 if let key = (try await storage.keys()).first {
-                    self.setApplicationController(with: .dashboard(address: key.address), animated: false)
+                    self.setApplicationController(with: .dashboard(address: key.rawAddress), animated: false)
                 } else {
                     self.setApplicationController(with: .onboarding, animated: false)
                 }
@@ -99,8 +100,8 @@ extension ApplicationWindowSceneDelegate.ViewControllerType {
             let viewController = LaunchViewController()
             viewController.delegate = sceneDelegate
             return viewController
-        case let .dashboard(address):
-            let viewController = DashboardViewController(address: address)
+        case let .dashboard(rawAddress):
+            let viewController = DashboardViewController()
             return viewController
         case .onboarding:
             let viewController = OnboardingViewController()

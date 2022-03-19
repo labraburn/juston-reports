@@ -10,14 +10,26 @@ import BilftUI
 import SwiftyTON
 import Combine
 
+// PROD
+//
 // Balance: ?
-// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4
+// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4r2
 // Words: []
 
+// PROD
+//
 // Balance: ?
 // Address: "EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM" // united
 // Words: []
 
+// PROD
+//
+// Balance: 34
+// Address: EQCd3ASamrfErTV4K6iG5r0o3O_hl7K_9SghU0oELKF-sxDn // v3r2
+// Words: []
+
+// TEST
+//
 // Balance: 14.9
 // Address: EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
 // Address: EQCIJiFJrN8kuwdXEIfmJ-D7qwP-QfLX8YtCAhaY6AoSKxUv ????????????????????????????????
@@ -25,21 +37,47 @@ import Combine
 
 class DashboardViewController: UIViewController {
     
-    private var dashboardView: DashboardView { view as! DashboardView }
-    private let address: Address
+    private let rawAddress = try! Address(base64EncodedString: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81").raw
     private let storage = CodableStorage.target
     
     private var cancellables: Set<AnyCancellable> = []
     private var task: Task<(), Never>? = nil
     
+    private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    
+    private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
+    private var collectionViewHeaderLayoutKind: DashboardCollectionHeaderView.LayoutType.Kind = .large
+    
+    private var accountsViewRefreshControlValue: AccountsViewRefreshControlValue = .text(value: "")
+    private var accountsViewRefreshControlValueTimer: Timer? = nil
+    
+    private lazy var collectionView: DiffableCollectionView = {
+        let collectionView = DiffableCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(reusableSupplementaryViewClass: DashboardCollectionHeaderView.self)
+        collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
+        collectionView.backgroundColor = .bui_backgroundSecondary
+        return collectionView
+    }()
+    
+    private lazy var accountsView: DashboardAccountsView = {
+        let accountsView = DashboardAccountsView()
+        accountsView.delegate = self
+        accountsView.refreshControlPresentation = .on
+        accountsView.refreshControlText = ""
+        return accountsView
+    }()
+    
     private lazy var dataSource: DashboardDiffableDataSource = {
-        let dataSource = DashboardDiffableDataSource(collectionView: dashboardView.collectionView)
+        let dataSource = DashboardDiffableDataSource(collectionView: collectionView)
+        dataSource.delegate = self
         return dataSource
     }()
     
-    init(address: Address) {
-//        self.address = address
-        self.address = Address(rawValue: "EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk")
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,24 +87,54 @@ class DashboardViewController: UIViewController {
     }
     
     deinit {
+        accountsViewRefreshControlValueTimer?.invalidate()
         cancellables.forEach({ $0.cancel() })
         task?.cancel()
     }
     
-    override func loadView() {
-        let view = DashboardView()
-        view.delegate = self
-        
-        self.view = view
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        dashboardView.logoView.update(presentation: .on)
-        dashboardView.refreshControlValue = .text(value: "")
-        dashboardView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
+        view.backgroundColor = .bui_backgroundSecondary
+        view.addSubview(collectionView)
+        collectionView.pinned(edges: view)
+        
+        accountsViewRefreshControlValueTimer?.invalidate()
+        accountsViewRefreshControlValueTimer = Timer.scheduledTimer(
+            withTimeInterval: 1,
+            repeats: true,
+            block: { [weak self] timer in
+                guard let self = self
+                else {
+                    timer.invalidate()
+                    return
+                }
+
+                self.invalidateAccountsViewRefreshControlValue()
+            }
+        )
+
+        accountsView.cards = [
+            .init(
+                name: "Salary",
+                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
+                balanceBeforeDot: "25",
+                balanceAfterDot: "000000009"
+            ),
+            .init(
+                name: "Main",
+                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
+                balanceBeforeDot: "25",
+                balanceAfterDot: "000000009"
+            ),
+            .init(
+                name: "Blablabla",
+                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
+                balanceBeforeDot: "25",
+                balanceAfterDot: "000000009"
+            ),
+        ]
+
         SwiftyTONSynchronization()
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] progress in
@@ -74,9 +142,9 @@ class DashboardViewController: UIViewController {
                 else {
                     return
                 }
-            
-                let view = self.dashboardView
-                view.refreshControlValue = .synchronization(value: progress)
+
+                self.accountsViewRefreshControlValue = .synchronization(value: progress)
+                self.invalidateAccountsViewRefreshControlValue()
             })
             .store(in: &cancellables)
     }
@@ -84,65 +152,214 @@ class DashboardViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Task {
-            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: address)) {
-                reload(wallet)
+            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
+                let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
+                reload(wallet, with: transactions ?? [])
             } else {
-                dashboardView.startLoadingAnimation()
+                accountsViewStartLoadingAnimation()
                 updateWalletIfAvailable()
             }
         }
     }
     
     // MARK: Private
-    
+
     private func updateWalletIfAvailable() {
         guard task == nil
         else {
             return
         }
         
+        accountsViewRefreshControlValue = .synchronization(value: 0)
+        invalidateAccountsViewRefreshControlValue()
+        
         task = Task {
             do {
-                let wallet = try await Wallet.download(for: address)
-                reload(wallet)
+                let wallet = try await Wallet(rawAddress: rawAddress)
+                let transactions = try await wallet.contract.transactions()
+                reload(wallet, with: transactions)
             } catch {
-                dashboardView.finishLoadingAnimationIfNeeded()
                 presentAlertViewController(with: error)
             }
-
+            
+            accountsViewFinishLoadingAnimationIfNeeded()
             task = nil
         }
     }
     
-    private func reload(_ wallet: Wallet, animated: Bool = true) {
+    private func reload(_ wallet: Wallet, with transactions: [Transaction], animated: Bool = true) {
         let storage = storage
-        let address = address
-        
+        let rawAddress = rawAddress
+
         Task {
-            try await storage.save(value: wallet, forKey: .wallet(for: address))
+            try await storage.save(value: wallet, forKey: .wallet(for: rawAddress))
+            if transactions.count > 0 {
+                try await storage.save(value: transactions, forKey: .lastTransactions(for: rawAddress))
+            }
         }
-        
-        dashboardView.refreshControlValue = .lastUpdatedDate(date: wallet.info.synchronizationDate)
-        dashboardView.finishLoadingAnimationIfNeeded()
-        
+
+        accountsViewRefreshControlValue = .lastUpdatedDate(date: wallet.contract.info.synchronizationDate)
+        invalidateAccountsViewRefreshControlValue()
+        accountsViewFinishLoadingAnimationIfNeeded()
+
         dataSource.apply(
             wallet,
+            transactions: transactions,
             animated: animated && viewIfLoaded?.window != nil
         )
     }
 }
 
-extension DashboardViewController: CollectionCompositionViewDelegate {
+// MARK:  DashboardViewController: UICollectionViewDelegate
+
+extension DashboardViewController: UICollectionViewDelegate {
     
-    func collectionCompositionViewShouldStartReload(_ view: CollectionCompositionView) -> Bool {
-        updateWalletIfAvailable()
-        return true
+}
+
+// MARK:  DashboardViewController: UIScrollViewDelegate
+
+extension DashboardViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        accountsView.enclosingScrollViewWillStartDraging(scrollView)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        accountsView.enclosingScrollViewDidScroll(scrollView)
+        
+        let constant = scrollView.adjustedContentInset.top + scrollView.contentOffset.y
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+        
+        if velocity < 0 && constant > 42 {
+            updateDashboardViewCollectionViewHeaderLayoutKind(.compact, animated: true)
+        } else if velocity > 0 && constant < -42 {
+            updateDashboardViewCollectionViewHeaderLayoutKind(.large, animated: true)
+        }
     }
 }
 
-fileprivate extension CodableStorage.Key {
+// MARK:  DashboardViewController: DashboardDiffableDataSourceDelegate
+
+extension DashboardViewController: DashboardDiffableDataSourceDelegate {
     
-    static func wallet(for address: Address) -> CodableStorage.Key {
-        CodableStorage.Key(rawValue: "wallet_\(address.rawValue)")
+    func dashboardDiffableDataSource(
+        _ dataSource: DashboardDiffableDataSource,
+        subviewForCollectionHeaderView view: DashboardCollectionHeaderView
+    ) -> DashboardCollectionHeaderSubview {
+        accountsView
+    }
+    
+    func dashboardDiffableDataSource(
+        _ dataSource: DashboardDiffableDataSource,
+        layoutTypeForCollectionHeaderView view: DashboardCollectionHeaderView
+    ) -> DashboardCollectionHeaderView.LayoutType {
+        DashboardCollectionHeaderView.LayoutType(
+            bounds: self.view.bounds,
+            safeAreaInsets: self.view.safeAreaInsets,
+            kind: collectionViewHeaderLayoutKind
+        )
+    }
+}
+
+// MARK:  DashboardViewController: CollectionViewHeaderLayoutKind
+
+extension DashboardViewController {
+    
+    func updateDashboardViewCollectionViewHeaderLayoutKind(
+        _ layoutTypeKind: DashboardCollectionHeaderView.LayoutType.Kind,
+        animated: Bool
+    ) {
+        guard collectionViewHeaderLayoutKind != layoutTypeKind
+        else {
+            return
+        }
+        
+        collectionViewHeaderLayoutKind = layoutTypeKind
+        impactFeedbackGenerator.impactOccurred()
+        
+        switch layoutTypeKind {
+        case .large:
+            collectionViewLayout.refreshLayoutConfiguration(pinToVisibleBounds: false)
+        case .compact:
+            collectionViewLayout.refreshLayoutConfiguration(pinToVisibleBounds: true)
+        }
+        
+        let collectionView = collectionView
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.invalidateIntrinsicContentSize()
+        collectionView.setNeedsLayout()
+        
+        if animated {
+            UIView.animate(
+                withDuration: 0.21,
+                delay: 0,
+                usingSpringWithDamping: 0.88,
+                initialSpringVelocity: 0.0,
+                options: [.allowUserInteraction],
+                animations: {
+                    collectionView.layoutIfNeeded()
+                }, completion: { _ in }
+            )
+        } else {
+            collectionView.layoutIfNeeded()
+        }
+    }
+}
+
+//
+// MARK:  DashboardViewController: DashboardAccountsViewDelegate
+//
+
+extension DashboardViewController: DashboardAccountsViewDelegate {
+    
+    func dashboardAccountsViewShouldStartRefreshing(_ view: DashboardAccountsView) -> Bool {
+        task == nil
+    }
+    
+    func dashboardAccountsViewDidStartRefreshing(_ view: DashboardAccountsView) {
+        updateWalletIfAvailable()
+    }
+    
+    func dashboardAccountsViewIsUserInteractig(_ view: DashboardAccountsView) -> Bool {
+        collectionView.isDragging || collectionView.isTracking || collectionView.isDecelerating
+    }
+    
+    func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
+        
+    }
+}
+
+//
+// MARK:  DashboardViewController: LoadingAnimation & RefreshControlValue
+//
+
+extension DashboardViewController {
+    
+    enum AccountsViewRefreshControlValue: Equatable {
+        
+        case text(value: String)
+        case synchronization(value: Double)
+        case lastUpdatedDate(date: Date)
+    }
+    
+    private func accountsViewStartLoadingAnimation() {
+        accountsView.startLoadingAnimationIfAvailable()
+    }
+    
+    private func accountsViewFinishLoadingAnimationIfNeeded() {
+        accountsView.stopLoadingIfAvailable()
+    }
+    
+    private func invalidateAccountsViewRefreshControlValue() {
+        switch accountsViewRefreshControlValue {
+        case let .text(value):
+            accountsView.refreshControlText = value
+        case let .lastUpdatedDate(date):
+            let formatter = RelativeDateTimeFormatter.shared
+            let timeAgo = formatter.localizedString(for: Date(), relativeTo: date)
+            accountsView.refreshControlText = "Updated \(timeAgo) ago"
+        case let .synchronization(value):
+            accountsView.refreshControlText = "Syncing.. \(Int(value * 100))%"
+        }
     }
 }
