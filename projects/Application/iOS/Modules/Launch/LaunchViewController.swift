@@ -22,10 +22,13 @@ extension AnimatedLogoView {
 
 class LaunchViewController: UIViewController {
     
-    @IBOutlet weak var logoView: AnimatedLogoView!
-    @IBOutlet weak var logoViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var logoViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var logoViewTopConstraint: NSLayoutConstraint!
+    private let logoView: AnimatedLogoView = AnimatedLogoView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    })
+    
+    private var logoViewHeightConstraint: NSLayoutConstraint?
+    private var logoViewWidthConstraint: NSLayoutConstraint?
+    private var logoViewTopConstraint: NSLayoutConstraint?
     
     weak var delegate: LaunchViewControllerDelegate? = nil
     
@@ -35,6 +38,20 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .bui_backgroundPrimary
+        view.addSubview(logoView)
+        
+        logoViewTopConstraint = logoView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: -12)
+        logoViewTopConstraint?.isActive = true
+        
+        logoViewWidthConstraint = logoView.widthAnchor.pin(to: 272)
+        logoViewWidthConstraint?.isActive = true
+        
+        logoViewHeightConstraint = logoView.heightAnchor.pin(to: 96)
+        logoViewHeightConstraint?.isActive = true
+        
+        logoView.centerXAnchor.pin(to: view.centerXAnchor).isActive = true
         
         Task {
             do {
@@ -77,9 +94,9 @@ class LaunchViewController: UIViewController {
             completion: { _ in }
         )
         
-        self.logoViewTopConstraint.constant = 0
-        self.logoViewHeightConstraint.constant = AnimatedLogoView.applicationHeight
-        self.logoViewWidthConstraint.constant = AnimatedLogoView.applicationWidth
+        logoViewTopConstraint?.constant = 0
+        logoViewHeightConstraint?.constant = AnimatedLogoView.applicationHeight
+        logoViewWidthConstraint?.constant = AnimatedLogoView.applicationWidth
         
         UIView.animate(
             withDuration: 0.64,

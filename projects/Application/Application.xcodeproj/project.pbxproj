@@ -38,7 +38,6 @@
 		F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
 		F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */; };
-		F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,7 +73,6 @@
 		F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardParameters.swift; sourceTree = "<group>"; };
-		F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				F0995F6D27A0B7CB003A090C /* Launch.storyboard */,
-				F0F506AE27A4D63B00B9A3FC /* LaunchView.xib */,
 				F0995FA727A0BCA3003A090C /* LaunchViewController.swift */,
 			);
 			path = Launch;
@@ -358,7 +355,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0F506AF27A4D63B00B9A3FC /* LaunchView.xib in Resources */,
 				F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,

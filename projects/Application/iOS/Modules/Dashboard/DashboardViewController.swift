@@ -47,6 +47,8 @@ class DashboardViewController: UIViewController {
     
     private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
     private var collectionViewHeaderLayoutKind: DashboardCollectionHeaderView.LayoutType.Kind = .large
+    private var collectionViewPreviousContentOffset: CGPoint = .zero
+    private var collectionViewHeaderLayoutKindAnimator: UIViewPropertyAnimator?
     
     private var accountsViewRefreshControlValue: AccountsViewRefreshControlValue = .text(value: "")
     private var accountsViewRefreshControlValueTimer: Timer? = nil
@@ -59,7 +61,7 @@ class DashboardViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(reusableSupplementaryViewClass: DashboardCollectionHeaderView.self)
         collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
-        collectionView.backgroundColor = .bui_backgroundSecondary
+        collectionView.backgroundColor = .bui_backgroundPrimary
         return collectionView
     }()
     
@@ -95,7 +97,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .bui_backgroundSecondary
+        view.backgroundColor = .bui_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         
@@ -119,19 +121,22 @@ class DashboardViewController: UIViewController {
                 name: "Salary",
                 address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
                 balanceBeforeDot: "25",
-                balanceAfterDot: "000000009"
+                balanceAfterDot: "000000009",
+                style: .image
             ),
             .init(
                 name: "Main",
                 address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
                 balanceBeforeDot: "25",
-                balanceAfterDot: "000000009"
+                balanceAfterDot: "000000009",
+                style: .default
             ),
             .init(
                 name: "Blablabla",
                 address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
                 balanceBeforeDot: "25",
-                balanceAfterDot: "000000009"
+                balanceAfterDot: "000000009",
+                style: .default
             ),
         ]
 
@@ -149,8 +154,8 @@ class DashboardViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         Task {
             if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
                 let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
@@ -228,13 +233,17 @@ extension DashboardViewController: UIScrollViewDelegate {
         accountsView.enclosingScrollViewDidScroll(scrollView)
         
         let constant = scrollView.adjustedContentInset.top + scrollView.contentOffset.y
-        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
         
-        if velocity < 0 && constant > 42 {
+        let isScrollingTop = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y < 0
+        let isScrollingBottom = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y > 0
+        
+        if isScrollingTop && constant > 42 && scrollView.isTracking {
             updateDashboardViewCollectionViewHeaderLayoutKind(.compact, animated: true)
-        } else if velocity > 0 && constant < -42 {
+        } else if isScrollingBottom && constant < -42 {
             updateDashboardViewCollectionViewHeaderLayoutKind(.large, animated: true)
         }
+        
+        collectionViewPreviousContentOffset = scrollView.contentOffset
     }
 }
 
@@ -290,16 +299,15 @@ extension DashboardViewController {
         collectionView.setNeedsLayout()
         
         if animated {
-            UIView.animate(
-                withDuration: 0.21,
-                delay: 0,
-                usingSpringWithDamping: 0.88,
-                initialSpringVelocity: 0.0,
-                options: [.allowUserInteraction],
-                animations: {
-                    collectionView.layoutIfNeeded()
-                }, completion: { _ in }
-            )
+            collectionViewHeaderLayoutKindAnimator?.stopAnimation(true)
+            
+            let timing = UISpringTimingParameters(damping: 0.9, response: 0.36)
+            collectionViewHeaderLayoutKindAnimator = UIViewPropertyAnimator(duration: 0.16, timingParameters: timing)
+            collectionViewHeaderLayoutKindAnimator?.addAnimations({
+                collectionView.layoutIfNeeded()
+            })
+            
+            collectionViewHeaderLayoutKindAnimator?.startAnimation()
         } else {
             collectionView.layoutIfNeeded()
         }
@@ -362,4 +370,23 @@ extension DashboardViewController {
             accountsView.refreshControlText = "Syncing.. \(Int(value * 100))%"
         }
     }
+}
+
+private extension DashboardStackView.Model.Style {
+    
+    static let `default` = DashboardStackView.Model.Style(
+        textColorPrimary: .white,
+        textColorSecondary: UIColor(rgb: 0x4F4F4F),
+        borderColor: .white,
+        backgroundImage: nil,
+        backgroundColor: UIColor(rgb: 0x292528)
+    )
+    
+    static let image = DashboardStackView.Model.Style(
+        textColorPrimary: .white,
+        textColorSecondary: .white.withAlphaComponent(0.6),
+        borderColor: .white,
+        backgroundImage: UIImage(named: "Image"),
+        backgroundColor: UIColor(rgb: 0x292528)
+    )
 }

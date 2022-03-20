@@ -57,8 +57,8 @@ public final class AnimatedLogoView: UIView {
         set { label.text = newValue }
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init() {
+        super.init(frame: .zero)
         initialize()
     }
     

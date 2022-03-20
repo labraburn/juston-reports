@@ -59,7 +59,7 @@ public class MagicButton: UIControl {
         label.isUserInteractionEnabled = false
         
         substrateView.isUserInteractionEnabled = false
-        substrateView.backgroundColor = .bui_backgroundPrimaryInverted
+        substrateView.backgroundColor = .bui_textPrimary
         substrateView.layer.masksToBounds = true
         
         backgroundView.isUserInteractionEnabled = false
@@ -74,7 +74,7 @@ public class MagicButton: UIControl {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        label.textColor = .bui_textPrimaryInverted
+        label.textColor = .bui_backgroundPrimary
         label.sizeToFit()
         label.center = CGPoint(
             x: bounds.width / 2,

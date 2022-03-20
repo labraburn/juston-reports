@@ -20,11 +20,23 @@ final class DashboardStackView: UIView {
     
     struct Model {
         
+        struct Style {
+            
+            let textColorPrimary: UIColor
+            let textColorSecondary: UIColor
+            let borderColor: UIColor
+            
+            let backgroundImage: UIImage?
+            let backgroundColor: UIColor
+        }
+        
         let name: String
         let address: String
         
         let balanceBeforeDot: String
         let balanceAfterDot: String
+        
+        let style: Style
     }
     
     enum Presentation {
@@ -64,11 +76,7 @@ final class DashboardStackView: UIView {
         didSet {
             foregroundAnimator.removeAllBehaviors()
             backgroundAnimator.removeAllBehaviors()
-            
-            containerViewSubviews.first?.update(
-                state: presentation.cardViewState,
-                animated: true
-            )
+            setNeedsLayout()
         }
     }
     
@@ -101,7 +109,7 @@ final class DashboardStackView: UIView {
         super.init(frame: .zero)
         
         clipsToBounds = false
-        backgroundColor = .bui_backgroundSecondary
+        backgroundColor = .bui_backgroundPrimary
         
         addSubview(containerView)
         
@@ -350,6 +358,7 @@ final class DashboardStackView: UIView {
 }
 
 extension DashboardStackView.Model: Hashable {}
+extension DashboardStackView.Model.Style: Hashable {}
 
 extension DashboardStackView: UIGestureRecognizerDelegate {
     

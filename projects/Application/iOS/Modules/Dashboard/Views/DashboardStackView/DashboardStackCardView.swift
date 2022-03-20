@@ -34,7 +34,7 @@ final class DashboardStackCardView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    private let backgroundView = DashboardStackCardBackgroundView().with({
+    private lazy var backgroundView = DashboardStackCardBackgroundView(style: model.style).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
@@ -69,7 +69,7 @@ final class DashboardStackCardView: UIView {
         largeContentView.layer.cornerRadius = cornerRadius
         
         layer.applyFigmaShadow(
-            color: .black,
+            color: UIColor(rgb: 0x232020),
             alpha: 0.12,
             x: 0,
             y: 24,
@@ -130,17 +130,21 @@ final class DashboardStackCardView: UIView {
 }
 
 //
-// MARK:
+// MARK: DashboardStackCardContentView
 //
 
 private class DashboardStackCardContentView: UIView {
     
-    init() {
+    let model: DashboardStackView.Model
+    
+    init(model: DashboardStackView.Model) {
+        self.model = model
+        
         super.init(frame: .zero)
         
         layer.masksToBounds = true
         layer.cornerCurve = .continuous
-        layer.borderColor = UIColor.bui_backgroundPrimaryInverted.cgColor
+        layer.borderColor = model.style.borderColor.cgColor
         layer.borderWidth = 1
     }
     
@@ -156,13 +160,10 @@ private class DashboardStackCardContentView: UIView {
 
 private final class DashboardStackCardCompactContentView: DashboardStackCardContentView {
     
-    let model: DashboardStackView.Model
-    
     private let accountNameLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .bold)
         $0.lineBreakMode = .byTruncatingTail
-        $0.textColor = .bui_textPrimary
         $0.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         $0.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         $0.numberOfLines = 1
@@ -172,31 +173,46 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
         $0.lineBreakMode = .byTruncatingMiddle
-        $0.textColor = .bui_textTeritary
         $0.numberOfLines = 1
+        $0.textAlignment = .center
     })
     
-    init(model: DashboardStackView.Model) {
-        self.model = model
-        
-        super.init()
+    private let moreButton = UIButton(type: .system).with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.insertHighlightingScaleDownAnimation()
+        $0.insertFeedbackGenerator(style: .medium)
+        $0.setImage(.bui_more24, for: .normal)
+    })
+    
+    override init(model: DashboardStackView.Model) {
+        super.init(model: model)
         
         addSubview(accountNameLabel)
         addSubview(accountCurrentAddressLabel)
+        addSubview(moreButton)
         
         NSLayoutConstraint.activate({
-            accountNameLabel.topAnchor.pin(to: topAnchor, constant: 12)
-            accountNameLabel.leftAnchor.pin(to: leftAnchor, constant: 16)
+            accountNameLabel.topAnchor.pin(to: topAnchor, constant: 18)
+            accountNameLabel.leftAnchor.pin(to: leftAnchor, constant: 20)
             accountNameLabel.heightAnchor.pin(to: 33)
             
-            accountCurrentAddressLabel.leftAnchor.pin(to: leftAnchor, constant: 16)
+            moreButton.leftAnchor.pin(to: accountNameLabel.rightAnchor, constant: 8)
+            moreButton.topAnchor.pin(to: topAnchor, constant: 21)
+            rightAnchor.pin(to: moreButton.rightAnchor, constant: 16)
+            
+            accountCurrentAddressLabel.leftAnchor.pin(to: leftAnchor, constant: 20)
             accountCurrentAddressLabel.heightAnchor.pin(to: 29)
             bottomAnchor.pin(to: accountCurrentAddressLabel.bottomAnchor, constant: 12)
-            rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 16)
+            rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 20)
         })
         
+        accountNameLabel.textColor = model.style.textColorPrimary
         accountNameLabel.attributedText = .string(model.name.uppercased(), with: .title1, kern: .four)
+        
+        accountCurrentAddressLabel.textColor = model.style.textColorSecondary
         accountCurrentAddressLabel.attributedText = .string(model.address, with: .callout)
+        
+        moreButton.tintColor = model.style.textColorPrimary
     }
 }
 
@@ -206,13 +222,10 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
 
 private final class DashboardStackCardLargeContentView: DashboardStackCardContentView {
     
-    let model: DashboardStackView.Model
-    
     private let accountNameLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .bold)
         $0.lineBreakMode = .byTruncatingTail
-        $0.textColor = .bui_textPrimary
         $0.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
         $0.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         $0.numberOfLines = 1
@@ -222,14 +235,12 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
         $0.label.lineBreakMode = .byTruncatingMiddle
-        $0.label.textColor = .bui_textTeritary
         $0.label.numberOfLines = 1
         $0.label.textAlignment = .center
     })
     
     private let balanceLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .bui_textPrimary
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.numberOfLines = 2
     })
@@ -242,14 +253,12 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         $0.clipsToBounds = false
     })
     
-    private let sendButton = DashboardStackCardButton.createBottomButton(imageNamed: "Send24")
-    private let receiveButton = DashboardStackCardButton.createBottomButton(imageNamed: "Receive24")
-    private let moreButton = DashboardStackCardButton.createBottomButton(imageNamed: "More24")
+    private let sendButton = DashboardStackCardButton.createBottomButton(.bui_send24)
+    private let receiveButton = DashboardStackCardButton.createBottomButton(.bui_receive24)
+    private let moreButton = DashboardStackCardButton.createBottomButton(.bui_more24)
     
-    init(model: DashboardStackView.Model) {
-        self.model = model
-        
-        super.init()
+    override init(model: DashboardStackView.Model) {
+        super.init(model: model)
         
         addSubview(accountNameLabel)
         addSubview(moreButton)
@@ -278,13 +287,26 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
             
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 20)
             bottomButtonsHStackView.heightAnchor.pin(to: 52)
-            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12)
+            bottomButtonsHStackView.widthAnchor.pin(greaterThan: 128)
+            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .required - 1)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 24)
+            
+            sendButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
+            receiveButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
+            moreButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
         })
         
+        sendButton.tintColor = model.style.textColorPrimary
+        receiveButton.tintColor = model.style.textColorPrimary
+        moreButton.tintColor = model.style.textColorPrimary
+        
+        accountNameLabel.textColor = model.style.textColorPrimary
         accountNameLabel.attributedText = .string(model.name.uppercased(), with: .title1, kern: .four)
+        
+        accountCurrentAddressLabel.label.textColor = model.style.textColorSecondary
         accountCurrentAddressLabel.label.attributedText = .string(model.address, with: .callout)
         
+        balanceLabel.textColor = model.style.textColorPrimary
         balanceLabel.attributedText = NSMutableAttributedString().with({
             $0.append(NSAttributedString(string: model.balanceBeforeDot, attributes: [
                 .font : UIFont.monospacedSystemFont(ofSize: 57, weight: .bold),
@@ -323,24 +345,30 @@ private final class DashboardStackCardBackgroundView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    init() {
+    init(style: DashboardStackView.Model.Style) {
         super.init(frame: .zero)
         
         layer.masksToBounds = true
         layer.cornerCurve = .continuous
         
-        backgroundColor = .bui_backgroundPrimary
-        overlayView.backgroundColor = .bui_backgroundPrimary
+        backgroundColor = style.backgroundColor
+        overlayView.backgroundColor = style.backgroundColor
         
-        contentView.addSubview(imageView)
-//        contentView.addSubview(visualEffectView)
+        let hasBackgroundImage = style.backgroundImage != nil
+        if hasBackgroundImage {
+            imageView.image = style.backgroundImage
+            contentView.addSubview(imageView)
+            contentView.addSubview(visualEffectView)
+        }
         
         addSubview(contentView)
         addSubview(overlayView)
         
         NSLayoutConstraint.activate({
-            imageView.pin(edges: contentView)
-//            visualEffectView.pin(edges: contentView)
+            if hasBackgroundImage {
+                imageView.pin(edges: contentView)
+                visualEffectView.pin(edges: contentView)
+            }
             
             contentView.pin(edges: self)
             overlayView.pin(edges: self)
@@ -373,15 +401,17 @@ private final class DashboardStackCardButton: UIButton {
         )
     }
     
-    static func createBottomButton(imageNamed: String) -> UIButton {
+    static func createBottomButton(_ image: UIImage) -> UIButton {
         let button = DashboardStackCardButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.insertVisualEffectViewWithEffect(UIBlurEffect(style: .systemUltraThinMaterialDark), cornerRadius: 26, cornerCurve: .circular)
+        button.insertVisualEffectViewWithEffect(
+            UIBlurEffect(style: .systemUltraThinMaterialDark),
+            cornerRadius: 26,
+            cornerCurve: .circular
+        )
         button.insertHighlightingScaleDownAnimation()
-        button.insertFeedbackGenerator(style: .heavy)
-        button.tintColor = .bui_textPrimary
-        button.setImage(UIImage(named: imageNamed), for: .normal)
-        button.widthAnchor.pin(to: 52).isActive = true
+        button.insertFeedbackGenerator(style: .medium)
+        button.setImage(image, for: .normal)
         return button
     }
 }

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLogo/Off" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-7n-wWe">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppLaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-7n-wWe">
                                 <rect key="frame" x="71" y="38" width="272" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="ouh-fw-YFy"/>
@@ -26,7 +26,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="BackgroundSecondary"/>
+                        <color key="backgroundColor" name="AppLaunchBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xuU-7n-wWe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YQy-LB-STq"/>
                             <constraint firstItem="xuU-7n-wWe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-6" id="fSv-nF-SdC"/>
@@ -39,9 +39,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppLogo/Off" width="272" height="96"/>
-        <namedColor name="BackgroundSecondary">
-            <color red="0.95686274509803926" green="0.95686274509803926" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="AppLaunchLogo" width="272" height="96"/>
+        <namedColor name="AppLaunchBackgroundColor">
+            <color red="1" green="0.98799997568130493" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

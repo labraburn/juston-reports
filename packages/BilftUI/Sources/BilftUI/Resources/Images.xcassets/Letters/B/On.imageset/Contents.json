@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Property 1=On.png",
+      "filename" : "State=On-4.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Property 1=On@2x.png",
+      "filename" : "State=On@2x-4.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Property 1=On@3x.png",
+      "filename" : "State=On@3x-4.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

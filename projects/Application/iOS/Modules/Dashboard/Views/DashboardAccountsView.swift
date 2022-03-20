@@ -41,7 +41,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     weak var delegate: DashboardAccountsViewDelegate?
     
-    var compacthHeight: CGFloat { 93 }
+    var compacthHeight: CGFloat { 103 }
     var selected: DashboardStackView.Model? { stackView.selected }
     
     private(set) var isLoading: Bool = false
@@ -75,9 +75,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .bui_backgroundSecondary
+        backgroundColor = .bui_backgroundPrimary
         
-        safeAreaView.backgroundColor = .bui_backgroundSecondary
+        safeAreaView.backgroundColor = .bui_backgroundPrimary
         addSubview(safeAreaView)
         
         logoView.update(presentation: .on)
