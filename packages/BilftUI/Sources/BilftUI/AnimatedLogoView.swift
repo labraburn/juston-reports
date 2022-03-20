@@ -39,6 +39,13 @@ public final class AnimatedLogoView: UIView {
             case .off: return "Off"
             }
         }
+        
+        internal var contentMode: UIView.ContentMode {
+            switch self {
+            case .on: return .scaleAspectFill
+            case .off: return .scaleAspectFit
+            }
+        }
     }
     
     public private(set) var presentation: Presentation = .off
@@ -208,11 +215,8 @@ public final class AnimatedLogoView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        let originalLetterHeight = CGFloat(74)
-        
-        let heightRatio = originalLetterHeight / CGFloat(96)
-        let height = bounds.height * heightRatio
-        
+        let originalLetterHeight = CGFloat(86)
+        let height = bounds.height
         let widthRatio = height / originalLetterHeight
         
         guard height != 0
@@ -351,16 +355,24 @@ public final class AnimatedLogoView: UIView {
     
     private func updateImageViews() {
         b.image = UIImage(named: "Letters/B/\(presentation.b.name)", in: .module, with: nil)
+        b.contentMode = presentation.b.contentMode
+        
         l.image = UIImage(named: "Letters/I/\(presentation.l.name)", in: .module, with: nil)
+        l.contentMode = presentation.l.contentMode
+        
         i.image = UIImage(named: "Letters/L/\(presentation.i.name)", in: .module, with: nil)
+        i.contentMode = presentation.i.contentMode
+        
         f.image = UIImage(named: "Letters/F/\(presentation.f.name)", in: .module, with: nil)
+        f.contentMode = presentation.f.contentMode
+        
         t.image = UIImage(named: "Letters/T/\(presentation.t.name)", in: .module, with: nil)
+        t.contentMode = presentation.t.contentMode
     }
     
     static func imageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.clipsToBounds = false
-        imageView.contentMode = .scaleAspectFill
         return imageView
     }
 }

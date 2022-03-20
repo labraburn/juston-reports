@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "State=Off-1.png",
+      "filename" : "F.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "State=Off@2x-1.png",
+      "filename" : "F@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "State=Off@3x-1.png",
+      "filename" : "F@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

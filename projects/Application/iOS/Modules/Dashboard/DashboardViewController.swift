@@ -237,9 +237,9 @@ extension DashboardViewController: UIScrollViewDelegate {
         let isScrollingTop = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y < 0
         let isScrollingBottom = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y > 0
         
-        if isScrollingTop && constant > 42 && scrollView.isTracking {
+        if isScrollingTop && constant > 42 {
             updateDashboardViewCollectionViewHeaderLayoutKind(.compact, animated: true)
-        } else if isScrollingBottom && constant < -42 {
+        } else if isScrollingBottom && constant < -42 && scrollView.isTracking {
             updateDashboardViewCollectionViewHeaderLayoutKind(.large, animated: true)
         }
         

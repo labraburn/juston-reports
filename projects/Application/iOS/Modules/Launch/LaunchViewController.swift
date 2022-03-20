@@ -17,7 +17,7 @@ protocol LaunchViewControllerDelegate: AnyObject {
 extension AnimatedLogoView {
     
     static var applicationHeight = CGFloat(64)
-    static var applicationWidth = CGFloat(169)
+    static var applicationWidth = CGFloat(201)
 }
 
 class LaunchViewController: UIViewController {
@@ -42,13 +42,13 @@ class LaunchViewController: UIViewController {
         view.backgroundColor = .bui_backgroundPrimary
         view.addSubview(logoView)
         
-        logoViewTopConstraint = logoView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: -12)
+        logoViewTopConstraint = logoView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: -6)
         logoViewTopConstraint?.isActive = true
         
-        logoViewWidthConstraint = logoView.widthAnchor.pin(to: 272)
+        logoViewWidthConstraint = logoView.widthAnchor.pin(to: 270)
         logoViewWidthConstraint?.isActive = true
         
-        logoViewHeightConstraint = logoView.heightAnchor.pin(to: 96)
+        logoViewHeightConstraint = logoView.heightAnchor.pin(to: 86)
         logoViewHeightConstraint?.isActive = true
         
         logoView.centerXAnchor.pin(to: view.centerXAnchor).isActive = true
@@ -56,7 +56,7 @@ class LaunchViewController: UIViewController {
         Task {
             do {
                 try await SwiftyTONConfigurate(.main)
-                
+
                 self.isTONInitialized = true
                 self.completeLoadingIfNeeded()
             } catch {
