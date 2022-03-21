@@ -82,7 +82,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         }
     }
     
-    func apply(_ wallet: Wallet, transactions: [Transaction], animated: Bool) {
+    func apply(transactions: [Transaction], animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.transactions])
         snapshot.appendItems(transactions.map({ .transaction(value: $0) }), toSection: .transactions)

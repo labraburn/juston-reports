@@ -27,6 +27,9 @@ public extension UIImage {
     static let bui_send24: UIImage = .named("Send24")
     static let bui_receive24: UIImage = .named("Receive24")
     static let bui_more24: UIImage = .named("More24")
+    static let bui_addCircle24: UIImage = .named("AddCircle24")
+    
+    static let bui_placeholder512: UIImage = .named("Placeholder512")
     
     private static func named(_ name: String) -> UIImage {
         guard let color = UIImage(named: name, in: .module, with: nil)

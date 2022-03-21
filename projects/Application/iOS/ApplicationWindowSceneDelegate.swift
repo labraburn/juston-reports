@@ -24,7 +24,6 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
         window.windowRootViewController.exchange(
-//            UINavigationController(rootViewController: DebugViewController()),
             viewController,
             at: .application,
             animated: false
@@ -36,8 +35,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     enum ViewControllerType {
         
         case loading
-        case onboarding
-        case dashboard(address: Address.RawAddress)
+        case dashboard
     }
     
     private func setApplicationController(with type: ViewControllerType, animated: Bool = true) {
@@ -49,46 +47,10 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
-extension ApplicationWindowSceneDelegate: OnboardingViewControllerDelegate {
-    
-    func onboardingViewControllerDidComplete(_ viewController: OnboardingViewController) {
-        Task {
-            do {
-                let storage = SecureStorage()
-                guard let key = (try await storage.keys()).first
-                else {
-                    fatalError("Address not found.")
-                }
-                
-                self.setApplicationController(with: .dashboard(address: key.rawAddress), animated: false)
-            } catch {
-                viewController.presentAlertViewController(
-                    with: error,
-                    title: "Can't retreive saved addresses."
-                )
-            }
-        }
-    }
-}
-
 extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
     
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
-        Task {
-            do {
-                let storage = SecureStorage()
-                if let key = (try await storage.keys()).first {
-                    self.setApplicationController(with: .dashboard(address: key.rawAddress), animated: false)
-                } else {
-                    self.setApplicationController(with: .onboarding, animated: false)
-                }
-            } catch {
-                viewController.presentAlertViewController(
-                    with: error,
-                    title: "Can't retreive saved addresses."
-                )
-            }
-        }
+        setApplicationController(with: .dashboard, animated: false)
     }
 }
 
@@ -100,12 +62,8 @@ extension ApplicationWindowSceneDelegate.ViewControllerType {
             let viewController = LaunchViewController()
             viewController.delegate = sceneDelegate
             return viewController
-        case let .dashboard(rawAddress):
+        case .dashboard:
             let viewController = DashboardViewController()
-            return viewController
-        case .onboarding:
-            let viewController = OnboardingViewController()
-            viewController.delegate = sceneDelegate
             return viewController
         }
     }

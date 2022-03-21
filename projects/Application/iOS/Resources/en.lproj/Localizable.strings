@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Application
+
+  Created by Anton Spivak on 21.03.2022.
+  
+*/
+
+/*
+ START - AccountCreating
+ */
+
+"AccountAddingInitialTitle" = "Hey!";
+"AccountAddingInitialDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
+"AccountAddingWordsDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
+
+"AccountAddingIOCTitle" = "Choose your destiny";
+"AccountAddingIOCDescription" = "Do you have a account or you want to import it?";
+
+"AccountAddingWordsTitle" = "Success, my friend";
+"AccountAddingWordsDescription" = "Please, save your passphrase and don’t share it with anyone. Your passphrase - your money";
+
+"AccountAddingImportTitle" = "Keys";
+"AccountAddingImportDescription" = "You can import any account by passphrase or public key (will be only readonly)";
+
+"AccountAddingAppearanceTitle" = "Finishing up";
+"AccountAddingAppearanceDescription" = "Please, save your passphrase and don’t share it with anyone. Your passphrase - your money";
+
+"AccountAddingAccountNameTitle" = "Select name of your account";
+"AccountAddingAccountNamePlaceholder" = "Text name here";
+
+"AccountAddingNextButton" = "NEXT";
+"AccountAddingCreateButton" = "CREATE";
+"AccountAddingImportButton" = "IMPORT";
+"AccountAddingCopyButton" = "COPY";
+"AccountAddingDoneButton" = "DONE";
+
+/*
+ END - AccountCreating
+ */

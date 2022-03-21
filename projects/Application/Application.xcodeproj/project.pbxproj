@@ -11,12 +11,24 @@
 		F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */; };
 		F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = F01E909C27A7A93E00BD1BDF /* SwiftyTON */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
-		F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */; };
 		F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12727E6363200BB952F /* CodableStorage+Keys.swift */; };
 		F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
-		F086EDB127BBA33D0041709B /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F086EDB027BBA33D0041709B /* DebugViewController.swift */; };
+		F0909B4627E7821800FC8404 /* AccountAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4527E7821800FC8404 /* AccountAddingViewController.swift */; };
+		F0909B4827E8862A00FC8404 /* AccountAddingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* AccountAddingNavigationController.swift */; };
+		F0909B4A27E88B4400FC8404 /* AccountAddingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4927E88B4400FC8404 /* AccountAddingCollectionViewLayout.swift */; };
+		F0909B4C27E88B7F00FC8404 /* AccountAddingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4B27E88B7F00FC8404 /* AccountAddingDataSource.swift */; };
+		F0909B4F27E88D5900FC8404 /* AccountAddingImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4E27E88D5900FC8404 /* AccountAddingImageViewCell.swift */; };
+		F0909B5127E88D8200FC8404 /* AccountAddingButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5027E88D8200FC8404 /* AccountAddingButtonCell.swift */; };
+		F0909B5327E88D9000FC8404 /* AccountAddingLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5227E88D9000FC8404 /* AccountAddingLabelCell.swift */; };
+		F0909B5527E8920700FC8404 /* AccountAddingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5427E8920700FC8404 /* AccountAddingModel.swift */; };
+		F0909B5727E8B2D000FC8404 /* AccountAddingWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5627E8B2D000FC8404 /* AccountAddingWordCell.swift */; };
+		F0909B5A27E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5927E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift */; };
+		F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0909B5F27E8CF5100FC8404 /* Localizable.strings */; };
+		F0909B6127E8CF6500FC8404 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6027E8CF6500FC8404 /* String.swift */; };
+		F0909B6327E8DB1900FC8404 /* AccountAddingTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */; };
+		F0909B6627E8E6F200FC8404 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6527E8E6F200FC8404 /* Account.swift */; };
 		F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */; };
 		F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */; };
 		F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0995F6B27A0B7CB003A090C /* Assets.xcassets */; };
@@ -29,7 +41,6 @@
 		F0995FA527A0BB54003A090C /* BilftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F0995FA427A0BB54003A090C /* BilftUI */; };
 		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
-		F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */; };
 		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
@@ -47,7 +58,21 @@
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
 		F062B12727E6363200BB952F /* CodableStorage+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableStorage+Keys.swift"; sourceTree = "<group>"; };
 		F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionHeaderView.swift; sourceTree = "<group>"; };
-		F086EDB027BBA33D0041709B /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		F0909B4527E7821800FC8404 /* AccountAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingViewController.swift; sourceTree = "<group>"; };
+		F0909B4727E8862A00FC8404 /* AccountAddingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingNavigationController.swift; sourceTree = "<group>"; };
+		F0909B4927E88B4400FC8404 /* AccountAddingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F0909B4B27E88B7F00FC8404 /* AccountAddingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingDataSource.swift; sourceTree = "<group>"; };
+		F0909B4E27E88D5900FC8404 /* AccountAddingImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingImageViewCell.swift; sourceTree = "<group>"; };
+		F0909B5027E88D8200FC8404 /* AccountAddingButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingButtonCell.swift; sourceTree = "<group>"; };
+		F0909B5227E88D9000FC8404 /* AccountAddingLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingLabelCell.swift; sourceTree = "<group>"; };
+		F0909B5427E8920700FC8404 /* AccountAddingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingModel.swift; sourceTree = "<group>"; };
+		F0909B5627E8B2D000FC8404 /* AccountAddingWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingWordCell.swift; sourceTree = "<group>"; };
+		F0909B5927E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingWordsDecorationView.swift; sourceTree = "<group>"; };
+		F0909B5E27E8CF5100FC8404 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F0909B6027E8CF6500FC8404 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingTextFieldCell.swift; sourceTree = "<group>"; };
+		F0909B6527E8E6F200FC8404 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		F0909B6727E8EECE00FC8404 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		F0995F5F27A0B7CA003A090C /* BILFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BILFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowSceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,8 +88,6 @@
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
 		F0995FA727A0BCA3003A090C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingView.xib; sourceTree = "<group>"; };
 		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
@@ -118,12 +141,46 @@
 			path = CodableStorage;
 			sourceTree = "<group>";
 		};
-		F086EDAF27BBA3260041709B /* Debug */ = {
+		F0909B4427E781F400FC8404 /* AccountAdding */ = {
 			isa = PBXGroup;
 			children = (
-				F086EDB027BBA33D0041709B /* DebugViewController.swift */,
+				F0909B5827E8B6D600FC8404 /* DecorationViews */,
+				F0909B4D27E88CA300FC8404 /* Cells */,
+				F0909B4727E8862A00FC8404 /* AccountAddingNavigationController.swift */,
+				F0909B4527E7821800FC8404 /* AccountAddingViewController.swift */,
+				F0909B4927E88B4400FC8404 /* AccountAddingCollectionViewLayout.swift */,
+				F0909B4B27E88B7F00FC8404 /* AccountAddingDataSource.swift */,
+				F0909B5427E8920700FC8404 /* AccountAddingModel.swift */,
 			);
-			path = Debug;
+			path = AccountAdding;
+			sourceTree = "<group>";
+		};
+		F0909B4D27E88CA300FC8404 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0909B4E27E88D5900FC8404 /* AccountAddingImageViewCell.swift */,
+				F0909B5227E88D9000FC8404 /* AccountAddingLabelCell.swift */,
+				F0909B5027E88D8200FC8404 /* AccountAddingButtonCell.swift */,
+				F0909B5627E8B2D000FC8404 /* AccountAddingWordCell.swift */,
+				F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0909B5827E8B6D600FC8404 /* DecorationViews */ = {
+			isa = PBXGroup;
+			children = (
+				F0909B5927E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift */,
+			);
+			path = DecorationViews;
+			sourceTree = "<group>";
+		};
+		F0909B6427E8E6E600FC8404 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F0909B6527E8E6F200FC8404 /* Account.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F0995F5627A0B7CA003A090C = {
@@ -146,6 +203,7 @@
 		F0995F6127A0B7CA003A090C /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F0909B6727E8EECE00FC8404 /* iOS.entitlements */,
 				F0995F9827A0B97B003A090C /* Application.swift */,
 				F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */,
 				F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */,
@@ -154,6 +212,7 @@
 				F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */,
 				F0EA237E27AE6FE900D682B2 /* Common */,
 				F0E22C5427A9DEC9004E2E2A /* Extensions */,
+				F0909B6427E8E6E600FC8404 /* Models */,
 				F0E22C5127A9DDAE004E2E2A /* Services */,
 				F0995F9427A0B861003A090C /* Modules */,
 				F0995F9327A0B85A003A090C /* Resources */,
@@ -175,6 +234,7 @@
 		F0995F9327A0B85A003A090C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F0909B5F27E8CF5100FC8404 /* Localizable.strings */,
 				F0995F6B27A0B7CB003A090C /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -183,8 +243,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F086EDAF27BBA3260041709B /* Debug */,
-				F099D0F727A18DA400CC62C2 /* Onboarding */,
+				F0909B4427E781F400FC8404 /* AccountAdding */,
 				F0995FA627A0BC67003A090C /* Dashboard */,
 				F0995F9527A0B878003A090C /* Launch */,
 			);
@@ -227,15 +286,6 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
-		F099D0F727A18DA400CC62C2 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				F099D0FC27A1A08D00CC62C2 /* OnboardingView.xib */,
-				F099D0FA27A1981900CC62C2 /* OnboardingViewController.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */,
+				F0909B6027E8CF6500FC8404 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -355,7 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F053190827A4EC4300D9A2F8 /* OnboardingView.xib in Resources */,
+				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
 			);
@@ -368,28 +419,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0909B5527E8920700FC8404 /* AccountAddingModel.swift in Sources */,
 				F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */,
+				F0909B5327E88D9000FC8404 /* AccountAddingLabelCell.swift in Sources */,
 				F0B0AA2427B275B5007B55F1 /* SecureStorage.swift in Sources */,
+				F0909B4627E7821800FC8404 /* AccountAddingViewController.swift in Sources */,
+				F0909B4C27E88B7F00FC8404 /* AccountAddingDataSource.swift in Sources */,
+				F0909B5727E8B2D000FC8404 /* AccountAddingWordCell.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
+				F0909B6627E8E6F200FC8404 /* Account.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,
+				F0909B4F27E88D5900FC8404 /* AccountAddingImageViewCell.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
+				F0909B6327E8DB1900FC8404 /* AccountAddingTextFieldCell.swift in Sources */,
 				F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
+				F0909B5127E88D8200FC8404 /* AccountAddingButtonCell.swift in Sources */,
+				F0909B4827E8862A00FC8404 /* AccountAddingNavigationController.swift in Sources */,
+				F0909B4A27E88B4400FC8404 /* AccountAddingCollectionViewLayout.swift in Sources */,
 				F00BE9F227DCC20B0084FF1C /* DashboardStackView.swift in Sources */,
+				F0909B5A27E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
 				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
 				F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */,
-				F099D0FB27A1981900CC62C2 /* OnboardingViewController.swift in Sources */,
-				F086EDB127BBA33D0041709B /* DebugViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,
+				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */,
 			);
@@ -398,6 +460,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		F0909B5F27E8CF5100FC8404 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0909B5E27E8CF5100FC8404 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F0995F6D27A0B7CB003A090C /* Launch.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -530,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76AEM4P5DW;
@@ -560,6 +631,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76AEM4P5DW;

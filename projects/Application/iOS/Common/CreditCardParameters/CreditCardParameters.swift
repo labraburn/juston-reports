@@ -46,13 +46,4 @@ struct CreditCardParameters {
             cornerRadius: cornerRadius
         )
     }
-    
-    static func defaultAdditionalInsetsForAnimatedLogoViewWithSafeAreaInsets(_ safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
-        UIEdgeInsets(
-            top: AnimatedLogoView.applicationHeight + 24,
-            left: 12,
-            bottom: safeAreaInsets.bottom == 0 ? 42 : 24,
-            right: 12
-        )
-    }
 }

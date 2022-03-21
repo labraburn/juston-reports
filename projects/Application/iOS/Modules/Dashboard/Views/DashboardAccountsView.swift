@@ -26,6 +26,11 @@ protocol DashboardAccountsViewDelegate: AnyObject {
         _ view: DashboardAccountsView,
         didChangeSelectedModel model: DashboardStackView.Model
     )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        addAccountButtonDidClick button: UIButton
+    )
 }
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
@@ -33,6 +38,19 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private var safeAreaView = UIView()
     private var logoView = AnimatedLogoView()
     private let stackView = DashboardStackView()
+    private let bottomHStackView = UIStackView()
+    
+    private let bottomAddAccountButton = UIButton().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.insertHighlightingScaleDownAnimation()
+        $0.insertFeedbackGenerator(style: .light)
+        $0.widthAnchor.pin(to: 52).isActive = true
+        $0.heightAnchor.pin(to: 52).isActive = true
+        $0.setImage(.bui_addCircle24, for: .normal)
+        $0.addTarget(self, action: #selector(bottomAddAccountButtonDidClick(_:)), for: .touchUpInside)
+        $0.tintColor = .bui_textPrimary
+    })
+    
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     private let logoViewReloadOffset = CGFloat(44)
     private let logoViewDefaultOffset = CGFloat(24)
@@ -47,8 +65,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private(set) var isLoading: Bool = false
     
     var cards: [DashboardStackView.Model] {
-        get { stackView.data }
-        set { stackView.update(data: newValue, selected: nil, animated: true) }
+        stackView.data
     }
     
     var refreshControlText: String? {
@@ -86,6 +103,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         
         stackView.delegate = self
         addSubview(stackView)
+        
+        bottomHStackView.addArrangedSubview(bottomAddAccountButton)
+        addSubview(bottomHStackView)
     }
     
     @available(*, unavailable)
@@ -132,6 +152,10 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         }
     }
     
+    func set(cards: [DashboardStackView.Model], selected: DashboardStackView.Model?, animated: Bool) {
+        stackView.update(data: cards, selected: selected, animated: animated)
+    }
+    
     // MARK: Private
     
     private func startLoadingAnimationIfNeccessary() {
@@ -173,6 +197,8 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         case .compact:
             updateCompactLayoutType()
         }
+        
+        updateBottomHStackViewLayout()
     }
     
     private func updateLogoViewLayout() {
@@ -199,12 +225,15 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         let creditCardParameters = CreditCardParameters(
             rect: bounds,
             safeAreaInsets: .zero,
-            additionalInsets: CreditCardParameters.defaultAdditionalInsetsForAnimatedLogoViewWithSafeAreaInsets(safeAreaInsets)
+            additionalInsets: defaultAdditionalInsetsWithSafeAreaInsets(safeAreaInsets)
         ).calculate()
         
         stackView.frame = creditCardParameters.topUpCreditCardFrame
         stackView.cornerRadius = creditCardParameters.cornerRadius
         stackView.presentation = .large
+        
+        bottomHStackView.alpha = 1
+        updateBottomHStackViewLayout()
     }
     
     private func updateCompactLayoutType() {
@@ -213,6 +242,35 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         stackView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
         stackView.presentation = .compact
         stackView.cornerRadius = 16
+        
+        bottomHStackView.alpha = 0
+    }
+    
+    private func updateBottomHStackViewLayout() {
+        let height = CGFloat(52)
+        bottomHStackView.frame = CGRect(
+            x: 12,
+            y: bounds.height - height - 12,
+            width: bounds.width - 24,
+            height: height
+        )
+    }
+    
+    private func defaultAdditionalInsetsWithSafeAreaInsets(_ safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
+        let bottom: CGFloat = 76 + (safeAreaInsets.bottom == 0 ? 42 : 24) // 76 - bottom h stack view
+        return UIEdgeInsets(
+            top: AnimatedLogoView.applicationHeight + 24,
+            left: 12,
+            bottom: bottom,
+            right: 12
+        )
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    private func bottomAddAccountButtonDidClick(_ sender: UIButton) {
+        delegate?.dashboardAccountsView(self, addAccountButtonDidClick: sender)
     }
 }
 

@@ -10,34 +10,8 @@ import BilftUI
 import SwiftyTON
 import Combine
 
-// PROD
-//
-// Balance: ?
-// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4r2
-// Words: []
-
-// PROD
-//
-// Balance: ?
-// Address: "EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM" // united
-// Words: []
-
-// PROD
-//
-// Balance: 34
-// Address: EQCd3ASamrfErTV4K6iG5r0o3O_hl7K_9SghU0oELKF-sxDn // v3r2
-// Words: []
-
-// TEST
-//
-// Balance: 14.9
-// Address: EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
-// Address: EQCIJiFJrN8kuwdXEIfmJ-D7qwP-QfLX8YtCAhaY6AoSKxUv ????????????????????????????????
-// Words: ["episode", "diary", "tower", "either", "void", "into", "until", "universe", "loan", "answer", "own", "ribbon", "adapt", "step", "tuna", "innocent", "accident", "female", "already", "nasty", "wrist", "tenant", "toast", "post"]
-
 class DashboardViewController: UIViewController {
     
-    private let rawAddress = try! Address(base64EncodedString: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81").raw
     private let storage = CodableStorage.target
     
     private var cancellables: Set<AnyCancellable> = []
@@ -116,30 +90,6 @@ class DashboardViewController: UIViewController {
             }
         )
 
-        accountsView.cards = [
-            .init(
-                name: "Salary",
-                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
-                balanceBeforeDot: "25",
-                balanceAfterDot: "000000009",
-                style: .image
-            ),
-            .init(
-                name: "Main",
-                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
-                balanceBeforeDot: "25",
-                balanceAfterDot: "000000009",
-                style: .default
-            ),
-            .init(
-                name: "Blablabla",
-                address: "0x783ncytq783xmt83hmxt8h78thzht7xm3ht8c7h487cth/82",
-                balanceBeforeDot: "25",
-                balanceAfterDot: "000000009",
-                style: .default
-            ),
-        ]
-
         SwiftyTONSynchronization()
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] progress in
@@ -152,24 +102,63 @@ class DashboardViewController: UIViewController {
                 self.invalidateAccountsViewRefreshControlValue()
             })
             .store(in: &cancellables)
+        
+        task = Task { [weak self] in
+            let accounts = await CodableStorage.group.methods.accounts()
+            self?.task = nil
+            
+            updateAccounts(accounts)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Task {
-            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
-                let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
-                reload(wallet, with: transactions ?? [])
-            } else {
-                accountsViewStartLoadingAnimation()
-                updateWalletIfAvailable()
-            }
-        }
+        dataSource.apply(transactions: [], animated: true)
+//        Task {
+//            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
+//                let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
+//                reload(wallet, with: transactions ?? [])
+//            } else {
+//                accountsViewStartLoadingAnimation()
+//                updateWalletIfAvailable()
+//            }
+//        }
     }
     
     // MARK: Private
+    
+    private func updateAccounts(_ accounts: [Account], selected: Account? = nil) {
+        let cards: [DashboardStackView.Model] = accounts.map({ account in
+            let model = DashboardStackView.Model(
+                account: account,
+                balanceBeforeDot: "0",
+                balanceAfterDot: "0",
+                style: .default
+            )
+            return model
+        })
+        
+        var _selected: DashboardStackView.Model?
+        if let selected = selected, let index = cards.firstIndex(where: { $0.account == selected }) {
+            _selected = cards[index]
+        }
+        
+        accountsView.set(
+            cards: cards,
+            selected: _selected,
+            animated: !accountsView.cards.isEmpty
+        )
+        
+        guard !accounts.isEmpty
+        else {
+            dataSource.apply(transactions: [], animated: true)
+            return
+        }
+        
+        updateAccountIfAvailable(account: accounts[0])
+    }
 
-    private func updateWalletIfAvailable() {
+    private func updateAccountIfAvailable(account: Account) {
         guard task == nil
         else {
             return
@@ -180,7 +169,7 @@ class DashboardViewController: UIViewController {
         
         task = Task {
             do {
-                let wallet = try await Wallet(rawAddress: rawAddress)
+                let wallet = try await Wallet(rawAddress: account.rawAddress)
                 let transactions = try await wallet.contract.transactions()
                 reload(wallet, with: transactions)
             } catch {
@@ -194,13 +183,11 @@ class DashboardViewController: UIViewController {
     
     private func reload(_ wallet: Wallet, with transactions: [Transaction], animated: Bool = true) {
         let storage = storage
-        let rawAddress = rawAddress
+        let rawAddress = wallet.contract.rawAddress
 
         Task {
             try await storage.save(value: wallet, forKey: .wallet(for: rawAddress))
-            if transactions.count > 0 {
-                try await storage.save(value: transactions, forKey: .lastTransactions(for: rawAddress))
-            }
+            try await storage.save(value: transactions, forKey: .lastTransactions(for: rawAddress))
         }
 
         accountsViewRefreshControlValue = .lastUpdatedDate(date: wallet.contract.info.synchronizationDate)
@@ -208,7 +195,6 @@ class DashboardViewController: UIViewController {
         accountsViewFinishLoadingAnimationIfNeeded()
 
         dataSource.apply(
-            wallet,
             transactions: transactions,
             animated: animated && viewIfLoaded?.window != nil
         )
@@ -231,6 +217,11 @@ extension DashboardViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         accountsView.enclosingScrollViewDidScroll(scrollView)
+        
+        guard !accountsView.cards.isEmpty
+        else {
+            return
+        }
         
         let constant = scrollView.adjustedContentInset.top + scrollView.contentOffset.y
         
@@ -321,19 +312,48 @@ extension DashboardViewController {
 extension DashboardViewController: DashboardAccountsViewDelegate {
     
     func dashboardAccountsViewShouldStartRefreshing(_ view: DashboardAccountsView) -> Bool {
-        task == nil
+        task == nil && !view.cards.isEmpty
     }
     
     func dashboardAccountsViewDidStartRefreshing(_ view: DashboardAccountsView) {
-        updateWalletIfAvailable()
+        guard let account = view.cards.first?.account
+        else {
+            return
+        }
+        
+        updateAccountIfAvailable(account: account)
     }
     
     func dashboardAccountsViewIsUserInteractig(_ view: DashboardAccountsView) -> Bool {
         collectionView.isDragging || collectionView.isTracking || collectionView.isDecelerating
     }
     
+    func dashboardAccountsView(_ view: DashboardAccountsView, addAccountButtonDidClick button: UIButton) {
+        let viewController = AccountAddingViewController(model: .initial)
+        viewController.delegate = self
+        
+        let navigationController = AccountAddingNavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .pageSheet
+        bui_present(navigationController, animated: true, completion: nil)
+    }
+    
     func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
         
+    }
+}
+
+//
+// MARK:
+//
+
+extension DashboardViewController: AccountAddingViewControllerDelegate {
+    
+    func accountAddingViewController(
+        _ viewController: AccountAddingViewController,
+        didAddSaveAccount account: Account,
+        into accounts: [Account]
+    ) {
+        updateAccounts(accounts, selected: account)
     }
 }
 
@@ -390,3 +410,28 @@ private extension DashboardStackView.Model.Style {
         backgroundColor: UIColor(rgb: 0x292528)
     )
 }
+
+// PROD
+//
+// Balance: ?
+// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4r2
+// Words: []
+
+// PROD
+//
+// Balance: ?
+// Address: "EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM" // united
+// Words: []
+
+// PROD
+//
+// Balance: 34
+// Address: EQCd3ASamrfErTV4K6iG5r0o3O_hl7K_9SghU0oELKF-sxDn // v3r2
+// Words: []
+
+// TEST
+//
+// Balance: 14.9
+// Address: EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
+// Address: EQCIJiFJrN8kuwdXEIfmJ-D7qwP-QfLX8YtCAhaY6AoSKxUv ????????????????????????????????
+// Words: ["episode", "diary", "tower", "either", "void", "into", "until", "universe", "loan", "answer", "own", "ribbon", "adapt", "step", "tuna", "innocent", "accident", "female", "already", "nasty", "wrist", "tenant", "toast", "post"]

@@ -7,6 +7,7 @@
 
 import UIKit
 import BilftUI
+import SwiftyTON
 
 final class DashboardStackCardView: UIView {
     
@@ -206,11 +207,15 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
             rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 20)
         })
         
+        let name = model.account.name
+        let address = Address(rawAddress: model.account.rawAddress)
+            .convert(representation: .base64url(flags: [.bounceable]))
+        
         accountNameLabel.textColor = model.style.textColorPrimary
-        accountNameLabel.attributedText = .string(model.name.uppercased(), with: .title1, kern: .four)
+        accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
         accountCurrentAddressLabel.textColor = model.style.textColorSecondary
-        accountCurrentAddressLabel.attributedText = .string(model.address, with: .callout)
+        accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
         
         moreButton.tintColor = model.style.textColorPrimary
     }
@@ -300,11 +305,15 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         receiveButton.tintColor = model.style.textColorPrimary
         moreButton.tintColor = model.style.textColorPrimary
         
+        let name = model.account.name
+        let address = Address(rawAddress: model.account.rawAddress)
+            .convert(representation: .base64url(flags: [.bounceable]))
+        
         accountNameLabel.textColor = model.style.textColorPrimary
-        accountNameLabel.attributedText = .string(model.name.uppercased(), with: .title1, kern: .four)
+        accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
         accountCurrentAddressLabel.label.textColor = model.style.textColorSecondary
-        accountCurrentAddressLabel.label.attributedText = .string(model.address, with: .callout)
+        accountCurrentAddressLabel.label.attributedText = .string(address, with: .callout)
         
         balanceLabel.textColor = model.style.textColorPrimary
         balanceLabel.attributedText = NSMutableAttributedString().with({

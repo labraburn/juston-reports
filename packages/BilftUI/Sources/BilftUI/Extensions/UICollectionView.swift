@@ -7,11 +7,11 @@ import UIKit
 extension UICollectionView {
     
     public func register(reusableCellClass klass: UICollectionViewCell.Type) {
-        register(klass, forCellWithReuseIdentifier: identifier(for: klass))
+        register(klass, forCellWithReuseIdentifier: klassIdentifier(for: klass))
     }
 
     public func dequeue<T: UICollectionViewCell>(reusableCellClass klass: T.Type, for indexPath: IndexPath) -> T {
-        let identifier = identifier(for: klass)
+        let identifier = klassIdentifier(for: klass)
         guard let view = dequeueReusableCell(
             withReuseIdentifier: identifier,
             for: indexPath
@@ -25,7 +25,7 @@ extension UICollectionView {
         reusableSupplementaryViewClass klass: UICollectionReusableView.Type,
         elementKind: String? = nil
     ) {
-        let identifier = identifier(for: klass)
+        let identifier = klassIdentifier(for: klass)
         register(
             klass,
             forSupplementaryViewOfKind: elementKind ?? identifier,
@@ -38,7 +38,7 @@ extension UICollectionView {
         elementKind: String? = nil,
         for indexPath: IndexPath
     ) -> T {
-        let identifier = identifier(for: klass)
+        let identifier = klassIdentifier(for: klass)
         guard let view = dequeueReusableSupplementaryView(
             ofKind: elementKind ?? identifier,
             withReuseIdentifier: identifier,
@@ -48,9 +48,16 @@ extension UICollectionView {
         }
         return view
     }
+}
 
-    private func identifier(for klass: AnyClass) -> String {
-        String(describing: klass)
+extension UICollectionViewLayout {
+    
+    public func register(
+        reusableDecorationViewOfKind klass: UICollectionReusableView.Type,
+        elementKind: String? = nil
+    ) {
+        let identifier = elementKind ?? klassIdentifier(for: klass)
+        register(klass, forDecorationViewOfKind: identifier)
     }
 }
 
@@ -68,4 +75,8 @@ extension UICollectionView {
 
         return nil
     }
+}
+
+private func klassIdentifier(for klass: AnyClass) -> String {
+    String(describing: klass)
 }

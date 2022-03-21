@@ -30,8 +30,7 @@ final class DashboardStackView: UIView {
             let backgroundColor: UIColor
         }
         
-        let name: String
-        let address: String
+        let account: Account
         
         let balanceBeforeDot: String
         let balanceAfterDot: String
@@ -158,7 +157,7 @@ final class DashboardStackView: UIView {
             return
         }
         
-        var updated = data.sorted(by: { $0.name > $1.name })
+        var updated = data.sorted(by: { $0.account.name > $1.account.name })
         let _selected = selected ?? self.selected
         
         if let _selected = _selected, let index = updated.firstIndex(of: _selected) {

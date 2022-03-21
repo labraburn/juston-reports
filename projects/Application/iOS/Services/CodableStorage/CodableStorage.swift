@@ -16,7 +16,7 @@ extension CodableStorage {
     
     private static var groupDirectoryURL: URL = {
         let fileManager = FileManager.default
-        guard let url = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.companyname.appname")
+        guard let url = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.bilft.family")
         else {
             fatalError("[CodableStorage]: Could not resolve url for Application Group.")
         }
@@ -113,5 +113,29 @@ public struct CodableStorage {
                 attributes: nil
             )
         }
+    }
+}
+
+/// Simplified extension for getter/setter extensions
+///
+/// ```
+/// extensinon CodableStorage.Methods {
+///
+///     func value() async throws -> [Value] {
+///         return try await storage.value(Value.self for: .key)
+///     }
+/// }
+///
+/// try await CodableStorage.group.value()
+/// ```
+extension CodableStorage {
+    
+    struct Methods {
+        
+        let storage: CodableStorage
+    }
+    
+    var methods: Methods {
+        Methods(storage: self)
     }
 }
