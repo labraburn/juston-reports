@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 protocol DashboardAccountsViewDelegate: AnyObject {
     
@@ -40,15 +40,15 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private let stackView = DashboardStackView()
     private let bottomHStackView = UIStackView()
     
-    private let bottomAddAccountButton = UIButton().with({
+    private lazy var bottomAddAccountButton = UIButton().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.insertHighlightingScaleDownAnimation()
         $0.insertFeedbackGenerator(style: .light)
         $0.widthAnchor.pin(to: 52).isActive = true
         $0.heightAnchor.pin(to: 52).isActive = true
-        $0.setImage(.bui_addCircle24, for: .normal)
+        $0.setImage(.hui_addCircle24, for: .normal)
         $0.addTarget(self, action: #selector(bottomAddAccountButtonDidClick(_:)), for: .touchUpInside)
-        $0.tintColor = .bui_textPrimary
+        $0.tintColor = .hui_textPrimary
     })
     
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -92,9 +92,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .bui_backgroundPrimary
+        backgroundColor = .hui_backgroundPrimary
         
-        safeAreaView.backgroundColor = .bui_backgroundPrimary
+        safeAreaView.backgroundColor = .hui_backgroundPrimary
         addSubview(safeAreaView)
         
         logoView.update(presentation: .on)

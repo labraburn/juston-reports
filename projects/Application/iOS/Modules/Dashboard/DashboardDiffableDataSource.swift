@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 import SwiftyTON
 
 protocol DashboardDiffableDataSourceDelegate: AnyObject {

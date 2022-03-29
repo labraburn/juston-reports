@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 class AccountAddingTextFieldCell: UICollectionViewCell {
     
@@ -25,7 +25,7 @@ class AccountAddingTextFieldCell: UICollectionViewCell {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .bui_textPrimary
+        $0.textColor = .hui_textPrimary
         $0.font = .font(for: .caption1)
         $0.setContentHuggingPriority(.required, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -35,7 +35,7 @@ class AccountAddingTextFieldCell: UICollectionViewCell {
     
     private lazy var textField = UITextField().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .bui_textPrimary
+        $0.textColor = .hui_textPrimary
         $0.font = .font(for: .body)
         $0.heightAnchor.pin(to: 52).isActive = true
         $0.delegate = self
@@ -45,7 +45,7 @@ class AccountAddingTextFieldCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .bui_backgroundPrimary
+        contentView.backgroundColor = .hui_backgroundPrimary
         contentView.addSubview(textLabel)
         contentView.addSubview(textField)
         

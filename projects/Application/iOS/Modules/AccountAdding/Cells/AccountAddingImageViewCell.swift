@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 class AccountAddingImageViewCell: UICollectionViewCell {
     
@@ -23,7 +23,7 @@ class AccountAddingImageViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .bui_backgroundPrimary
+        contentView.backgroundColor = .hui_backgroundPrimary
         contentView.addSubview(imageView)
         
         imageView.pinned(edges: contentView)

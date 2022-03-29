@@ -15,7 +15,7 @@ class AccountAddingWordsDecorationView: UICollectionReusableView {
         layer.cornerCurve = .continuous
         layer.cornerRadius = 16
         
-        backgroundColor = .bui_backgroundSecondary
+        backgroundColor = .hui_backgroundSecondary
     }
     
     @available(*, unavailable)

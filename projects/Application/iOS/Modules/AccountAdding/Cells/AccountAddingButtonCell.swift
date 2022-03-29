@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 class AccountAddingButtonCell: UICollectionViewCell {
     
@@ -34,7 +34,7 @@ class AccountAddingButtonCell: UICollectionViewCell {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .bui_textPrimary
+        $0.textColor = .hui_textPrimary
         $0.setContentHuggingPriority(.required, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.textAlignment = .center

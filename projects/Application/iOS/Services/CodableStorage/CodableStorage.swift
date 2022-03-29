@@ -16,7 +16,7 @@ extension CodableStorage {
     
     private static var groupDirectoryURL: URL = {
         let fileManager = FileManager.default
-        guard let url = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.bilft.family")
+        guard let url = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.hueton")
         else {
             fatalError("[CodableStorage]: Could not resolve url for Application Group.")
         }
@@ -40,7 +40,7 @@ public struct CodableStorage {
         }
     }
     
-    private let queue = DispatchQueue(label: "com.bilft.cs", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.hueton.cs", qos: .userInitiated)
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

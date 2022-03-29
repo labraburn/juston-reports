@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 protocol DashboardStackViewDelegate: AnyObject {
     
@@ -108,7 +108,7 @@ final class DashboardStackView: UIView {
         super.init(frame: .zero)
         
         clipsToBounds = false
-        backgroundColor = .bui_backgroundPrimary
+        backgroundColor = .hui_backgroundPrimary
         
         addSubview(containerView)
         

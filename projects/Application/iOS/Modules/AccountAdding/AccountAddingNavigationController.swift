@@ -22,11 +22,11 @@ class AccountAddingNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .bui_backgroundPrimary
+        view.backgroundColor = .hui_backgroundPrimary
         
         let titleTextAttributes: [NSAttributedString.Key : Any] = [
             .font : UIFont.font(for: .title2),
-            .foregroundColor : UIColor.bui_textPrimary
+            .foregroundColor : UIColor.hui_textPrimary
         ]
         
         let scrollEdgeAppearance = UINavigationBarAppearance()
@@ -44,7 +44,7 @@ class AccountAddingNavigationController: UINavigationController {
         
         navigationBar.standardAppearance = standardAppearance
         navigationBar.scrollEdgeAppearance = scrollEdgeAppearance
-        navigationBar.tintColor = .bui_textPrimary
+        navigationBar.tintColor = .hui_textPrimary
         
         navigationBar.prefersLargeTitles = false
         navigationBar.layer.masksToBounds = true

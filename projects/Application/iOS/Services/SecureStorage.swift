@@ -8,8 +8,8 @@ import SwiftyTON
 /// Storage that stores data secured in Keychain
 public struct SecureStorage {
     
-    private let queue = DispatchQueue(label: "com.bilft.ss", qos: .userInitiated)
-    private let service = "BILFT"
+    private let queue = DispatchQueue(label: "com.hueton.ss", qos: .userInitiated)
+    private let service = "HUETON"
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

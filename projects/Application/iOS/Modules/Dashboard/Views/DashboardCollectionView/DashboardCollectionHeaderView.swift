@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 protocol DashboardCollectionHeaderViewDelegate: AnyObject {
     
@@ -55,7 +55,7 @@ class DashboardCollectionHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .bui_backgroundPrimary
+        backgroundColor = .hui_backgroundPrimary
     }
     
     @available(*, unavailable)

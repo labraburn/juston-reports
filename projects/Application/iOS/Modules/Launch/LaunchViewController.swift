@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 import SwiftyTON
 
 protocol LaunchViewControllerDelegate: AnyObject {
@@ -39,7 +39,7 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .bui_backgroundPrimary
+        view.backgroundColor = .hui_backgroundPrimary
         view.addSubview(logoView)
         
         logoViewTopConstraint = logoView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: -6)

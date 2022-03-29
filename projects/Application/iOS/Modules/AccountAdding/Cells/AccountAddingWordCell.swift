@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 class AccountAddingWordCell: UICollectionViewCell {
     
@@ -17,7 +17,7 @@ class AccountAddingWordCell: UICollectionViewCell {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .bui_textPrimary
+        $0.textColor = .hui_textPrimary
         $0.font = .font(for: .headline)
         $0.textAlignment = .left
         $0.numberOfLines = 1
@@ -27,7 +27,7 @@ class AccountAddingWordCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .bui_backgroundSecondary
+        contentView.backgroundColor = .hui_backgroundSecondary
         contentView.addSubview(textLabel)
         
         textLabel.pinned(edges: contentView)

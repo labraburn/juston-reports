@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 import SwiftyTON
 import Combine
 
@@ -35,7 +35,7 @@ class DashboardViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(reusableSupplementaryViewClass: DashboardCollectionHeaderView.self)
         collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
-        collectionView.backgroundColor = .bui_backgroundPrimary
+        collectionView.backgroundColor = .hui_backgroundPrimary
         return collectionView
     }()
     
@@ -71,7 +71,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .bui_backgroundPrimary
+        view.backgroundColor = .hui_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         
@@ -334,7 +334,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         
         let navigationController = AccountAddingNavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .pageSheet
-        bui_present(navigationController, animated: true, completion: nil)
+        hui_present(navigationController, animated: true, completion: nil)
     }
     
     func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 protocol AccountAddingViewControllerDelegate: AnyObject {
     
@@ -60,7 +60,7 @@ class AccountAddingViewController: UIViewController {
         collectionView.keyboardDismissMode = .onDrag
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .bui_backgroundPrimary
+        collectionView.backgroundColor = .hui_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         

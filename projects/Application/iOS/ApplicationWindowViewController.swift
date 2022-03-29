@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 
 class ApplicationWindowViewController: LevelViewController {
     
@@ -15,7 +15,7 @@ class ApplicationWindowViewController: LevelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .bui_backgroundPrimary
+        view.backgroundColor = .hui_backgroundPrimary
     }
     
     @available(*, unavailable, message: "Use `exhange(_ viewControllerToPresent:at:animated:completion:)` instead.")

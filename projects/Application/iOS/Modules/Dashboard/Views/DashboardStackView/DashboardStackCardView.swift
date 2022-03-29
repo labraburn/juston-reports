@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 import SwiftyTON
 
 final class DashboardStackCardView: UIView {
@@ -182,7 +182,7 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.insertHighlightingScaleDownAnimation()
         $0.insertFeedbackGenerator(style: .medium)
-        $0.setImage(.bui_more24, for: .normal)
+        $0.setImage(.hui_more24, for: .normal)
     })
     
     override init(model: DashboardStackView.Model) {
@@ -258,9 +258,9 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         $0.clipsToBounds = false
     })
     
-    private let sendButton = DashboardStackCardButton.createBottomButton(.bui_send24)
-    private let receiveButton = DashboardStackCardButton.createBottomButton(.bui_receive24)
-    private let moreButton = DashboardStackCardButton.createBottomButton(.bui_more24)
+    private let sendButton = DashboardStackCardButton.createBottomButton(.hui_send24)
+    private let receiveButton = DashboardStackCardButton.createBottomButton(.hui_receive24)
+    private let moreButton = DashboardStackCardButton.createBottomButton(.hui_more24)
     
     override init(model: DashboardStackView.Model) {
         super.init(model: model)

@@ -49,7 +49,7 @@ extension AccountAddingModel {
     static var initial: AccountAddingModel {
         AccountAddingModel(
             kind: .default(
-                image: .bui_placeholder512,
+                image: .hui_placeholder512,
                 text: "AccountAddingInitialDescription".asLocalizedKey
             ),
             title: "AccountAddingInitialTitle".asLocalizedKey,
@@ -70,7 +70,7 @@ extension AccountAddingModel {
     static var importOrCreate: AccountAddingModel {
         AccountAddingModel(
             kind: .default(
-                image: .bui_placeholder512,
+                image: .hui_placeholder512,
                 text: "AccountAddingIOCDescription".asLocalizedKey
             ),
             title: "AccountAddingIOCTitle".asLocalizedKey,

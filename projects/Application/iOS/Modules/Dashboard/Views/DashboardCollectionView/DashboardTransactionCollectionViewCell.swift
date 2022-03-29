@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import BilftUI
+import HuetonUI
 import SwiftyTON
 import DeclarativeUI
 
@@ -79,7 +79,7 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .bui_backgroundSecondary
+        contentView.backgroundColor = .hui_backgroundSecondary
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
     
