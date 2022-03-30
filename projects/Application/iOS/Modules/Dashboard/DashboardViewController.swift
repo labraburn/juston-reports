@@ -14,7 +14,7 @@ class DashboardViewController: UIViewController {
     
     private let storage = CodableStorage.target
     
-    private var cancellables: Set<AnyCancellable> = []
+    private var synchronizationObserver: NSObjectProtocol?
     private var task: Task<(), Never>? = nil
     
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -61,8 +61,11 @@ class DashboardViewController: UIViewController {
     }
     
     deinit {
+        if let synchronizationObserver = synchronizationObserver {
+            NotificationCenter.default.removeObserver(synchronizationObserver)
+        }
+        
         accountsViewRefreshControlValueTimer?.invalidate()
-        cancellables.forEach({ $0.cancel() })
         task?.cancel()
     }
     
@@ -88,18 +91,22 @@ class DashboardViewController: UIViewController {
             }
         )
 
-        SwiftyTONSynchronization()
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] progress in
-                guard let self = self, progress > 0, progress < 1
+        synchronizationObserver = NotificationCenter.default.addObserver(
+            forName: SwiftyTON.didUpdateSynchronization,
+            object: nil,
+            queue: .main,
+            using: { [weak self] notification in
+                guard let self = self,
+                      let progress = notification.userInfo?[SwiftyTON.synchronizationKey] as? Double,
+                      progress > 0, progress < 1
                 else {
                     return
                 }
-
+                
                 self.accountsViewRefreshControlValue = .synchronization(value: progress)
                 self.invalidateAccountsViewRefreshControlValue()
-            })
-            .store(in: &cancellables)
+            }
+        )
         
         task = Task { [weak self] in
             let accounts = await CodableStorage.group.methods.accounts()

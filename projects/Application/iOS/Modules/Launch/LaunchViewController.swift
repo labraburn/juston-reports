@@ -27,10 +27,6 @@ class LaunchViewController: UIViewController {
     
     weak var delegate: LaunchViewControllerDelegate? = nil
     
-    private var isAppeared = false
-    private var isAnimationFinished = false
-    private var isTONInitialized = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,48 +38,21 @@ class LaunchViewController: UIViewController {
             huetonView.centerXAnchor.pin(to: view.centerXAnchor)
             huetonView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 24)
         }
-        
-        Task {
-            do {
-                try await SwiftyTONConfigurate(.main)
-
-                self.isTONInitialized = true
-                self.completeLoadingIfNeeded()
-            } catch {
-                self.presentAlertViewController(
-                    with: error,
-                    title: "Can't initialize TON. :("
-                )
-            }
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        guard !isAppeared
-        else {
-            return
-        }
-        
-        isAppeared = true
-        
         huetonView.performUpdatesWithLetters({ updates in
             updates.trigger()
         }, completion: { _ in
-            self.isAnimationFinished = true
-            self.completeLoadingIfNeeded()
+            self.completeLoading()
         })
     }
     
     // MARK: Private
     
-    private func completeLoadingIfNeeded() {
-        guard isTONInitialized, isAnimationFinished
-        else {
-            return
-        }
-        
+    private func completeLoading() {
         delegate?.launchViewController(self, didFinishAnimation: true)
     }
 }
