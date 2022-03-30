@@ -36,16 +36,23 @@ protocol DashboardAccountsViewDelegate: AnyObject {
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private var safeAreaView = UIView()
-    private var logoView = AnimatedLogoView()
     private let stackView = DashboardStackView()
-    private let bottomHStackView = UIStackView()
+    
+    private var huetonView = HuetonView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
+    })
+    
+    private let bottomHStackView = UIStackView().with({
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.alignment = .fill
+    })
     
     private lazy var bottomAddAccountButton = UIButton().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.insertHighlightingScaleDownAnimation()
         $0.insertFeedbackGenerator(style: .light)
-        $0.widthAnchor.pin(to: 52).isActive = true
-        $0.heightAnchor.pin(to: 52).isActive = true
         $0.setImage(.hui_addCircle24, for: .normal)
         $0.addTarget(self, action: #selector(bottomAddAccountButtonDidClick(_:)), for: .touchUpInside)
         $0.tintColor = .hui_textPrimary
@@ -56,6 +63,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private let logoViewDefaultOffset = CGFloat(24)
     private var logoViewAdditionalOffset = CGFloat(0)
     private var isAbleToRefreshAnimation = true
+    private var cachedBounds = CGRect.zero
     
     weak var delegate: DashboardAccountsViewDelegate?
     
@@ -68,14 +76,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         stackView.data
     }
     
-    var refreshControlText: String? {
-        get { logoView.text }
-        set { logoView.text = newValue }
-    }
-    
-    var refreshControlPresentation: AnimatedLogoView.Presentation {
-        get { logoView.presentation }
-        set { logoView.update(presentation: newValue) }
+    var huetonViewText: String? {
+        get { huetonView.text }
+        set { huetonView.text = newValue }
     }
     
     var layoutType: DashboardCollectionHeaderView.LayoutType = .init(bounds: .zero, safeAreaInsets: .zero, kind: .large) {
@@ -86,7 +89,6 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             }
             
             isAbleToRefreshAnimation = false
-            updateLayout()
         }
     }
     
@@ -97,9 +99,8 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         safeAreaView.backgroundColor = .hui_backgroundPrimary
         addSubview(safeAreaView)
         
-        logoView.update(presentation: .on)
-        logoView.backgroundColor = .clear
-        addSubview(logoView)
+        huetonView.backgroundColor = .hui_backgroundPrimary
+        addSubview(huetonView)
         
         stackView.delegate = self
         addSubview(stackView)
@@ -115,6 +116,14 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        guard bounds != cachedBounds,
+              bounds.height > 1 // handle estimated collection view height
+        else {
+            return
+        }
+        
+        cachedBounds = bounds
         updateLayout()
     }
     
@@ -145,7 +154,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         
         let additionalOffset = -contentOffset / 2
         let progress = additionalOffset / logoViewReloadOffset
-        logoView.prepareLoadingAnimation(with: progress)
+        huetonView.set(progress: progress)
         
         if additionalOffset > logoViewReloadOffset && scrollView.isTracking {
             startLoadingAnimationIfNeccessary()
@@ -165,10 +174,11 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         }
         
         isLoading = true
+        isAbleToRefreshAnimation = false
         
-        logoView.startLoadingAnimation()
-        
+        huetonView.startInfinityAnimation()
         feedbackGenerator.impactOccurred()
+        
         delegate?.dashboardAccountsViewDidStartRefreshing(self)
     }
     
@@ -178,7 +188,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             return
         }
         
-        logoView.stopLoadingAnimation()
+        huetonView.stopInfinityAnimation()
         isLoading = false
     }
     
@@ -202,11 +212,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     }
     
     private func updateLogoViewLayout() {
-        logoView.frame = CGRect(
-            x: (bounds.width - AnimatedLogoView.applicationWidth) / 2,
-            y: -logoViewAdditionalOffset,
-            width: AnimatedLogoView.applicationWidth,
-            height: AnimatedLogoView.applicationHeight
+        huetonView.center = CGPoint(
+            x: bounds.midX,
+            y: 24 - logoViewAdditionalOffset + huetonView.bounds.midY
         )
     }
     
@@ -215,11 +223,11 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         
         if !isLoading {
             UIView.performWithoutAnimation({
-                logoView.update(presentation: .on)
+                huetonView.performUpdatesWithLetters { $0.on() }
             })
         }
         
-        logoView.alpha = 1
+        huetonView.alpha = 1
         updateLogoViewLayout()
         
         let creditCardParameters = CreditCardParameters(
@@ -237,7 +245,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     }
     
     private func updateCompactLayoutType() {
-        logoView.alpha = 0
+        huetonView.alpha = 0
         
         stackView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
         stackView.presentation = .compact
@@ -251,7 +259,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         bottomHStackView.frame = CGRect(
             x: 12,
             y: bounds.height - height - 12,
-            width: bounds.width - 24,
+            width: max(bounds.width - 24, 256), // max(_, 256) - fixed warnings whet width is zero
             height: height
         )
     }
@@ -259,7 +267,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private func defaultAdditionalInsetsWithSafeAreaInsets(_ safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
         let bottom: CGFloat = 76 + (safeAreaInsets.bottom == 0 ? 42 : 24) // 76 - bottom h stack view
         return UIEdgeInsets(
-            top: AnimatedLogoView.applicationHeight + 24,
+            top: HuetonView.applicationHeight + 56,
             left: 12,
             bottom: bottom,
             right: 12

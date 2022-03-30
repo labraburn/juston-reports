@@ -16,6 +16,13 @@ public extension UIColor {
     static let hui_textSecondary: UIColor = .named("TextSecondary")
     static let hui_textTeritary: UIColor = .named("TextTeritary")
     
+    static let hui_letter_red: UIColor = .named("Letter/Red")
+    static let hui_letter_yellow: UIColor = .named("Letter/Yellow")
+    static let hui_letter_blue: UIColor = .named("Letter/Blue")
+    static let hui_letter_green: UIColor = .named("Letter/Green")
+    static let hui_letter_violet: UIColor = .named("Letter/Violet")
+    static let hui_letter_purple: UIColor = .named("Letter/Purple")
+    
     private static func named(_ name: String) -> UIColor {
         guard let color = UIColor(named: name, in: .module, compatibleWith: nil)
         else {

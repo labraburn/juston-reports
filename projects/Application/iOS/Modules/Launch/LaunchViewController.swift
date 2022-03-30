@@ -14,21 +14,16 @@ protocol LaunchViewControllerDelegate: AnyObject {
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool)
 }
 
-extension AnimatedLogoView {
+extension HuetonView {
     
-    static var applicationHeight = CGFloat(64)
-    static var applicationWidth = CGFloat(201)
+    static var applicationHeight = CGFloat(18)
 }
 
 class LaunchViewController: UIViewController {
     
-    private let logoView: AnimatedLogoView = AnimatedLogoView().with({
+    private let huetonView = HuetonView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
-    
-    private var logoViewHeightConstraint: NSLayoutConstraint?
-    private var logoViewWidthConstraint: NSLayoutConstraint?
-    private var logoViewTopConstraint: NSLayoutConstraint?
     
     weak var delegate: LaunchViewControllerDelegate? = nil
     
@@ -40,18 +35,13 @@ class LaunchViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .hui_backgroundPrimary
-        view.addSubview(logoView)
+        view.addSubview(huetonView)
         
-        logoViewTopConstraint = logoView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: -6)
-        logoViewTopConstraint?.isActive = true
-        
-        logoViewWidthConstraint = logoView.widthAnchor.pin(to: 270)
-        logoViewWidthConstraint?.isActive = true
-        
-        logoViewHeightConstraint = logoView.heightAnchor.pin(to: 86)
-        logoViewHeightConstraint?.isActive = true
-        
-        logoView.centerXAnchor.pin(to: view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate {
+            huetonView.heightAnchor.pin(to: HuetonView.applicationHeight)
+            huetonView.centerXAnchor.pin(to: view.centerXAnchor)
+            huetonView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 24)
+        }
         
         Task {
             do {
@@ -77,41 +67,13 @@ class LaunchViewController: UIViewController {
         }
         
         isAppeared = true
-        logoView.animate(
-            with: [
-                .off,
-                .off,
-                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
-                .init(b: .off, l: .off, i: .off, f: .off, t: .off),
-                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
-                .init(b: .on, l: .off, i: .on, f: .off, t: .off),
-                .init(b: .on, l: .off, i: .off, f: .off, t: .off),
-                .init(b: .on, l: .off, i: .on, f: .off, t: .on),
-                .init(b: .on, l: .off, i: .on, f: .on, t: .on),
-                .on,
-            ],
-            duration: 1.1,
-            completion: { _ in }
-        )
         
-        logoViewTopConstraint?.constant = 0
-        logoViewHeightConstraint?.constant = AnimatedLogoView.applicationHeight
-        logoViewWidthConstraint?.constant = AnimatedLogoView.applicationWidth
-        
-        UIView.animate(
-            withDuration: 0.64,
-            delay: 0.8,
-            usingSpringWithDamping: 0.6,
-            initialSpringVelocity: 0.0,
-            options: [.curveEaseOut],
-            animations: {
-                self.view.layoutIfNeeded()
-            },
-            completion: { finished in
-                self.isAnimationFinished = true
-                self.completeLoadingIfNeeded()
-            }
-        )
+        huetonView.performUpdatesWithLetters({ updates in
+            updates.trigger()
+        }, completion: { _ in
+            self.isAnimationFinished = true
+            self.completeLoadingIfNeeded()
+        })
     }
     
     // MARK: Private

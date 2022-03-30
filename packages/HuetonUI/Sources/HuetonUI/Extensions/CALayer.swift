@@ -32,4 +32,9 @@ extension CALayer {
             }
         }
     }
+    
+    public func recursivelyRemoveAllAnimations() {
+        removeAllAnimations()
+        sublayers?.forEach({ $0.recursivelyRemoveAllAnimations() })
+    }
 }

@@ -42,8 +42,6 @@ class DashboardViewController: UIViewController {
     private lazy var accountsView: DashboardAccountsView = {
         let accountsView = DashboardAccountsView()
         accountsView.delegate = self
-        accountsView.refreshControlPresentation = .on
-        accountsView.refreshControlText = ""
         return accountsView
     }()
     
@@ -113,7 +111,7 @@ class DashboardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource.apply(transactions: [], animated: true)
+        dataSource.apply(transactions: [], animated: false)
 //        Task {
 //            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
 //                let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
@@ -381,13 +379,13 @@ extension DashboardViewController {
     private func invalidateAccountsViewRefreshControlValue() {
         switch accountsViewRefreshControlValue {
         case let .text(value):
-            accountsView.refreshControlText = value
+            accountsView.huetonViewText = value
         case let .lastUpdatedDate(date):
             let formatter = RelativeDateTimeFormatter.shared
             let timeAgo = formatter.localizedString(for: Date(), relativeTo: date)
-            accountsView.refreshControlText = "Updated \(timeAgo) ago"
+            accountsView.huetonViewText = "Updated \(timeAgo) ago"
         case let .synchronization(value):
-            accountsView.refreshControlText = "Syncing.. \(Int(value * 100))%"
+            accountsView.huetonViewText = "Syncing.. \(Int(value * 100))%"
         }
     }
 }

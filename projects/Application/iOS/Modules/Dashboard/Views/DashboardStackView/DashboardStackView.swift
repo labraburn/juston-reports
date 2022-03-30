@@ -147,7 +147,7 @@ final class DashboardStackView: UIView {
         
         layoutContainerViewSubviews(
             excludePositiongOfView: nil,
-            animated: true
+            animated: false
         )
     }
     
@@ -212,7 +212,7 @@ final class DashboardStackView: UIView {
                 view.transform = .identity
                 view.update(
                     state: index == 0 ? self.presentation.cardViewState : .hidden,
-                    animated: true
+                    animated: animated
                 )
             }
             
