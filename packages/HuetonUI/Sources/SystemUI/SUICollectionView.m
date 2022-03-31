@@ -43,23 +43,6 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
         super_msg(self, sel, arg2);
     };
     
-    NSArray<NSIndexPath *> *visibleIndexPaths = [[self indexPathsForVisibleItems] sortedArrayUsingSelector:@selector(compare:)];
-    NSIndexPath *anchorIndexPath = [visibleIndexPaths firstObject];
-    if (anchorIndexPath == nil) {
-        supercall();
-        return;
-    }
-    
-    UICollectionViewCell *anchorCell = [self cellForItemAtIndexPath:anchorIndexPath];
-    if (anchorCell == nil) {
-        supercall();
-        return;
-    }
-    
-    // Store visible rect relative to anchored cell
-    CGRect visibleRect = [self convertRect:self.bounds toView:anchorCell];
-    CGSize initialSize = anchorCell.bounds.size;
-    
     
     // Handle glithes when system calls
     // _adjustContentOffsetIfNeccessaryIfNeeded and etc
@@ -68,6 +51,21 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
     [self sui_setContentOffsetUpdatesLocked:YES];
     supercall();
     [self sui_setContentOffsetUpdatesLocked:previousIsContentOffsetUpdatesLocked];
+    
+    NSArray<NSIndexPath *> *visibleIndexPaths = [[self indexPathsForVisibleItems] sortedArrayUsingSelector:@selector(compare:)];
+    NSIndexPath *anchorIndexPath = [visibleIndexPaths firstObject];
+    if (anchorIndexPath == nil) {
+        return;
+    }
+    
+    UICollectionViewCell *anchorCell = [self cellForItemAtIndexPath:anchorIndexPath];
+    if (anchorCell == nil) {
+        return;
+    }
+    
+    // Store visible rect relative to anchored cell
+    CGRect visibleRect = [self convertRect:self.bounds toView:anchorCell];
+    CGSize initialSize = anchorCell.bounds.size;
     
     if (previousIsContentOffsetUpdatesLocked) {
         // Skip cause should not be affcted
