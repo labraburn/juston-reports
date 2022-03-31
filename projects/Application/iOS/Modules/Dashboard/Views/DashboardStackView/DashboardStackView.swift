@@ -7,6 +7,7 @@
 
 import UIKit
 import HuetonUI
+import HuetonCORE
 
 protocol DashboardStackViewDelegate: AnyObject {
     
@@ -31,10 +32,6 @@ final class DashboardStackView: UIView {
         }
         
         let account: Account
-        
-        let balanceBeforeDot: String
-        let balanceAfterDot: String
-        
         let style: Style
     }
     
@@ -362,6 +359,11 @@ extension DashboardStackView.Model.Style: Hashable {}
 extension DashboardStackView: UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard data.count > 1
+        else {
+            return false
+        }
+        
         guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer
         else {
             return true

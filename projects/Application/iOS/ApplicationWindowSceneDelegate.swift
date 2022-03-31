@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftyTON
 
 class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     

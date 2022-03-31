@@ -6,8 +6,9 @@
 //
 
 import UIKit
-import SwiftyTON
+import HuetonCORE
 
+@MainActor
 struct AccountAddingModel {
     
     enum Kind {
@@ -191,10 +192,8 @@ extension AccountAddingModel {
                             return
                         }
                         
-                        viewController.finish(with: .init(
-                            name: name,
-                            rawAddress: rawAddress)
-                        )
+                        let account = Account(rawAddress: rawAddress, name: name)
+                        viewController.finish(with: account)
                     }
                 ),
             ],
@@ -211,14 +210,9 @@ fileprivate func createAccount(_ completion: @escaping (_ result: Result<([Strin
     }
     
     _createAccountTask = Task {
-        
         do {
-            let result = try await Key.create(password: Data(), mnemonic: Data())
-            
-            let storage = SecureStorage()
-            try await storage.save(key: result.0)
-            
-            DispatchQueue.main.async(execute: { completion(.success((result.1, result.0.rawAddress))) })
+            let result = try await HuetonCORE.KeyCreate()
+            DispatchQueue.main.async(execute: { completion(.success((result.words, result.key.rawAddress))) })
         } catch {
             DispatchQueue.main.async(execute: { completion(.failure(error)) })
         }

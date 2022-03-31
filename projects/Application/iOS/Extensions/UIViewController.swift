@@ -6,17 +6,17 @@
 //
 
 import UIKit
+import HuetonUI
 
 extension UIViewController {
     
     func presentAlertViewController(with error: Error, title: String? = "ERROR") {
-        let viewController = UIAlertController(
+        let viewController = AlertViewController(
+            image: .hui_error42,
             title: title,
             message: error.localizedDescription,
-            preferredStyle: .alert
+            actions: [.done]
         )
-        
-        viewController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(viewController, animated: true, completion: nil)
     }
 }

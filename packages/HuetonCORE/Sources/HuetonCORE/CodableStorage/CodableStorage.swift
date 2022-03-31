@@ -3,39 +3,28 @@
 //
 
 import Foundation
-import SwiftyTON
 
 /// Default storages
 extension CodableStorage {
     
-    private static var targetDirectoryURL: URL = {
-        let fileManager = FileManager.default
-        let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[0].appendingPathComponent("CodableStorage")
-    }()
+    public static let target: CodableStorage = CodableStorage(
+        directoryURL: FileManager.default.directoryURL(with: .target, with: .persistent, pathComponent: "CodableStorage")
+    )
     
-    private static var groupDirectoryURL: URL = {
-        let fileManager = FileManager.default
-        guard let url = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.com.hueton")
-        else {
-            fatalError("[CodableStorage]: Could not resolve url for Application Group.")
-        }
-        return url.appendingPathComponent("CodableStorage")
-    }()
-    
-    static let target: CodableStorage = CodableStorage(directoryURL: targetDirectoryURL)
-    static let group: CodableStorage = CodableStorage(directoryURL: groupDirectoryURL)
+    public static let group: CodableStorage = CodableStorage(
+        directoryURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: "CodableStorage")
+    )
 }
 
 /// Storage that stores data unsecured in filesystem
 public struct CodableStorage {
     
     /// The key that will be used as filename
-    struct Key: RawRepresentable {
+    public struct Key: RawRepresentable {
         
-        var rawValue: String
+        public var rawValue: String
         
-        init(rawValue: String) {
+        public init(rawValue: String) {
             self.rawValue = rawValue
         }
     }
@@ -52,9 +41,7 @@ public struct CodableStorage {
         url = directoryURL
     }
     
-    func save<T: Encodable>(value: T?, forKey key: Key) async throws {
-        try checkDirecoryExistsAndCreateIfNeccessary()
-        
+    public func save<T: Encodable>(value: T?, forKey key: Key) async throws {
         let queue = self.queue
         let url = self.url.appendingPathComponent(key.rawValue).appendingPathExtension("json")
         let fileManager = self.fileManager
@@ -77,9 +64,7 @@ public struct CodableStorage {
         })
     }
     
-    func value<T: Decodable>(of type: T.Type, forKey key: Key) async throws -> T? {
-        try checkDirecoryExistsAndCreateIfNeccessary()
-        
+    public func value<T: Decodable>(of type: T.Type, forKey key: Key) async throws -> T? {
         let queue = self.queue
         let url = self.url.appendingPathComponent(key.rawValue).appendingPathExtension("json")
         let decoder = self.decoder
@@ -99,21 +84,6 @@ public struct CodableStorage {
             })
         })
     }
-    
-    private func checkDirecoryExistsAndCreateIfNeccessary() throws {
-        var bool = ObjCBool(false)
-        if fileManager.fileExists(atPath: url.relativePath, isDirectory: &bool) {
-            if !bool.boolValue {
-                throw URLError(.cannotWriteToFile)
-            }
-        } else {
-            try fileManager.createDirectory(
-                at: url,
-                withIntermediateDirectories: true,
-                attributes: nil
-            )
-        }
-    }
 }
 
 /// Simplified extension for getter/setter extensions
@@ -126,7 +96,7 @@ public struct CodableStorage {
 ///     }
 /// }
 ///
-/// try await CodableStorage.group.value()
+/// try await CodableStorage.group.methods.value()
 /// ```
 extension CodableStorage {
     

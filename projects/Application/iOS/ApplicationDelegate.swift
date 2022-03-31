@@ -7,7 +7,7 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
+import HuetonCORE
 
 class ApplicationDelegate: UIResponder, UIApplicationDelegate {
     
@@ -15,7 +15,7 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        SwiftyTON.configurate(with: .main)
+        HuetonCORE.initialize()
         UIApplication.cleanLaunchScreenCache()
         return true
     }

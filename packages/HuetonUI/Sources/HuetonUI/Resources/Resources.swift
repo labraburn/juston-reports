@@ -40,6 +40,9 @@ public extension UIImage {
     static let hui_more24: UIImage = .named("More24")
     static let hui_addCircle24: UIImage = .named("AddCircle24")
     
+    static let hui_info42: UIImage = .named("Info42")
+    static let hui_error42: UIImage = .named("Error42")
+    
     static let hui_placeholder512: UIImage = .named("Placeholder512")
     
     private static func named(_ name: String) -> UIImage {

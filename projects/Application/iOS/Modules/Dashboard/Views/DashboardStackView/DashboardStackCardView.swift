@@ -7,7 +7,7 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
+import HuetonCORE
 
 final class DashboardStackCardView: UIView {
     
@@ -227,6 +227,14 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
 
 private final class DashboardStackCardLargeContentView: DashboardStackCardContentView {
     
+    static let balanceFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 9
+        formatter.minimumFractionDigits = 9
+        formatter.decimalSeparator = "."
+        return formatter
+    }()
+    
     private let accountNameLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .bold)
@@ -315,16 +323,19 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         accountCurrentAddressLabel.label.textColor = model.style.textColorSecondary
         accountCurrentAddressLabel.label.attributedText = .string(address, with: .callout)
         
+        let balance = model.account.balance
+        let balances = (Self.balanceFormatter.string(from: balance) ?? "0.0").components(separatedBy: ".")
+        
         balanceLabel.textColor = model.style.textColorPrimary
         balanceLabel.attributedText = NSMutableAttributedString().with({
-            $0.append(NSAttributedString(string: model.balanceBeforeDot, attributes: [
+            $0.append(NSAttributedString(string: balances[0], attributes: [
                 .font : UIFont.monospacedSystemFont(ofSize: 57, weight: .bold),
                 .paragraphStyle : NSMutableParagraphStyle().with({
                     $0.minimumLineHeight = 57
                     $0.maximumLineHeight = 57
                 })
             ]))
-            $0.append(.string("\n." + model.balanceAfterDot, with: .body, kern: .four, lineHeight: 17))
+            $0.append(.string("\n." + balances[1], with: .body, kern: .four, lineHeight: 17))
         })
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
+import HuetonCORE
 import DeclarativeUI
 
 class DashboardTransactionCollectionViewCell: UICollectionViewCell {
@@ -107,45 +107,45 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     }
     
     private func update(model: Model) {
-        if let message = model.out.first {
-            // sended
-
-            // TODO: Here can be more than one message, so we should handle it
-
-            leftTopLabel.text = "Sended:"
-            leftBottomLabel.text = "To:"
-
-            rightTopLabel.textColor = .systemRed
-            rightTopLabel.text = "\(message.value)"
-
-            if let rawAddress = message.destinationAccountAddress {
-                let address = Address(rawAddress: rawAddress)
-                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
-            } else {
-                rightBottomLabel.text = " "
-            }
-        } else if let message = model.in {
-            // received
-            
-            leftTopLabel.text = "Received:"
-            leftBottomLabel.text = "From:"
-            
-            rightTopLabel.textColor = .systemGreen
-            rightTopLabel.text = "\(message.value)"
-            
-            if let rawAddress = message.sourceAccountAddress {
-                let address = Address(rawAddress: rawAddress)
-                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
-            } else {
-                rightBottomLabel.text = " "
-            }
-            
-        } else {
-            leftTopLabel.text = " "
-            leftBottomLabel.text = " "
-            
-            rightTopLabel.text = " "
-            rightBottomLabel.text = " "
-        }
+//        if let message = model.out.first {
+//            // sended
+//
+//            // TODO: Here can be more than one message, so we should handle it
+//
+//            leftTopLabel.text = "Sended:"
+//            leftBottomLabel.text = "To:"
+//
+//            rightTopLabel.textColor = .systemRed
+//            rightTopLabel.text = "\(message.value)"
+//
+//            if let rawAddress = message.destinationAccountAddress {
+//                let address = Address(rawAddress: rawAddress)
+//                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
+//            } else {
+//                rightBottomLabel.text = " "
+//            }
+//        } else if let message = model.in {
+//            // received
+//
+//            leftTopLabel.text = "Received:"
+//            leftBottomLabel.text = "From:"
+//
+//            rightTopLabel.textColor = .systemGreen
+//            rightTopLabel.text = "\(message.value)"
+//
+//            if let rawAddress = message.sourceAccountAddress {
+//                let address = Address(rawAddress: rawAddress)
+//                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
+//            } else {
+//                rightBottomLabel.text = " "
+//            }
+//
+//        } else {
+//            leftTopLabel.text = " "
+//            leftBottomLabel.text = " "
+//
+//            rightTopLabel.text = " "
+//            rightBottomLabel.text = " "
+//        }
     }
 }

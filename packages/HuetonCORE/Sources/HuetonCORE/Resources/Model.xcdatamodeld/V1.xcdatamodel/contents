@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Account" representedClassName="Account" syncable="YES">
+        <attribute name="address" attributeType="Transformable" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
+        <attribute name="balance" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="workchain" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="account" inverseEntity="Transaction"/>
+    </entity>
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
+    </entity>
+    <elements>
+        <element name="Account" positionX="-63" positionY="-9" width="128" height="104"/>
+        <element name="Transaction" positionX="-63" positionY="-18" width="128" height="59"/>
+    </elements>
+</model>

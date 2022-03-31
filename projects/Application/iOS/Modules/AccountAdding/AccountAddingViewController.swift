@@ -7,13 +7,13 @@
 
 import UIKit
 import HuetonUI
+import HuetonCORE
 
 protocol AccountAddingViewControllerDelegate: AnyObject {
     
     func accountAddingViewController(
         _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: Account,
-        into accounts: [Account]
+        didAddSaveAccount account: Account
     )
 }
 
@@ -22,8 +22,6 @@ class AccountAddingViewController: UIViewController {
     private lazy var collectionDataSource = AccountAddingDataSource(collectionView: collectionView)
     private lazy var collectionViewLayout = AccountAddingViewCollectionViewLayout()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-    
-    private var task: Task<Void, Never>?
     
     weak var delegate: AccountAddingViewControllerDelegate? = nil
     
@@ -77,25 +75,13 @@ class AccountAddingViewController: UIViewController {
     }
     
     func finish(with account: Account) {
-        guard task == nil
-        else {
-            return
-        }
-        
-        task = Task { [weak self] in
-            guard let self = self
-            else {
-                return
-            }
+        do {
+            try account.save()
             
-            var accounts = await CodableStorage.group.methods.accounts()
-            accounts.append(account)
-            
-            CodableStorage.group.methods.save(accounts: accounts)
-            self.task = nil
-            
-            delegate?.accountAddingViewController(self, didAddSaveAccount: account, into: accounts)
+            delegate?.accountAddingViewController(self, didAddSaveAccount: account)
             navigationController?.dismiss(animated: true, completion: nil)
+        } catch {
+            presentAlertViewController(with: error)
         }
     }
     

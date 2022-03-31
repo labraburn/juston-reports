@@ -15,13 +15,18 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/hueton/SwiftyTON", branch: "main")
     ],
     targets: [
         .target(
             name: "HuetonCORE",
             dependencies: [
+                "SwiftyTON",
             ],
             path: "Sources/HuetonCORE",
+            resources: [
+                .process("Resources/Model.xcdatamodeld")
+            ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug)),
             ]

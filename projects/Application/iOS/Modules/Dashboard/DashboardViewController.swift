@@ -7,25 +7,20 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
-import Combine
+import HuetonCORE
+import CoreData
 
 class DashboardViewController: UIViewController {
     
-    private let storage = CodableStorage.target
-    
-    private var synchronizationObserver: NSObjectProtocol?
     private var task: Task<(), Never>? = nil
     
+    private var fetchResultsController: NSFetchedResultsController<Transaction>?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
     private var collectionViewHeaderLayoutKind: DashboardCollectionHeaderView.LayoutType.Kind = .large
     private var collectionViewPreviousContentOffset: CGPoint = .zero
     private var collectionViewHeaderLayoutKindAnimator: UIViewPropertyAnimator?
-    
-    private var accountsViewRefreshControlValue: AccountsViewRefreshControlValue = .text(value: "")
-    private var accountsViewRefreshControlValueTimer: Timer? = nil
     
     private lazy var collectionView: DiffableCollectionView = {
         let collectionView = DiffableCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
@@ -61,11 +56,6 @@ class DashboardViewController: UIViewController {
     }
     
     deinit {
-        if let synchronizationObserver = synchronizationObserver {
-            NotificationCenter.default.removeObserver(synchronizationObserver)
-        }
-        
-        accountsViewRefreshControlValueTimer?.invalidate()
         task?.cancel()
     }
     
@@ -76,69 +66,24 @@ class DashboardViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         
-        accountsViewRefreshControlValueTimer?.invalidate()
-        accountsViewRefreshControlValueTimer = Timer.scheduledTimer(
-            withTimeInterval: 1,
-            repeats: true,
-            block: { [weak self] timer in
-                guard let self = self
-                else {
-                    timer.invalidate()
-                    return
-                }
-
-                self.invalidateAccountsViewRefreshControlValue()
-            }
-        )
-
-        synchronizationObserver = NotificationCenter.default.addObserver(
-            forName: SwiftyTON.didUpdateSynchronization,
-            object: nil,
-            queue: .main,
-            using: { [weak self] notification in
-                guard let self = self,
-                      let progress = notification.userInfo?[SwiftyTON.synchronizationKey] as? Double,
-                      progress > 0, progress < 1
-                else {
-                    return
-                }
-                
-                self.accountsViewRefreshControlValue = .synchronization(value: progress)
-                self.invalidateAccountsViewRefreshControlValue()
-            }
-        )
-        
-        task = Task { [weak self] in
-            let accounts = await CodableStorage.group.methods.accounts()
-            self?.task = nil
-            
-            updateAccounts(accounts)
-        }
+        fetch(accountsWithSelected: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dataSource.apply(transactions: [], animated: false)
-//        Task {
-//            if let wallet = try? await storage.value(of: Wallet.self, forKey: .wallet(for: rawAddress)) {
-//                let transactions = try? await storage.value(of: [Transaction].self, forKey: .lastTransactions(for: rawAddress))
-//                reload(wallet, with: transactions ?? [])
-//            } else {
-//                accountsViewStartLoadingAnimation()
-//                updateWalletIfAvailable()
-//            }
-//        }
     }
     
     // MARK: Private
     
-    private func updateAccounts(_ accounts: [Account], selected: Account? = nil) {
+    private func fetch(accountsWithSelected selected: Account?) {
+        let request = Account.fetchRequest()
+        let accounts = (try? PersistenceObject.fetch(request)) ?? []
+        
         let cards: [DashboardStackView.Model] = accounts.map({ account in
             let model = DashboardStackView.Model(
                 account: account,
-                balanceBeforeDot: "0",
-                balanceAfterDot: "0",
-                style: .default
+                style: .image
             )
             return model
         })
@@ -153,56 +98,30 @@ class DashboardViewController: UIViewController {
             selected: _selected,
             animated: !accountsView.cards.isEmpty
         )
-        
-        guard !accounts.isEmpty
-        else {
-            dataSource.apply(transactions: [], animated: true)
-            return
-        }
-        
-        updateAccountIfAvailable(account: accounts[0])
-    }
-
-    private func updateAccountIfAvailable(account: Account) {
-        guard task == nil
-        else {
-            return
-        }
-        
-        accountsViewRefreshControlValue = .synchronization(value: 0)
-        invalidateAccountsViewRefreshControlValue()
-        
-        task = Task {
-            do {
-                let wallet = try await Wallet(rawAddress: account.rawAddress)
-                let transactions = try await wallet.contract.transactions()
-                reload(wallet, with: transactions)
-            } catch {
-                presentAlertViewController(with: error)
-            }
-            
-            accountsViewFinishLoadingAnimationIfNeeded()
-            task = nil
-        }
     }
     
-    private func reload(_ wallet: Wallet, with transactions: [Transaction], animated: Bool = true) {
-        let storage = storage
-        let rawAddress = wallet.contract.rawAddress
+    private func fetch(transactionsOfAccount account: Account) {
+        let request = Transaction.fetchRequest()
+        request.predicate = NSPredicate(format: "account = %@", account)
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        fetchResultsController = Transaction.fetchedResultsController(request: request)
+        fetchResultsController?.delegate = self
+        
+        try? fetchResultsController?.performFetch()
+    }
+}
 
-        Task {
-            try await storage.save(value: wallet, forKey: .wallet(for: rawAddress))
-            try await storage.save(value: transactions, forKey: .lastTransactions(for: rawAddress))
-        }
+// MARK: DashboardViewController: NSFetchedResultsControllerDelegate
 
-        accountsViewRefreshControlValue = .lastUpdatedDate(date: wallet.contract.info.synchronizationDate)
-        invalidateAccountsViewRefreshControlValue()
-        accountsViewFinishLoadingAnimationIfNeeded()
-
-        dataSource.apply(
-            transactions: transactions,
-            animated: animated && viewIfLoaded?.window != nil
-        )
+extension DashboardViewController: NSFetchedResultsControllerDelegate {
+    
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference
+    ) {
+        let objects = snapshot.itemIdentifiers.compactMap({ $0 as? NSManagedObjectID })
+        dataSource.apply(transactions: objects, animated: true)
     }
 }
 
@@ -297,7 +216,7 @@ extension DashboardViewController {
         if animated {
             collectionViewHeaderLayoutKindAnimator?.stopAnimation(true)
             
-            let timing = UISpringTimingParameters(damping: 0.9, response: 0.36)
+            let timing = UISpringTimingParameters(damping: 0.74, response: 0.46)
             collectionViewHeaderLayoutKindAnimator = UIViewPropertyAnimator(duration: 0.16, timingParameters: timing)
             collectionViewHeaderLayoutKindAnimator?.addAnimations({
                 collectionView.layoutIfNeeded()
@@ -321,12 +240,12 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     }
     
     func dashboardAccountsViewDidStartRefreshing(_ view: DashboardAccountsView) {
-        guard let account = view.cards.first?.account
+        guard let model = view.cards.first
         else {
             return
         }
         
-        updateAccountIfAvailable(account: account)
+        dashboardAccountsView(view, didChangeSelectedModel: model)
     }
     
     func dashboardAccountsViewIsUserInteractig(_ view: DashboardAccountsView) -> Bool {
@@ -343,57 +262,35 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     }
     
     func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
+        let account = model.account
         
+        fetch(transactionsOfAccount: account)
+        
+        task?.cancel()
+        task = Task { [weak self] in
+            do {
+                try await account.resynchronize()
+            } catch {
+                self?.presentAlertViewController(with: error)
+            }
+            
+            self?.accountsView.stopLoadingIfAvailable()
+            self?.task = nil
+        }
     }
 }
 
 //
-// MARK:
+// MARK: AccountAddingViewControllerDelegate
 //
 
 extension DashboardViewController: AccountAddingViewControllerDelegate {
     
     func accountAddingViewController(
         _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: Account,
-        into accounts: [Account]
+        didAddSaveAccount account: Account
     ) {
-        updateAccounts(accounts, selected: account)
-    }
-}
-
-//
-// MARK:  DashboardViewController: LoadingAnimation & RefreshControlValue
-//
-
-extension DashboardViewController {
-    
-    enum AccountsViewRefreshControlValue: Equatable {
-        
-        case text(value: String)
-        case synchronization(value: Double)
-        case lastUpdatedDate(date: Date)
-    }
-    
-    private func accountsViewStartLoadingAnimation() {
-        accountsView.startLoadingAnimationIfAvailable()
-    }
-    
-    private func accountsViewFinishLoadingAnimationIfNeeded() {
-        accountsView.stopLoadingIfAvailable()
-    }
-    
-    private func invalidateAccountsViewRefreshControlValue() {
-        switch accountsViewRefreshControlValue {
-        case let .text(value):
-            accountsView.huetonViewText = value
-        case let .lastUpdatedDate(date):
-            let formatter = RelativeDateTimeFormatter.shared
-            let timeAgo = formatter.localizedString(for: Date(), relativeTo: date)
-            accountsView.huetonViewText = "Updated \(timeAgo) ago"
-        case let .synchronization(value):
-            accountsView.huetonViewText = "Syncing.. \(Int(value * 100))%"
-        }
+        fetch(accountsWithSelected: account)
     }
 }
 
@@ -415,28 +312,3 @@ private extension DashboardStackView.Model.Style {
         backgroundColor: UIColor(rgb: 0x292528)
     )
 }
-
-// PROD
-//
-// Balance: ?
-// Address: "EQBKCMGcAoyyG85L3SIakVRLMfwhp7-xA13jTWAYO1jgpb81" // v4r2
-// Words: []
-
-// PROD
-//
-// Balance: ?
-// Address: "EQCMfNwPB8TaNqQ9hnXCYcXOz41jfI5PCawHe1ZvwKfKXTXM" // united
-// Words: []
-
-// PROD
-//
-// Balance: 34
-// Address: EQCd3ASamrfErTV4K6iG5r0o3O_hl7K_9SghU0oELKF-sxDn // v3r2
-// Words: []
-
-// TEST
-//
-// Balance: 14.9
-// Address: EQAVhOY2uT49tcvM6rRJII25bgEqEBWu6ZywXrtaqYtvIlMk
-// Address: EQCIJiFJrN8kuwdXEIfmJ-D7qwP-QfLX8YtCAhaY6AoSKxUv ????????????????????????????????
-// Words: ["episode", "diary", "tower", "either", "void", "into", "until", "universe", "loan", "answer", "own", "ribbon", "adapt", "step", "tuna", "innocent", "accident", "female", "already", "nasty", "wrist", "tenant", "toast", "post"]

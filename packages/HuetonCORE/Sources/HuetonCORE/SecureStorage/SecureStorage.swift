@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import SwiftyTON
 
 /// Storage that stores data secured in Keychain
 public struct SecureStorage {
@@ -18,7 +17,7 @@ public struct SecureStorage {
     ///
     /// - parameter address: The address of key
     /// - returns: Optional `Key` for given `address`
-    func key(for rawAddress: Address.RawAddress) async throws -> Key? {
+    public func key(for rawAddress: Address.RawAddress) async throws -> Key? {
         let keys = try await keys()
         return keys.first(where: { $0.rawAddress == rawAddress })
     }
@@ -26,7 +25,7 @@ public struct SecureStorage {
     /// Returns all stored keys in keychain
     ///
     /// - returns: Set of all stored keys `Key`
-    func keys() async throws -> Set<Key> {
+    public func keys() async throws -> Set<Key> {
         let account = "keys"
         let queue = self.queue
         let service = self.service
@@ -50,7 +49,7 @@ public struct SecureStorage {
     /// Saves key `Key` in keychain
     ///
     /// - parameter key: The key
-    func save(key: Key) async throws {
+    public func save(key: Key) async throws {
         let account = "keys"
         var keys = Set<Key>()
         
@@ -69,7 +68,7 @@ public struct SecureStorage {
     /// Removes stored key `Key` from  keychain
     ///
     /// - parameter key: The key
-    func remove(key: Key) async throws {
+    public func remove(key: Key) async throws {
         let account = "keys"
         var keys = Set<Key>()
         
@@ -85,7 +84,7 @@ public struct SecureStorage {
     }
     
     /// Removes all stored keys
-    func removeAllKeys() async throws {
+    public func removeAllKeys() async throws {
         let account = "keys"
         return try await withCheckedThrowingContinuation({ continuation in
             queue.async(execute: {

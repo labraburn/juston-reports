@@ -7,7 +7,8 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
+import HuetonCORE
+import CoreData
 
 protocol DashboardDiffableDataSourceDelegate: AnyObject {
     
@@ -31,7 +32,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
     
     enum Item: Hashable {
         
-        case transaction(value: Transaction)
+        case transaction(value: NSManagedObjectID)
     }
     
     weak var delegate: DashboardDiffableDataSourceDelegate?
@@ -52,7 +53,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 reusableCellClass: DashboardTransactionCollectionViewCell.self,
                 for: indexPath
             )
-            cell.model = value
+            cell.model = PersistenceObject.object(with: value, type: Transaction.self)
             return cell
         }
     }
@@ -82,7 +83,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         }
     }
     
-    func apply(transactions: [Transaction], animated: Bool) {
+    func apply(transactions: [NSManagedObjectID], animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.transactions])
         snapshot.appendItems(transactions.map({ .transaction(value: $0) }), toSection: .transactions)

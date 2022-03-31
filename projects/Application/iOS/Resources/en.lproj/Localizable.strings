@@ -7,6 +7,17 @@
 */
 
 /*
+ START - Common
+ */
+
+"CommonCancel" = "Cancel";
+"CommonDone" = "Done";
+
+/*
+ END - Common
+ */
+
+/*
  START - AccountCreating
  */
 

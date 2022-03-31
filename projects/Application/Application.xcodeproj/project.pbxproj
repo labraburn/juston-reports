@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		F00BE9F227DCC20B0084FF1C /* DashboardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */; };
-		F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */ = {isa = PBXBuildFile; productRef = F01E909C27A7A93E00BD1BDF /* SwiftyTON */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
-		F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12727E6363200BB952F /* CodableStorage+Keys.swift */; };
 		F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
@@ -30,7 +28,6 @@
 		F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F0909B5F27E8CF5100FC8404 /* Localizable.strings */; };
 		F0909B6127E8CF6500FC8404 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6027E8CF6500FC8404 /* String.swift */; };
 		F0909B6327E8DB1900FC8404 /* AccountAddingTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */; };
-		F0909B6627E8E6F200FC8404 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B6527E8E6F200FC8404 /* Account.swift */; };
 		F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */; };
 		F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */; };
 		F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0995F6B27A0B7CB003A090C /* Assets.xcassets */; };
@@ -46,8 +43,8 @@
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
-		F0B0AA2427B275B5007B55F1 /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */; };
-		F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */; };
+		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
+		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
 		F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */; };
 /* End PBXBuildFile section */
@@ -55,11 +52,10 @@
 /* Begin PBXFileReference section */
 		F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackCardView.swift; sourceTree = "<group>"; };
-		F0290C8927A7A9FE00FEEBA5 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
-		F062B12727E6363200BB952F /* CodableStorage+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableStorage+Keys.swift"; sourceTree = "<group>"; };
+		F041A57927F5D0A700213489 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
 		F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionHeaderView.swift; sourceTree = "<group>"; };
 		F0909B4527E7821800FC8404 /* AccountAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingViewController.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* AccountAddingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingNavigationController.swift; sourceTree = "<group>"; };
@@ -74,7 +70,6 @@
 		F0909B5E27E8CF5100FC8404 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F0909B6027E8CF6500FC8404 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingTextFieldCell.swift; sourceTree = "<group>"; };
-		F0909B6527E8E6F200FC8404 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		F0909B6727E8EECE00FC8404 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		F0995F5F27A0B7CA003A090C /* Hueton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hueton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
@@ -94,8 +89,8 @@
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
-		F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
-		F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
+		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardParameters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,7 +102,6 @@
 			files = (
 				F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */,
 				F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */,
-				F01E909D27A7A93E00BD1BDF /* SwiftyTON in Frameworks */,
 				F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */,
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
 			);
@@ -141,15 +135,6 @@
 				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		F062B12627E6361E00BB952F /* CodableStorage */ = {
-			isa = PBXGroup;
-			children = (
-				F0B0AA2627B27BE8007B55F1 /* CodableStorage.swift */,
-				F062B12727E6363200BB952F /* CodableStorage+Keys.swift */,
-			);
-			path = CodableStorage;
 			sourceTree = "<group>";
 		};
 		F0909B4427E781F400FC8404 /* AccountAdding */ = {
@@ -186,14 +171,6 @@
 			path = DecorationViews;
 			sourceTree = "<group>";
 		};
-		F0909B6427E8E6E600FC8404 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				F0909B6527E8E6F200FC8404 /* Account.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		F0995F5627A0B7CA003A090C = {
 			isa = PBXGroup;
 			children = (
@@ -222,8 +199,6 @@
 				F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */,
 				F0EA237E27AE6FE900D682B2 /* Common */,
 				F0E22C5427A9DEC9004E2E2A /* Extensions */,
-				F0909B6427E8E6E600FC8404 /* Models */,
-				F0E22C5127A9DDAE004E2E2A /* Services */,
 				F0995F9427A0B861003A090C /* Modules */,
 				F0995F9327A0B85A003A090C /* Resources */,
 				F0995F9227A0B847003A090C /* Supporting */,
@@ -254,6 +229,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F0DBFA4F27F607FB00956DC9 /* Error */,
 				F0909B4427E781F400FC8404 /* AccountAdding */,
 				F0995FA627A0BC67003A090C /* Dashboard */,
 				F0995F9527A0B878003A090C /* Launch */,
@@ -276,7 +252,7 @@
 				F02FECE827F3143600CC306C /* HuetonUI */,
 				F02FECE927F3145800CC306C /* HuetonCORE */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
-				F0290C8927A7A9FE00FEEBA5 /* SwiftyTON */,
+				F041A57927F5D0A700213489 /* SwiftyTON */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -316,13 +292,13 @@
 			path = DateFormatters;
 			sourceTree = "<group>";
 		};
-		F0E22C5127A9DDAE004E2E2A /* Services */ = {
+		F0DBFA4F27F607FB00956DC9 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				F062B12627E6361E00BB952F /* CodableStorage */,
-				F0B0AA2127B275B5007B55F1 /* SecureStorage.swift */,
+				F0DBFA5027F6081200956DC9 /* AlertViewController.swift */,
+				F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */,
 			);
-			path = Services;
+			path = Error;
 			sourceTree = "<group>";
 		};
 		F0E22C5427A9DEC9004E2E2A /* Extensions */ = {
@@ -368,7 +344,6 @@
 			);
 			name = iOS;
 			packageProductDependencies = (
-				F01E909C27A7A93E00BD1BDF /* SwiftyTON */,
 				F064CC9827B23DDC00076245 /* DeclarativeUI */,
 				F064CC9A27B23DDC00076245 /* SystemUI */,
 				F02FECEA27F3153F00CC306C /* HuetonCORE */,
@@ -435,21 +410,20 @@
 				F0909B5527E8920700FC8404 /* AccountAddingModel.swift in Sources */,
 				F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* AccountAddingLabelCell.swift in Sources */,
-				F0B0AA2427B275B5007B55F1 /* SecureStorage.swift in Sources */,
 				F0909B4627E7821800FC8404 /* AccountAddingViewController.swift in Sources */,
 				F0909B4C27E88B7F00FC8404 /* AccountAddingDataSource.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* AccountAddingWordCell.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
-				F0909B6627E8E6F200FC8404 /* Account.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,
+				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* AccountAddingImageViewCell.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
-				F062B12827E6363200BB952F /* CodableStorage+Keys.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* AccountAddingTextFieldCell.swift in Sources */,
+				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
 				F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
@@ -460,7 +434,6 @@
 				F0909B5A27E8B6F000FC8404 /* AccountAddingWordsDecorationView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
 				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
-				F0B0AA2727B27BE8007B55F1 /* CodableStorage.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,
@@ -705,11 +678,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F01E909C27A7A93E00BD1BDF /* SwiftyTON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */;
-			productName = SwiftyTON;
-		};
 		F02FECEA27F3153F00CC306C /* HuetonCORE */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HuetonCORE;

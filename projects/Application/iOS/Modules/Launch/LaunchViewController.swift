@@ -7,7 +7,6 @@
 
 import UIKit
 import HuetonUI
-import SwiftyTON
 
 protocol LaunchViewControllerDelegate: AnyObject {
     
