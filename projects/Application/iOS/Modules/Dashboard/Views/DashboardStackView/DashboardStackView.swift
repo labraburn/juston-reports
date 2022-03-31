@@ -372,8 +372,6 @@ extension DashboardStackView: UIGestureRecognizerDelegate {
     }
 }
 
-
-
 // Inspired via
 // https://github.com/jenox/UIKit-Playground/tree/master/02-Gestures-In-Fluid-Interfaces/
 extension UIPanGestureRecognizer {

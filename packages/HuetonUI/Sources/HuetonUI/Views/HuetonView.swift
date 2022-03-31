@@ -8,7 +8,7 @@ public final class HuetonView: SignboardView {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .hui_textTeritary
+        $0.textColor = .hui_textSecondary
         $0.font = .font(for: .caption2)
         $0.textAlignment = .center
         $0.numberOfLines = 0
@@ -18,7 +18,7 @@ public final class HuetonView: SignboardView {
     
     public var text: String? {
         get { textLabel.attributedText?.string }
-        set { textLabel.attributedText = .string(newValue, with: .caption2, kern: .four, lineHeight: 11) }
+        set { textLabel.attributedText = .string(newValue, with: .caption2, kern: .default, lineHeight: 11) }
     }
     
     public init() {

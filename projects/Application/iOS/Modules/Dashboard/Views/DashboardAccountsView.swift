@@ -267,7 +267,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private func defaultAdditionalInsetsWithSafeAreaInsets(_ safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
         let bottom: CGFloat = 76 + (safeAreaInsets.bottom == 0 ? 42 : 24) // 76 - bottom h stack view
         return UIEdgeInsets(
-            top: HuetonView.applicationHeight + 56,
+            top: HuetonView.applicationHeight + 64,
             left: 12,
             bottom: bottom,
             right: 12
