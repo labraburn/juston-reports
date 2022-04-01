@@ -8,6 +8,7 @@
 import UIKit
 import HuetonUI
 import HuetonCORE
+import CoreData
 
 final class DashboardStackCardView: UIView {
     
@@ -35,7 +36,7 @@ final class DashboardStackCardView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    private lazy var backgroundView = DashboardStackCardBackgroundView(style: model.style).with({
+    private lazy var backgroundView = DashboardStackCardBackgroundView(model: model).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
@@ -55,6 +56,9 @@ final class DashboardStackCardView: UIView {
         })
         
         _update(state: state, animated: false)
+        model.account.changes = { [weak self] in
+            self?._reload()
+        }
     }
     
     @available(*, unavailable)
@@ -94,7 +98,28 @@ final class DashboardStackCardView: UIView {
     
     // MARK: Private
     
-    func _update(state: State, animated: Bool) {
+    private func _reload() {
+        compactContentView._reload()
+        largeContentView._reload()
+        backgroundView._reload()
+    }
+    
+    private func _update(state: State, animated: Bool) {
+        if backgroundView.superview != self {
+            addSubview(backgroundView)
+            backgroundView.pinned(edges: self)
+        }
+        
+        if largeContentView.superview != self {
+            addSubview(largeContentView)
+            largeContentView.pinned(edges: self)
+        }
+        
+        if compactContentView.superview != self {
+            addSubview(compactContentView)
+            compactContentView.pinned(edges: self)
+        }
+        
         UIView.performWithoutAnimation({
             backgroundView.overlayView.isHidden = false
             largeContentView.isHidden = false
@@ -109,8 +134,16 @@ final class DashboardStackCardView: UIView {
         
         let completion = { (_ finished: Bool) in
             self.backgroundView.overlayView.isHidden = self.backgroundView.overlayView.alpha == 0
+            
             self.largeContentView.isHidden = self.largeContentView.alpha == 0
+            if self.largeContentView.isHidden {
+                self.largeContentView.removeFromSuperview()
+            }
+            
             self.compactContentView.isHidden = self.compactContentView.alpha == 0
+            if self.compactContentView.isHidden {
+                self.compactContentView.removeFromSuperview()
+            }
         }
         
         if animated {
@@ -145,13 +178,20 @@ private class DashboardStackCardContentView: UIView {
         
         layer.masksToBounds = true
         layer.cornerCurve = .continuous
-        layer.borderColor = model.style.borderColor.cgColor
         layer.borderWidth = 1
+        
+        _reload()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Private
+    
+    fileprivate func _reload() {
+        layer.borderColor = model.style.borderColor.cgColor
     }
 }
 
@@ -206,6 +246,12 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
             bottomAnchor.pin(to: accountCurrentAddressLabel.bottomAnchor, constant: 12)
             rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 20)
         })
+        
+        _reload()
+    }
+    
+    override func _reload() {
+        super._reload()
         
         let name = model.account.name
         let address = Address(rawAddress: model.account.rawAddress)
@@ -309,6 +355,12 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
             moreButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
         })
         
+        _reload()
+    }
+    
+    override func _reload() {
+        super._reload()
+        
         sendButton.tintColor = model.style.textColorPrimary
         receiveButton.tintColor = model.style.textColorPrimary
         moreButton.tintColor = model.style.textColorPrimary
@@ -346,6 +398,8 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
 
 private final class DashboardStackCardBackgroundView: UIView {
     
+    let model: DashboardStackView.Model
+    
     let contentView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
@@ -365,11 +419,34 @@ private final class DashboardStackCardBackgroundView: UIView {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    init(style: DashboardStackView.Model.Style) {
+    init(model: DashboardStackView.Model) {
+        self.model = model
+        
         super.init(frame: .zero)
         
         layer.masksToBounds = true
         layer.cornerCurve = .continuous
+        
+        addSubview(contentView)
+        addSubview(overlayView)
+        
+        NSLayoutConstraint.activate({
+            contentView.pin(edges: self)
+            overlayView.pin(edges: self)
+        })
+        
+        _reload()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Private
+    
+    fileprivate func _reload() {
+        let style = model.style
         
         backgroundColor = style.backgroundColor
         overlayView.backgroundColor = style.backgroundColor
@@ -379,25 +456,13 @@ private final class DashboardStackCardBackgroundView: UIView {
             imageView.image = style.backgroundImage
             contentView.addSubview(imageView)
             contentView.addSubview(visualEffectView)
-        }
-        
-        addSubview(contentView)
-        addSubview(overlayView)
-        
-        NSLayoutConstraint.activate({
-            if hasBackgroundImage {
-                imageView.pin(edges: contentView)
-                visualEffectView.pin(edges: contentView)
-            }
             
-            contentView.pin(edges: self)
-            overlayView.pin(edges: self)
-        })
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+            imageView.pinned(edges: contentView)
+            visualEffectView.pinned(edges: contentView)
+        } else {
+            imageView.removeFromSuperview()
+            visualEffectView.removeFromSuperview()
+        }
     }
 }
 

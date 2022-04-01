@@ -4,10 +4,14 @@
 
 import Foundation
 import CoreData
+import Combine
 
 @MainActor
 public class PersistenceObject: NSManagedObject {
     
+    public var changes: (() -> ())?
+    
+    @MainActor
     private override init(
         entity: NSEntityDescription,
         insertInto context: NSManagedObjectContext?
@@ -18,6 +22,7 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
+    @MainActor
     internal init(shouldInsertIntoViewContext: Bool) {
         let context = PersistenceController.shared.viewContext
         super.init(
@@ -26,8 +31,15 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
+    @MainActor
+    public override func didSave() {
+        super.didSave()
+        changes?()
+    }
+    
     // MARK: API
     
+    @MainActor
     open func save() throws {
         let context = PersistenceController.shared.viewContext
         if (try? context.existingObject(with: objectID)) == nil {
@@ -36,7 +48,8 @@ public class PersistenceObject: NSManagedObject {
         try context.save()
     }
     
-    nonisolated public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
+    @MainActor
+    public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
         let viewContext = PersistenceController.shared.viewContext
         guard let object = try? viewContext.existingObject(with: id),
               let casted = object as? T
@@ -46,7 +59,8 @@ public class PersistenceObject: NSManagedObject {
         return casted
     }
     
-    nonisolated public final class func perform(_ code: @escaping (_ viewContext: NSManagedObjectContext) throws -> ()) throws {
+    @MainActor
+    public final class func perform(_ code: @escaping (_ viewContext: NSManagedObjectContext) throws -> ()) throws {
         let viewContext = PersistenceController.shared.viewContext
         var error: Error? = nil
         
@@ -66,7 +80,8 @@ public class PersistenceObject: NSManagedObject {
         throw error
     }
     
-    nonisolated public final class func entity(with context: NSManagedObjectContext) -> NSEntityDescription {
+    @MainActor
+    public final class func entity(with context: NSManagedObjectContext) -> NSEntityDescription {
         let entityName = String(describing: Self.self)
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
         else {
@@ -80,11 +95,13 @@ public class PersistenceObject: NSManagedObject {
 
 extension PersistenceObject {
     
+    @MainActor
     public class func fetch<T>(_ request: NSFetchRequest<T>) throws -> [T] where T : NSFetchRequestResult {
         let viewContext = PersistenceController.shared.viewContext
         return try viewContext.fetch(request)
     }
 
+    @MainActor
     public class func count<T>(for request: NSFetchRequest<T>) throws -> Int where T : NSFetchRequestResult {
         let viewContext = PersistenceController.shared.viewContext
         return try viewContext.count(for: request)

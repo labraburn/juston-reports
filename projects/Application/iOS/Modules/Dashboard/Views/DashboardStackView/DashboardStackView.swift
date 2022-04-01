@@ -19,6 +19,7 @@ protocol DashboardStackViewDelegate: AnyObject {
 
 final class DashboardStackView: UIView {
     
+    @MainActor
     struct Model {
         
         struct Style {
@@ -35,20 +36,22 @@ final class DashboardStackView: UIView {
         let style: Style
     }
     
+    @MainActor
     enum Presentation {
         
         case large
         case compact
     }
     
+    @MainActor
     private struct UserInteractionSession {
         
         let viewInitialCenter: CGPoint
     }
     
-    private var didInitialized: Bool = false
     private var userInteractionSession: UserInteractionSession? = nil
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private var needsLayoutAnimated = false
     
     private var containerView: UIView = UIView().with({
         $0.backgroundColor = .clear
@@ -144,8 +147,10 @@ final class DashboardStackView: UIView {
         
         layoutContainerViewSubviews(
             excludePositiongOfView: nil,
-            animated: false
+            animated: needsLayoutAnimated
         )
+        
+        needsLayoutAnimated = false
     }
     
     func update(data: [Model], selected: Model? = nil, animated: Bool) {
@@ -155,17 +160,24 @@ final class DashboardStackView: UIView {
         }
         
         var updated = data.sorted(by: { $0.account.name > $1.account.name })
-        let _selected = selected ?? self.selected
+        var _selected = selected ?? self.selected
         
         if let _selected = _selected, let index = updated.firstIndex(of: _selected) {
             updated = Array(updated[index ..< updated.count]) + Array(updated[0 ..< index])
         }
         
-        if self.selected == nil {
-            self.selected = updated.first
+        if _selected == nil {
+            _selected = updated.first
+        }
+        
+        guard self.data != data && self.selected != updated.first
+        else {
+            return
         }
         
         self.data = updated
+        self.selected = _selected
+        
         reloadData(animated)
     }
     
@@ -187,25 +199,31 @@ final class DashboardStackView: UIView {
             index += 1
         })
         
-        layoutContainerViewSubviews(
-            excludePositiongOfView: nil,
-            animated: true
-        )
+        needsLayoutAnimated = animated
+        setNeedsLayout()
     }
     
     private func layoutContainerViewSubviews(excludePositiongOfView: UIView? = nil, animated: Bool) {
-        // If all in initial state
-        let shouldSpeedUpDuration = containerViewSubviews.filter({ $0.state != .hidden }).count == containerViewSubviews.count
+        let shouldStartFrom0Alpha = containerViewSubviews.filter({ $0.state != .hidden }).count == containerViewSubviews.count
         
         var index = 0
         containerViewSubviews.reversed().forEach({ view in
             let animations = {
-                view.bounds = self.containerSubviewViewBounds(at: index)
+                UIView.performWithoutAnimation({
+                    let bounds = self.containerSubviewViewBounds(at: index)
+                    if view.bounds != bounds {
+                        view.bounds = bounds
+                        view.layoutIfNeeded()
+                    }
+                })
+                
+                
                 if view != excludePositiongOfView {
                     view.center = self.containerSubviewViewPosition(at: index)
+                    view.alpha = self.containerSubviewViewAlpha(at: index)
+                    view.isHidden = view.alpha == 0
                 }
-                view.alpha = max(1 - 0.36 * CGFloat(index), 0)
-                view.isHidden = view.alpha == 0
+                
                 view.transform = .identity
                 view.update(
                     state: index == 0 ? self.presentation.cardViewState : .hidden,
@@ -213,9 +231,13 @@ final class DashboardStackView: UIView {
                 )
             }
             
-            if animated && !shouldSpeedUpDuration {
+            if shouldStartFrom0Alpha {
+                view.alpha = 0
+            }
+            
+            if animated {
                 UIView.performWithDefaultAnimation(
-                    duration: index == 0 ? 0.86 : 0.42,
+                    duration: 0.86,
                     block: animations
                 )
             } else {
@@ -244,6 +266,10 @@ final class DashboardStackView: UIView {
         )
     }
     
+    private func containerSubviewViewAlpha(at index: Int) -> CGFloat {
+        max(1 - 0.36 * CGFloat(index), 0)
+    }
+    
     private func popLastAndLayoutContainerViewSubviews(velocity: CGPoint) {
         backgroundAnimator.removeAllBehaviors()
         
@@ -269,6 +295,18 @@ final class DashboardStackView: UIView {
         selected = data.first
         
         containerView.sendSubviewToBack(card)
+        
+        let alpha = containerSubviewViewAlpha(at: containerViewSubviews.count - 1)
+        UIView.animate(
+            withDuration: 0.93,
+            delay: 0,
+            options: [.curveEaseOut],
+            animations: {
+                card.alpha = alpha
+            }, completion: { _ in
+                card.isHidden = alpha == 0
+            }
+        )
         
         layoutContainerViewSubviews(
             excludePositiongOfView: card,
@@ -353,8 +391,16 @@ final class DashboardStackView: UIView {
     }
 }
 
-extension DashboardStackView.Model: Hashable {}
-extension DashboardStackView.Model.Style: Hashable {}
+extension DashboardStackView.Model: Hashable {
+    
+    static func == (lhs: DashboardStackView.Model, rhs: DashboardStackView.Model) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(account.rawAddress)
+    }
+}
 
 extension DashboardStackView: UIGestureRecognizerDelegate {
     

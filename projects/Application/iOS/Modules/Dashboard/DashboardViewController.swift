@@ -65,47 +65,52 @@ class DashboardViewController: UIViewController {
         view.backgroundColor = .hui_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
-        
-        fetch(accountsWithSelected: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource.apply(transactions: [], animated: false)
+        
+        if accountsView.superview == nil {
+            dataSource.apply(transactions: [], animated: false)
+            reload(withSelectedAccount: nil)
+        }
     }
     
     // MARK: Private
     
-    private func fetch(accountsWithSelected selected: Account?) {
-        let request = Account.fetchRequest()
-        let accounts = (try? PersistenceObject.fetch(request)) ?? []
-        
-        let cards: [DashboardStackView.Model] = accounts.map({ account in
-            let model = DashboardStackView.Model(
-                account: account,
+    private func reload(withSelectedAccount selected: Account?) {
+        let cardsRequest = Account.fetchRequest()
+        let cards = ((try? PersistenceObject.fetch(cardsRequest)) ?? []).map({
+            DashboardStackView.Model(
+                account: $0,
                 style: .image
             )
-            return model
         })
         
-        var _selected: DashboardStackView.Model?
-        if let selected = selected, let index = cards.firstIndex(where: { $0.account == selected }) {
-            _selected = cards[index]
+        guard !cards.isEmpty
+        else {
+            accountsView.set(cards: [], selected: nil, animated: true)
+            return
+        }
+        
+        let _selected: DashboardStackView.Model
+        if let selected = selected {
+            _selected = cards.first(where: { $0.account == selected }) ?? cards[0]
+        } else {
+            _selected = accountsView.selected ?? cards[0]
         }
         
         accountsView.set(
             cards: cards,
             selected: _selected,
-            animated: !accountsView.cards.isEmpty
+            animated: true
         )
-    }
-    
-    private func fetch(transactionsOfAccount account: Account) {
-        let request = Transaction.fetchRequest()
-        request.predicate = NSPredicate(format: "account = %@", account)
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
-        fetchResultsController = Transaction.fetchedResultsController(request: request)
+        let transactionsRequest = Transaction.fetchRequest()
+        transactionsRequest.predicate = NSPredicate(format: "account = %@", _selected.account)
+        transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        fetchResultsController = Transaction.fetchedResultsController(request: transactionsRequest)
         fetchResultsController?.delegate = self
         
         try? fetchResultsController?.performFetch()
@@ -263,8 +268,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     
     func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
         let account = model.account
-        
-        fetch(transactionsOfAccount: account)
+        reload(withSelectedAccount: account)
         
         task?.cancel()
         task = Task { [weak self] in
@@ -290,7 +294,7 @@ extension DashboardViewController: AccountAddingViewControllerDelegate {
         _ viewController: AccountAddingViewController,
         didAddSaveAccount account: Account
     ) {
-        fetch(accountsWithSelected: account)
+        reload(withSelectedAccount: account)
     }
 }
 
