@@ -36,7 +36,6 @@ final class DashboardStackView: UIView {
         let style: Style
     }
     
-    @MainActor
     enum Presentation {
         
         case large
