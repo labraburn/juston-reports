@@ -87,7 +87,7 @@ extension AccountAddingModel {
                                 viewController?.next(.words(result.0, address: result.1))
                                 viewController?.feedbackGenerator.impactOccurred()
                             case let .failure(error):
-                                viewController?.presentAlertViewController(with: error)
+                                viewController?.present(error)
                             }
                         })
                     }

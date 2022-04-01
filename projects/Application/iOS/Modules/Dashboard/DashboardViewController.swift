@@ -275,7 +275,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
             do {
                 try await account.resynchronize()
             } catch {
-                self?.presentAlertViewController(with: error)
+                self?.present(error)
             }
             
             self?.accountsView.stopLoadingIfAvailable()

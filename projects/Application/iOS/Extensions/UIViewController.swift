@@ -10,13 +10,36 @@ import HuetonUI
 
 extension UIViewController {
     
-    func presentAlertViewController(with error: Error, title: String? = "ERROR") {
+    struct ErrorPresentingOptions: OptionSet {
+        
+        var rawValue: Int
+        
+        init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        
+        static let skipIfCancelled = ErrorPresentingOptions(rawValue: 1 << 0)
+        
+        static let `default`: ErrorPresentingOptions = [.skipIfCancelled]
+    }
+    
+    func present(
+        _ errorToPresent: Error,
+        options: ErrorPresentingOptions = .default,
+        animated: Bool = true,
+        completion: (() -> Void)? = nil
+    ) {
+        if errorToPresent is CancellationError && options.contains(.skipIfCancelled) {
+            return
+        }
+        
         let viewController = AlertViewController(
             image: .hui_error42,
-            title: title,
-            message: error.localizedDescription,
+            title: "UPS",
+            message: errorToPresent.localizedDescription,
             actions: [.done]
         )
-        present(viewController, animated: true, completion: nil)
+        
+        present(viewController, animated: animated, completion: completion)
     }
 }

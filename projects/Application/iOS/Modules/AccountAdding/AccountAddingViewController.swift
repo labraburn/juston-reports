@@ -81,7 +81,7 @@ class AccountAddingViewController: UIViewController {
             delegate?.accountAddingViewController(self, didAddSaveAccount: account)
             navigationController?.dismiss(animated: true, completion: nil)
         } catch {
-            presentAlertViewController(with: error)
+            present(error)
         }
     }
     
