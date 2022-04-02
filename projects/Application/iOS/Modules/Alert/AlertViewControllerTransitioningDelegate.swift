@@ -96,7 +96,7 @@ private class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControll
         let timingParameters: UITimingCurveProvider
         switch operation {
         case .presenting:
-            timingParameters = UISpringTimingParameters(damping: 0.82, response: 0.4)
+            timingParameters = UISpringTimingParameters(damping: 0.79, response: 0.4)
         case .dismissing:
             timingParameters = UISpringTimingParameters(damping: 1, response: 0.3)
         }
@@ -151,6 +151,7 @@ private class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControll
             case .dismissing:
                 presentingViewController?.view.tintAdjustmentMode = .automatic
                 fromView?.transform = .identity.translatedBy(x: 0, y: bounds.height).scaledBy(x: 0.8, y: 0.8)
+                fromView?.alpha = 0
             }
         })
         
