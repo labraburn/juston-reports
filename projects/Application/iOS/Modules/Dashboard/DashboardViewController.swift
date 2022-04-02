@@ -250,7 +250,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
             return
         }
         
-        dashboardAccountsView(view, didChangeSelectedModel: model)
+        refresh(account: model.account, manually: true)
     }
     
     func dashboardAccountsViewIsUserInteractig(_ view: DashboardAccountsView) -> Bool {
@@ -268,17 +268,26 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     
     func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
         let account = model.account
-        reload(withSelectedAccount: account)
         
+        reload(withSelectedAccount: account)
+        refresh(account: account, manually: false)
+    }
+    
+    private func refresh(account: Account, manually: Bool) {
         task?.cancel()
         task = Task { [weak self] in
             do {
                 try await account.resynchronize()
+                self?.accountsView.stopLoadingIfAvailable()
+            } catch is CancellationError {
+                if !manually {
+                    // Seems like we are manually cancelled task by refresh control
+                    self?.accountsView.stopLoadingIfAvailable()
+                }
             } catch {
                 self?.present(error)
+                self?.accountsView.stopLoadingIfAvailable()
             }
-            
-            self?.accountsView.stopLoadingIfAvailable()
             self?.task = nil
         }
     }

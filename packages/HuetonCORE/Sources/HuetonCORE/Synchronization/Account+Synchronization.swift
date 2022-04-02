@@ -24,7 +24,7 @@ extension Account {
             return
         }
         
-        let transactions = try await wallet.contract.transactions()
+        let transactions = try await wallet.contract.transactions(full: true)
         
         guard !Task.isCancelled
         else {
@@ -37,7 +37,6 @@ extension Account {
         
         try PersistenceObject.perform { viewContext in
             currentTransactions.forEach({ viewContext.delete($0) })
-            try viewContext.save()
         }
         
         try PersistenceObject.perform { viewContext in
