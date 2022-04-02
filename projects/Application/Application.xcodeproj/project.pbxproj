@@ -230,7 +230,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F0DBFA4F27F607FB00956DC9 /* Error */,
+				F0DBFA4F27F607FB00956DC9 /* Alert */,
 				F0909B4427E781F400FC8404 /* AccountAdding */,
 				F0995FA627A0BC67003A090C /* Dashboard */,
 				F0995F9527A0B878003A090C /* Launch */,
@@ -294,13 +294,13 @@
 			path = DateFormatters;
 			sourceTree = "<group>";
 		};
-		F0DBFA4F27F607FB00956DC9 /* Error */ = {
+		F0DBFA4F27F607FB00956DC9 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
 				F0DBFA5027F6081200956DC9 /* AlertViewController.swift */,
 				F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */,
 			);
-			path = Error;
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		F0E22C5427A9DEC9004E2E2A /* Extensions */ = {
