@@ -6,18 +6,9 @@
 //
 
 import UIKit
+import SystemUI
 
-class AccountAddingNavigationController: UINavigationController {
-    
-    override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-        delegate = self
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+class AccountAddingNavigationController: SUINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,110 +40,113 @@ class AccountAddingNavigationController: UINavigationController {
         navigationBar.prefersLargeTitles = false
         navigationBar.layer.masksToBounds = true
     }
-}
-
-extension AccountAddingNavigationController: UINavigationControllerDelegate {
     
-    func navigationController(
-        _ navigationController: UINavigationController,
-        animationControllerFor operation: UINavigationController.Operation,
-        from fromVC: UIViewController,
-        to toVC: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
-        AccountAddingNavigationAnimatedTransitioning(navigationOperation: operation)
+    override func trickyAnimatedTransitioning(
+        for operation: UINavigationController.Operation
+    ) -> SUINavigationControllerAnimatedTransitioning? {
+        .addingNavigationTransitioning(with: operation)
     }
 }
 
-private class AccountAddingNavigationAnimatedTransitioning: NSObject {
+private extension SUINavigationControllerAnimatedTransitioning {
     
-    private let navigationOperation: UINavigationController.Operation
-    private var animator: UIViewPropertyAnimator?
-    
-    init(navigationOperation: UINavigationController.Operation) {
-        self.navigationOperation = navigationOperation
-        super.init()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension AccountAddingNavigationAnimatedTransitioning: UIViewControllerAnimatedTransitioning {
-    
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.32
-    }
-    
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        interruptibleAnimator(using: transitionContext).startAnimation()
-    }
-    
-    func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-        if let animator = animator {
-            return animator
-        }
+    static func addingNavigationTransitioning(
+        with operation: UINavigationController.Operation
+    ) -> SUINavigationControllerAnimatedTransitioning {
+        let defaultTransitionDuration = TimeInterval(0.38)
+        let pushTransitionDuration = TimeInterval(0.54)
         
-        let animator = UIViewPropertyAnimator(
-            duration: transitionDuration(using: transitionContext),
-            timingParameters: UISpringTimingParameters(damping: 0.76, response: 0.4)
+        return SUINavigationControllerAnimatedTransitioning(
+            navigationOperation: operation,
+            transitionDuration: { transitionContext in
+                if operation == .push {
+                    return pushTransitionDuration
+                } else {
+                    return defaultTransitionDuration
+                }
+            },
+            transitionAnimation: { transitionContext in
+                guard let fromView = transitionContext.view(forKey: .from),
+                      let toView = transitionContext.view(forKey: .to)
+                else {
+                    fatalError("This is case not possible.")
+                }
+                
+                var transitionDuration = defaultTransitionDuration
+                let containerView = transitionContext.containerView
+                toView.frame = containerView.bounds
+                
+                switch operation {
+                case .push:
+                    transitionDuration = pushTransitionDuration
+                    containerView.addSubview(toView)
+                    toView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
+                case .pop:
+                    containerView.insertSubview(toView, belowSubview: fromView)
+                    
+                    toView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
+                    toView.alpha = 0.2
+                case .none:
+                    break
+                @unknown default:
+                    break
+                }
+                
+                let animations = {
+                    toView.transform = .identity
+                    toView.alpha = 1
+                    
+                    switch operation {
+                    case .push:
+                        fromView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
+                        fromView.alpha = 0.2
+                    case .pop:
+                        fromView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
+                    case .none:
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+                
+                let completion = { (_ finished: Bool) in
+                    let transitionWasCancelled = transitionContext.transitionWasCancelled || !finished
+                    
+                    toView.alpha = 1
+                    toView.transform = .identity
+                    
+                    fromView.alpha = 1
+                    fromView.transform = .identity
+                    
+                    if transitionWasCancelled {
+                        toView.removeFromSuperview()
+                    } else {
+                        fromView.removeFromSuperview()
+                    }
+                    
+                    transitionContext.completeTransition(!transitionWasCancelled)
+                }
+                
+                if transitionContext.isInteractive {
+                    UIView.animate(
+                        withDuration: transitionDuration,
+                        delay: 0,
+                        options: [.curveLinear],
+                        animations: animations,
+                        completion: completion
+                    )
+                } else {
+                    UIView.animate(
+                        withDuration: transitionDuration,
+                        delay: 0,
+                        usingSpringWithDamping: 0.76,
+                        initialSpringVelocity: 0.4,
+                        options: [.curveEaseOut],
+                        animations: animations,
+                        completion: completion
+                    )
+                }
+            }
         )
-        
-        guard let fromView = transitionContext.view(forKey: .from),
-              let toView = transitionContext.view(forKey: .to)
-        else {
-            fatalError("This is case not possible.")
-        }
-        
-        let containerView = transitionContext.containerView
-        let navigationOperation = navigationOperation
-        
-        toView.frame = containerView.bounds
-        
-        switch navigationOperation {
-        case .push:
-            containerView.addSubview(toView)
-            toView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
-        case .pop:
-            containerView.insertSubview(toView, belowSubview: fromView)
-            
-            toView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
-            toView.alpha = 0.2
-        case .none:
-            break
-        @unknown default:
-            break
-        }
-        
-        animator.addAnimations({
-            toView.transform = .identity
-            toView.alpha = 1
-            
-            switch navigationOperation {
-            case .push:
-                fromView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
-                fromView.alpha = 0.2
-            case .pop:
-                fromView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
-            case .none:
-                break
-            @unknown default:
-                break
-            }
-        })
-        
-        animator.addCompletion({ position in
-            toView.transform = .identity
-            fromView.transform = .identity
-            
-            transitionContext.completeTransition(position == .end)
-            if transitionContext.transitionWasCancelled {
-                toView.removeFromSuperview()
-            }
-        })
-        
-        self.animator = animator
-        return animator
     }
 }

@@ -47,9 +47,6 @@ class AccountAddingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isModalInPresentation = model.isModalInPresentation
-        navigationController?.isModalInPresentation = model.isModalInPresentation
-        
         title = model.title
         navigationItem.backButtonTitle = ""
         
@@ -63,6 +60,13 @@ class AccountAddingViewController: UIViewController {
         collectionView.pinned(edges: view)
         
         load(model: model)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        isModalInPresentation = model.isModalInPresentation
+        navigationController?.isModalInPresentation = model.isModalInPresentation
     }
     
     // MARK: API
