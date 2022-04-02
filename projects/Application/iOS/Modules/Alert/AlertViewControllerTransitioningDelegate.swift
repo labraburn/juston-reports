@@ -21,9 +21,48 @@ class AlertViewControllerTransitioningDelegate: NSObject, UIViewControllerTransi
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         AlertViewControllerAnimatedTransitioning(operation: .dismissing, presentingViewController: nil)
     }
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
+        AlertPresentationController(presentedViewController: presented, presenting: presenting)
+    }
 }
 
-class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
+private class AlertPresentationController: UIPresentationController {
+    
+    private let visualEffectView = UIVisualEffectView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.effect = nil
+    })
+    
+    override func presentationTransitionWillBegin() {
+        guard let containerView = containerView
+        else {
+            return
+        }
+        
+        containerView.addSubview(visualEffectView)
+        visualEffectView.pinned(edges: containerView)
+        
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { _ in
+            self.visualEffectView.effect = UIBlurEffect(style: .systemChromeMaterial)
+        })
+    }
+
+    override func dismissalTransitionWillBegin() {
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { context in
+            self.visualEffectView.effect = nil
+            if !context.isCancelled {
+                self.visualEffectView.removeFromSuperview()
+            }
+        })
+    }
+}
+
+private class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     
     enum Operation {
         
@@ -54,9 +93,17 @@ class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimat
             return animator
         }
         
+        let timingParameters: UITimingCurveProvider
+        switch operation {
+        case .presenting:
+            timingParameters = UISpringTimingParameters(damping: 0.82, response: 0.4)
+        case .dismissing:
+            timingParameters = UISpringTimingParameters(damping: 1, response: 0.3)
+        }
+        
         let animator = UIViewPropertyAnimator(
             duration: transitionDuration(using: transitionContext),
-            timingParameters: UISpringTimingParameters(damping: 0.76, response: 0.4)
+            timingParameters: timingParameters
         )
         
         let fromView = transitionContext.view(forKey: .from)
