@@ -34,6 +34,8 @@ protocol DashboardStackViewDelegate: AnyObject {
 
 final class DashboardStackView: UIView {
     
+    private static let minimumCardSize = CGSize(width: 90, height: 90)
+    
     @MainActor
     struct Model {
         
@@ -149,16 +151,6 @@ final class DashboardStackView: UIView {
         
         containerView.frame = bounds
         
-//        var index = 0
-//        containerViewSubviews.reversed().forEach({ view in
-//            view.bounds = containerSubviewViewBounds(at: index)
-//            view.center = containerSubviewViewPosition(at: index)
-//            if window != nil {
-//                view.layoutIfNeeded()
-//            }
-//            index += 1
-//        })
-        
         layoutContainerViewSubviews(
             excludePositiongOfView: nil,
             animated: needsLayoutAnimated
@@ -225,16 +217,22 @@ final class DashboardStackView: UIView {
         
         var index = 0
         containerViewSubviews.reversed().forEach({ view in
+            
+            if view.bounds.size == DashboardStackView.minimumCardSize {
+                // Guess it's initial state of view
+                view.center = CGPoint(
+                    x: self.bounds.midX,
+                    y: self.bounds.height / 3 * 2
+                )
+            }
+            
+            let bounds = self.containerSubviewViewBounds(at: index)
+            if view.bounds != bounds {
+                view.bounds = bounds
+                view.layoutIfNeeded()
+            }
+            
             let animations = {
-                UIView.performWithoutAnimation({
-                    let bounds = self.containerSubviewViewBounds(at: index)
-                    if view.bounds != bounds {
-                        view.bounds = bounds
-                        view.layoutIfNeeded()
-                    }
-                })
-                
-                
                 if view != excludePositiongOfView {
                     view.center = self.containerSubviewViewPosition(at: index)
                     view.alpha = self.containerSubviewViewAlpha(at: index)
@@ -274,12 +272,13 @@ final class DashboardStackView: UIView {
     }
     
     private func containerSubviewViewBounds(at index: Int) -> CGRect {
+        let size = DashboardStackView.minimumCardSize
         let offset = CGFloat(index) * 6
         return CGRect(
             x: 0,
             y: 0,
-            width: max(bounds.width - offset, 90), // minimum size for constraints errors
-            height: max(bounds.height - offset, 90) // minimum size for constraints errors
+            width: max(bounds.width - offset, size.width), // minimum size for constraints errors
+            height: max(bounds.height - offset, size.height) // minimum size for constraints errors
         )
     }
     
