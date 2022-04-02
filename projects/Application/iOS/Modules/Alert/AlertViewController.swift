@@ -71,8 +71,8 @@ class AlertViewController: UIViewController {
         view.backgroundColor = .hui_backgroundSecondary
         view.addSubview(verticalStackView)
         NSLayoutConstraint.activate {
-            verticalStackView.pin(vertically: view, top: 24, bottom: 16)
-            verticalStackView.pin(horizontally: view, left: 12, right: 12)
+            verticalStackView.pin(vertically: view, top: 24, bottom: 24)
+            verticalStackView.pin(horizontally: view, left: 24, right: 24)
         }
         
         if let image = image {

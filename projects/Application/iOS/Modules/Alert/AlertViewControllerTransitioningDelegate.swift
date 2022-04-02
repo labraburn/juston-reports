@@ -75,7 +75,7 @@ class AlertViewControllerAnimatedTransitioning: NSObject, UIViewControllerAnimat
         
         switch operation {
         case .presenting:
-            let width = containerView.bounds.width - 64
+            let width = containerView.bounds.width - 48
             let systemLayoutSizeFitting = toView?.systemLayoutSizeFitting(
                 CGSize(width: width, height: UIView.layoutFittingExpandedSize.height),
                 withHorizontalFittingPriority: .required,
