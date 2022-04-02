@@ -180,7 +180,9 @@ final class DashboardStackView: UIView {
             updated = Array(updated[index ..< updated.count]) + Array(updated[0 ..< index])
         }
         
-        if _selected == nil {
+        if let current = _selected, !data.contains(current) {
+            _selected = updated.first
+        } else if _selected == nil {
             _selected = updated.first
         }
         
