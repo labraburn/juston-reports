@@ -5,6 +5,7 @@
 import Foundation
 import CoreData
 import Combine
+import Objective42
 
 @MainActor
 public class PersistenceObject: NSManagedObject {
@@ -51,11 +52,20 @@ public class PersistenceObject: NSManagedObject {
     @MainActor
     public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
         let viewContext = PersistenceController.shared.viewContext
-        guard let object = try? viewContext.existingObject(with: id),
-              let casted = object as? T
+        var object: NSManagedObject? = nil
+        
+        try? O42NSExceptionHandler.execute({ object = viewContext.object(with: id) })
+        
+        guard let object = object
         else {
-            fatalError("Can't locate existed object with id \(id) and type: \(String(describing: T.self))")
+            fatalError("Can't locate object with id \(id).")
         }
+        
+        guard let casted = object as? T
+        else {
+            fatalError("Can't cast managed object: \(object) to type : \(String(describing: T.self)).")
+        }
+        
         return casted
     }
     

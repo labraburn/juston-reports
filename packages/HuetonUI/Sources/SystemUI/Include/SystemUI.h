@@ -5,7 +5,6 @@
 #import <../SystemUI.h>
 
 #import <../SUIGeometry.h>
-#import <../SUIExceptionHandler.h>
 #import <../SUIWeakObjectWrapper.h>
 #import <../SUIRefreshControl.h>
 #import <../SUICollectionView.h>

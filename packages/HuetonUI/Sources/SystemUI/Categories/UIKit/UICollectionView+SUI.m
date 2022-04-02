@@ -3,8 +3,8 @@
 //
 
 #import "UICollectionView+SUI.h"
-#import "../Foundation/NSException+NSError.h"
-#import "../../SUIExceptionHandler.h"
+
+@import Objective42;
 
 @implementation UICollectionView (SUI)
 

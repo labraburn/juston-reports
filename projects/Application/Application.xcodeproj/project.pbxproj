@@ -91,6 +91,7 @@
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
+		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F0EBB9B827DE288800CD4068 /* CreditCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardParameters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +252,7 @@
 			children = (
 				F02FECE827F3143600CC306C /* HuetonUI */,
 				F02FECE927F3145800CC306C /* HuetonCORE */,
+				F0DBFA5527F7C4C600956DC9 /* Objective42 */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
 				F041A57927F5D0A700213489 /* SwiftyTON */,
 			);

@@ -1,5 +1,8 @@
 //
-//  Created by Anton Spivak
+//  NSException+NSError.m
+//  
+//
+//  Created by Anton Spivak on 02.04.2022.
 //
 
 #import "NSException+NSError.h"

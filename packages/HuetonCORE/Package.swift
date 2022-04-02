@@ -15,13 +15,21 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/hueton/SwiftyTON", branch: "main")
+        .package(
+            url: "https://github.com/hueton/SwiftyTON",
+            branch: "main"
+        ),
+        .package(
+            name: "Objective42",
+            path: "../Objective42"
+        ),
     ],
     targets: [
         .target(
             name: "HuetonCORE",
             dependencies: [
                 "SwiftyTON",
+                "Objective42",
             ],
             path: "Sources/HuetonCORE",
             resources: [

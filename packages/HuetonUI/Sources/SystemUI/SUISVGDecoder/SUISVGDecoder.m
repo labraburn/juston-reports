@@ -3,7 +3,8 @@
 //
 
 #import "SUISVGDecoder.h"
-#import "../Categories/Foundation/NSException+NSError.h"
+
+@import Objective42;
 
 #import <dlfcn.h>
 #import <objc/runtime.h>

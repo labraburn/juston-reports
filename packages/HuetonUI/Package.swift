@@ -28,6 +28,10 @@ let package = Package(
             path: "../GIEL"
         ),
         .package(
+            name: "Objective42",
+            path: "../Objective42"
+        ),
+        .package(
             name: "Lottie",
             url: "https://github.com/airbnb/lottie-ios.git",
             from: "3.2.1"
@@ -60,7 +64,9 @@ let package = Package(
         ),
         .target(
             name: "SystemUI",
-            dependencies: [],
+            dependencies: [
+                "Objective42",
+            ],
             path: "Sources/SystemUI",
             publicHeadersPath: "Include",
             cSettings: [
