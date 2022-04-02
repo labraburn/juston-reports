@@ -30,7 +30,8 @@ protocol DashboardStackCardViewDelegate: AnyObject {
 
 final class DashboardStackCardView: UIView {
     
-    enum State {
+    enum State: Equatable {
+        
         case hidden
         case large
         case compact
@@ -109,6 +110,12 @@ final class DashboardStackCardView: UIView {
         )
     }
     
+    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        _update(state: state, animated: true, duration: 0.42)
+    }
+    
     // MARK: API
     
     func update(state: State, animated: Bool) {
@@ -129,7 +136,7 @@ final class DashboardStackCardView: UIView {
         backgroundView._reload()
     }
     
-    private func _update(state: State, animated: Bool) {
+    private func _update(state: State, animated: Bool, duration: TimeInterval? = nil) {
         if backgroundView.superview != self {
             addSubview(backgroundView)
             backgroundView.pinned(edges: self)
@@ -151,8 +158,10 @@ final class DashboardStackCardView: UIView {
             compactContentView.isHidden = false
         })
         
+        let hiddenOrDimmed = state == .hidden || tintAdjustmentMode == .dimmed
+        
         let animations = {
-            self.backgroundView.overlayView.alpha = state == .hidden ? 1 : 0
+            self.backgroundView.overlayView.alpha = hiddenOrDimmed ? 1 : 0
             self.largeContentView.alpha = state == .large ? 1 : 0
             self.compactContentView.alpha = state == .compact ? 1 : 0
         }
@@ -173,7 +182,7 @@ final class DashboardStackCardView: UIView {
         
         if animated {
             UIView.animate(
-                withDuration: state != .hidden ? 1.84 : 0.21,
+                withDuration: duration ?? (state != .hidden ? 1.84 : 0.21),
                 delay: 0,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0,
