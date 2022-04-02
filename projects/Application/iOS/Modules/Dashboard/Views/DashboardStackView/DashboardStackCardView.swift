@@ -10,6 +10,24 @@ import HuetonUI
 import HuetonCORE
 import CoreData
 
+protocol DashboardStackCardViewDelegate: AnyObject {
+    
+    func cardStackCardView(
+        _ view: UIView,
+        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
+        didClickSendButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
+        didClickReceiveButtonWithModel model: DashboardStackView.Model
+    )
+}
+
 final class DashboardStackCardView: UIView {
     
     enum State {
@@ -19,6 +37,13 @@ final class DashboardStackCardView: UIView {
     }
     
     let model: DashboardStackView.Model
+    
+    weak var delegate: DashboardStackCardViewDelegate? {
+        didSet {
+            compactContentView.delegate = delegate
+            largeContentView.delegate = delegate
+        }
+    }
     
     var cornerRadius: CGFloat = 0 {
         didSet {
@@ -171,6 +196,8 @@ private class DashboardStackCardContentView: UIView {
     
     let model: DashboardStackView.Model
     
+    weak var delegate: DashboardStackCardViewDelegate?
+    
     init(model: DashboardStackView.Model) {
         self.model = model
         
@@ -192,6 +219,36 @@ private class DashboardStackCardContentView: UIView {
     
     fileprivate func _reload() {
         layer.borderColor = model.style.borderColor.cgColor
+    }
+    
+    fileprivate func more() -> UIMenu {
+        UIMenu(children: [
+            UIAction(title: "CommonRemove".asLocalizedKey, attributes: .destructive, handler: { [weak self] _ in
+                guard let self = self
+                else {
+                    return
+                }
+                
+                self.removeButtonDidClick(nil)
+            })
+        ])
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    fileprivate func sendButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(self, didClickSendButtonWithModel: model)
+    }
+    
+    @objc
+    fileprivate func receiveButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(self, didClickReceiveButtonWithModel: model)
+    }
+    
+    @objc
+    fileprivate func removeButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickRemoveButtonWithModel: model)
     }
 }
 
@@ -231,6 +288,9 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
         addSubview(accountNameLabel)
         addSubview(accountCurrentAddressLabel)
         addSubview(moreButton)
+        
+        moreButton.showsMenuAsPrimaryAction = true
+        moreButton.menu = more()
         
         NSLayoutConstraint.activate({
             accountNameLabel.topAnchor.pin(to: topAnchor, constant: 18)
@@ -328,6 +388,12 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         bottomButtonsHStackView.addArrangedSubview(sendButton)
         bottomButtonsHStackView.addArrangedSubview(receiveButton)
         bottomButtonsHStackView.addArrangedSubview(moreButton)
+        
+        sendButton.addTarget(self, action: #selector(sendButtonDidClick(_:)), for: .touchUpInside)
+        receiveButton.addTarget(self, action: #selector(receiveButtonDidClick(_:)), for: .touchUpInside)
+        
+        moreButton.showsMenuAsPrimaryAction = true
+        moreButton.menu = more()
         
         NSLayoutConstraint.activate({
             accountNameLabel.topAnchor.pin(to: topAnchor, constant: 20)

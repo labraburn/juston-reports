@@ -14,6 +14,7 @@ class AlertViewController: UIViewController {
         
         static let done = Action(title: "CommonDone".asLocalizedKey, block: { $0.dismiss(animated: true) }, style: .cancel)
         static let cancel = Action(title: "CommonCancel".asLocalizedKey, block: { $0.dismiss(animated: true) }, style: .cancel)
+        static let ok = Action(title: "CommonOK".asLocalizedKey, block: { $0.dismiss(animated: true) }, style: .cancel)
         
         enum Style {
             case `default`

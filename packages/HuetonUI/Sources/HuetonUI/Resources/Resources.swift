@@ -42,6 +42,8 @@ public extension UIImage {
     
     static let hui_info42: UIImage = .named("Info42")
     static let hui_error42: UIImage = .named("Error42")
+    static let hui_warning42: UIImage = .named("Warning42")
+    static let hui_development42: UIImage = .named("Development42")
     
     static let hui_placeholder512: UIImage = .named("Placeholder512")
     

@@ -240,11 +240,15 @@ extension DashboardViewController {
 
 extension DashboardViewController: DashboardAccountsViewDelegate {
     
-    func dashboardAccountsViewShouldStartRefreshing(_ view: DashboardAccountsView) -> Bool {
+    func dashboardAccountsViewShouldStartRefreshing(
+        _ view: DashboardAccountsView
+    ) -> Bool {
         task == nil && !view.cards.isEmpty
     }
     
-    func dashboardAccountsViewDidStartRefreshing(_ view: DashboardAccountsView) {
+    func dashboardAccountsViewDidStartRefreshing(
+        _ view: DashboardAccountsView
+    ) {
         guard let model = view.cards.first
         else {
             return
@@ -253,11 +257,16 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         refresh(account: model.account, manually: true)
     }
     
-    func dashboardAccountsViewIsUserInteractig(_ view: DashboardAccountsView) -> Bool {
+    func dashboardAccountsViewIsUserInteractig(
+        _ view: DashboardAccountsView
+    ) -> Bool {
         collectionView.isDragging || collectionView.isTracking || collectionView.isDecelerating
     }
     
-    func dashboardAccountsView(_ view: DashboardAccountsView, addAccountButtonDidClick button: UIButton) {
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        addAccountButtonDidClick button: UIButton
+    ) {
         let viewController = AccountAddingViewController(model: .initial)
         viewController.delegate = self
         
@@ -266,11 +275,50 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         hui_present(navigationController, animated: true, completion: nil)
     }
     
-    func dashboardAccountsView(_ view: DashboardAccountsView, didChangeSelectedModel model: DashboardStackView.Model) {
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didChangeSelectedModel model: DashboardStackView.Model
+    ) {
         let account = model.account
         
         reload(withSelectedAccount: account)
         refresh(account: account, manually: false)
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    ) {
+        let viewController = AlertViewController(
+            image: .hui_warning42.withTintColor(.hui_letter_red),
+            title: "CommonWarning".asLocalizedKey,
+            message: "AccountDeletePromptMessage".asLocalizedKey,
+            actions: [
+                .init(
+                    title: "AccountDeleteDestructiveTitle".asLocalizedKey,
+                    block: { _ in
+                        
+                    },
+                    style: .destructive
+                ),
+                .cancel
+            ]
+        )
+        present(viewController, animated: true)
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickSendButtonWithModel model: DashboardStackView.Model
+    ) {
+        presentUnderDevelopment()
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickReceiveButtonWithModel model: DashboardStackView.Model
+    ) {
+        presentUnderDevelopment()
     }
     
     private func refresh(account: Account, manually: Bool) {

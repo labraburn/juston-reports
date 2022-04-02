@@ -42,4 +42,18 @@ extension UIViewController {
         
         present(viewController, animated: animated, completion: completion)
     }
+    
+    func presentUnderDevelopment(
+        animated: Bool = true,
+        completion: (() -> Void)? = nil
+    ) {
+        let viewController = AlertViewController(
+            image: .hui_development42,
+            title: "UnderDevelopmentPromptTitle".asLocalizedKey,
+            message: "UnderDevelopmentPromptMessage".asLocalizedKey,
+            actions: [.ok]
+        )
+        
+        present(viewController, animated: animated, completion: completion)
+    }
 }

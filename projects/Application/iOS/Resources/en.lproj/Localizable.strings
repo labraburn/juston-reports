@@ -12,6 +12,10 @@
 
 "CommonCancel" = "Cancel";
 "CommonDone" = "Done";
+"CommonRemove" = "Remove";
+"CommonDelete" = "Delete";
+"CommonAttention" = "Attention";
+"CommonOK" = "OK";
 
 /*
  END - Common
@@ -48,4 +52,26 @@
 
 /*
  END - AccountCreating
+ */
+
+/*
+ START - AccountRemoving
+ */
+
+"AccountDeletePromptMessage" = "Do you remember recovery keys? You account will be removed forever and we cannot being restore it!";
+"AccountDeleteDestructiveTitle" = "Delete account";
+
+/*
+ END - AccountRemoving
+ */
+
+/*
+ START - UnderDevelopment
+ */
+
+"UnderDevelopmentPromptTitle" = "Will be available soon";
+"UnderDevelopmentPromptMessage" = "We are working hard to make your dreams come true";
+
+/*
+ END - UnderDevelopment
  */

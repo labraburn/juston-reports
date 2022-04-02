@@ -24,12 +24,27 @@ protocol DashboardAccountsViewDelegate: AnyObject {
     
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
+        addAccountButtonDidClick button: UIButton
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
         didChangeSelectedModel model: DashboardStackView.Model
     )
     
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
-        addAccountButtonDidClick button: UIButton
+        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickSendButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickReceiveButtonWithModel model: DashboardStackView.Model
     )
 }
 
@@ -289,5 +304,26 @@ extension DashboardAccountsView: DashboardStackViewDelegate {
         didChangeSelectedModel model: DashboardStackView.Model
     ) {
         delegate?.dashboardAccountsView(self, didChangeSelectedModel: model)
+    }
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    ) {
+        delegate?.dashboardAccountsView(self, didClickRemoveButtonWithModel: model)
+    }
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickSendButtonWithModel model: DashboardStackView.Model
+    ) {
+        delegate?.dashboardAccountsView(self, didClickSendButtonWithModel: model)
+    }
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickReceiveButtonWithModel model: DashboardStackView.Model
+    ) {
+        delegate?.dashboardAccountsView(self, didClickReceiveButtonWithModel: model)
     }
 }

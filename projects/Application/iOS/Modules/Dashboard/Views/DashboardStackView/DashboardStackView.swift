@@ -15,6 +15,21 @@ protocol DashboardStackViewDelegate: AnyObject {
         _ view: DashboardStackView,
         didChangeSelectedModel model: DashboardStackView.Model
     )
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickSendButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickReceiveButtonWithModel model: DashboardStackView.Model
+    )
 }
 
 final class DashboardStackView: UIView {
@@ -134,15 +149,15 @@ final class DashboardStackView: UIView {
         
         containerView.frame = bounds
         
-        var index = 0
-        containerViewSubviews.reversed().forEach({ view in
-            view.bounds = containerSubviewViewBounds(at: index)
-            view.center = containerSubviewViewPosition(at: index)
-            if window != nil {
-                view.layoutIfNeeded()
-            }
-            index += 1
-        })
+//        var index = 0
+//        containerViewSubviews.reversed().forEach({ view in
+//            view.bounds = containerSubviewViewBounds(at: index)
+//            view.center = containerSubviewViewPosition(at: index)
+//            if window != nil {
+//                view.layoutIfNeeded()
+//            }
+//            index += 1
+//        })
         
         layoutContainerViewSubviews(
             excludePositiongOfView: nil,
@@ -189,6 +204,7 @@ final class DashboardStackView: UIView {
             view.bounds = containerSubviewViewBounds(at: index)
             view.center = containerSubviewViewPosition(at: index)
             view.cornerRadius = cornerRadius
+            view.delegate = self
             
             if window != nil {
                 view.layoutIfNeeded()
@@ -478,5 +494,20 @@ private extension DashboardStackView.Presentation {
         case .compact:
             return .compact
         }
+    }
+}
+
+extension DashboardStackView: DashboardStackCardViewDelegate {
+    
+    func cardStackCardView(_ view: UIView, didClickRemoveButtonWithModel model: Model) {
+        delegate?.dashboardStackView(self, didClickRemoveButtonWithModel: model)
+    }
+    
+    func cardStackCardView(_ view: UIView, didClickSendButtonWithModel model: Model) {
+        delegate?.dashboardStackView(self, didClickSendButtonWithModel: model)
+    }
+    
+    func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: Model) {
+        delegate?.dashboardStackView(self, didClickReceiveButtonWithModel: model)
     }
 }
