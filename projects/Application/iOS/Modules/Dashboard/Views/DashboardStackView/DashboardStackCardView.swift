@@ -113,7 +113,7 @@ final class DashboardStackCardView: UIView {
     
     override func tintColorDidChange() {
         super.tintColorDidChange()
-        _update(state: state, animated: true, duration: 0.24)
+        _update(state: state, animated: true, duration: 0.54)
     }
     
     // MARK: API
