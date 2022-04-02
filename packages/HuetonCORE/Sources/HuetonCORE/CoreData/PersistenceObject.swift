@@ -50,6 +50,13 @@ public class PersistenceObject: NSManagedObject {
     }
     
     @MainActor
+    open func delete() throws {
+        let context = PersistenceController.shared.viewContext
+        context.delete(self)
+        try context.save()
+    }
+    
+    @MainActor
     public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
         let viewContext = PersistenceController.shared.viewContext
         var object: NSManagedObject? = nil

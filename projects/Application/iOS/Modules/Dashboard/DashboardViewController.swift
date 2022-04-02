@@ -296,8 +296,10 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
             actions: [
                 .init(
                     title: "AccountDeleteDestructiveTitle".asLocalizedKey,
-                    block: { _ in
-                        
+                    block: { viewController in
+                        try? model.account.delete()
+                        self.reload(withSelectedAccount: nil)
+                        viewController.dismiss(animated: true)
                     },
                     style: .destructive
                 ),
