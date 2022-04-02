@@ -34,8 +34,8 @@ extension UIViewController {
         }
         
         let viewController = AlertViewController(
-            image: .hui_error42,
-            title: "UPS",
+            image: .image(.hui_error42, tintColor: .hui_letter_red),
+            title: ":(",
             message: errorToPresent.localizedDescription,
             actions: [.done]
         )
@@ -48,7 +48,7 @@ extension UIViewController {
         completion: (() -> Void)? = nil
     ) {
         let viewController = AlertViewController(
-            image: .hui_development42,
+            image: .image(.hui_development42, tintColor: .hui_letter_purple),
             title: "UnderDevelopmentPromptTitle".asLocalizedKey,
             message: "UnderDevelopmentPromptMessage".asLocalizedKey,
             actions: [.ok]

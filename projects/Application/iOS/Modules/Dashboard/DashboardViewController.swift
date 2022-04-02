@@ -290,8 +290,8 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         didClickRemoveButtonWithModel model: DashboardStackView.Model
     ) {
         let viewController = AlertViewController(
-            image: .hui_warning42.withTintColor(.hui_letter_red),
-            title: "CommonWarning".asLocalizedKey,
+            image: .image(.hui_warning42, tintColor: .hui_letter_red),
+            title: "CommonAttention".asLocalizedKey,
             message: "AccountDeletePromptMessage".asLocalizedKey,
             actions: [
                 .init(

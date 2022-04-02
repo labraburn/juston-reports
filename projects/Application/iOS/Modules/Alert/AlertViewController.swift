@@ -27,14 +27,14 @@ class AlertViewController: UIViewController {
         let style: Style
     }
     
-    let image: UIImage?
+    let image: AlertViewControllerImage?
     let message: String?
     let actions: [Action]
     
     private let _transitioningDelegate = AlertViewControllerTransitioningDelegate()
 
     init(
-        image: UIImage? = nil,
+        image: AlertViewControllerImage? = nil,
         title: String?,
         message: String? = nil,
         actions: [Action] = []
@@ -78,9 +78,10 @@ class AlertViewController: UIViewController {
         if let image = image {
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.image = image
+            imageView.image = image.image
             imageView.setContentHuggingPriority(.required, for: .vertical)
             imageView.contentMode = .scaleAspectFit
+            imageView.tintColor = image.tintColor
             verticalStackView.addArrangedSubview(imageView)
         }
         
