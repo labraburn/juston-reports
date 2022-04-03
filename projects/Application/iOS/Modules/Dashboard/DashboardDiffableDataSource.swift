@@ -53,7 +53,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 reusableCellClass: DashboardTransactionCollectionViewCell.self,
                 for: indexPath
             )
-            cell.model = PersistenceObject.object(with: value, type: Transaction.self)
+            cell.model = PersistenceObject.object(with: value, type: PersistenceTransaction.self)
             return cell
         }
     }

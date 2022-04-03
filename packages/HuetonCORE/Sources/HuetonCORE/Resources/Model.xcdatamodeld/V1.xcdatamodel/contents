@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Account" representedClassName="Account" syncable="YES">
-        <attribute name="address" attributeType="Transformable" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
+    <entity name="PersistenceAccount" representedClassName="PersistenceAccount" syncable="YES">
         <attribute name="balance" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="workchain" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="account" inverseEntity="Transaction"/>
+        <attribute name="raw_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
+        <attribute name="raw_workchain" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="PersistenceTransaction"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="raw_address"/>
+                <constraint value="raw_workchain"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
-    <entity name="Transaction" representedClassName="Transaction" syncable="YES">
+    <entity name="PersistenceTransaction" representedClassName="PersistenceTransaction" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
+        <attribute name="raw_hash" attributeType="String"/>
+        <attribute name="raw_identifier" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="PersistenceAccount"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="raw_identifier"/>
+                <constraint value="raw_hash"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-9" width="128" height="104"/>
-        <element name="Transaction" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="104"/>
+        <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

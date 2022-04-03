@@ -12,7 +12,7 @@ import DeclarativeUI
 
 class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     
-    typealias Model = Transaction
+    typealias Model = PersistenceTransaction
     
     static let absoluteHeight: CGFloat = 66
     

@@ -7,12 +7,10 @@ import CoreData
 import Combine
 import Objective42
 
-@MainActor
 public class PersistenceObject: NSManagedObject {
     
     public var changes: (() -> ())?
     
-    @MainActor
     private override init(
         entity: NSEntityDescription,
         insertInto context: NSManagedObjectContext?
@@ -23,16 +21,15 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
-    @MainActor
-    internal init(shouldInsertIntoViewContext: Bool) {
+    /// Create and insert into main context
+    internal init() {
         let context = PersistenceController.shared.viewContext
         super.init(
             entity: Self.entity(with: context),
-            insertInto: shouldInsertIntoViewContext ? context : nil
+            insertInto: nil
         )
     }
     
-    @MainActor
     public override func didSave() {
         super.didSave()
         changes?()
@@ -40,7 +37,6 @@ public class PersistenceObject: NSManagedObject {
     
     // MARK: API
     
-    @MainActor
     open func save() throws {
         let context = PersistenceController.shared.viewContext
         if (try? context.existingObject(with: objectID)) == nil {
@@ -49,14 +45,12 @@ public class PersistenceObject: NSManagedObject {
         try context.save()
     }
     
-    @MainActor
     open func delete() throws {
         let context = PersistenceController.shared.viewContext
         context.delete(self)
         try context.save()
     }
     
-    @MainActor
     public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
         let viewContext = PersistenceController.shared.viewContext
         var object: NSManagedObject? = nil
@@ -76,12 +70,11 @@ public class PersistenceObject: NSManagedObject {
         return casted
     }
     
-    @MainActor
     public final class func perform(_ code: @escaping (_ viewContext: NSManagedObjectContext) throws -> ()) throws {
         let viewContext = PersistenceController.shared.viewContext
         var error: Error? = nil
         
-        viewContext.perform {
+        viewContext.performAndWait {
             do {
                 try code(viewContext)
             } catch let _error {
@@ -97,7 +90,6 @@ public class PersistenceObject: NSManagedObject {
         throw error
     }
     
-    @MainActor
     public final class func entity(with context: NSManagedObjectContext) -> NSEntityDescription {
         let entityName = String(describing: Self.self)
         guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
@@ -112,13 +104,11 @@ public class PersistenceObject: NSManagedObject {
 
 extension PersistenceObject {
     
-    @MainActor
     public class func fetch<T>(_ request: NSFetchRequest<T>) throws -> [T] where T : NSFetchRequestResult {
         let viewContext = PersistenceController.shared.viewContext
         return try viewContext.fetch(request)
     }
 
-    @MainActor
     public class func count<T>(for request: NSFetchRequest<T>) throws -> Int where T : NSFetchRequestResult {
         let viewContext = PersistenceController.shared.viewContext
         return try viewContext.count(for: request)

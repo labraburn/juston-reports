@@ -14,7 +14,7 @@ class DashboardViewController: UIViewController {
     
     private var task: Task<(), Never>? = nil
     
-    private var fetchResultsController: NSFetchedResultsController<Transaction>?
+    private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
@@ -78,8 +78,8 @@ class DashboardViewController: UIViewController {
     
     // MARK: Private
     
-    private func reload(withSelectedAccount selected: Account?) {
-        let cardsRequest = Account.fetchRequest()
+    private func reload(withSelectedAccount selected: PersistenceAccount?) {
+        let cardsRequest = PersistenceAccount.fetchRequest()
         let cards = ((try? PersistenceObject.fetch(cardsRequest)) ?? []).map({
             DashboardStackView.Model(
                 account: $0,
@@ -106,11 +106,11 @@ class DashboardViewController: UIViewController {
             animated: true
         )
         
-        let transactionsRequest = Transaction.fetchRequest()
+        let transactionsRequest = PersistenceTransaction.fetchRequest()
         transactionsRequest.predicate = NSPredicate(format: "account = %@", _selected.account)
         transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
-        fetchResultsController = Transaction.fetchedResultsController(request: transactionsRequest)
+        fetchResultsController = PersistenceTransaction.fetchedResultsController(request: transactionsRequest)
         fetchResultsController?.delegate = self
         
         try? fetchResultsController?.performFetch()
@@ -323,11 +323,15 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         presentUnderDevelopment()
     }
     
-    private func refresh(account: Account, manually: Bool) {
+    private func refresh(account: PersistenceAccount, manually: Bool) {
         task?.cancel()
         task = Task { [weak self] in
             do {
-                try await account.resynchronize()
+                let synchronization = Synchronization()
+                try await synchronization.perform(
+                    rawAddress: account.rawAddress,
+                    transactionReceiveOptions: .afterLastSaved
+                )
                 self?.accountsView.stopLoadingIfAvailable()
             } catch is CancellationError {
                 if !manually {
@@ -351,7 +355,7 @@ extension DashboardViewController: AccountAddingViewControllerDelegate {
     
     func accountAddingViewController(
         _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: Account
+        didAddSaveAccount account: PersistenceAccount
     ) {
         reload(withSelectedAccount: account)
     }

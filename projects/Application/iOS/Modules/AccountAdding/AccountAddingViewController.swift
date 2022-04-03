@@ -13,7 +13,7 @@ protocol AccountAddingViewControllerDelegate: AnyObject {
     
     func accountAddingViewController(
         _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: Account
+        didAddSaveAccount account: PersistenceAccount
     )
 }
 
@@ -78,7 +78,7 @@ class AccountAddingViewController: UIViewController {
         navigationController?.pushViewController(nextViewController, animated: true)
     }
     
-    func finish(with account: Account) {
+    func finish(with account: PersistenceAccount) {
         do {
             try account.save()
             

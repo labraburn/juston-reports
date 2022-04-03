@@ -18,12 +18,11 @@ private class PersistentContainer: NSPersistentContainer {
     override class func defaultDirectoryURL() -> URL { _defaultDirectoryURL }
 }
 
-internal struct PersistenceController {
+internal class PersistenceController {
     
     internal static let shared = PersistenceController()
 
-    private let container: NSPersistentContainer
-    
+    internal let container: NSPersistentContainer
     internal var viewContext: NSManagedObjectContext { container.viewContext }
     internal var managedObjectModel: NSManagedObjectModel { container.managedObjectModel }
     internal var persistentStoreCoordinator: NSPersistentStoreCoordinator { container.persistentStoreCoordinator }
@@ -42,6 +41,10 @@ internal struct PersistenceController {
         
         container = PersistentContainer(name: nameName, managedObjectModel: model)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            
+            self.container.viewContext.automaticallyMergesChangesFromParent = true
+            self.container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+            
             guard let error = error
             else {
                 return
@@ -57,7 +60,5 @@ internal struct PersistenceController {
              */
             fatalError("Unresolved error \(error), \(error.localizedDescription)")
         })
-        
-        container.viewContext.automaticallyMergesChangesFromParent = true
     }
 }

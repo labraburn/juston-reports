@@ -49,7 +49,7 @@ final class DashboardStackView: UIView {
             let backgroundColor: UIColor
         }
         
-        let account: Account
+        let account: PersistenceAccount
         let style: Style
     }
     

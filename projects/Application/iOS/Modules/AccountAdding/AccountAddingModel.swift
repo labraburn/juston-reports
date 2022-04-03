@@ -192,7 +192,7 @@ extension AccountAddingModel {
                             return
                         }
                         
-                        let account = Account(rawAddress: rawAddress, name: name)
+                        let account = PersistenceAccount(rawAddress: rawAddress, name: name)
                         viewController.finish(with: account)
                     }
                 ),
