@@ -103,7 +103,10 @@ class DashboardHuetonView: HuetonView {
             }
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updates)
+        let timer = Timer(timeInterval: 1, repeats: true, block: updates)
+        RunLoop.main.add(timer, forMode: .common)
+        
+        self.timer = timer
     }
     
     private func stopUpdates() {
