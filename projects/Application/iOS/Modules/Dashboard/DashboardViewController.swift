@@ -327,7 +327,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         task?.cancel()
         task = Task { [weak self] in
             do {
-                let synchronization = Synchronization()
+                let synchronization = await Synchronization()
                 try await synchronization.perform(
                     rawAddress: account.rawAddress,
                     transactionReceiveOptions: .afterLastSaved

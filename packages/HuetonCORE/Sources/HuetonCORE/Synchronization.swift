@@ -6,6 +6,14 @@ import Foundation
 import SwiftyTON
 import CoreData
 
+@globalActor
+actor SynchronizationActor {
+
+    static let shared: SynchronizationActor = SynchronizationActor()
+}
+
+
+@SynchronizationActor
 public struct Synchronization {
     
     enum Error {
@@ -23,6 +31,7 @@ public struct Synchronization {
     public init() {}
     
     /// All changes will be pushed into CoreData stack
+    @SynchronizationActor
     public func perform(
         rawAddress: Address.RawAddress,
         transactionReceiveOptions: TransactionReceiveOptions
@@ -64,6 +73,7 @@ public struct Synchronization {
     
     // Helpers
     
+    @SynchronizationActor
     private func account(
         for rawAddress: Address.RawAddress,
         in context: NSManagedObjectContext
@@ -79,6 +89,7 @@ public struct Synchronization {
         return persistenceAccounts[0]
     }
     
+    @SynchronizationActor
     private func lastPersistanceTransaction(
         for account: PersistenceAccount,
         in context: NSManagedObjectContext
