@@ -34,18 +34,24 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
-    public override func didSave() {
+    private func didSaveInSharedViewContext() {
         super.didSave()
         observers.allObjects.forEach({ ($0 as? PersistenceObjectObserver)?.persistenceObjectDidChange(self) })
+    }
+    
+    public override func didSave() {
+        super.didSave()
     }
     
     // MARK: API
     
     public func register(observer: PersistenceObjectObserver) {
-        guard observers.contains(observers)
+        guard !observers.contains(observers)
         else {
             return
         }
+        
+        observers.add(observer)
     }
     
     public func remove(observer: PersistenceObjectObserver) {
@@ -127,5 +133,33 @@ extension PersistenceObject {
     public class func count<T>(for request: NSFetchRequest<T>) throws -> Int where T : NSFetchRequestResult {
         let viewContext = PersistenceController.shared.viewContext
         return try viewContext.count(for: request)
+    }
+}
+
+// MARK: Manual observing from another contexts
+
+extension PersistenceObject {
+    
+    private static var observer: AnyObject?
+    
+    internal static func startObservingIfNeccessary() {
+        guard observer == nil
+        else {
+            return
+        }
+        
+        observer = NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: PersistenceController.shared.viewContext,
+            queue: .main,
+            using: { notification in
+                let trigger = { (_ persistenceObject: PersistenceObject) in
+                    persistenceObject.didSaveInSharedViewContext()
+                }
+                
+                (notification.userInfo?[NSRefreshedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
+                (notification.userInfo?[NSUpdatedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
+            }
+        )
     }
 }

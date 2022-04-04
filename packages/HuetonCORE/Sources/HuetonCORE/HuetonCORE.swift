@@ -11,6 +11,7 @@ public struct HuetonCORE {
     
     public static func initialize() {
         SwiftyTON.configurate(with: .main)
+        PersistenceObject.startObservingIfNeccessary()
         UInt8ArrayTransformer.register()
     }
     
