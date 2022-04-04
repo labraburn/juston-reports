@@ -4,12 +4,16 @@
 
 import Foundation
 import CoreData
-import Combine
 import Objective42
+
+public protocol PersistenceObjectObserver: AnyObject {
+    
+    func persistenceObjectDidChange(_ persistenceObject: PersistenceObject)
+}
 
 public class PersistenceObject: NSManagedObject {
     
-    public var changes: (() -> ())?
+    private let observers: NSHashTable<AnyObject> = .weakObjects()
     
     private override init(
         entity: NSEntityDescription,
@@ -32,10 +36,21 @@ public class PersistenceObject: NSManagedObject {
     
     public override func didSave() {
         super.didSave()
-        changes?()
+        observers.allObjects.forEach({ ($0 as? PersistenceObjectObserver)?.persistenceObjectDidChange(self) })
     }
     
     // MARK: API
+    
+    public func register(observer: PersistenceObjectObserver) {
+        guard observers.contains(observers)
+        else {
+            return
+        }
+    }
+    
+    public func remove(observer: PersistenceObjectObserver) {
+        observers.remove(observer)
+    }
     
     open func save() throws {
         let context = PersistenceController.shared.viewContext

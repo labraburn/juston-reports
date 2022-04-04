@@ -53,7 +53,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     private var safeAreaView = UIView()
     private let stackView = DashboardStackView()
     
-    private var huetonView = HuetonView().with({
+    private var huetonView = DashboardHuetonView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
     })
@@ -303,6 +303,7 @@ extension DashboardAccountsView: DashboardStackViewDelegate {
         _ view: DashboardStackView,
         didChangeSelectedModel model: DashboardStackView.Model
     ) {
+        huetonView.account = model.account
         delegate?.dashboardAccountsView(self, didChangeSelectedModel: model)
     }
     

@@ -43,6 +43,7 @@
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
+		F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
@@ -90,6 +91,7 @@
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
+		F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHuetonView.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				F00BE9F327DE02F50084FF1C /* DashboardStackView */,
 				F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */,
 				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
+				F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				F0909B4627E7821800FC8404 /* AccountAddingViewController.swift in Sources */,
 				F0909B4C27E88B7F00FC8404 /* AccountAddingDataSource.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* AccountAddingWordCell.swift in Sources */,
+				F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,

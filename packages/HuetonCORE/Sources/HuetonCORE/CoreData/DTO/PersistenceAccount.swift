@@ -37,6 +37,7 @@ extension PersistenceAccount {
     
     @NSManaged public var name: String
     @NSManaged public var transactions: NSArray
+    @NSManaged public var synchronizationDate: Date?
     @NSManaged public var balance: NSDecimalNumber
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistenceAccount> {

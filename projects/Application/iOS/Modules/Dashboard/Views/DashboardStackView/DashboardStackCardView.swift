@@ -82,9 +82,7 @@ final class DashboardStackCardView: UIView {
         })
         
         _update(state: state, animated: false)
-        model.account.changes = { [weak self] in
-            self?._reload()
-        }
+        model.account.register(observer: self)
     }
     
     @available(*, unavailable)
@@ -194,6 +192,13 @@ final class DashboardStackCardView: UIView {
             animations()
             completion(true)
         }
+    }
+}
+
+extension DashboardStackCardView: PersistenceObjectObserver {
+    
+    func persistenceObjectDidChange(_ persistenceObject: PersistenceObject) {
+        _reload()
     }
 }
 

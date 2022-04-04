@@ -4,7 +4,7 @@
 
 import UIKit
 
-public final class HuetonView: SignboardView {
+open class HuetonView: SignboardView {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ public final class HuetonView: SignboardView {
         
         NSLayoutConstraint.activate {
             textLabel.centerXAnchor.pin(to: centerXAnchor)
-            textLabel.topAnchor.pin(to: bottomAnchor, constant: 12)
+            textLabel.topAnchor.pin(to: bottomAnchor, constant: 16)
         }
     }
     

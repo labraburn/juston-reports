@@ -35,6 +35,7 @@ public struct Synchronization {
         
         let persistenceAccount = try account(for: rawAddress, in: context)
         persistenceAccount.balance = NSDecimalNumber(decimal: wallet.contract.info.balance.value)
+        persistenceAccount.synchronizationDate = Date()
         try context.save()
         
         var transactions: [Transaction] = []
