@@ -9,12 +9,14 @@ import CoreData
 
 public struct HuetonCORE {
     
+    /// Initialize HuetonCORE and it's dependencies
     public static func initialize() {
         SwiftyTON.configurate(with: .main)
         PersistenceObject.startObservingIfNeccessary()
         UInt8ArrayTransformer.register()
     }
     
+    /// Create and store key pair
     public static func KeyCreate() async throws -> (key: Key, words: [String]) {
         let result = try await Key.create(password: Data(), mnemonic: Data())
         

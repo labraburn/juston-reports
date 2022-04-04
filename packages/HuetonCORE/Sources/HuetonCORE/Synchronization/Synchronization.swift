@@ -6,20 +6,8 @@ import Foundation
 import SwiftyTON
 import CoreData
 
-@globalActor
-actor SynchronizationActor {
-
-    static let shared: SynchronizationActor = SynchronizationActor()
-}
-
-
 @SynchronizationActor
 public struct Synchronization {
-    
-    enum Error {
-        
-        case accountDoesNotExists(rawAddress: Address.RawAddress)
-    }
     
     public enum TransactionReceiveOptions {
         
@@ -83,7 +71,7 @@ public struct Synchronization {
         
         guard persistenceAccounts.count == 1
         else {
-            throw Error.accountDoesNotExists(rawAddress: rawAddress)
+            throw SynchronizationError.accountDoesNotExists(rawAddress: rawAddress)
         }
         
         return persistenceAccounts[0]
@@ -103,13 +91,3 @@ public struct Synchronization {
 }
 
 extension Synchronization.TransactionReceiveOptions: Hashable {}
-
-extension Synchronization.Error: LocalizedError {
-    
-    var errorDescription: String? {
-        switch self {
-        case let .accountDoesNotExists(rawAddress):
-            return "Can't locate PersistanceAccount for synchronization with address: \(rawAddress.rawValue)."
-        }
-    }
-}
