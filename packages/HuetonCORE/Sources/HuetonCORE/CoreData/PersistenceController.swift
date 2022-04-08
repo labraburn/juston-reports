@@ -11,7 +11,7 @@ private class PersistentContainer: NSPersistentContainer {
         FileManager.default.directoryURL(
             with: .group(),
             with: .persistent,
-            pathComponent: "CoreDate"
+            pathComponent: .coreData
         )
     }()
     

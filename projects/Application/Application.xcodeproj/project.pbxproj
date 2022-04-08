@@ -39,8 +39,8 @@
 		F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */; };
 		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
-		F0A151352800E05000EF9F83 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151332800E05000EF9F83 /* Debug.xcconfig */; };
-		F0A151362800E05000EF9F83 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151342800E05000EF9F83 /* Release.xcconfig */; };
+		F0A151352800E05000EF9F83 /* iOSDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */; };
+		F0A151362800E05000EF9F83 /* iOSRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */; };
 		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
@@ -74,8 +74,7 @@
 		F0909B5E27E8CF5100FC8404 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F0909B6027E8CF6500FC8404 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F0909B6227E8DB1900FC8404 /* AccountAddingTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingTextFieldCell.swift; sourceTree = "<group>"; };
-		F0909B6727E8EECE00FC8404 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
-		F0995F5F27A0B7CA003A090C /* Hueton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hueton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0995F5F27A0B7CA003A090C /* H3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = H3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowSceneDelegate.swift; sourceTree = "<group>"; };
 		F0995F6B27A0B7CB003A090C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,8 +88,10 @@
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
 		F0995FA727A0BCA3003A090C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		F0A151332800E05000EF9F83 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		F0A151342800E05000EF9F83 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSDebug.xcconfig; sourceTree = "<group>"; };
+		F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSRelease.xcconfig; sourceTree = "<group>"; };
+		F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSDebug.entitlements; sourceTree = "<group>"; };
+		F0A151382800EFD800EF9F83 /* iOSRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSRelease.entitlements; sourceTree = "<group>"; };
 		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
@@ -131,7 +132,8 @@
 		F02FECEE27F315F700CC306C /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
-				F0909B6727E8EECE00FC8404 /* iOS.entitlements */,
+				F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */,
+				F0A151382800EFD800EF9F83 /* iOSRelease.entitlements */,
 			);
 			path = Entitlements;
 			sourceTree = "<group>";
@@ -193,7 +195,7 @@
 		F0995F6027A0B7CA003A090C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0995F5F27A0B7CA003A090C /* Hueton.app */,
+				F0995F5F27A0B7CA003A090C /* H3000.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,8 +291,8 @@
 		F0A151322800E01C00EF9F83 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				F0A151332800E05000EF9F83 /* Debug.xcconfig */,
-				F0A151342800E05000EF9F83 /* Release.xcconfig */,
+				F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */,
+				F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -372,7 +374,7 @@
 				F02FECEC27F3153F00CC306C /* HuetonUI */,
 			);
 			productName = Application;
-			productReference = F0995F5F27A0B7CA003A090C /* Hueton.app */;
+			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -416,11 +418,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0A151352800E05000EF9F83 /* Debug.xcconfig in Resources */,
+				F0A151352800E05000EF9F83 /* iOSDebug.xcconfig in Resources */,
 				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
-				F0A151362800E05000EF9F83 /* Release.xcconfig in Resources */,
+				F0A151362800E05000EF9F83 /* iOSRelease.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,11 +611,10 @@
 		};
 		F0995F8A27A0B7CB003A090C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0A151332800E05000EF9F83 /* Debug.xcconfig */;
+			baseConfigurationReference = F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
-				CODE_SIGN_ENTITLEMENTS = iOS/Supporting/Entitlements/iOS.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -627,8 +628,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hueton.application.ios;
-				PRODUCT_NAME = Hueton;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -637,11 +636,10 @@
 		};
 		F0995F8B27A0B7CB003A090C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0A151342800E05000EF9F83 /* Release.xcconfig */;
+			baseConfigurationReference = F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
-				CODE_SIGN_ENTITLEMENTS = iOS/Supporting/Entitlements/iOS.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -655,8 +653,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hueton.application.ios;
-				PRODUCT_NAME = Hueton;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

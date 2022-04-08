@@ -6,10 +6,27 @@ import Foundation
 
 extension FileManager {
     
+    public struct PathComponent: RawRepresentable {
+        
+        public static let coreData = PathComponent(rawValue: "CoreData")
+        public static let codableStorage = PathComponent(rawValue: "CodableStorage")
+        public static let glossyTONKeystore = PathComponent(rawValue: "GlossyTON/Keystore")
+        
+        public var rawValue: String
+        
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+    
     public enum DirectoryType {
         
         case target
+        #if DEBUG
+        case group(identifier: String = "group.com.hueton.debug")
+        #else
         case group(identifier: String = "group.com.hueton")
+        #endif
     }
     
     public enum StorageType {
@@ -42,7 +59,7 @@ extension FileManager {
     public func directoryURL(
         with directory: DirectoryType,
         with storage: StorageType,
-        pathComponent: String? = nil
+        pathComponent: PathComponent? = nil
     ) -> URL {
         var url: URL
         switch directory {
@@ -64,7 +81,7 @@ extension FileManager {
         }
         
         if let pathComponent = pathComponent {
-            url = url.appendingPathComponent(pathComponent)
+            url = url.appendingPathComponent(pathComponent.rawValue)
             guard createDirectoriesWithSubdirectoriesIfNeeded(url: url) == nil
             else {
                 fatalError("Can't create directory for url: \(url) since it not a directory.")

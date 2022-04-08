@@ -8,11 +8,11 @@ import Foundation
 extension CodableStorage {
     
     public static let target: CodableStorage = CodableStorage(
-        directoryURL: FileManager.default.directoryURL(with: .target, with: .persistent, pathComponent: "CodableStorage")
+        directoryURL: FileManager.default.directoryURL(with: .target, with: .persistent, pathComponent: .codableStorage)
     )
     
     public static let group: CodableStorage = CodableStorage(
-        directoryURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: "CodableStorage")
+        directoryURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .codableStorage)
     )
 }
 

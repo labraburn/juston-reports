@@ -7,6 +7,23 @@ import CoreData
 
 @_exported import SwiftyTON
 
+private extension Configuration {
+    
+    static let test = Configuration(
+        network: .test,
+        configurationFileURL: URL(string: "https://newton-blockchain.github.io/testnet-global.config.json")!,
+        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
+        logging: .verbose
+    )
+    
+    static let main = Configuration(
+        network: .main,
+        configurationFileURL: URL(string: "https://newton-blockchain.github.io/global.config.json")!,
+        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
+        logging: .warning
+    )
+}
+
 public struct HuetonCORE {
     
     /// Initialize HuetonCORE and it's dependencies
