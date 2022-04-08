@@ -33,6 +33,11 @@ DerivedData/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
 # End of https://www.toptal.com/developers/gitignore/api/xcode
 
 ### macOS ###
