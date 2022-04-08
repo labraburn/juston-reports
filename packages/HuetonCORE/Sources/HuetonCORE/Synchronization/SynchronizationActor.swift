@@ -5,7 +5,7 @@
 import Foundation
 
 @globalActor
-actor SynchronizationActor {
+public actor SynchronizationActor {
 
-    static let shared: SynchronizationActor = SynchronizationActor()
+    public static let shared: SynchronizationActor = SynchronizationActor()
 }
