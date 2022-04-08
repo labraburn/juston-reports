@@ -17,6 +17,10 @@
     return nil;
 }
 
+- (id<UIViewControllerAnimatedTransitioning>)_cachedTransitionController {
+    return [super _cachedTransitionController];
+}
+
 - (id<UIViewControllerAnimatedTransitioning>)_createBuiltInTransitionControllerForOperation:(UINavigationControllerOperation)operation
 {
     id<UIViewControllerAnimatedTransitioning> animatedTransitioning = [self trickyAnimatedTransitioningForOperation:operation];
