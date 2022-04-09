@@ -7,7 +7,7 @@
 #import "../Categories/UIKit/UIViewPropertyAnimator+SUI.h"
 
 static Class kUINavigationParallaxTransitionClass = nil;
-static Class kSUINavigationControllerAnimatedTransitioningClass = nil;
+//static Class kSUINavigationControllerAnimatedTransitioningClass = nil;
 
 //
 // kSUINCHandler
@@ -61,6 +61,13 @@ static void SUINCHandlerSetter(NSObject *self, SEL sel, SUINavigationControllerT
         return container.transitionDuration(transitionContext);
     }];
     
+    [self addMethodWithSelector:@selector(navigationBarTransitionDuration:)
+                        toClass:kSUINavigationControllerAnimatedTransitioningClass
+                          block:^NSTimeInterval (id self, id<UIViewControllerContextTransitioning> transitionContext) {
+        SUINavigationControllerTransitionHandlerContainer *container = [self handlerContainer];
+        return container.navigationBarTransitionDuration(transitionContext);
+    }];
+    
     [self addMethodWithSelector:@selector(animateTransition:)
                         toClass:kSUINavigationControllerAnimatedTransitioningClass
                           block:^(id self, id<UIViewControllerContextTransitioning> transitionContext) {
@@ -90,12 +97,14 @@ static void SUINCHandlerSetter(NSObject *self, SEL sel, SUINavigationControllerT
 
 - (instancetype)initWithNavigationOperation:(UINavigationControllerOperation)navigationOperation
                          transitionDuration:(SUINavigationControllerTransitionDuration)transitionDuration
+            navigationBarTransitionDuration:(SUINavigationBarTransitionDuration)navigationBarTransitionDuration
                         transitionAnimation:(SUINavigationControllerTransitionAnimation)transitionAnimation
 {
     self = [[kSUINavigationControllerAnimatedTransitioningClass alloc] initWithCurrentOperation:navigationOperation];
     if (self != nil) {
         SUINavigationControllerTransitionHandlerContainer *container = [[SUINavigationControllerTransitionHandlerContainer alloc] init];
         container.transitionDuration = transitionDuration;
+        container.navigationBarTransitionDuration = navigationBarTransitionDuration;
         container.transitionAnimation = transitionAnimation;
         
         // self not SUINavigationControllerAnimatedTransitioning but have all methods called here
@@ -139,6 +148,9 @@ static void SUINCHandlerSetter(NSObject *self, SEL sel, SUINavigationControllerT
 
 /// Dummy
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {}
+
+/// Dummy
+- (NSTimeInterval)navigationBarTransitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {}
 
 /// Dummy
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {}

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithNavigationOperation:(UINavigationControllerOperation)navigationOperation
                          transitionDuration:(SUINavigationControllerTransitionDuration)transitionDuration
+            navigationBarTransitionDuration:(SUINavigationBarTransitionDuration)navigationBarTransitionDuration
                         transitionAnimation:(SUINavigationControllerTransitionAnimation)transitionAnimation;
 
 @end

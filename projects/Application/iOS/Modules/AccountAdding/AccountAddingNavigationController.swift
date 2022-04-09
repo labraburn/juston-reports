@@ -48,22 +48,30 @@ class AccountAddingNavigationController: SUINavigationController {
     }
 }
 
+private extension UINavigationController.Operation {
+    
+    var duration: TimeInterval {
+        switch self {
+        case .push:
+            return 0.54
+        default:
+            return 0.38
+        }
+    }
+}
+
 private extension SUINavigationControllerAnimatedTransitioning {
     
     static func addingNavigationTransitioning(
         with operation: UINavigationController.Operation
     ) -> SUINavigationControllerAnimatedTransitioning {
-        let defaultTransitionDuration = TimeInterval(0.38)
-        let pushTransitionDuration = TimeInterval(0.54)
-        
-        return SUINavigationControllerAnimatedTransitioning(
+        SUINavigationControllerAnimatedTransitioning(
             navigationOperation: operation,
             transitionDuration: { transitionContext in
-                if operation == .push {
-                    return pushTransitionDuration
-                } else {
-                    return defaultTransitionDuration
-                }
+                operation.duration
+            },
+            navigationBarTransitionDuration: { _ in
+                operation.duration / 5 * 3 // speed up
             },
             transitionAnimation: { transitionContext in
                 guard let fromView = transitionContext.view(forKey: .from),
@@ -72,13 +80,11 @@ private extension SUINavigationControllerAnimatedTransitioning {
                     fatalError("This is case not possible.")
                 }
                 
-                var transitionDuration = defaultTransitionDuration
                 let containerView = transitionContext.containerView
                 toView.frame = containerView.bounds
                 
                 switch operation {
                 case .push:
-                    transitionDuration = pushTransitionDuration
                     containerView.addSubview(toView)
                     toView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
                 case .pop:
@@ -129,7 +135,7 @@ private extension SUINavigationControllerAnimatedTransitioning {
                 
                 if transitionContext.isInteractive {
                     UIView.animate(
-                        withDuration: transitionDuration,
+                        withDuration: operation.duration,
                         delay: 0,
                         options: [.curveLinear],
                         animations: animations,
@@ -137,7 +143,7 @@ private extension SUINavigationControllerAnimatedTransitioning {
                     )
                 } else {
                     UIView.animate(
-                        withDuration: transitionDuration,
+                        withDuration: operation.duration,
                         delay: 0,
                         usingSpringWithDamping: 0.76,
                         initialSpringVelocity: 0.4,
