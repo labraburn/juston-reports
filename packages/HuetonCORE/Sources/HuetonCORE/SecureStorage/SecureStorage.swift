@@ -8,7 +8,7 @@ import Foundation
 public struct SecureStorage {
     
     private let queue = DispatchQueue(label: "com.hueton.ss", qos: .userInitiated)
-    private let service = "HUETON"
+    private let service = "HuetonCORE"
     
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
@@ -138,13 +138,15 @@ fileprivate class KeychainOperation: NSObject {
     static func add(
         service: String,
         value: Data,
-        account: String
+        account: String,
+        group: AccessGroup = .shared
     ) throws {
         
         let status = SecItemAdd([
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: account,
             kSecAttrService: service,
+            kSecAttrAccessGroup: group,
             // Allow background access:
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecValueData: value,
@@ -165,7 +167,8 @@ fileprivate class KeychainOperation: NSObject {
     static func update(
         service: String,
         value: Data,
-        account: String
+        account: String,
+        group: AccessGroup = .shared
     ) throws {
         
         let status = SecItemUpdate(
@@ -173,6 +176,7 @@ fileprivate class KeychainOperation: NSObject {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrAccount: account,
                 kSecAttrService: service,
+                kSecAttrAccessGroup: group,
             ] as NSDictionary,
             [
                 kSecValueData: value,
@@ -193,7 +197,8 @@ fileprivate class KeychainOperation: NSObject {
     /// - returns: Data
     static func retreive(
         service: String,
-        account: String
+        account: String,
+        group: AccessGroup = .shared
     ) throws -> Data? {
         
         var result: AnyObject?
@@ -202,6 +207,7 @@ fileprivate class KeychainOperation: NSObject {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrAccount: account,
                 kSecAttrService: service,
+                kSecAttrAccessGroup: group,
                 kSecReturnData: true,
             ] as NSDictionary,
             &result
@@ -223,7 +229,8 @@ fileprivate class KeychainOperation: NSObject {
     /// - parameter account: Account name for keychain item
     static func delete(
         service: String,
-        account: String
+        account: String,
+        group: AccessGroup = .shared
     ) throws {
         
         let status = SecItemDelete(
@@ -231,6 +238,7 @@ fileprivate class KeychainOperation: NSObject {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrAccount: account,
                 kSecAttrService: service,
+                kSecAttrAccessGroup: group,
             ] as NSDictionary
         )
         
@@ -263,7 +271,8 @@ fileprivate class KeychainOperation: NSObject {
     /// - returns: Boolean type with the answer if the keychain item exists
     static func exists(
         service: String,
-        account: String
+        account: String,
+        group: AccessGroup = .shared
     ) throws -> Bool {
         
         let status = SecItemCopyMatching(
@@ -271,6 +280,7 @@ fileprivate class KeychainOperation: NSObject {
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrAccount: account,
                 kSecAttrService: service,
+                kSecAttrAccessGroup: group,
                 kSecReturnData: false,
             ] as NSDictionary,
             nil

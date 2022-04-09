@@ -4,6 +4,17 @@
 
 import Foundation
 
+public typealias AccessGroup = String
+
+public extension AccessGroup {
+    
+    #if DEBUG
+    static let shared: AccessGroup = "group.com.hueton.debug"
+    #else
+    static let shared: AccessGroup = "group.com.hueton"
+    #endif
+}
+
 extension FileManager {
     
     public struct PathComponent: RawRepresentable {
@@ -22,11 +33,7 @@ extension FileManager {
     public enum DirectoryType {
         
         case target
-        #if DEBUG
-        case group(identifier: String = "group.com.hueton.debug")
-        #else
-        case group(identifier: String = "group.com.hueton")
-        #endif
+        case group(identifier: AccessGroup = .shared)
     }
     
     public enum StorageType {
