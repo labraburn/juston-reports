@@ -1,159 +1,201 @@
 //
-//  AccountAddingViewController.swift
+//  AccountAddingNavigationController.swift
 //  iOS
 //
-//  Created by Anton Spivak on 20.03.2022.
+//  Created by Anton Spivak on 21.03.2022.
 //
 
 import UIKit
+import SystemUI
 import HuetonUI
 import HuetonCORE
 
-protocol AccountAddingViewControllerDelegate: AnyObject {
+class AccountAddingViewController: SteppableNavigationController {
     
-    func accountAddingViewController(
-        _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: PersistenceAccount
-    )
+    init() {
+        super.init(rootViewModel: .initial)
+    }
 }
 
-class AccountAddingViewController: UIViewController {
+private extension SteppableViewModel {
     
-    private lazy var collectionDataSource = AccountAddingDataSource(collectionView: collectionView)
-    private lazy var collectionViewLayout = AccountAddingViewCollectionViewLayout()
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-    
-    weak var delegate: AccountAddingViewControllerDelegate? = nil
-    
-    var locked: Bool = false {
-        didSet {
-            view.isUserInteractionEnabled = locked
-        }
-    }
-    
-    let model: AccountAddingModel
-    let feedbackGenerator = UIImpactFeedbackGenerator(style: .rigid)
-    
-    init(model: AccountAddingModel) {
-        self.model = model
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = model.title
-        navigationItem.backButtonTitle = ""
-        
-        collectionViewLayout.delegate = self
-        
-        collectionView.keyboardDismissMode = .onDrag
-        collectionView.delegate = self
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .hui_backgroundPrimary
-        view.addSubview(collectionView)
-        collectionView.pinned(edges: view)
-        
-        load(model: model)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        isModalInPresentation = model.isModalInPresentation
-        navigationController?.isModalInPresentation = model.isModalInPresentation
-    }
-    
-    // MARK: API
-    
-    func next(_ model: AccountAddingModel) {
-        let nextViewController = AccountAddingViewController(model: model)
-        nextViewController.delegate = delegate
-        
-        navigationController?.pushViewController(nextViewController, animated: true)
-    }
-    
-    func finish(with account: PersistenceAccount) {
-        do {
-            try account.save()
-            
-            delegate?.accountAddingViewController(self, didAddSaveAccount: account)
-            navigationController?.dismiss(animated: true, completion: nil)
-        } catch {
-            present(error)
-        }
-    }
-    
-    // MARK: Private
-    
-    private func load(model: AccountAddingModel) {
-        var snapshot = NSDiffableDataSourceSnapshot<AccountAddingSection, AccountAddingItem>()
-        
-        switch model.kind {
-        case let .default(image, text):
-            snapshot.appendSection(.simple(id: 0), items: [.image(image: image)])
-            snapshot.appendSection(.simple(id: 1), items: [.label(text: text)])
-        case let .words(array, text):
-            snapshot.appendSection(.simple(id: 1), items: [.label(text: text)])
-            
-            var index = 1
-            let first = AccountAddingSection.words
-            snapshot.appendSections([first])
-            array.forEach({
-                snapshot.appendItems([.word(index: index, word: $0)], toSection: first)
-                index += 1
-            })
-            
-        case let .import(text):
-            snapshot.appendSection(.simple(id: 1), items: [.label(text: text)])
-        case .appearance:
-            break
-        }
-        
-        snapshot.appendSection(.simple(id: 3), items: model.fields.map({
-            .textField(title: $0.title, placeholder: $0.placeholder, action: $0.action)
-        }))
-        
-        snapshot.appendSection(.simple(id: 4), items: model.actions.map({
-            .button(title: $0.title, kind: $0.kind, action: $0.block)
-        }))
-        
-        let animatingDifferences = view.window != nil && !collectionDataSource.snapshot().itemIdentifiers.isEmpty
-        collectionDataSource.apply(
-            snapshot,
-            animatingDifferences: animatingDifferences
+    static var initial: SteppableViewModel {
+        SteppableViewModel(
+            title: "AccountAddingIOCTitle".asLocalizedKey,
+            sections: [
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .image(
+                            image: .hui_placeholder512
+                        ),
+                        .label(
+                            text: "AccountAddingIOCDescription".asLocalizedKey
+                        ),
+                    ]
+                ),
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .asynchronousButton(
+                            title: "AccountAddingCreateButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { @MainActor viewController in
+                                let authentication = PasscodeAuthentication(inside: viewController)
+                                let passcode = try await authentication.key()
+                                let key = try await Key.create(password: passcode)
+                                viewController.next(.words(key.1, address: key.0.rawAddress))
+                            }
+                        ),
+                        .synchronousButton(
+                            title: "AccountAddingImportButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { viewController in
+                                viewController.next(.import)
+                            }
+                        ),
+                    ]
+                )
+            ],
+            isModalInPresentation: false,
+            isBackActionAvailable: true
         )
     }
-}
 
-extension AccountAddingViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let itemIdentifier = collectionDataSource.itemIdentifier(for: indexPath)
-        else {
-            return
-        }
-        
-        switch itemIdentifier {
-        case let .button(_, _, action):
-            action(self)
-        default:
-            break
-        }
+    static var `import`: SteppableViewModel {
+        // TODO: Should be reworked
+        var address = ""
+        return SteppableViewModel(
+            title: "AccountAddingImportTitle".asLocalizedKey,
+            sections: [
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .label(
+                            text: "AccountAddingImportDescription".asLocalizedKey
+                        ),
+                        .textField(
+                            title: "Public key".asLocalizedKey,
+                            placeholder: "Text key here".asLocalizedKey,
+                            action: { textField in
+                                address = textField.text ?? ""
+                            }
+                        ),
+                    ]
+                ),
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .synchronousButton(
+                            title: "AccountAddingNextButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { viewController in
+                                guard let address = Address(string: address)
+                                else {
+                                    return
+                                }
+
+                                viewController.next(.appearance(for: address.raw))
+                            }
+                        ),
+                    ]
+                ),
+            ],
+            isModalInPresentation: false,
+            isBackActionAvailable: true
+        )
     }
-}
 
-extension AccountAddingViewController: AccountAddingViewCollectionViewLayoutDelegate {
-    
-    func accountAddingViewCollectionViewLayout(
-        _ layout: AccountAddingViewCollectionViewLayout,
-        sectionIdentifierFor sectionIndex: Int
-    ) -> AccountAddingSection? {
-        collectionDataSource.sectionIdentifier(forSectionIndex: sectionIndex)
+    static func words(_ array: [String], address: Address.RawAddress) -> SteppableViewModel {
+        SteppableViewModel(
+            title: "AccountAddingWordsTitle".asLocalizedKey,
+            sections: [
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .label(
+                            text: "AccountAddingWordsDescription".asLocalizedKey
+                        ),
+                    ]
+                ),
+                .init(
+                    section: .init(kind: .words),
+                    items: { () -> [SteppableItem] in
+                        var result = [SteppableItem]()
+                        var index = 0
+                        array.forEach({
+                            result.append(.word(index: index, word: $0))
+                            index += 1
+                        })
+                        return result
+                    }()
+                ),
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .synchronousButton(
+                            title: "AccountAddingCopyButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { _ in
+                                let pasteboard = UIPasteboard.general
+                                pasteboard.string = array.joined(separator: " ")
+                            }
+                        ),
+                        .synchronousButton(
+                            title: "AccountAddingNextButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { viewController in
+                                viewController.next(.appearance(for: address))
+                            }
+                        ),
+                    ]
+                )
+            ],
+            isModalInPresentation: true,
+            isBackActionAvailable: false
+        )
+    }
+
+    static func appearance(for rawAddress: Address.RawAddress) -> SteppableViewModel {
+        var name = ""
+        return SteppableViewModel(
+            title: "AccountAddingAppearanceTitle".asLocalizedKey,
+            sections: [
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .textField(
+                            title: "AccountAddingAccountNameTitle".asLocalizedKey,
+                            placeholder: "AccountAddingAccountNamePlaceholder".asLocalizedKey,
+                            action: { textField in
+                                name = textField.text ?? ""
+                            }
+                        ),
+                    ]
+                ),
+                .init(
+                    section: .init(kind: .simple),
+                    items: [
+                        .synchronousButton(
+                            title: "AccountAddingDoneButton".asLocalizedKey,
+                            kind: .primary,
+                            action: { viewController in
+                                guard !name.isEmpty
+                                else {
+                                    return
+                                }
+
+                                let account = PersistenceAccount(rawAddress: rawAddress, name: name)
+                                try account.save()
+                                
+                                viewController.finish()
+                            }
+                        ),
+                    ]
+                ),
+            ],
+            isModalInPresentation: true,
+            isBackActionAvailable: true
+        )
     }
 }

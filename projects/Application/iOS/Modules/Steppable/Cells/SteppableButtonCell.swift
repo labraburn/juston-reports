@@ -1,5 +1,5 @@
 //
-//  AccountAddingButtonCell.swift
+//  SteppableButtonCell.swift
 //  iOS
 //
 //  Created by Anton Spivak on 21.03.2022.
@@ -8,14 +8,14 @@
 import UIKit
 import HuetonUI
 
-class AccountAddingButtonCell: UICollectionViewCell {
+class SteppableButtonCell: UICollectionViewCell {
     
     var title: String? {
         get { textLabel.attributedText?.string }
         set { textLabel.attributedText = .string(newValue, with: .headline, kern: .four) }
     }
     
-    var kind: AccountAddingItem.ButtonKind = .primary {
+    var kind: SteppableItem.ButtonKind = .primary {
         didSet {
             switch kind {
             case .primary:

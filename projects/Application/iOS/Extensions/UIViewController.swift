@@ -29,8 +29,13 @@ extension UIViewController {
         animated: Bool = true,
         completion: (() -> Void)? = nil
     ) {
-        if errorToPresent is CancellationError && options.contains(.skipIfCancelled) {
-            return
+        if options.contains(.skipIfCancelled) {
+            if errorToPresent is CancellationError {
+                return
+            }
+            if let errorToPresent = errorToPresent as? ApplicationError, errorToPresent == .userCancelled {
+                return
+            }
         }
         
         let viewController = AlertViewController(
@@ -40,7 +45,7 @@ extension UIViewController {
             actions: [.done]
         )
         
-        present(viewController, animated: animated, completion: completion)
+        topmostPresentedViewController.present(viewController, animated: animated, completion: completion)
     }
     
     func presentUnderDevelopment(
@@ -54,6 +59,6 @@ extension UIViewController {
             actions: [.ok]
         )
         
-        present(viewController, animated: animated, completion: completion)
+        topmostPresentedViewController.present(viewController, animated: animated, completion: completion)
     }
 }

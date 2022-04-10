@@ -6,5 +6,9 @@
 	<array>
 		<string>group.com.hueton.debug</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)group.com.hueton.debug</string>
+	</array>
 </dict>
 </plist>

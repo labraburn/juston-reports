@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeViewController" customModule="H3000" customModuleProvider="target">
+            <connections>
+                <outlet property="passcodeHStackView" destination="pcy-UM-I2Z" id="JyL-nQ-Xbf"/>
+                <outlet property="titleLabel" destination="ohB-oA-7F4" id="xJl-1H-Q94"/>
+                <outlet property="view" destination="iN0-l3-epB" id="36Y-Ri-pY5"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pcy-UM-I2Z">
+                    <rect key="frame" x="139" y="208" width="136" height="16"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DrM-fm-Cfs" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="1VR-ur-zjb"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOA-XE-gAC" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="24" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="NXz-8L-xg1"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSP-2S-iAx" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="48" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="H3T-1Z-AnA"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XeJ-B4-N1u" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="72" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="3fR-93-vgu"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPM-bg-4y9" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="96" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="Fp7-1M-7Ya"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WK-AD-E4t" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
+                            <rect key="frame" x="120" y="0.0" width="16" height="16"/>
+                            <color key="backgroundColor" name="AppColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="ZJq-tO-42Z"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Fct-3y-7e9"/>
+                    </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-gC-108">
+                    <rect key="frame" x="79" y="272" width="256" height="352"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="56h-aM-PjL">
+                            <rect key="frame" x="0.0" y="0.0" width="256" height="64"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qh-zh-nY9" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="dAo-rn-JWl"/>
+                                        <constraint firstAttribute="width" constant="64" id="qY5-lO-son"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="1"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="DB0-zw-FBq"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dw4-eg-XyS" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="96" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="64" id="4dN-Vc-1Gb"/>
+                                        <constraint firstAttribute="height" constant="64" id="fzf-eF-CCS"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="2"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="f3O-g2-lUt"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXr-OE-qYF" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="192" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="64" id="H0T-Ew-cCx"/>
+                                        <constraint firstAttribute="height" constant="64" id="rif-Dv-GjD"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="3"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="Fwn-ph-Rub"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="0UI-IU-ZXc">
+                            <rect key="frame" x="0.0" y="96" width="256" height="64"/>
+                            <subviews>
+                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YtA-zK-Ks3" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="RtX-Sd-czk"/>
+                                        <constraint firstAttribute="width" constant="64" id="piJ-xo-8ON"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="4"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="gEj-p4-sWY"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oC-Rg-qF5" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="96" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="C3q-ex-hGx"/>
+                                        <constraint firstAttribute="width" constant="64" id="zYx-nX-sK9"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="5"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="9lh-TO-qWF"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4x-I1-zR3" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="192" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="JVy-fR-bCg"/>
+                                        <constraint firstAttribute="width" constant="64" id="yzW-Ca-yg5"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="6"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="o7y-Hk-gV2"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="xa0-ak-05H">
+                            <rect key="frame" x="0.0" y="192" width="256" height="64"/>
+                            <subviews>
+                                <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QuG-nS-Pk4" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="x2P-lE-Vpt"/>
+                                        <constraint firstAttribute="width" constant="64" id="xkE-Sy-rsS"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="7"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="Qrf-Lk-KFX"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCW-pg-ewV" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="96" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="4eX-bG-Pe7"/>
+                                        <constraint firstAttribute="width" constant="64" id="fSZ-tA-hUS"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="8"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="ff3-mp-uwV"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrF-yE-adT" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="192" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="gSg-m5-9M1"/>
+                                        <constraint firstAttribute="width" constant="64" id="hJb-ud-yyM"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="9"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="nQH-PQ-zQI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="I1q-tY-fXU">
+                            <rect key="frame" x="0.0" y="288" width="256" height="64"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxK-jf-a6q">
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="64" id="IUB-ZT-SFU"/>
+                                        <constraint firstAttribute="height" constant="64" id="gX3-Ar-wmR"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="faceid" catalog="system" symbolScale="large"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="biometryButtonDidClick:" destination="-1" eventType="touchUpInside" id="BX1-uF-hxf"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGz-PR-b0K" customClass="PasscodeNumberButton" customModule="H3000" customModuleProvider="target">
+                                    <rect key="frame" x="96" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="64" id="WRw-t2-8U4"/>
+                                        <constraint firstAttribute="height" constant="64" id="ocq-qG-NRW"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="0"/>
+                                    <connections>
+                                        <action selector="numberButtonDidClick:" destination="-1" eventType="touchUpInside" id="LRq-fT-AaV"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p83-w7-9Hj">
+                                    <rect key="frame" x="192" y="0.0" width="64" height="64"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="64" id="A1v-WA-HUE"/>
+                                        <constraint firstAttribute="width" constant="64" id="ujt-eO-tQS"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal">
+                                        <imageReference key="image" image="delete.left" catalog="system" symbolScale="large"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="deleteButtonDidClick:" destination="-1" eventType="touchUpInside" id="3n6-Zc-3Nw"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="999" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohB-oA-7F4">
+                    <rect key="frame" x="32" y="163.5" width="350" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkL-eK-rWf">
+                    <rect key="frame" x="183" y="800" width="48" height="30"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelButtonDidClick:" destination="-1" eventType="touchUpInside" id="toN-sL-N5o"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" name="BackgroundPrimary"/>
+            <constraints>
+                <constraint firstItem="ohB-oA-7F4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="10h-Sf-f8P"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vkL-eK-rWf" secondAttribute="bottom" constant="32" id="A5z-AF-H8b"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DXv-TB-2pE"/>
+                <constraint firstItem="ohB-oA-7F4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="IVS-hW-iQL"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="top" secondItem="pcy-UM-I2Z" secondAttribute="bottom" constant="48" id="Jar-hf-hxq"/>
+                <constraint firstItem="vkL-eK-rWf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UDK-F8-b9w"/>
+                <constraint firstItem="pcy-UM-I2Z" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="cLO-tP-oHc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ohB-oA-7F4" secondAttribute="trailing" constant="32" id="eBe-4u-7bA"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ej2-0D-MXJ"/>
+                <constraint firstItem="pcy-UM-I2Z" firstAttribute="top" secondItem="ohB-oA-7F4" secondAttribute="bottom" constant="24" id="iS8-O4-ZA5"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="144"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="delete.left" catalog="system" width="128" height="104"/>
+        <image name="faceid" catalog="system" width="128" height="115"/>
+        <namedColor name="AppColor">
+            <color red="0.83921568627450982" green="0.24705882352941178" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BackgroundPrimary">
+            <color red="1" green="0.98799997568130493" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

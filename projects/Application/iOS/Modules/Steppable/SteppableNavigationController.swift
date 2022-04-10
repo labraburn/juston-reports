@@ -1,14 +1,25 @@
 //
-//  AccountAddingNavigationController.swift
+//  SteppableNavigationController.swift
 //  iOS
 //
-//  Created by Anton Spivak on 21.03.2022.
+//  Created by Anton Spivak on 10.04.2022.
 //
 
 import UIKit
 import SystemUI
 
-class AccountAddingNavigationController: SUINavigationController {
+class SteppableNavigationController: SUINavigationController {
+    
+    init(rootViewModel: SteppableViewModel) {
+        let viewController = SteppableViewController(model: rootViewModel)
+        super.init(rootViewController: viewController)
+        modalPresentationStyle = .pageSheet
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

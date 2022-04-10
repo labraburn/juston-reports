@@ -32,16 +32,6 @@ public struct HuetonCORE {
         PersistenceObject.startObservingIfNeccessary()
         UInt8ArrayTransformer.register()
     }
-    
-    /// Create and store key pair
-    public static func KeyCreate() async throws -> (key: Key, words: [String]) {
-        let result = try await Key.create(password: Data(), mnemonic: Data())
-        
-        let storage = SecureStorage()
-        try await storage.save(key: result.0)
-        
-        return result
-    }
 }
 
 

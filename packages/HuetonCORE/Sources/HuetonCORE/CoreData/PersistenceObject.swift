@@ -26,6 +26,7 @@ public class PersistenceObject: NSManagedObject {
     }
     
     /// Create and insert into main context
+    @MainActor
     internal init() {
         let context = PersistenceController.shared.viewContext
         super.init(
@@ -58,6 +59,7 @@ public class PersistenceObject: NSManagedObject {
         observers.remove(observer)
     }
     
+    @MainActor
     open func save() throws {
         let context = PersistenceController.shared.viewContext
         if (try? context.existingObject(with: objectID)) == nil {
@@ -66,6 +68,7 @@ public class PersistenceObject: NSManagedObject {
         try context.save()
     }
     
+    @MainActor
     open func delete() throws {
         let context = PersistenceController.shared.viewContext
         context.delete(self)
@@ -136,6 +139,22 @@ extension PersistenceObject {
     }
 }
 
+// MARK: Observing
+
+extension PersistenceObject {
+    
+    public static func observeManagedObjectContextObjectsDidChange(
+        _ block: @escaping (_ notification: Notification) -> ()
+    ) -> NSObjectProtocol {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+            object: PersistenceController.shared.viewContext,
+            queue: .main,
+            using: block
+        )
+    }
+}
+
 // MARK: Manual observing from another contexts
 
 extension PersistenceObject {
@@ -148,18 +167,13 @@ extension PersistenceObject {
             return
         }
         
-        observer = NotificationCenter.default.addObserver(
-            forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-            object: PersistenceController.shared.viewContext,
-            queue: .main,
-            using: { notification in
-                let trigger = { (_ persistenceObject: PersistenceObject) in
-                    persistenceObject.didSaveInSharedViewContext()
-                }
-                
-                (notification.userInfo?[NSRefreshedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
-                (notification.userInfo?[NSUpdatedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
+        observer = observeManagedObjectContextObjectsDidChange({ notification in
+            let trigger = { (_ persistenceObject: PersistenceObject) in
+                persistenceObject.didSaveInSharedViewContext()
             }
-        )
+            
+            (notification.userInfo?[NSRefreshedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
+            (notification.userInfo?[NSUpdatedObjectsKey] as? Set<PersistenceObject>)?.forEach(trigger)
+        })
     }
 }

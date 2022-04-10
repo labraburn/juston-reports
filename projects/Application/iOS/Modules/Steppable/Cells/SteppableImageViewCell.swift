@@ -1,5 +1,5 @@
 //
-//  AccountAddingImageViewCell.swift
+//  SteppableImageViewCell.swift
 //  iOS
 //
 //  Created by Anton Spivak on 21.03.2022.
@@ -8,7 +8,7 @@
 import UIKit
 import HuetonUI
 
-class AccountAddingImageViewCell: UICollectionViewCell {
+class SteppableImageViewCell: UICollectionViewCell {
     
     var image: UIImage? {
         get { imageView.image }

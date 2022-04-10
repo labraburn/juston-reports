@@ -1,5 +1,5 @@
 //
-//  AccountAddingTextFieldCell.swift
+//  SteppableTextFieldCell.swift
 //  iOS
 //
 //  Created by Anton Spivak on 21.03.2022.
@@ -8,7 +8,7 @@
 import UIKit
 import HuetonUI
 
-class AccountAddingTextFieldCell: UICollectionViewCell {
+class SteppableTextFieldCell: UICollectionViewCell {
     
     var title: String? {
         get { textLabel.text }
@@ -73,7 +73,7 @@ class AccountAddingTextFieldCell: UICollectionViewCell {
     }
 }
 
-extension AccountAddingTextFieldCell: UITextFieldDelegate {
+extension SteppableTextFieldCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard !((textField.text ?? "").isEmpty)

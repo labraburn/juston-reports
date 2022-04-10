@@ -10,6 +10,7 @@ import SwiftyTON
 public class PersistenceTransaction: PersistenceObject {
     
     /// Create and insert into main context
+    @MainActor
     public convenience init(
         id: Transaction.ID,
         account: PersistenceAccount,

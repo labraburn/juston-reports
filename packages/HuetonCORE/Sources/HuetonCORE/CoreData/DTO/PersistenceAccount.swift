@@ -10,6 +10,7 @@ import SwiftyTON
 public class PersistenceAccount: PersistenceObject {
     
     /// Create and insert into main context
+    @MainActor
     public convenience init(
         rawAddress: Address.RawAddress,
         name: String

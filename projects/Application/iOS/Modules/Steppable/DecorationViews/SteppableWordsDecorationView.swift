@@ -1,5 +1,5 @@
 //
-//  AccountAddingWordsDecorationView.swift
+//  SteppableWordsDecorationView.swift
 //  iOS
 //
 //  Created by Anton Spivak on 21.03.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AccountAddingWordsDecorationView: UICollectionReusableView {
+class SteppableWordsDecorationView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -15,6 +15,7 @@ class DashboardViewController: UIViewController {
     private var task: Task<(), Never>? = nil
     
     private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
+    private var accountsObserver: NSObjectProtocol?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
@@ -56,6 +57,7 @@ class DashboardViewController: UIViewController {
     }
     
     deinit {
+        accountsObserver?.removeFromNotificationCenter()
         task?.cancel()
     }
     
@@ -65,6 +67,15 @@ class DashboardViewController: UIViewController {
         view.backgroundColor = .hui_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
+        
+        accountsObserver = PersistenceObject.observeManagedObjectContextObjectsDidChange({ [weak self] notification in
+            guard let inserted = notification.userInfo?[NSInsertedObjectsKey] as? Set<PersistenceAccount>
+            else {
+                return
+            }
+            
+            self?.reload(withSelectedAccount: Array(inserted).first)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +87,27 @@ class DashboardViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showParoleViewControllerIfNeeded()
+    }
+    
     // MARK: Private
+    
+    private func showParoleViewControllerIfNeeded() {
+        Task {
+            let parole = SecureParole()
+            let isKeyGenerated = await parole.isKeyGenerated
+            
+            guard !isKeyGenerated
+            else {
+                return
+            }
+            
+            let viewController = OnboardingViewController()
+            hui_present(viewController, animated: true)
+        }
+    }
     
     private func reload(withSelectedAccount selected: PersistenceAccount?) {
         let cardsRequest = PersistenceAccount.fetchRequest()
@@ -267,11 +298,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         _ view: DashboardAccountsView,
         addAccountButtonDidClick button: UIButton
     ) {
-        let viewController = AccountAddingViewController(model: .initial)
-        viewController.delegate = self
-        
-        let navigationController = AccountAddingNavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .pageSheet
+        let navigationController = AccountAddingViewController()
         hui_present(navigationController, animated: true, completion: nil)
     }
     
@@ -348,18 +375,8 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
 }
 
 //
-// MARK: AccountAddingViewControllerDelegate
+// MARK: DashboardStackView.Model.Style + Default
 //
-
-extension DashboardViewController: AccountAddingViewControllerDelegate {
-    
-    func accountAddingViewController(
-        _ viewController: AccountAddingViewController,
-        didAddSaveAccount account: PersistenceAccount
-    ) {
-        reload(withSelectedAccount: account)
-    }
-}
 
 private extension DashboardStackView.Model.Style {
     

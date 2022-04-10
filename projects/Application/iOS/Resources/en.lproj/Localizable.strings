@@ -27,7 +27,6 @@
 
 "AccountAddingInitialTitle" = "Hey!";
 "AccountAddingInitialDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
-"AccountAddingWordsDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
 
 "AccountAddingIOCTitle" = "Choose your destiny";
 "AccountAddingIOCDescription" = "Do you have a account or you want to import it?";
@@ -39,7 +38,7 @@
 "AccountAddingImportDescription" = "You can import any account by passphrase or public key (will be only readonly)";
 
 "AccountAddingAppearanceTitle" = "Finishing up";
-"AccountAddingAppearanceDescription" = "Please, save your passphrase and don’t share it with anyone. Your passphrase - your money";
+"AccountAddingAppearanceDescription" = "Please, backup your passphrase and don’t share it with anyone. Your passphrase - your money";
 
 "AccountAddingAccountNameTitle" = "Select name of your account";
 "AccountAddingAccountNamePlaceholder" = "Text name here";
@@ -49,6 +48,27 @@
 "AccountAddingImportButton" = "IMPORT";
 "AccountAddingCopyButton" = "COPY";
 "AccountAddingDoneButton" = "DONE";
+
+/*
+ END - AccountCreating
+ */
+
+/*
+ START - AccountCreating
+ */
+
+"OnboardingInitialTitle" = "Hey!";
+"OnboardingInitialDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
+
+"OnboardingPasscodeTitle" = "Protection";
+"OnboardingPasscodeDescription" = "Before you create any account you should protect your data and create 6-digit passcode. This data will be secured with Secure Enclave Apple technology";
+
+"OnboardingFinishTitle" = "Yep, thats all";
+"OnboardingFinishDescription" = "Enjoy the best (in our opinion) wallet aplication for TON network";
+
+"OnboardingNextButton" = "NEXT";
+"OnboardingCreateButton" = "CREATE";
+"OnboardingDoneButton" = "DONE";
 
 /*
  END - AccountCreating
@@ -74,4 +94,26 @@
 
 /*
  END - UnderDevelopment
+ */
+
+/*
+ START - ApplicationError
+ */
+
+"ApplicationErrorPasscodeNotSet" = "We can't create new account since application not protected with passcode";
+
+/*
+ END - ApplicationError
+ */
+
+/*
+ START - PasscodeView
+ */
+
+"PasscodeViewEnterCode" = "Please, enter your 6-digit code to authorize this operation";
+"PasscodeViewCreateCode1" = "Create 6-digit and remember it";
+"PasscodeViewCreateCode2" = "Repeat 6-digit and remember it";
+
+/*
+ END - PasscodeView
  */

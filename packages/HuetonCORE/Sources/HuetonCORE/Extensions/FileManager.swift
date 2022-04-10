@@ -4,17 +4,6 @@
 
 import Foundation
 
-public typealias AccessGroup = String
-
-public extension AccessGroup {
-    
-    #if DEBUG
-    static let shared: AccessGroup = "group.com.hueton.debug"
-    #else
-    static let shared: AccessGroup = "group.com.hueton"
-    #endif
-}
-
 extension FileManager {
     
     public struct PathComponent: RawRepresentable {
@@ -33,7 +22,7 @@ extension FileManager {
     public enum DirectoryType {
         
         case target
-        case group(identifier: AccessGroup = .shared)
+        case group(identifier: FileManagerAccessGroup = .shared)
     }
     
     public enum StorageType {
@@ -73,7 +62,7 @@ extension FileManager {
         case .target:
             url = urls(for: storage.searchPathDirectory, in: .userDomainMask)[0]
         case let .group(identifier):
-            guard var _url = containerURL(forSecurityApplicationGroupIdentifier: identifier)
+            guard var _url = containerURL(forSecurityApplicationGroupIdentifier: identifier.label)
             else {
                 fatalError("Could not resolve url for '\(identifier)' application group.")
             }

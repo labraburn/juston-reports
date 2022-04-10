@@ -1,35 +1,35 @@
 //
-//  AccountAddingViewCollectionViewLayout.swift
+//  SteppableViewCollectionViewLayout.swift
 //  iOS
 //
-//  Created by Anton Spivak on 21.03.2022.
+//  Created by Anton Spivak on 10.04.2022.
 //
 
 import UIKit
 import HuetonUI
 
-protocol AccountAddingViewCollectionViewLayoutDelegate: AnyObject {
+protocol SteppableViewCollectionViewLayoutDelegate: AnyObject {
     
-    func accountAddingViewCollectionViewLayout(
-        _ layout: AccountAddingViewCollectionViewLayout,
+    func steppableViewCollectionViewLayout(
+        _ layout: SteppableViewCollectionViewLayout,
         sectionIdentifierFor sectionIndex: Int
-    ) -> AccountAddingSection?
+    ) -> SteppableSection?
 }
 
-class AccountAddingViewCollectionViewLayout: CollectionViewCompositionalLayout {
+class SteppableViewCollectionViewLayout: CollectionViewCompositionalLayout {
     
-    weak var delegate: AccountAddingViewCollectionViewLayoutDelegate?
+    weak var delegate: SteppableViewCollectionViewLayoutDelegate?
     
     override func section(
         forIndex index: Int,
         withEnvironmant: NSCollectionLayoutEnvironment
     ) -> NSCollectionLayoutSection? {
-        guard let sectionIdentifier = delegate?.accountAddingViewCollectionViewLayout(self, sectionIdentifierFor: index)
+        guard let sectionIdentifier = delegate?.steppableViewCollectionViewLayout(self, sectionIdentifierFor: index)
         else {
             return nil
         }
         
-        switch sectionIdentifier {
+        switch sectionIdentifier.kind {
         case .simple:
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
@@ -57,7 +57,7 @@ class AccountAddingViewCollectionViewLayout: CollectionViewCompositionalLayout {
             group.interItemSpacing = .flexible(8)
             
             let decorationItem = NSCollectionLayoutDecorationItem.background(
-                elementKind: String(describing: AccountAddingWordsDecorationView.self)
+                elementKind: String(describing: SteppableWordsDecorationView.self)
             )
             
             decorationItem.contentInsets = NSDirectionalEdgeInsets(
