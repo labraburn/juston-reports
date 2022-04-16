@@ -4,20 +4,22 @@
         <attribute name="balance" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="raw_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
-        <attribute name="raw_workchain" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="raw_appearance" attributeType="Transformable" valueTransformerName="AccountAppearanceTransformer"/>
         <attribute name="synchronizationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="transactions" toMany="YES" deletionRule="Nullify" destinationEntity="PersistenceTransaction"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_address"/>
-                <constraint value="raw_workchain"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
     <entity name="PersistenceTransaction" representedClassName="PersistenceTransaction" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fees" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="raw_from_address" attributeType="String"/>
         <attribute name="raw_hash" attributeType="String"/>
         <attribute name="raw_identifier" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="raw_to_addresses" attributeType="Transformable" valueTransformerName="StringArrayTransformer"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="PersistenceAccount"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -27,7 +29,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="119"/>
-        <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="104"/>
+        <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

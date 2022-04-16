@@ -33,7 +33,7 @@ let package = Package(
             ],
             path: "Sources/HuetonCORE",
             resources: [
-                .process("Resources/Model.xcdatamodeld")
+                .process("Resources/Model.xcdatamodeld"),
             ],
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug)),

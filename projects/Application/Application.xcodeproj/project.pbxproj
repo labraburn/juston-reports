@@ -55,6 +55,12 @@
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
+		F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C402809DCDD0036F53A /* GlassBackgroundView.swift */; };
+		F0BC3C43280AACE80036F53A /* GlassBackgroundLumineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C42280AACE80036F53A /* GlassBackgroundLumineView.swift */; };
+		F0BC3C45280AAD320036F53A /* GlassGradientAngleMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C44280AAD320036F53A /* GlassGradientAngleMotionEffect.swift */; };
+		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
+		F0BC3C4B280AB4E30036F53A /* DashboardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* DashboardStackCardBackgroundView.swift */; };
+		F0BC3C4D280AB5120036F53A /* DashboardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* DashboardStackCardBackgroundContentView.swift */; };
 		F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
@@ -116,6 +122,12 @@
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
+		F0BC3C402809DCDD0036F53A /* GlassBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBackgroundView.swift; sourceTree = "<group>"; };
+		F0BC3C42280AACE80036F53A /* GlassBackgroundLumineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassBackgroundLumineView.swift; sourceTree = "<group>"; };
+		F0BC3C44280AAD320036F53A /* GlassGradientAngleMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassGradientAngleMotionEffect.swift; sourceTree = "<group>"; };
+		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
+		F0BC3C4A280AB4E30036F53A /* DashboardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackCardBackgroundView.swift; sourceTree = "<group>"; };
+		F0BC3C4C280AB5120036F53A /* DashboardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
 		F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHuetonView.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +155,7 @@
 		F00BE9F327DE02F50084FF1C /* DashboardStackView */ = {
 			isa = PBXGroup;
 			children = (
+				F0BC3C49280AB4D00036F53A /* DashboardStackCardBackgroundView */,
 				F00BE9F127DCC20B0084FF1C /* DashboardStackView.swift */,
 				F00BE9F427DE03190084FF1C /* DashboardStackCardView.swift */,
 			);
@@ -383,6 +396,35 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		F0BC3C3F2809DC8A0036F53A /* GlassBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				F0BC3C402809DCDD0036F53A /* GlassBackgroundView.swift */,
+				F0BC3C42280AACE80036F53A /* GlassBackgroundLumineView.swift */,
+				F0BC3C44280AAD320036F53A /* GlassGradientAngleMotionEffect.swift */,
+			);
+			path = GlassBackgroundView;
+			sourceTree = "<group>";
+		};
+		F0BC3C46280AB3090036F53A /* GradientImageBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */,
+			);
+			path = GradientImageBackgroundView;
+			sourceTree = "<group>";
+		};
+		F0BC3C49280AB4D00036F53A /* DashboardStackCardBackgroundView */ = {
+			isa = PBXGroup;
+			children = (
+				F0BC3C46280AB3090036F53A /* GradientImageBackgroundView */,
+				F0BC3C3F2809DC8A0036F53A /* GlassBackgroundView */,
+				F0BC3C4A280AB4E30036F53A /* DashboardStackCardBackgroundView.swift */,
+				F0BC3C4C280AB5120036F53A /* DashboardStackCardBackgroundContentView.swift */,
+			);
+			path = DashboardStackCardBackgroundView;
+			sourceTree = "<group>";
+		};
 		F0DBFA4F27F607FB00956DC9 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +548,7 @@
 			files = (
 				F00BE9F527DE03190084FF1C /* DashboardStackCardView.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* SteppableLabelCell.swift in Sources */,
+				F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* SteppableWordCell.swift in Sources */,
 				F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */,
 				F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */,
@@ -514,6 +557,7 @@
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A15145280253C500EF9F83 /* SteppableViewCollectionViewDataSource.swift in Sources */,
 				F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */,
+				F0BC3C43280AACE80036F53A /* GlassBackgroundLumineView.swift in Sources */,
 				F0995F9927A0B97B003A090C /* Application.swift in Sources */,
 				F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
@@ -522,10 +566,14 @@
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* SteppableTextFieldCell.swift in Sources */,
+				F0BC3C4B280AB4E30036F53A /* DashboardStackCardBackgroundView.swift in Sources */,
 				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
+				F0BC3C4D280AB5120036F53A /* DashboardStackCardBackgroundContentView.swift in Sources */,
 				F0A1515A28032DCB00EF9F83 /* PasscodeNumberButton.swift in Sources */,
 				F0EBB9B927DE288800CD4068 /* CreditCardParameters.swift in Sources */,
 				F0A151412802532B00EF9F83 /* SteppableViewController.swift in Sources */,
+				F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */,
+				F0BC3C45280AAD320036F53A /* GlassGradientAngleMotionEffect.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */,
 				F0A15156280272A800EF9F83 /* PasscodeAuthentication.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,

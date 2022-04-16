@@ -39,18 +39,7 @@ final class DashboardStackView: UIView {
     @MainActor
     struct Model {
         
-        struct Style {
-            
-            let textColorPrimary: UIColor
-            let textColorSecondary: UIColor
-            let borderColor: UIColor
-            
-            let backgroundImage: UIImage?
-            let backgroundColor: UIColor
-        }
-        
         let account: PersistenceAccount
-        let style: Style
     }
     
     enum Presentation {
@@ -159,7 +148,15 @@ final class DashboardStackView: UIView {
         needsLayoutAnimated = false
     }
     
+    func resetSelectedIfNeeded() {
+        if self.selected?.account.isFault ?? false {
+            self.selected = nil
+        }
+    }
+    
     func update(data: [Model], selected: Model? = nil, animated: Bool) {
+        resetSelectedIfNeeded()
+        
         guard !isUserInteracting
         else {
             return

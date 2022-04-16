@@ -12,6 +12,14 @@ import DeclarativeUI
 
 class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     
+    static let balanceFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 9
+        formatter.minimumFractionDigits = 9
+        formatter.decimalSeparator = "."
+        return formatter
+    }()
+    
     typealias Model = PersistenceTransaction
     
     static let absoluteHeight: CGFloat = 66
@@ -27,52 +35,21 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private let leftVStackView = UIStackView().with({
+    private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .vertical
-        $0.spacing = 8
     })
     
-    private let leftTopLabel = UILabel().with({
+    private let addressLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        
-        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
-        $0.setContentHuggingPriority(.required, for: .horizontal)
-        
-        $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
+        $0.font = .font(for: .caption1)
+        $0.textColor = .hui_textSecondary
+        $0.lineBreakMode = .byTruncatingMiddle
     })
     
-    private let leftBottomLabel = UILabel().with({
+    private let balanceLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        
-        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
-        $0.setContentHuggingPriority(.required, for: .horizontal)
-        
-        $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-    })
-    
-    private let rightVStackView = UIStackView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .vertical
-        $0.spacing = 8
-    })
-    
-    private let rightTopLabel = UILabel().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        
-        $0.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        $0.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
-        
-        $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-    })
-    
-    private let rightBottomLabel = UILabel().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        
-        $0.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        $0.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
-        
-        $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
+        $0.font = .font(for: .body)
+        $0.textColor = .hui_textSecondary
         $0.lineBreakMode = .byTruncatingMiddle
     })
     
@@ -82,22 +59,22 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .hui_backgroundSecondary
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
-    
-        contentView.addSubview(leftVStackView)
-        leftVStackView.addArrangedSubview(leftTopLabel)
-        leftVStackView.addArrangedSubview(leftBottomLabel)
         
-        contentView.addSubview(rightVStackView)
-        rightVStackView.addArrangedSubview(rightTopLabel)
-        rightVStackView.addArrangedSubview(rightBottomLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(balanceLabel)
+        contentView.addSubview(addressLabel)
         
         NSLayoutConstraint.activate({
-            leftVStackView.pin(vertically: contentView, top: 12, bottom: 12)
-            leftVStackView.leftAnchor.pin(to: contentView.leftAnchor, constant: 12)
+            imageView.leftAnchor.pin(to: contentView.leftAnchor, constant: 16)
+            imageView.centerYAnchor.pin(to: contentView.centerYAnchor)
             
-            rightVStackView.pin(vertically: contentView, top: 12, bottom: 12)
-            rightVStackView.leftAnchor.pin(to: leftVStackView.rightAnchor, constant: 12)
-            rightAnchor.pin(to: rightVStackView.rightAnchor, constant: 12)
+            balanceLabel.topAnchor.pin(to: contentView.topAnchor, constant: 12)
+            balanceLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 12)
+            rightAnchor.pin(to: balanceLabel.rightAnchor, constant: 12)
+            
+            addressLabel.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 6)
+            addressLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 12)
+            rightAnchor.pin(to: addressLabel.rightAnchor, constant: 12)
         })
     }
     
@@ -107,45 +84,31 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     }
     
     private func update(model: Model) {
-//        if let message = model.out.first {
-//            // sended
-//
-//            // TODO: Here can be more than one message, so we should handle it
-//
-//            leftTopLabel.text = "Sended:"
-//            leftBottomLabel.text = "To:"
-//
-//            rightTopLabel.textColor = .systemRed
-//            rightTopLabel.text = "\(message.value)"
-//
-//            if let rawAddress = message.destinationAccountAddress {
-//                let address = Address(rawAddress: rawAddress)
-//                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
-//            } else {
-//                rightBottomLabel.text = " "
-//            }
-//        } else if let message = model.in {
-//            // received
-//
-//            leftTopLabel.text = "Received:"
-//            leftBottomLabel.text = "From:"
-//
-//            rightTopLabel.textColor = .systemGreen
-//            rightTopLabel.text = "\(message.value)"
-//
-//            if let rawAddress = message.sourceAccountAddress {
-//                let address = Address(rawAddress: rawAddress)
-//                rightBottomLabel.text = address.convert(representation: .base64url(flags: []))
-//            } else {
-//                rightBottomLabel.text = " "
-//            }
-//
-//        } else {
-//            leftTopLabel.text = " "
-//            leftBottomLabel.text = " "
-//
-//            rightTopLabel.text = " "
-//            rightBottomLabel.text = " "
-//        }
+        guard let account = model.account
+        else {
+            return
+        }
+        
+        balanceLabel.text = Self.balanceFormatter.string(from: model.value)
+        
+        if model.fromAddress == account.rawAddress {
+            imageView.image = .hui_sendColor24
+            balanceLabel.textColor = .hui_letter_red
+            
+            if let toAddressRaw = model.toAddresses.first {
+                let toAddress = Address(rawAddress: toAddressRaw)
+                let addressURL = toAddress.convert(representation: .base64url(flags: []))
+                addressLabel.text = "to \(addressURL)"
+            } else {
+                addressLabel.text = "to ..."
+            }
+        } else {
+            imageView.image = .hui_receiveColor24
+            balanceLabel.textColor = .hui_letter_green
+            
+            let fromAddress = Address(rawAddress: model.fromAddress)
+            let addressURL = fromAddress.convert(representation: .base64url(flags: []))
+            addressLabel.text = "from \(addressURL)"
+        }
     }
 }

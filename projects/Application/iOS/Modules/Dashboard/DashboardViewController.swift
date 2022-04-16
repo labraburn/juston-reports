@@ -113,8 +113,7 @@ class DashboardViewController: UIViewController {
         let cardsRequest = PersistenceAccount.fetchRequest()
         let cards = ((try? PersistenceObject.fetch(cardsRequest)) ?? []).map({
             DashboardStackView.Model(
-                account: $0,
-                style: .image
+                account: $0
             )
         })
         
@@ -127,8 +126,10 @@ class DashboardViewController: UIViewController {
         let _selected: DashboardStackView.Model
         if let selected = selected {
             _selected = cards.first(where: { $0.account == selected }) ?? cards[0]
-        } else {
+        } else if !(accountsView.selected?.account.isFault ?? true) {
             _selected = accountsView.selected ?? cards[0]
+        } else {
+            _selected = cards[0]
         }
         
         accountsView.set(
@@ -372,27 +373,4 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
             self?.task = nil
         }
     }
-}
-
-//
-// MARK: DashboardStackView.Model.Style + Default
-//
-
-private extension DashboardStackView.Model.Style {
-    
-    static let `default` = DashboardStackView.Model.Style(
-        textColorPrimary: .white,
-        textColorSecondary: UIColor(rgb: 0x4F4F4F),
-        borderColor: .white,
-        backgroundImage: nil,
-        backgroundColor: UIColor(rgb: 0x292528)
-    )
-    
-    static let image = DashboardStackView.Model.Style(
-        textColorPrimary: .white,
-        textColorSecondary: .white.withAlphaComponent(0.6),
-        borderColor: .white,
-        backgroundImage: UIImage(named: "Image"),
-        backgroundColor: UIColor(rgb: 0x292528)
-    )
 }

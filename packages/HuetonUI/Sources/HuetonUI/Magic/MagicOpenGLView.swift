@@ -104,7 +104,7 @@ extension MagicOpenGLView: ViewDelegate {
         glUniform2f(glUniforms[.resolution], Float(bounds.size.width * scale), Float(bounds.size.height * scale))
         glUniform1f(glUniforms[.time], GLfloat(view.renderTime))
         
-        let colorRGB: (CGFloat, CGFloat, CGFloat) = color.rgb()
+        let colorRGB: (CGFloat, CGFloat, CGFloat, _) = color.rgba()
         glUniform3f(glUniforms[.tint_color], GLfloat(colorRGB.0), GLfloat(colorRGB.1), GLfloat(colorRGB.2))
         
         glDrawArrays(GLenum(GL_TRIANGLE_FAN), GLint(0), GLsizei(glVertices.count))

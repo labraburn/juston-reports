@@ -185,7 +185,7 @@ private extension SteppableViewModel {
                                     return
                                 }
 
-                                let account = PersistenceAccount(rawAddress: rawAddress, name: name)
+                                let account = PersistenceAccount(rawAddress: rawAddress, name: name, appearance: .default)
                                 try account.save()
                                 
                                 viewController.finish()

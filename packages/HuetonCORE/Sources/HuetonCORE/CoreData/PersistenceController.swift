@@ -40,6 +40,9 @@ internal class PersistenceController {
         }
         
         container = PersistentContainer(name: nameName, managedObjectModel: model)
+        container.persistentStoreDescriptions.first?.shouldMigrateStoreAutomatically = true
+        container.persistentStoreDescriptions.first?.shouldInferMappingModelAutomatically = true
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             
             self.container.viewContext.automaticallyMergesChangesFromParent = true

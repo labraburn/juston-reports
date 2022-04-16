@@ -93,19 +93,9 @@ final class DashboardStackCardView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        backgroundView.layer.cornerRadius = cornerRadius
+        backgroundView.cornerRadius = cornerRadius
         compactContentView.layer.cornerRadius = cornerRadius
         largeContentView.layer.cornerRadius = cornerRadius
-        
-        layer.applyFigmaShadow(
-            color: UIColor(rgb: 0x232020),
-            alpha: 0.12,
-            x: 0,
-            y: 24,
-            blur: 26,
-            spread: 0,
-            cornerRadius: cornerRadius
-        )
     }
     
     
@@ -131,7 +121,7 @@ final class DashboardStackCardView: UIView {
     private func _reload() {
         compactContentView._reload()
         largeContentView._reload()
-        backgroundView._reload()
+        backgroundView.reload()
     }
     
     private func _update(state: State, animated: Bool, duration: TimeInterval? = nil) {
@@ -151,22 +141,24 @@ final class DashboardStackCardView: UIView {
         }
         
         UIView.performWithoutAnimation({
-            backgroundView.overlayView.isHidden = false
             largeContentView.isHidden = false
             compactContentView.isHidden = false
         })
         
-        let hiddenOrDimmed = state == .hidden || tintAdjustmentMode == .dimmed
+        let duration = duration ?? (state != .hidden ? 1.84 : 0.21)
+        
+        backgroundView.setDimmed(
+            state == .hidden || state == .compact || tintAdjustmentMode == .dimmed,
+            animated: animated,
+            duration: duration
+        )
         
         let animations = {
-            self.backgroundView.overlayView.alpha = hiddenOrDimmed ? 1 : 0
             self.largeContentView.alpha = state == .large ? 1 : 0
             self.compactContentView.alpha = state == .compact ? 1 : 0
         }
         
         let completion = { (_ finished: Bool) in
-            self.backgroundView.overlayView.isHidden = self.backgroundView.overlayView.alpha == 0
-            
             self.largeContentView.isHidden = self.largeContentView.alpha == 0
             if self.largeContentView.isHidden {
                 self.largeContentView.removeFromSuperview()
@@ -180,7 +172,7 @@ final class DashboardStackCardView: UIView {
         
         if animated {
             UIView.animate(
-                withDuration: duration ?? (state != .hidden ? 1.84 : 0.21),
+                withDuration: duration,
                 delay: 0,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0,
@@ -190,7 +182,16 @@ final class DashboardStackCardView: UIView {
             )
         } else {
             animations()
-            completion(true)
+            if UIView.inheritedAnimationDuration > 0 {
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + UIView.inheritedAnimationDuration,
+                    execute: {
+                        completion(true)
+                    }
+                )
+            } else {
+                completion(true)
+            }
         }
     }
 }
@@ -214,13 +215,7 @@ private class DashboardStackCardContentView: UIView {
     
     init(model: DashboardStackView.Model) {
         self.model = model
-        
         super.init(frame: .zero)
-        
-        layer.masksToBounds = true
-        layer.cornerCurve = .continuous
-        layer.borderWidth = 1
-        
         _reload()
     }
     
@@ -231,21 +226,25 @@ private class DashboardStackCardContentView: UIView {
     
     // MARK: Private
     
-    fileprivate func _reload() {
-        layer.borderColor = model.style.borderColor.cgColor
-    }
+    fileprivate func _reload() {}
     
     fileprivate func more() -> UIMenu {
-        UIMenu(children: [
-            UIAction(title: "CommonRemove".asLocalizedKey, attributes: .destructive, handler: { [weak self] _ in
-                guard let self = self
-                else {
-                    return
-                }
-                
-                self.removeButtonDidClick(nil)
-            })
-        ])
+        UIMenu(
+            children: [
+                UIAction(
+                    title: "CommonRemove".asLocalizedKey,
+                    attributes: .destructive,
+                    handler: { [weak self] _ in
+                        guard let self = self
+                        else {
+                            return
+                        }
+                    
+                        self.removeButtonDidClick(nil)
+                    }
+                )
+            ]
+        )
     }
     
     // MARK: Actions
@@ -331,13 +330,15 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
         let address = Address(rawAddress: model.account.rawAddress)
             .convert(representation: .base64url(flags: [.bounceable]))
         
-        accountNameLabel.textColor = model.style.textColorPrimary
+        let tintColor = UIColor(rgba: model.account.appearance.tintColor)
+        
+        accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
-        accountCurrentAddressLabel.textColor = model.style.textColorSecondary
+        accountCurrentAddressLabel.textColor = tintColor.withAlphaComponent(0.3)
         accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
         
-        moreButton.tintColor = model.style.textColorPrimary
+        moreButton.tintColor = tintColor
     }
 }
 
@@ -410,20 +411,20 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         moreButton.menu = more()
         
         NSLayoutConstraint.activate({
-            accountNameLabel.topAnchor.pin(to: topAnchor, constant: 20)
-            accountNameLabel.leftAnchor.pin(to: leftAnchor, constant: 22)
+            accountNameLabel.topAnchor.pin(to: topAnchor, constant: 23)
+            accountNameLabel.leftAnchor.pin(to: leftAnchor, constant: 20)
             accountCurrentAddressLabel.leftAnchor.pin(to: accountNameLabel.rightAnchor, constant: 12)
             accountNameLabel.heightAnchor.pin(to: 33)
             
             accountCurrentAddressLabel.topAnchor.pin(to: topAnchor, constant: 20)
-            accountCurrentAddressLabel.widthAnchor.pin(to: 29)
+            accountCurrentAddressLabel.widthAnchor.pin(to: 16)
             bottomAnchor.pin(to: accountCurrentAddressLabel.bottomAnchor, constant: 20)
-            rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 12)
+            rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 22)
             
             balanceLabel.leftAnchor.pin(to: leftAnchor, constant: 20)
             accountCurrentAddressLabel.leftAnchor.pin(to: balanceLabel.rightAnchor, constant: 12)
-            bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 22)
             
+            bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 30)
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 20)
             bottomButtonsHStackView.heightAnchor.pin(to: 52)
             bottomButtonsHStackView.widthAnchor.pin(greaterThan: 128)
@@ -441,24 +442,31 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
     override func _reload() {
         super._reload()
         
-        sendButton.tintColor = model.style.textColorPrimary
-        receiveButton.tintColor = model.style.textColorPrimary
-        moreButton.tintColor = model.style.textColorPrimary
+        let tintColor = UIColor(rgba: model.account.appearance.tintColor)
+        let controlsForegroundColor = UIColor(rgba: model.account.appearance.controlsForegroundColor)
+        let controlsBackgroundColor = UIColor(rgba: model.account.appearance.controlsBackgroundColor)
+        
+        sendButton.tintColor = controlsForegroundColor
+        sendButton.backgroundColor = controlsBackgroundColor
+        receiveButton.tintColor = controlsForegroundColor
+        receiveButton.backgroundColor = controlsBackgroundColor
+        moreButton.tintColor = controlsForegroundColor
+        moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
         let address = Address(rawAddress: model.account.rawAddress)
             .convert(representation: .base64url(flags: [.bounceable]))
         
-        accountNameLabel.textColor = model.style.textColorPrimary
+        accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
-        accountCurrentAddressLabel.label.textColor = model.style.textColorSecondary
+        accountCurrentAddressLabel.label.textColor = tintColor.withAlphaComponent(0.3)
         accountCurrentAddressLabel.label.attributedText = .string(address, with: .callout)
         
         let balance = model.account.balance
         let balances = (Self.balanceFormatter.string(from: balance) ?? "0.0").components(separatedBy: ".")
         
-        balanceLabel.textColor = model.style.textColorPrimary
+        balanceLabel.textColor = tintColor
         balanceLabel.attributedText = NSMutableAttributedString().with({
             $0.append(NSAttributedString(string: balances[0], attributes: [
                 .font : UIFont.monospacedSystemFont(ofSize: 57, weight: .bold),
@@ -469,80 +477,6 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
             ]))
             $0.append(.string("\n." + balances[1], with: .body, kern: .four, lineHeight: 17))
         })
-    }
-}
-
-//
-// MARK: DashboardStackCardBackgroundView
-//
-
-private final class DashboardStackCardBackgroundView: UIView {
-    
-    let model: DashboardStackView.Model
-    
-    let contentView = UIView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    })
-    
-    let imageView = UIImageView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFill
-        $0.image = UIImage(named: "CardBackground0")
-    })
-    
-    let visualEffectView = UIVisualEffectView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.effect = UIBlurEffect(style: .light)
-    })
-    
-    let overlayView = UIView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    })
-    
-    init(model: DashboardStackView.Model) {
-        self.model = model
-        
-        super.init(frame: .zero)
-        
-        layer.masksToBounds = true
-        layer.cornerCurve = .continuous
-        
-        addSubview(contentView)
-        addSubview(overlayView)
-        
-        NSLayoutConstraint.activate({
-            contentView.pin(edges: self)
-            overlayView.pin(edges: self)
-        })
-        
-        _reload()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: Private
-    
-    fileprivate func _reload() {
-        let style = model.style
-        
-        backgroundColor = style.backgroundColor
-        overlayView.backgroundColor = style.backgroundColor
-        
-        let hasBackgroundImage = style.backgroundImage != nil
-        if hasBackgroundImage {
-            imageView.image = style.backgroundImage
-            contentView.addSubview(imageView)
-            contentView.addSubview(visualEffectView)
-            
-            imageView.pinned(edges: contentView)
-            visualEffectView.pinned(edges: contentView)
-        } else {
-            imageView.removeFromSuperview()
-            visualEffectView.removeFromSuperview()
-        }
     }
 }
 
@@ -569,14 +503,11 @@ private final class DashboardStackCardButton: UIButton {
     static func createBottomButton(_ image: UIImage) -> UIButton {
         let button = DashboardStackCardButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.insertVisualEffectViewWithEffect(
-            UIBlurEffect(style: .systemUltraThinMaterialDark),
-            cornerRadius: 26,
-            cornerCurve: .circular
-        )
         button.insertHighlightingScaleDownAnimation()
         button.insertFeedbackGenerator(style: .medium)
         button.setImage(image, for: .normal)
+        button.layer.cornerRadius = 26
+        button.layer.cornerCurve = .continuous
         return button
     }
 }

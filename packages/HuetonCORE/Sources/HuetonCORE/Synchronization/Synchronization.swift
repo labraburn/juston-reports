@@ -32,7 +32,6 @@ public struct Synchronization {
         
         let persistenceAccount = try account(for: rawAddress, in: context)
         persistenceAccount.balance = NSDecimalNumber(decimal: wallet.contract.info.balance.value)
-        persistenceAccount.synchronizationDate = Date()
         try context.save()
         
         var transactions: [Transaction] = []
@@ -50,13 +49,59 @@ public struct Synchronization {
         try Task.checkCancellation()
         
         transactions.forEach({ transaction in
+            guard transaction.in != nil || !transaction.out.isEmpty
+            else {
+                return
+            }
+            
             let persistenceTransaction = PersistenceTransaction(context: context)
             persistenceTransaction.id = transaction.id
             persistenceTransaction.account = persistenceAccount
             persistenceTransaction.date = transaction.date
+            persistenceTransaction.fees = NSDecimalNumber(
+                decimal: transaction.storageFee.value + transaction.otherFee.value
+            )
+            
+            if let message = transaction.in,
+               let sourceAccountAddress = message.sourceAccountAddress
+            {
+                // received
+                persistenceTransaction.value = NSDecimalNumber(decimal: message.value.value)
+                persistenceTransaction.fromAddress = sourceAccountAddress
+                persistenceTransaction.toAddresses = [persistenceAccount.rawAddress]
+            }
+            else if !transaction.out.isEmpty {
+                // sended
+                
+                var value: Decimal = 0
+                var toAddresses: [Address.RawAddress] = []
+                
+                transaction.out.forEach({ message in
+                    guard let destinationAccountAddress = message.destinationAccountAddress
+                    else {
+                        return
+                    }
+                    
+                    value += message.value.value
+                    toAddresses.append(destinationAccountAddress)
+                })
+                
+                persistenceTransaction.value = NSDecimalNumber(decimal: value)
+                persistenceTransaction.fromAddress = persistenceAccount.rawAddress
+                persistenceTransaction.toAddresses = toAddresses
+            }
+            else {
+                // can't being happend
+                // i hope
+            }
         })
         
-        try context.save()
+        persistenceAccount.synchronizationDate = Date()
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
     }
     
     // Helpers

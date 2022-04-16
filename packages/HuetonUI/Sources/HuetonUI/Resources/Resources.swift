@@ -36,7 +36,9 @@ public extension UIColor {
 public extension UIImage {
     
     static let hui_send24: UIImage = .named("Send24")
+    static let hui_sendColor24: UIImage = .named("SendColor24")
     static let hui_receive24: UIImage = .named("Receive24")
+    static let hui_receiveColor24: UIImage = .named("ReceiveColor24")
     static let hui_more24: UIImage = .named("More24")
     static let hui_addCircle24: UIImage = .named("AddCircle24")
     
@@ -46,6 +48,8 @@ public extension UIImage {
     static let hui_development42: UIImage = .named("Development42")
     
     static let hui_placeholder512: UIImage = .named("Placeholder512")
+    
+    static let hui_cardGradient0: UIImage = .named("CardGradient0")
     
     private static func named(_ name: String) -> UIImage {
         guard let color = UIImage(named: name, in: .module, with: nil)

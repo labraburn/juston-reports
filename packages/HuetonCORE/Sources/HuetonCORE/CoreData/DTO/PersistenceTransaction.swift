@@ -38,8 +38,28 @@ extension PersistenceTransaction {
         }
     }
     
+    public var fromAddress: Address.RawAddress {
+        get {
+            Address.RawAddress(rawValue: raw_from_address)!
+        }
+        set {
+            raw_from_address = newValue.rawValue
+        }
+    }
+    
+    public var toAddresses: [Address.RawAddress] {
+        get {
+            raw_to_addresses.compactMap({ Address.RawAddress(rawValue: $0) })
+        }
+        set {
+            raw_to_addresses = newValue.map({ $0.rawValue })
+        }
+    }
+    
     @NSManaged public var date: Date?
     @NSManaged public var account: PersistenceAccount?
+    @NSManaged public var value: NSDecimalNumber
+    @NSManaged public var fees: NSDecimalNumber
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistenceTransaction> {
         return NSFetchRequest<PersistenceTransaction>(entityName: "PersistenceTransaction")
@@ -78,6 +98,8 @@ extension PersistenceTransaction {
     
     // MARK: Internal
     
-    @NSManaged var raw_identifier: Int64
-    @NSManaged var raw_hash: String
+    @NSManaged private var raw_identifier: Int64
+    @NSManaged private var raw_hash: String
+    @NSManaged private var raw_from_address: String
+    @NSManaged private var raw_to_addresses: [String]
 }

@@ -4,6 +4,7 @@
 
 import Foundation
 import CoreData
+import Objective42
 
 @_exported import SwiftyTON
 
@@ -28,9 +29,12 @@ public struct HuetonCORE {
     
     /// Initialize HuetonCORE and it's dependencies
     public static func initialize() {
+        StringArrayTransformer.register()
+        UInt8ArrayTransformer.register()
+        AccountAppearanceTransformer.register()
+        
         SwiftyTON.configurate(with: .main)
         PersistenceObject.startObservingIfNeccessary()
-        UInt8ArrayTransformer.register()
     }
 }
 

@@ -4,25 +4,25 @@
 
 import UIKit
 
-internal class GradientLayer: CALayer {
+public class GradientLayer: CALayer {
     
-    @NSManaged var angle: Double
-    @NSManaged var colors: [CGColor]
-    @NSManaged var locations: [Double]
+    @NSManaged public var angle: Double
+    @NSManaged public var colors: [CGColor]
+    @NSManaged public var locations: [Double]
     
     let systemLayer: CAGradientLayer = CAGradientLayer()
     
-    override init() {
+    public override init() {
         super.init()
         initialize()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         initialize()
     }
     
-    override init(layer: Any) {
+    public override init(layer: Any) {
         guard let layer = layer as? GradientLayer
         else {
             fatalError("Can't initialize GradientLayer with \(layer)")
@@ -38,7 +38,7 @@ internal class GradientLayer: CALayer {
         addSublayer(systemLayer)
     }
     
-    override func display() {
+    public override func display() {
         super.display()
         display(from: presentation() ?? self)
     }
@@ -105,7 +105,7 @@ internal class GradientLayer: CALayer {
         key == #keyPath(angle) || key == #keyPath(colors) || key == #keyPath(locations)
     }
     
-    override class func needsDisplay(forKey key: String) -> Bool {
+    public override class func needsDisplay(forKey key: String) -> Bool {
         guard isAnimationKeyImplemented(key)
         else {
             return super.needsDisplay(forKey: key)
@@ -114,7 +114,7 @@ internal class GradientLayer: CALayer {
         return true
     }
     
-    override func action(forKey event: String) -> CAAction? {
+    public override func action(forKey event: String) -> CAAction? {
         guard Self.isAnimationKeyImplemented(event)
         else {
             return super.action(forKey: event)
@@ -130,7 +130,7 @@ internal class GradientLayer: CALayer {
     }
     
     private func _action(_ animation: ((_ animation: CABasicAnimation?) -> ())) -> CAAction? {
-        let system = action(forKey: #keyPath(backgroundColor))
+        var system = action(forKey: #keyPath(backgroundColor))
         let sel = NSSelectorFromString("pendingAnimation")
         
         if let expanded = system as? CABasicAnimation {
@@ -138,6 +138,11 @@ internal class GradientLayer: CALayer {
         } else if let expanded = system as? NSObject, expanded.responds(to: sel) {
             let value = expanded.value(forKeyPath: "_pendingAnimation")
             animation(value as? CABasicAnimation)
+        } else if system == nil {
+            let value = CABasicAnimation(keyPath: "")
+            value.duration = UIView.inheritedAnimationDuration
+            animation(value)
+            system = value
         }
         
         return system
