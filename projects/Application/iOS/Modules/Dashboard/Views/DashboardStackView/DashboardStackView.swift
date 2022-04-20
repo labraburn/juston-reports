@@ -23,6 +23,16 @@ protocol DashboardStackViewDelegate: AnyObject {
     
     func dashboardStackView(
         _ view: DashboardStackView,
+        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
         didClickSendButtonWithModel model: DashboardStackView.Model
     )
     
@@ -507,5 +517,13 @@ extension DashboardStackView: DashboardStackCardViewDelegate {
     
     func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: Model) {
         delegate?.dashboardStackView(self, didClickReceiveButtonWithModel: model)
+    }
+    
+    func cardStackCardView(_ view: UIView, didClickSubscribeButtonWithModel model: DashboardStackView.Model) {
+        delegate?.dashboardStackView(self, didClickSubscribeButtonWithModel: model)
+    }
+    
+    func cardStackCardView(_ view: UIView, didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model) {
+        delegate?.dashboardStackView(self, didClickUnsubscrabeButtonWithModel: model)
     }
 }

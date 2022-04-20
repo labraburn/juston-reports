@@ -362,6 +362,30 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
+        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    ) {
+        UIApplication.shared.requestNotificationsPermissionIfNeeded()
+        
+        var subscriptions = model.account.subscriptions
+        subscriptions.append(.transactions)
+        
+        model.account.subscriptions = subscriptions
+        try? model.account.save()
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickUnsubscribeButtonWithModel model: DashboardStackView.Model
+    ) {
+        var subscriptions = model.account.subscriptions
+        subscriptions.removeAll(where: { $0 == .transactions })
+        
+        model.account.subscriptions = subscriptions
+        try? model.account.save()
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
         didClickSendButtonWithModel model: DashboardStackView.Model
     ) {
         presentUnderDevelopment()

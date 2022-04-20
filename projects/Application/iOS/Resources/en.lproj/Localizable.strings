@@ -117,3 +117,15 @@
 /*
  END - PasscodeView
  */
+
+
+/*
+ START - AccountCard
+ */
+
+"AccountCardSubscribeButton" = "Enable notifications";
+"AccountCardUnsubscribeButton" = "Disable notifications";
+
+/*
+ END - AccountCard
+ */

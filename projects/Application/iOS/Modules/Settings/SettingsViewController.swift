@@ -108,7 +108,9 @@ private extension NSDiffableDataSourceSnapshot where SectionIdentifierType == SC
         snapshot.appendSection(
             .init(kind: .list, header: .title(value: "Debug")),
             items: [
-                .init(kind: .text(value: "Copy Device Token"), synchronousAction: { }),
+                .init(kind: .text(value: "Copy Device Token"), synchronousAction: {
+                    UIPasteboard.general.string = PushIdentificator.shared.APNSToken
+                }),
             ]
         )
         

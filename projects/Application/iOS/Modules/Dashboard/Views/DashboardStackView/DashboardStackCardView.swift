@@ -19,6 +19,16 @@ protocol DashboardStackCardViewDelegate: AnyObject {
     
     func cardStackCardView(
         _ view: UIView,
+        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
+        didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
         didClickSendButtonWithModel model: DashboardStackView.Model
     )
     
@@ -229,21 +239,34 @@ private class DashboardStackCardContentView: UIView {
     fileprivate func _reload() {}
     
     fileprivate func more() -> UIMenu {
-        UIMenu(
-            children: [
-                UIAction(
-                    title: "CommonRemove".asLocalizedKey,
-                    attributes: .destructive,
-                    handler: { [weak self] _ in
-                        guard let self = self
-                        else {
-                            return
-                        }
-                    
-                        self.removeButtonDidClick(nil)
-                    }
-                )
-            ]
+        var children: [UIMenuElement] = []
+        
+        children.append(UIAction(
+            title: "CommonRemove".asLocalizedKey,
+            attributes: .destructive,
+            handler: { [weak self] _ in
+                self?.removeButtonDidClick(nil)
+            }
+        ))
+        
+        if model.account.subscriptions.contains(.transactions) {
+            children.append(UIAction(
+                title: "AccountCardUnsubscribeButton".asLocalizedKey,
+                handler: { [weak self] _ in
+                    self?.unsubscribeButtonDidClick(nil)
+                }
+            ))
+        } else {
+            children.append(UIAction(
+                title: "AccountCardSubscribeButton".asLocalizedKey,
+                handler: { [weak self] _ in
+                    self?.subscribeButtonDidClick(nil)
+                }
+            ))
+        }
+        
+        return UIMenu(
+            children: children
         )
     }
     
@@ -262,6 +285,16 @@ private class DashboardStackCardContentView: UIView {
     @objc
     fileprivate func removeButtonDidClick(_ sender: UIControl?) {
         delegate?.cardStackCardView(self, didClickRemoveButtonWithModel: model)
+    }
+    
+    @objc
+    fileprivate func subscribeButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickSubscribeButtonWithModel: model)
+    }
+    
+    @objc
+    fileprivate func unsubscribeButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickUnsubscrabeButtonWithModel: model)
     }
 }
 
@@ -339,6 +372,8 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
         accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
         
         moreButton.tintColor = tintColor
+        moreButton.menu = nil
+        moreButton.menu = more()
     }
 }
 
@@ -408,7 +443,6 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
         receiveButton.addTarget(self, action: #selector(receiveButtonDidClick(_:)), for: .touchUpInside)
         
         moreButton.showsMenuAsPrimaryAction = true
-        moreButton.menu = more()
         
         NSLayoutConstraint.activate({
             accountNameLabel.topAnchor.pin(to: topAnchor, constant: 23)
@@ -477,6 +511,9 @@ private final class DashboardStackCardLargeContentView: DashboardStackCardConten
             ]))
             $0.append(.string("\n." + balances[1], with: .body, kern: .four, lineHeight: 17))
         })
+        
+        moreButton.menu = nil
+        moreButton.menu = more()
     }
 }
 

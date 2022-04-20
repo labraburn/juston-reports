@@ -39,7 +39,7 @@ struct SCLS3000Section {
 
 struct SCLS3000Item {
     
-    typealias SynchronousAction = () throws -> ()
+    typealias SynchronousAction = @MainActor () throws -> ()
     typealias AsynchronousAction = () async throws -> ()
     
     enum Kind {

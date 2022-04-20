@@ -5,6 +5,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="raw_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
         <attribute name="raw_appearance" attributeType="Transformable" valueTransformerName="AccountAppearanceTransformer"/>
+        <attribute name="raw_subscriptions" attributeType="Transformable" valueTransformerName="AccountSubscriptionArrayTransformer"/>
         <attribute name="synchronizationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -29,7 +30,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="104"/>
+        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="119"/>
         <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

@@ -20,38 +20,61 @@ public class PersistenceAccount: PersistenceObject {
         self.name = name
         self.rawAddress = rawAddress
         self.appearance = appearance
+        self.subscriptions = []
     }
 }
 
 extension PersistenceAccount {
     
     public var appearance: AccountAppearance {
+        set { raw_appearance = newValue }
         get {
-            raw_appearance as! AccountAppearance
-        }
-        set {
-            raw_appearance = newValue
+            guard let appearance = raw_appearance as? AccountAppearance
+            else {
+                fatalError("Looks like data is fault.")
+            }
+            return appearance
         }
     }
     
     public var rawAddress: Address.RawAddress {
+        set { raw_address = newValue.rawValue }
         get {
-            Address.RawAddress(rawValue: raw_address)!
-        }
-        set {
-            raw_address = newValue.rawValue
+            guard let rawAddress = Address.RawAddress(rawValue: raw_address)
+            else {
+                fatalError("Looks like data is fault.")
+            }
+            return rawAddress
         }
     }
     
-    @NSManaged public var name: String
-    @NSManaged public var synchronizationDate: Date?
-    @NSManaged public var balance: NSDecimalNumber
+    public var subscriptions: [AccountSubscription] {
+        set { raw_subscriptions = newValue }
+        get {
+            guard let subscriptions = raw_subscriptions as? [AccountSubscription]
+            else {
+                return []
+            }
+            return subscriptions
+        }
+    }
     
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistenceAccount> {
+    @NSManaged
+    public var name: String
+    
+    @NSManaged
+    public var synchronizationDate: Date?
+    
+    @NSManaged
+    public var balance: NSDecimalNumber
+    
+    @nonobjc
+    public class func fetchRequest() -> NSFetchRequest<PersistenceAccount> {
         return NSFetchRequest<PersistenceAccount>(entityName: "PersistenceAccount")
     }
     
-    @nonobjc public class func fetchRequest(
+    @nonobjc
+    public class func fetchRequest(
         rawAddress: Address.RawAddress
     ) -> NSFetchRequest<PersistenceAccount> {
         let request = NSFetchRequest<PersistenceAccount>(entityName: "PersistenceAccount")
@@ -61,7 +84,8 @@ extension PersistenceAccount {
         return request
     }
     
-    @nonobjc public class func fetchedResultsController(
+    @nonobjc
+    public class func fetchedResultsController(
         request: NSFetchRequest<PersistenceAccount>
     ) -> NSFetchedResultsController<PersistenceAccount> {
         let viewContext = PersistenceController.shared.viewContext
@@ -75,6 +99,15 @@ extension PersistenceAccount {
     
     // MARK: Internal
     
-    @NSManaged private var raw_address: String
-    @NSManaged private var raw_appearance: Any
+    /// -1:00000000000000
+    @NSManaged
+    private var raw_address: String
+    
+    /// AccountAppearanceTransformer
+    @NSManaged
+    private var raw_appearance: Any
+    
+    /// AccountSubscriptionArrayTransformer
+    @NSManaged
+    private var raw_subscriptions: Any
 }

@@ -17,6 +17,10 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         HuetonCORE.initialize()
         UIApplication.cleanLaunchScreenCache()
+        
+        application.requestRegisterForRemoteNotificationsIfNeeded()
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
     
@@ -42,5 +46,27 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     
     }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        PushIdentificator.shared.update(withData: deviceToken)
+    }
 }
 
+extension ApplicationDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        completionHandler()
+    }
+}

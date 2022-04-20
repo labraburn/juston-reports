@@ -51,6 +51,16 @@ protocol DashboardAccountsViewDelegate: AnyObject {
         _ view: DashboardAccountsView,
         didClickReceiveButtonWithModel model: DashboardStackView.Model
     )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        didClickUnsubscribeButtonWithModel model: DashboardStackView.Model
+    )
 }
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
@@ -343,5 +353,19 @@ extension DashboardAccountsView: DashboardStackViewDelegate {
         didClickReceiveButtonWithModel model: DashboardStackView.Model
     ) {
         delegate?.dashboardAccountsView(self, didClickReceiveButtonWithModel: model)
+    }
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    ) {
+        delegate?.dashboardAccountsView(self, didClickSubscribeButtonWithModel: model)
+    }
+    
+    func dashboardStackView(
+        _ view: DashboardStackView,
+        didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model
+    ) {
+        delegate?.dashboardAccountsView(self, didClickUnsubscribeButtonWithModel: model)
     }
 }
