@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HuetonUI
 
 class SteppableWordsDecorationView: UICollectionReusableView {
     

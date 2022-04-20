@@ -14,7 +14,10 @@ extension UIView {
     private enum Keys {
         
         static var animator: UInt8 = 0
-        static var scale: UInt8 = 0
+        
+        static var scaleHighlightAnimationValue: UInt8 = 0
+        static var alphaHighlightAnimationValue: UInt8 = 0
+        
         static var delayed: UInt8 = 0
         static var generator: UInt8 = 0
     }
@@ -41,16 +44,21 @@ extension UIView {
         }
     }
     
-    private var scale: CGFloat {
+    private var scaleHighlightAnimationValue: CGFloat? {
         get {
-            if let animationScale = objc_getAssociatedObject(self, &Keys.scale) as? CGFloat {
-                return animationScale
-            } else {
-                return 0.96
-            }
+            objc_getAssociatedObject(self, &Keys.scaleHighlightAnimationValue) as? CGFloat
         }
         set {
-            objc_setAssociatedObject(self, &Keys.scale, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &Keys.scaleHighlightAnimationValue, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    private var alphaHighlightAnimationValue: CGFloat? {
+        get {
+            objc_getAssociatedObject(self, &Keys.alphaHighlightAnimationValue) as? CGFloat
+        }
+        set {
+            objc_setAssociatedObject(self, &Keys.alphaHighlightAnimationValue, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -80,16 +88,21 @@ extension UIView {
     }
     
     @objc
-    public func insertHighlightingScaleDownAnimation(_ scale: CGFloat = 0.96) {
-        self.scale = scale
+    public func insertHighlightingScaleAnimation(_ scale: CGFloat = 0.96) {
+        self.scaleHighlightAnimationValue = scale
+    }
+    
+    @objc
+    public func insertHighlightingAlphaAnimation(_ alpha: CGFloat = 0.64) {
+        self.alphaHighlightAnimationValue = alpha
     }
     
     public func impactOccurred() {
         feedbackGenerator?.impactOccurred()
     }
     
-    public func setScaledDown(_ scaledDown: Bool) {
-        if scaledDown {
+    public func setHighlightedAnimated(_ highlighted: Bool) {
+        if highlighted {
             hui_down()
         } else {
             hui_up()
@@ -117,6 +130,7 @@ extension UIView {
         animator = UIViewPropertyAnimator(duration: 0.25, timingParameters: timing)
         animator?.addAnimations({
             self.transform = .identity
+            self.alpha = 1
         })
         
         animator?.startAnimation()
@@ -133,7 +147,12 @@ extension UIView {
         
         animator = UIViewPropertyAnimator(duration: 0.12, timingParameters: timing)
         animator?.addAnimations({
-            self.transform = .init(scaleX: self.scale, y: self.scale)
+            if let scale = self.scaleHighlightAnimationValue {
+                self.transform = .init(scaleX: scale, y: scale)
+            }
+            if let alpha = self.alphaHighlightAnimationValue {
+                self.alpha = alpha
+            }
         })
         
         animator?.startAnimation()

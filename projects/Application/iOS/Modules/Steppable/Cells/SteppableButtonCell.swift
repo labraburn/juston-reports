@@ -44,7 +44,7 @@ class SteppableButtonCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            setScaledDown(isHighlighted)
+            setHighlightedAnimated(isHighlighted)
             if isHighlighted {
                impactOccurred()
             }
@@ -55,7 +55,7 @@ class SteppableButtonCell: UICollectionViewCell {
         super.init(frame: frame)
         
         insertFeedbackGenerator()
-        insertHighlightingScaleDownAnimation()
+        insertHighlightingScaleAnimation()
         
         contentView.addSubview(textLabel)
         textLabel.pinned(edges: contentView)

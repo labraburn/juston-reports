@@ -42,6 +42,6 @@ class PasscodeDotView: UIView {
     }
     
     private func initialize() {
-        insertHighlightingScaleDownAnimation()
+        insertHighlightingScaleAnimation()
     }
 }

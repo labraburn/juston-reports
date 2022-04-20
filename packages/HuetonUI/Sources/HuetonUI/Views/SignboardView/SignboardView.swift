@@ -16,6 +16,7 @@ open class SignboardView: UIView {
         $0.distribution = .fill
         $0.backgroundColor = .clear
         $0.spacing = 18
+        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     })
     
     public init(letters: [SignboardLetter]) {

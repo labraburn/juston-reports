@@ -116,7 +116,7 @@ class AlertViewController: UIViewController {
                 cornerRadius: 26,
                 cornerCurve: .circular
             )
-            button.insertHighlightingScaleDownAnimation()
+            button.insertHighlightingScaleAnimation()
             button.insertFeedbackGenerator(style: .medium)
             button.setContentHuggingPriority(.required, for: .vertical)
             button.heightAnchor.pin(to: 52).isActive = true

@@ -11,8 +11,21 @@ extension UIControl {
         addTarget(self, action: #selector(_touchUpInsideWithFeedbackOccurred), for: .touchUpInside)
     }
     
-    public override func insertHighlightingScaleDownAnimation(_ scale: CGFloat = 0.96) {
-        super.insertHighlightingScaleDownAnimation(scale)
+    public override func insertHighlightingScaleAnimation(_ scale: CGFloat = 0.96) {
+        super.insertHighlightingScaleAnimation(scale)
+        insertTargetActionIfNeeded()
+    }
+    
+    public override func insertHighlightingAlphaAnimation(_ alpha: CGFloat = 0.96) {
+        super.insertHighlightingAlphaAnimation(alpha)
+        insertTargetActionIfNeeded()
+    }
+    
+    private func insertTargetActionIfNeeded() {
+        guard !allTargets.contains(self)
+        else {
+            return
+        }
         
         addTarget(self, action: #selector(_touchDown), for: .touchDown)
         
@@ -24,12 +37,12 @@ extension UIControl {
     
     @objc
     private func _touchDown() {
-        setScaledDown(true)
+        setHighlightedAnimated(true)
     }
     
     @objc
     private func _touchUp() {
-        setScaledDown(false)
+        setHighlightedAnimated(false)
     }
     
     @objc

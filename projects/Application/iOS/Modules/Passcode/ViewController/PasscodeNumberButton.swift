@@ -32,6 +32,6 @@ class PasscodeNumberButton: UIButton {
         titleLabel?.font = .font(for: .title2)
         insertFeedbackGenerator(style: .light)
         insertVisualEffectViewWithEffect(UIBlurEffect(style: .light))
-        insertHighlightingScaleDownAnimation()
+        insertHighlightingScaleAnimation()
     }
 }

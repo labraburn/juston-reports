@@ -12,6 +12,7 @@ import CoreData
 
 class DashboardViewController: UIViewController {
     
+    private var isInitialNavigationBarHidden = false
     private var task: Task<(), Never>? = nil
     
     private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
@@ -81,9 +82,24 @@ class DashboardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        isInitialNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
+        navigationController?.isNavigationBarHidden = true
+        
         if accountsView.superview == nil {
-            dataSource.apply(transactions: [], animated: false)
-            reload(withSelectedAccount: nil)
+            // Force appearing of empty state
+            UIView.performWithoutAnimation({
+                dataSource.apply(transactions: [], animated: false)
+                reload(withSelectedAccount: nil)
+                collectionView.layoutIfNeeded()
+            })
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+            navigationController.isNavigationBarHidden = isInitialNavigationBarHidden
         }
     }
     
@@ -301,6 +317,13 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     ) {
         let navigationController = AccountAddingViewController()
         hui_present(navigationController, animated: true, completion: nil)
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        scanQRButtonDidClick button: UIButton
+    ) {
+        presentUnderDevelopment()
     }
     
     func dashboardAccountsView(

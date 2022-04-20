@@ -290,7 +290,7 @@ private final class DashboardStackCardCompactContentView: DashboardStackCardCont
     
     private let moreButton = UIButton(type: .system).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.insertHighlightingScaleDownAnimation()
+        $0.insertHighlightingScaleAnimation()
         $0.insertFeedbackGenerator(style: .medium)
         $0.setImage(.hui_more24, for: .normal)
     })
@@ -503,7 +503,7 @@ private final class DashboardStackCardButton: UIButton {
     static func createBottomButton(_ image: UIImage) -> UIButton {
         let button = DashboardStackCardButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.insertHighlightingScaleDownAnimation()
+        button.insertHighlightingScaleAnimation()
         button.insertFeedbackGenerator(style: .medium)
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 26

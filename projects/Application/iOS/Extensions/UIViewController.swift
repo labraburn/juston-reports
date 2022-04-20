@@ -61,4 +61,32 @@ extension UIViewController {
         
         topmostPresentedViewController.present(viewController, animated: animated, completion: completion)
     }
+    
+    enum URLPresentationOptions {
+        
+        case `default`
+        case internalBrowser
+        case web3
+    }
+    
+    func open(
+        url: URL?,
+        options: URLPresentationOptions = .default
+    ) {
+        guard let url = url
+        else {
+            return
+        }
+        
+        switch options {
+        case .default:
+            UIApplication.shared.open(url)
+        case .internalBrowser:
+            let safariViewController = SafariViewController(url: url)
+            present(safariViewController, animated: true)
+        case .web3:
+            let web3ViewController = Web3ViewController(url: url)
+            present(web3ViewController, animated: true)
+        }
+    }
 }

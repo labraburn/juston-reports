@@ -22,11 +22,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
-        window.windowRootViewController.exchange(
-            viewController,
-            at: .application,
-            animated: false
-        )
+        window.windowRootViewController.child = viewController
         
         self.window = window
     }
@@ -34,22 +30,18 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     enum ViewControllerType {
         
         case loading
-        case dashboard
+        case explore
     }
     
     private func setApplicationController(with type: ViewControllerType, animated: Bool = true) {
-        window?.windowRootViewController.exchange(
-            type.viewController(with: self),
-            at: .application,
-            animated: animated
-        )
+        window?.windowRootViewController.child = type.viewController(with: self)
     }
 }
 
 extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
     
     func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
-        setApplicationController(with: .dashboard, animated: false)
+        setApplicationController(with: .explore, animated: false)
     }
 }
 
@@ -61,8 +53,8 @@ extension ApplicationWindowSceneDelegate.ViewControllerType {
             let viewController = LaunchViewController()
             viewController.delegate = sceneDelegate
             return viewController
-        case .dashboard:
-            let viewController = DashboardViewController()
+        case .explore:
+            let viewController = ExploreViewController()
             return viewController
         }
     }

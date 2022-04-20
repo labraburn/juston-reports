@@ -15,7 +15,7 @@ protocol LaunchViewControllerDelegate: AnyObject {
 
 extension HuetonView {
     
-    static var applicationHeight = CGFloat(18)
+    static var applicationHeight = CGFloat(20)
 }
 
 class LaunchViewController: UIViewController {
@@ -35,7 +35,7 @@ class LaunchViewController: UIViewController {
         NSLayoutConstraint.activate {
             huetonView.heightAnchor.pin(to: HuetonView.applicationHeight)
             huetonView.centerXAnchor.pin(to: view.centerXAnchor)
-            huetonView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 24)
+            huetonView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 16)
         }
     }
     

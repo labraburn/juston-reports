@@ -29,6 +29,11 @@ protocol DashboardAccountsViewDelegate: AnyObject {
     
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
+        scanQRButtonDidClick button: UIButton
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
         didChangeSelectedModel model: DashboardStackView.Model
     )
     
@@ -51,26 +56,18 @@ protocol DashboardAccountsViewDelegate: AnyObject {
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private var safeAreaView = UIView()
-    private let stackView = DashboardStackView()
+    
+    private let cardsStackView = DashboardStackView()
+    
+    private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
+        $0.translatesAutoresizingMaskIntoConstraints = true
+        $0.axis = .horizontal
+        $0.alignment = .top
+        $0.distribution = .equalCentering
+    })
     
     private var huetonView = DashboardHuetonView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
-    })
-    
-    private let bottomHStackView = UIStackView().with({
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.alignment = .fill
-    })
-    
-    private lazy var bottomAddAccountButton = UIButton().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.insertHighlightingScaleDownAnimation()
-        $0.insertFeedbackGenerator(style: .light)
-        $0.setImage(.hui_addCircle24, for: .normal)
-        $0.addTarget(self, action: #selector(bottomAddAccountButtonDidClick(_:)), for: .touchUpInside)
-        $0.tintColor = .hui_textPrimary
     })
     
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -83,12 +80,12 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     weak var delegate: DashboardAccountsViewDelegate?
     
     var compacthHeight: CGFloat { 103 }
-    var selected: DashboardStackView.Model? { stackView.selected }
+    var selected: DashboardStackView.Model? { cardsStackView.selected }
     
     private(set) var isLoading: Bool = false
     
     var cards: [DashboardStackView.Model] {
-        stackView.data
+        cardsStackView.data
     }
     
     var huetonViewText: String? {
@@ -114,14 +111,40 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         safeAreaView.backgroundColor = .hui_backgroundPrimary
         addSubview(safeAreaView)
         
-        huetonView.backgroundColor = .hui_backgroundPrimary
-        addSubview(huetonView)
+        navigationStackView.addArrangedSubview({
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.insertHighlightingScaleAnimation()
+            button.insertFeedbackGenerator(style: .light)
+            button.sui_touchAreaInsets = UIEdgeInsets(top: 0, left: -24, right: -24, bottom: -24)
+            button.setImage(.hui_scan20, for: .normal)
+            button.addTarget(self, action: #selector(scanQRButtonDidClick(_:)), for: .touchUpInside)
+            button.tintColor = .hui_textPrimary
+            return button
+        }())
+        navigationStackView.addArrangedSubview({
+            let wrapperView = UIView()
+            wrapperView.addSubview(huetonView)
+            wrapperView.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
+            huetonView.pinned(edges: wrapperView)
+            return wrapperView
+        }())
+        navigationStackView.addArrangedSubview({
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.insertHighlightingScaleAnimation()
+            button.insertFeedbackGenerator(style: .light)
+            button.sui_touchAreaInsets = UIEdgeInsets(top: 0, left: -24, right: -24, bottom: -24)
+            button.setImage(.hui_addCircle20, for: .normal)
+            button.addTarget(self, action: #selector(addAccountButtonDidClick(_:)), for: .touchUpInside)
+            button.tintColor = .hui_textPrimary
+            return button
+        }())
+        navigationStackView.backgroundColor = .hui_backgroundPrimary
+        addSubview(navigationStackView)
         
-        stackView.delegate = self
-        addSubview(stackView)
-        
-        bottomHStackView.addArrangedSubview(bottomAddAccountButton)
-        addSubview(bottomHStackView)
+        cardsStackView.delegate = self
+        addSubview(cardsStackView)
     }
     
     @available(*, unavailable)
@@ -177,7 +200,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     }
     
     func set(cards: [DashboardStackView.Model], selected: DashboardStackView.Model?, animated: Bool) {
-        stackView.update(data: cards, selected: selected, animated: animated)
+        cardsStackView.update(data: cards, selected: selected, animated: animated)
     }
     
     // MARK: Private
@@ -222,78 +245,72 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         case .compact:
             updateCompactLayoutType()
         }
-        
-        updateBottomHStackViewLayout()
     }
     
     private func updateLogoViewLayout() {
-        huetonView.center = CGPoint(
-            x: bounds.midX,
-            y: 24 - logoViewAdditionalOffset + huetonView.bounds.midY
+        navigationStackView.frame = CGRect(
+            x: 24,
+            y: 16 - logoViewAdditionalOffset,
+            width: max(bounds.width - 48, 300), // max - to hide autolayout warnings
+            height: 52
         )
     }
     
     private func updateLargeLayoutType() {
-        let safeAreaInsets = layoutType.safeAreaInsets
-        
         if !isLoading {
             UIView.performWithoutAnimation({
                 huetonView.performUpdatesWithLetters { $0.on() }
             })
         }
         
-        huetonView.alpha = 1
+        navigationStackView.alpha = 1
         updateLogoViewLayout()
         
-        let creditCardParameters = CreditCardParameters(
-            rect: bounds,
-            safeAreaInsets: .zero,
-            additionalInsets: defaultAdditionalInsetsWithSafeAreaInsets(safeAreaInsets)
-        ).calculate()
+        let creditCardParameters = creditCardFrameWithCornerRadius()
         
-        stackView.frame = creditCardParameters.topUpCreditCardFrame
-        stackView.cornerRadius = creditCardParameters.cornerRadius
-        stackView.presentation = .large
-        
-        bottomHStackView.alpha = 1
-        updateBottomHStackViewLayout()
+        cardsStackView.frame = creditCardParameters.0
+        cardsStackView.cornerRadius = creditCardParameters.1
+        cardsStackView.presentation = .large
     }
     
     private func updateCompactLayoutType() {
-        huetonView.alpha = 0
+        navigationStackView.alpha = 0
         
-        stackView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
-        stackView.presentation = .compact
-        stackView.cornerRadius = 16
-        
-        bottomHStackView.alpha = 0
+        cardsStackView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
+        cardsStackView.presentation = .compact
+        cardsStackView.cornerRadius = 16
     }
     
-    private func updateBottomHStackViewLayout() {
-        let height = CGFloat(52)
-        bottomHStackView.frame = CGRect(
-            x: 12,
-            y: bounds.height - height - 12,
-            width: max(bounds.width - 24, 256), // max(_, 256) - fixed warnings whet width is zero
-            height: height
+    private func creditCardFrameWithCornerRadius() -> (CGRect, CGFloat) {
+        let insets = UIEdgeInsets(top: navigationStackView.frame.maxY, left: 12, right: 12, bottom: 42)
+        
+        let maximumWidth = bounds.width - insets.left - insets.right
+        let maximumHeight = bounds.height - insets.top - insets.bottom
+        
+        let ISOHeight = maximumWidth * 1.585772
+        let targetHeight = min(maximumHeight, ISOHeight)
+        let cornerRadius = targetHeight * 0.0399
+        
+        let frame = CGRect(
+            x: insets.left,
+            y: insets.top,
+            width: maximumWidth,
+            height: targetHeight
         )
-    }
-    
-    private func defaultAdditionalInsetsWithSafeAreaInsets(_ safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
-        let bottom: CGFloat = 76 + (safeAreaInsets.bottom == 0 ? 42 : 24) // 76 - bottom h stack view
-        return UIEdgeInsets(
-            top: HuetonView.applicationHeight + 64,
-            left: 12,
-            bottom: bottom,
-            right: 12
-        )
+        
+        return (frame, cornerRadius)
     }
     
     // MARK: Actions
     
     @objc
-    private func bottomAddAccountButtonDidClick(_ sender: UIButton) {
+    private func addAccountButtonDidClick(_ sender: UIButton) {
         delegate?.dashboardAccountsView(self, addAccountButtonDidClick: sender)
+    }
+    
+    @objc
+    private func scanQRButtonDidClick(_ sender: UIButton) {
+        delegate?.dashboardAccountsView(self, scanQRButtonDidClick: sender)
     }
 }
 
