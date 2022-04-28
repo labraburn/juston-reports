@@ -56,6 +56,8 @@ internal final class FloatingTabBarContainerView: UIView {
         
         layer.cornerRadius = min(UIScreen.main.displayCornerRadius, bounds.height / 2)
         layer.cornerCurve = .continuous
+        layer.borderColor = UIColor(rgb: 0x353535).cgColor
+        layer.borderWidth = 1
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -125,13 +127,15 @@ internal final class FloatingTabBarContainerView: UIView {
         buttons.forEach({ $0.removeFromSuperview() })
         
         var index = 0
-        items.forEach({ item in
+        items.compactMap({ $0 as? FloatingTabBarItem }).forEach({ item in
             let button = FloatingTabBarItemButton()
             button.view = {
                 let view = UIButton(type: .custom)
                 view.setImage(item.image, for: .normal)
                 return view
             }()
+            button.selectedTintColor = item.selectedTintColor
+            button.deselectedTintColor = item.deselectedTintColor
             button.isSelected = selectedIndex == index
             button.tag = index
             button.isUserInteractionEnabled = false

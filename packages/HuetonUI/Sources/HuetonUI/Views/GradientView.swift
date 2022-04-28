@@ -4,13 +4,24 @@
 
 import UIKit
 
+private class _GradientLayer: CAGradientLayer {
+    
+    override class func needsDisplay(forKey key: String) -> Bool {
+        false
+    }
+    
+    override func action(forKey event: String) -> CAAction? {
+        NSNull()
+    }
+}
+
 public class GradientLayer: CALayer {
     
     @NSManaged public var angle: Double
     @NSManaged public var colors: [CGColor]
     @NSManaged public var locations: [Double]
     
-    let systemLayer: CAGradientLayer = CAGradientLayer()
+    let systemLayer: CAGradientLayer = _GradientLayer()
     
     public override init() {
         super.init()
@@ -32,6 +43,7 @@ public class GradientLayer: CALayer {
         
         angle = layer.angle
         colors = layer.colors
+        locations = layer.locations
     }
     
     private func initialize() {
@@ -39,14 +51,16 @@ public class GradientLayer: CALayer {
     }
     
     public override func display() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         super.display()
         display(from: presentation() ?? self)
+        
+        CATransaction.commit()
     }
     
     private func display(from layer: GradientLayer) {
-        let disableActions = CATransaction.disableActions()
-        CATransaction.setDisableActions(true)
-        
         systemLayer.frame = layer.bounds
         
         systemLayer.colors = layer.colors
@@ -56,49 +70,23 @@ public class GradientLayer: CALayer {
         systemLayer.startPoint = points.0
         systemLayer.endPoint = points.1
         
-        CATransaction.setDisableActions(disableActions)
+        systemLayer.setNeedsDisplay()
+        systemLayer.displayIfNeeded()
     }
     
     private func _angle() -> Double {
-        var angle = angle
-        
-        if angle < 0.0 {
-            angle = 360.0 + angle
-        }
-
+        var angle = abs(angle).truncatingRemainder(dividingBy: 360)
         angle = angle + 45
-
-        let m = Int(angle / 360)
-        if (m > 0) {
-            angle = angle - Double(360 * m)
-        }
-        
         return angle
     }
     
     private func _points() -> (CGPoint, CGPoint) {
-        var x: Double = 0.0
-        var y: Double = 0.0
-      
-        let rotate = _angle() / 90
-      
-        // 1...4 can be understood to denote the four quadrants
-        if rotate <= 1 {
-            y = rotate
-        } else if rotate <= 2 {
-            y = 1
-            x = rotate - 1
-        } else if rotate <= 3 {
-            x = 1
-            y = 1 - (rotate - 2)
-        } else if rotate <= 4 {
-            x = 1 - (rotate - 3)
-        }
-      
-        let start = CGPoint(x: 1 - CGFloat(y), y: 0 + CGFloat(x))
-        let end = CGPoint(x: 0 + CGFloat(y), y: 1 - CGFloat(x))
-      
-        return (start, end)
+        let x = _angle() / 360
+        let a = pow(sin((2 * .pi * ((x + 0.75) / 2))), 2)
+        let b = pow(sin((2 * .pi * ((x + 0.0) / 2))), 2);
+        let c = pow(sin((2 * .pi * ((x + 0.25) / 2))), 2);
+        let d = pow(sin((2 * .pi * ((x + 0.5) / 2))), 2);
+        return (CGPoint(x: a, y: b), CGPoint(x: c, y: d))
     }
     
     internal class func isAnimationKeyImplemented(_ key: String) -> Bool {
@@ -130,6 +118,10 @@ public class GradientLayer: CALayer {
     }
     
     private func _action(_ animation: ((_ animation: CABasicAnimation?) -> ())) -> CAAction? {
+        if CATransaction.disableActions() {
+            return nil
+        }
+        
         var system = action(forKey: #keyPath(backgroundColor))
         let sel = NSSelectorFromString("pendingAnimation")
         
@@ -172,20 +164,31 @@ open class GradientView: UIView {
         get { _layer.locations }
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        initialize()
+    public init(colors: [UIColor], angle: CGFloat) {
+        super.init(frame: .zero)
+        clipsToBounds = true
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        self.colors = colors
+        self.locations = [0, 1]
+        self.angle = angle
+        
+        CATransaction.commit()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        initialize()
-    }
-    
-    private func initialize() {
         clipsToBounds = true
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         colors = [.cyan, .magenta]
         locations = [0, 1]
         angle = 45
+        
+        CATransaction.commit()
     }
 }

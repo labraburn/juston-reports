@@ -8,7 +8,7 @@
 import UIKit
 import HuetonUI
 
-class GradientImageBackgroundView: UIView, DashboardStackCardBackgroundContentView {
+class GradientImageBackgroundView: UIView, CardStackCardBackgroundContentView {
     
     private let imageView: UIImageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false

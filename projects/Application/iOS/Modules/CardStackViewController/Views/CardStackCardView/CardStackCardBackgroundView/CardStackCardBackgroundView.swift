@@ -1,18 +1,19 @@
 //
-//  DashboardStackCardBackgroundView.swift
+//  CardStackCardBackgroundView.swift
 //  iOS
 //
 //  Created by Anton Spivak on 16.04.2022.
 //
 
 import UIKit
+import HuetonUI
 
-final class DashboardStackCardBackgroundView: UIView {
+final class CardStackCardBackgroundView: UIView {
     
-    let model: DashboardStackView.Model
+    let model: CardStackCard
     
     private(set) var dimmed: Bool
-    private var contentView: DashboardStackCardBackgroundContentView?
+    private var contentView: CardStackCardBackgroundContentView?
     
     private let overlayView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +28,7 @@ final class DashboardStackCardBackgroundView: UIView {
         }
     }
     
-    init(model: DashboardStackView.Model) {
+    init(model: CardStackCard) {
         self.cornerRadius = 0
         self.dimmed = false
         self.model = model
@@ -86,6 +87,8 @@ final class DashboardStackCardBackgroundView: UIView {
                 completion(true)
             }
         }
+        
+        self.dimmed = dimmed
     }
     
     // MARK: Private
@@ -93,16 +96,15 @@ final class DashboardStackCardBackgroundView: UIView {
     func reload() {
         contentView?.removeFromSuperview()
         
-        let contentView: DashboardStackCardBackgroundContentView
+        let contentView: CardStackCardBackgroundContentView
         switch model.account.appearance.kind {
         case let .glass(gradient0Color, gradient1Color):
-            contentView = GlassBackgroundView().with({
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                $0.cornerRadius = cornerRadius
-                $0.lumineView.gradientView.colors = [
-                    UIColor(rgba: gradient0Color),
-                    UIColor(rgba: gradient1Color)
-                ]
+            contentView = GlassBackgroundView(colors: [
+                UIColor(rgba: gradient0Color),
+                UIColor(rgba: gradient1Color)
+            ]).with({ view in
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.cornerRadius = cornerRadius
             })
         case let .gradientImage(imageData, shadowColor):
             contentView = GradientImageBackgroundView().with({
@@ -119,5 +121,6 @@ final class DashboardStackCardBackgroundView: UIView {
         })
         
         self.contentView = contentView
+        self.setDimmed(dimmed, animated: false, duration: 0)
     }
 }

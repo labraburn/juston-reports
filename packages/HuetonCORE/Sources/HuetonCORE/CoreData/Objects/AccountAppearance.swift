@@ -38,10 +38,29 @@ extension AccountAppearance: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        kind = (try? container.decode(Kind.self, forKey: .kind)) ?? AccountAppearance.default.kind
-        tintColor = (try? container.decode(Int.self, forKey: .tintColor)) ?? AccountAppearance.default.tintColor
-        controlsForegroundColor = (try? container.decode(Int.self, forKey: .controlsForegroundColor)) ?? AccountAppearance.default.controlsForegroundColor
-        controlsBackgroundColor = (try? container.decode(Int.self, forKey: .controlsBackgroundColor)) ?? AccountAppearance.default.controlsBackgroundColor
+        kind = container.decode(
+            Kind.self,
+            forKey: .kind,
+            fallback: AccountAppearance.default.kind
+        )
+        
+        tintColor = container.decode(
+            Int.self,
+            forKey: .tintColor,
+            fallback: AccountAppearance.default.tintColor
+        )
+        
+        controlsForegroundColor = container.decode(
+            Int.self,
+            forKey: .controlsForegroundColor,
+            fallback: AccountAppearance.default.controlsForegroundColor
+        )
+        
+        controlsBackgroundColor = container.decode(
+            Int.self,
+            forKey: .controlsBackgroundColor,
+            fallback: AccountAppearance.default.controlsBackgroundColor
+        )
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -73,18 +92,18 @@ extension AccountAppearance.Kind: Codable {
         switch kase {
         case "glass":
             self = .glass(
-                gradient0Color: (try? container.decode(Int.self, forKey: .gradient0Color)) ?? 0xEB03FFFF,
-                gradient1Color: (try? container.decode(Int.self, forKey: .gradient1Color)) ?? 0x23FFD7A5
+                gradient0Color: container.decode(Int.self, forKey: .gradient0Color, fallback: 0xEB03FFFF),
+                gradient1Color: container.decode(Int.self, forKey: .gradient1Color, fallback: 0x23FFD7A5)
             )
         case "gradientImage":
             self = .gradientImage(
-                imageData: (try? container.decode(Data.self, forKey: .imageData)) ?? Data(),
-                shadowColor: (try? container.decode(Int.self, forKey: .shadowColor)) ?? 0x000000FF
+                imageData: container.decode(Data.self, forKey: .imageData, fallback: Data()),
+                shadowColor: container.decode(Int.self, forKey: .shadowColor, fallback: 0x000000FF)
             )
         default:
             self = .glass(
-                gradient0Color: (try? container.decode(Int.self, forKey: .gradient0Color)) ?? 0xEB03FFFF,
-                gradient1Color: (try? container.decode(Int.self, forKey: .gradient1Color)) ?? 0x23FFD7A5
+                gradient0Color: container.decode(Int.self, forKey: .gradient0Color, fallback: 0xEB03FFFF),
+                gradient1Color: container.decode(Int.self, forKey: .gradient1Color, fallback: 0x23FFD7A5)
             )
         }
     }

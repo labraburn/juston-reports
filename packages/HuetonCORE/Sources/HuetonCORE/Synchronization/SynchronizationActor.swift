@@ -3,9 +3,10 @@
 //
 
 import Foundation
+import CoreData
 
 @globalActor
-public actor SynchronizationActor {
-
-    public static let shared: SynchronizationActor = SynchronizationActor()
+public final actor SynchronizationActor: GlobalActor {
+    
+    public static var shared = PersistenceActor()
 }

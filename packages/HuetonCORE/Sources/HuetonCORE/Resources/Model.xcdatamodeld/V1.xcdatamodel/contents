@@ -2,11 +2,15 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PersistenceAccount" representedClassName="PersistenceAccount" syncable="YES">
         <attribute name="balance" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateLastSynchronization" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="raw_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
         <attribute name="raw_appearance" attributeType="Transformable" valueTransformerName="AccountAppearanceTransformer"/>
+        <attribute name="raw_flags" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="raw_subscriptions" attributeType="Transformable" valueTransformerName="AccountSubscriptionArrayTransformer"/>
-        <attribute name="synchronizationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sortingLastUsageValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sortingUserValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_address"/>
@@ -30,7 +34,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="119"/>
+        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="179"/>
         <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

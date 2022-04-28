@@ -31,43 +31,13 @@ protocol DashboardAccountsViewDelegate: AnyObject {
         _ view: DashboardAccountsView,
         scanQRButtonDidClick button: UIButton
     )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didChangeSelectedModel model: DashboardStackView.Model
-    )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickRemoveButtonWithModel model: DashboardStackView.Model
-    )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickSendButtonWithModel model: DashboardStackView.Model
-    )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickReceiveButtonWithModel model: DashboardStackView.Model
-    )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickSubscribeButtonWithModel model: DashboardStackView.Model
-    )
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickUnsubscribeButtonWithModel model: DashboardStackView.Model
-    )
 }
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private var safeAreaView = UIView()
-    
-    private let cardsStackView = DashboardStackView()
+    private let cardsStackContainerView = ContainerView<CardStackView>()
+    private(set) var isLoading: Bool = false
     
     private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
         $0.translatesAutoresizingMaskIntoConstraints = true
@@ -89,18 +59,11 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     weak var delegate: DashboardAccountsViewDelegate?
     
-    var compacthHeight: CGFloat { 103 }
-    var selected: DashboardStackView.Model? { cardsStackView.selected }
+    internal let compacthHeight = CGFloat(103)
     
-    private(set) var isLoading: Bool = false
-    
-    var cards: [DashboardStackView.Model] {
-        cardsStackView.data
-    }
-    
-    var huetonViewText: String? {
-        get { huetonView.text }
-        set { huetonView.text = newValue }
+    var cardStackView: CardStackView? {
+        get { cardsStackContainerView.enclosingView }
+        set { cardsStackContainerView.enclosingView = newValue }
     }
     
     var layoutType: DashboardCollectionHeaderView.LayoutType = .init(bounds: .zero, safeAreaInsets: .zero, kind: .large) {
@@ -151,10 +114,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             return button
         }())
         navigationStackView.backgroundColor = .hui_backgroundPrimary
-        addSubview(navigationStackView)
         
-        cardsStackView.delegate = self
-        addSubview(cardsStackView)
+        addSubview(navigationStackView)
+        addSubview(cardsStackContainerView)
     }
     
     @available(*, unavailable)
@@ -207,10 +169,6 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         if additionalOffset > logoViewReloadOffset && scrollView.isTracking {
             startLoadingAnimationIfNeccessary()
         }
-    }
-    
-    func set(cards: [DashboardStackView.Model], selected: DashboardStackView.Model?, animated: Bool) {
-        cardsStackView.update(data: cards, selected: selected, animated: animated)
     }
     
     // MARK: Private
@@ -278,17 +236,17 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         
         let creditCardParameters = creditCardFrameWithCornerRadius()
         
-        cardsStackView.frame = creditCardParameters.0
-        cardsStackView.cornerRadius = creditCardParameters.1
-        cardsStackView.presentation = .large
+        cardsStackContainerView.frame = creditCardParameters.0
+        cardsStackContainerView.enclosingView?.cornerRadius = creditCardParameters.1
+        cardsStackContainerView.enclosingView?.presentation = .large
     }
     
     private func updateCompactLayoutType() {
         navigationStackView.alpha = 0
         
-        cardsStackView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
-        cardsStackView.presentation = .compact
-        cardsStackView.cornerRadius = 16
+        cardsStackContainerView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
+        cardsStackContainerView.enclosingView?.presentation = .compact
+        cardsStackContainerView.enclosingView?.cornerRadius = 16
     }
     
     private func creditCardFrameWithCornerRadius() -> (CGRect, CGFloat) {
@@ -321,51 +279,5 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     @objc
     private func scanQRButtonDidClick(_ sender: UIButton) {
         delegate?.dashboardAccountsView(self, scanQRButtonDidClick: sender)
-    }
-}
-
-extension DashboardAccountsView: DashboardStackViewDelegate {
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didChangeSelectedModel model: DashboardStackView.Model
-    ) {
-        huetonView.account = model.account
-        delegate?.dashboardAccountsView(self, didChangeSelectedModel: model)
-    }
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickRemoveButtonWithModel model: DashboardStackView.Model
-    ) {
-        delegate?.dashboardAccountsView(self, didClickRemoveButtonWithModel: model)
-    }
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickSendButtonWithModel model: DashboardStackView.Model
-    ) {
-        delegate?.dashboardAccountsView(self, didClickSendButtonWithModel: model)
-    }
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickReceiveButtonWithModel model: DashboardStackView.Model
-    ) {
-        delegate?.dashboardAccountsView(self, didClickReceiveButtonWithModel: model)
-    }
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickSubscribeButtonWithModel model: DashboardStackView.Model
-    ) {
-        delegate?.dashboardAccountsView(self, didClickSubscribeButtonWithModel: model)
-    }
-    
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model
-    ) {
-        delegate?.dashboardAccountsView(self, didClickUnsubscribeButtonWithModel: model)
     }
 }

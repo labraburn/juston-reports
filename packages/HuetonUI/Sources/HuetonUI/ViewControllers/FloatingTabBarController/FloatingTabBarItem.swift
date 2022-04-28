@@ -7,6 +7,9 @@ import UIKit
 public final class FloatingTabBarItem: UITabBarItem {
     
     public var customView: UIControl?
+    
+    public var selectedTintColor: UIColor?
+    public var deselectedTintColor: UIColor?
 
     public convenience init(customView: UIControl) {
         self.init()

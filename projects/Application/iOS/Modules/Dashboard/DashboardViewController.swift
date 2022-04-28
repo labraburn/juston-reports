@@ -16,7 +16,6 @@ class DashboardViewController: UIViewController {
     private var task: Task<(), Never>? = nil
     
     private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
-    private var accountsObserver: NSObjectProtocol?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
@@ -34,6 +33,12 @@ class DashboardViewController: UIViewController {
         collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
         collectionView.backgroundColor = .hui_backgroundPrimary
         return collectionView
+    }()
+    
+    private lazy var cardsStackViewController: CardStackViewController = {
+        let viewController = CardStackViewController()
+        viewController.delegate = self
+        return viewController
     }()
     
     private lazy var accountsView: DashboardAccountsView = {
@@ -58,7 +63,6 @@ class DashboardViewController: UIViewController {
     }
     
     deinit {
-        accountsObserver?.removeFromNotificationCenter()
         task?.cancel()
     }
     
@@ -69,14 +73,9 @@ class DashboardViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         
-        accountsObserver = PersistenceObject.observeManagedObjectContextObjectsDidChange({ [weak self] notification in
-            guard let inserted = notification.userInfo?[NSInsertedObjectsKey] as? Set<PersistenceAccount>
-            else {
-                return
-            }
-            
-            self?.reload(withSelectedAccount: Array(inserted).first)
-        })
+        addChild(cardsStackViewController)
+        accountsView.cardStackView = cardsStackViewController.cardStackView
+        cardsStackViewController.didMove(toParent: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,11 +84,15 @@ class DashboardViewController: UIViewController {
         isInitialNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.isNavigationBarHidden = true
         
-        if accountsView.superview == nil {
+        floatingTabBarController?.floatingTabBar.setFloatingHidden(
+            collectionViewHeaderLayoutKind == .large,
+            animated: animated
+        )
+        
+        if accountsView.superview == nil && dataSource.snapshot().itemIdentifiers.isEmpty {
             // Force appearing of empty state
             UIView.performWithoutAnimation({
                 dataSource.apply(transactions: [], animated: false)
-                reload(withSelectedAccount: nil)
                 collectionView.layoutIfNeeded()
             })
         }
@@ -124,48 +127,9 @@ class DashboardViewController: UIViewController {
             hui_present(viewController, animated: true)
         }
     }
-    
-    private func reload(withSelectedAccount selected: PersistenceAccount?) {
-        let cardsRequest = PersistenceAccount.fetchRequest()
-        let cards = ((try? PersistenceObject.fetch(cardsRequest)) ?? []).map({
-            DashboardStackView.Model(
-                account: $0
-            )
-        })
-        
-        guard !cards.isEmpty
-        else {
-            accountsView.set(cards: [], selected: nil, animated: true)
-            return
-        }
-        
-        let _selected: DashboardStackView.Model
-        if let selected = selected {
-            _selected = cards.first(where: { $0.account == selected }) ?? cards[0]
-        } else if !(accountsView.selected?.account.isFault ?? true) {
-            _selected = accountsView.selected ?? cards[0]
-        } else {
-            _selected = cards[0]
-        }
-        
-        accountsView.set(
-            cards: cards,
-            selected: _selected,
-            animated: true
-        )
-        
-        let transactionsRequest = PersistenceTransaction.fetchRequest()
-        transactionsRequest.predicate = NSPredicate(format: "account = %@", _selected.account)
-        transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        fetchResultsController = PersistenceTransaction.fetchedResultsController(request: transactionsRequest)
-        fetchResultsController?.delegate = self
-        
-        try? fetchResultsController?.performFetch()
-    }
 }
 
-// MARK: DashboardViewController: NSFetchedResultsControllerDelegate
+// MARK: - NSFetchedResultsControllerDelegate
 
 extension DashboardViewController: NSFetchedResultsControllerDelegate {
     
@@ -178,13 +142,13 @@ extension DashboardViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-// MARK:  DashboardViewController: UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 
 extension DashboardViewController: UICollectionViewDelegate {
     
 }
 
-// MARK:  DashboardViewController: UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 
 extension DashboardViewController: UIScrollViewDelegate {
     
@@ -194,28 +158,28 @@ extension DashboardViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         accountsView.enclosingScrollViewDidScroll(scrollView)
-        
-        guard !accountsView.cards.isEmpty
+
+        guard !cardsStackViewController.cards.isEmpty
         else {
             return
         }
-        
+
         let constant = scrollView.adjustedContentInset.top + scrollView.contentOffset.y
-        
+
         let isScrollingTop = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y < 0
         let isScrollingBottom = collectionViewPreviousContentOffset.y - scrollView.contentOffset.y > 0
-        
+
         if isScrollingTop && constant > 42 {
             updateDashboardViewCollectionViewHeaderLayoutKind(.compact, animated: true)
         } else if isScrollingBottom && constant < -42 && scrollView.isTracking {
             updateDashboardViewCollectionViewHeaderLayoutKind(.large, animated: true)
         }
-        
+
         collectionViewPreviousContentOffset = scrollView.contentOffset
     }
 }
 
-// MARK:  DashboardViewController: DashboardDiffableDataSourceDelegate
+// MARK: - DashboardDiffableDataSourceDelegate
 
 extension DashboardViewController: DashboardDiffableDataSourceDelegate {
     
@@ -238,7 +202,7 @@ extension DashboardViewController: DashboardDiffableDataSourceDelegate {
     }
 }
 
-// MARK:  DashboardViewController: CollectionViewHeaderLayoutKind
+// MARK: - CollectionViewHeaderLayoutKind
 
 extension DashboardViewController {
     
@@ -257,8 +221,10 @@ extension DashboardViewController {
         switch layoutTypeKind {
         case .large:
             collectionViewLayout.refreshLayoutConfiguration(pinToVisibleBounds: false)
+            floatingTabBarController?.floatingTabBar.setFloatingHidden(true, animated: true)
         case .compact:
             collectionViewLayout.refreshLayoutConfiguration(pinToVisibleBounds: true)
+            floatingTabBarController?.floatingTabBar.setFloatingHidden(false, animated: true)
         }
         
         let collectionView = collectionView
@@ -283,7 +249,7 @@ extension DashboardViewController {
 }
 
 //
-// MARK:  DashboardViewController: DashboardAccountsViewDelegate
+// MARK: - DashboardViewController: DashboardAccountsViewDelegate
 //
 
 extension DashboardViewController: DashboardAccountsViewDelegate {
@@ -291,18 +257,21 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     func dashboardAccountsViewShouldStartRefreshing(
         _ view: DashboardAccountsView
     ) -> Bool {
-        task == nil && !view.cards.isEmpty
+        task == nil && !cardsStackViewController.cards.isEmpty
     }
     
     func dashboardAccountsViewDidStartRefreshing(
         _ view: DashboardAccountsView
     ) {
-        guard let model = view.cards.first
+        guard let model = cardsStackViewController.cards.first
         else {
             return
         }
-        
-        refresh(account: model.account, manually: true)
+
+        refresh(
+            withSelectedAccount: model.account,
+            manually: true
+        )
     }
     
     func dashboardAccountsViewIsUserInteractig(
@@ -325,84 +294,48 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
     ) {
         presentUnderDevelopment()
     }
+}
+
+//
+// MARK: - CardStackViewControllerDelegate
+//
+
+extension DashboardViewController: CardStackViewControllerDelegate {
     
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didChangeSelectedModel model: DashboardStackView.Model
+    func cardStackViewController(
+        _ viewController: CardStackViewController,
+        didChangeSelectedModel model: CardStackCard?
     ) {
-        let account = model.account
-        
-        reload(withSelectedAccount: account)
-        refresh(account: account, manually: false)
-    }
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickRemoveButtonWithModel model: DashboardStackView.Model
-    ) {
-        let viewController = AlertViewController(
-            image: .image(.hui_warning42, tintColor: .hui_letter_red),
-            title: "CommonAttention".asLocalizedKey,
-            message: "AccountDeletePromptMessage".asLocalizedKey,
-            actions: [
-                .init(
-                    title: "AccountDeleteDestructiveTitle".asLocalizedKey,
-                    block: { viewController in
-                        try? model.account.delete()
-                        self.reload(withSelectedAccount: nil)
-                        viewController.dismiss(animated: true)
-                    },
-                    style: .destructive
-                ),
-                .cancel
-            ]
+        refresh(
+            withSelectedAccount: model?.account,
+            manually: false
         )
-        present(viewController, animated: true)
     }
     
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    private func refresh(
+        withSelectedAccount account: PersistenceAccount?,
+        manually: Bool
     ) {
-        UIApplication.shared.requestNotificationsPermissionIfNeeded()
+        guard let account = account
+        else {
+            fetchResultsController = nil
+            dataSource.apply(transactions: [], animated: true)
+            return
+        }
+
+        let transactionsRequest = PersistenceTransaction.fetchRequest()
+        transactionsRequest.predicate = NSPredicate(format: "account = %@", account)
+        transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+
+        fetchResultsController = PersistenceTransaction.fetchedResultsController(request: transactionsRequest)
+        fetchResultsController?.delegate = self
+
+        try? fetchResultsController?.performFetch()
         
-        var subscriptions = model.account.subscriptions
-        subscriptions.append(.transactions)
-        
-        model.account.subscriptions = subscriptions
-        try? model.account.save()
-    }
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickUnsubscribeButtonWithModel model: DashboardStackView.Model
-    ) {
-        var subscriptions = model.account.subscriptions
-        subscriptions.removeAll(where: { $0 == .transactions })
-        
-        model.account.subscriptions = subscriptions
-        try? model.account.save()
-    }
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickSendButtonWithModel model: DashboardStackView.Model
-    ) {
-        presentUnderDevelopment()
-    }
-    
-    func dashboardAccountsView(
-        _ view: DashboardAccountsView,
-        didClickReceiveButtonWithModel model: DashboardStackView.Model
-    ) {
-        presentUnderDevelopment()
-    }
-    
-    private func refresh(account: PersistenceAccount, manually: Bool) {
         task?.cancel()
         task = Task { [weak self] in
             do {
-                let synchronization = await Synchronization()
+                let synchronization = Synchronization()
                 try await synchronization.perform(
                     rawAddress: account.rawAddress,
                     transactionReceiveOptions: .afterLastSaved

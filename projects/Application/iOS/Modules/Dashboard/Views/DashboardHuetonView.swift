@@ -24,15 +24,15 @@ class DashboardHuetonView: HuetonView {
     
     var account: PersistenceAccount? {
         didSet {
-            oldValue?.remove(observer: self)
-            account?.register(observer: self)
-            
-            guard let account = account
-            else {
-                return
-            }
-
-            persistenceObjectDidChange(account)
+//            oldValue?.remove(observer: self)
+//            account?.register(observer: self)
+//            
+//            guard let account = account
+//            else {
+//                return
+//            }
+//
+//            persistenceObjectDidChange(account)
         }
     }
     
@@ -112,12 +112,5 @@ class DashboardHuetonView: HuetonView {
     private func stopUpdates() {
         timer?.invalidate()
         timer = nil
-    }
-}
-
-extension DashboardHuetonView: PersistenceObjectObserver {
-    
-    func persistenceObjectDidChange(_ persistenceObject: PersistenceObject) {
-        date = (persistenceObject as? PersistenceAccount)?.synchronizationDate
     }
 }

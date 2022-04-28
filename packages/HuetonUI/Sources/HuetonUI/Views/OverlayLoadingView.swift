@@ -6,7 +6,7 @@ import UIKit
 
 public final class OverlayLoadingView: UIView {
     
-    private let gradientView: GradientView = GradientView()
+    private let gradientView: GradientView = GradientView(colors: [.cyan, .magenta], angle: 45)
     private let gradientMaskView: OverlayLoadingViewMaskView = OverlayLoadingViewMaskView()
     
     private var isAnimationInProgress: Bool = false

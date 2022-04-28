@@ -38,7 +38,7 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 16
             section.contentInsets = NSDirectionalEdgeInsets(
-                top: 32,
+                top: 12,
                 leading: 12,
                 bottom: 12,
                 trailing: 12

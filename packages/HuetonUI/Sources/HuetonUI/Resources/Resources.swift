@@ -16,6 +16,8 @@ public extension UIColor {
     static let hui_textSecondary: UIColor = .named("TextSecondary")
     static let hui_textTeritary: UIColor = .named("TextTeritary")
     
+    static let hui_tabBarDeselected: UIColor = .named("TabBarDeselected")
+    
     static let hui_letter_red: UIColor = .named("Letter/Red")
     static let hui_letter_yellow: UIColor = .named("Letter/Yellow")
     static let hui_letter_blue: UIColor = .named("Letter/Blue")

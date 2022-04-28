@@ -23,6 +23,8 @@ public class PersistenceTransaction: PersistenceObject {
     }
 }
 
+// MARK: - CoreData Properties
+
 extension PersistenceTransaction {
     
     public var id: Transaction.ID {
@@ -61,11 +63,23 @@ extension PersistenceTransaction {
     @NSManaged public var value: NSDecimalNumber
     @NSManaged public var fees: NSDecimalNumber
     
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<PersistenceTransaction> {
+    // MARK: Internal
+    
+    @NSManaged private var raw_identifier: Int64
+    @NSManaged private var raw_hash: String
+    @NSManaged private var raw_from_address: String
+    @NSManaged private var raw_to_addresses: [String]
+}
+
+// MARK: - CoreData Methods
+
+public extension PersistenceTransaction {
+    
+    @nonobjc class func fetchRequest() -> NSFetchRequest<PersistenceTransaction> {
         return NSFetchRequest<PersistenceTransaction>(entityName: "PersistenceTransaction")
     }
     
-    @nonobjc public class func fetchRequest(
+    @nonobjc class func fetchRequest(
         id: Transaction.ID
     ) -> NSFetchRequest<PersistenceTransaction> {
         let request = NSFetchRequest<PersistenceTransaction>(entityName: "PersistenceTransaction")
@@ -76,7 +90,7 @@ extension PersistenceTransaction {
         return request
     }
     
-    @nonobjc public class func fetchRequest(
+    @nonobjc class func fetchRequest(
         account: PersistenceAccount
     ) -> NSFetchRequest<PersistenceTransaction> {
         let request = NSFetchRequest<PersistenceTransaction>(entityName: "PersistenceTransaction")
@@ -84,10 +98,11 @@ extension PersistenceTransaction {
         return request
     }
     
-    @nonobjc public class func fetchedResultsController(
+    @MainActor
+    @nonobjc class func fetchedResultsController(
         request: NSFetchRequest<PersistenceTransaction>
     ) -> NSFetchedResultsController<PersistenceTransaction> {
-        let viewContext = PersistenceController.shared.viewContext
+        let viewContext = PersistenceController.shared.managedObjectContext(withType: .main)
         return NSFetchedResultsController(
             fetchRequest: request,
             managedObjectContext: viewContext,
@@ -95,11 +110,4 @@ extension PersistenceTransaction {
             cacheName: nil
         )
     }
-    
-    // MARK: Internal
-    
-    @NSManaged private var raw_identifier: Int64
-    @NSManaged private var raw_hash: String
-    @NSManaged private var raw_from_address: String
-    @NSManaged private var raw_to_addresses: [String]
 }

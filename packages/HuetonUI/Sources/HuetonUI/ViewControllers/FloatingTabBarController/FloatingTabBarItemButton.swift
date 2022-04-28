@@ -26,6 +26,9 @@ internal final class FloatingTabBarItemButton: UIControl {
             view?.tintColor = tintColor
         }
     }
+    
+    var selectedTintColor: UIColor?
+    var deselectedTintColor: UIColor?
 
     override var isAccessibilityElement: Bool {
         get { true }
@@ -49,6 +52,8 @@ internal final class FloatingTabBarItemButton: UIControl {
             if isSelected && isSelected != newValue {
                 impactOccurred()
             }
+            
+            tintColor = newValue ? selectedTintColor : deselectedTintColor
             
             super.isSelected = newValue
             view?.isSelected = newValue

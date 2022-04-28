@@ -1,5 +1,5 @@
 //
-//  DashboardStackView.swift
+//  CardStackViewDelegate.swift
 //  iOS
 //
 //  Created by Anton Spivak on 12.03.2022.
@@ -9,48 +9,43 @@ import UIKit
 import HuetonUI
 import HuetonCORE
 
-protocol DashboardStackViewDelegate: AnyObject {
+protocol CardStackViewDelegate: AnyObject {
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didChangeSelectedModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didChangeSelectedModel model: CardStackCard?,
+        manually: Bool
     )
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickRemoveButtonWithModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didClickRemoveButtonWithModel model: CardStackCard
     )
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickSubscribeButtonWithModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didClickSubscribeButtonWithModel model: CardStackCard
     )
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didClickUnsubscrabeButtonWithModel model: CardStackCard
     )
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickSendButtonWithModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didClickSendButtonWithModel model: CardStackCard
     )
     
-    func dashboardStackView(
-        _ view: DashboardStackView,
-        didClickReceiveButtonWithModel model: DashboardStackView.Model
+    func cardStackView(
+        _ view: CardStackView,
+        didClickReceiveButtonWithModel model: CardStackCard
     )
 }
 
-final class DashboardStackView: UIView {
+final class CardStackView: UIView {
     
     private static let minimumCardSize = CGSize(width: 90, height: 90)
-    
-    @MainActor
-    struct Model {
-        
-        let account: PersistenceAccount
-    }
     
     enum Presentation {
         
@@ -66,14 +61,17 @@ final class DashboardStackView: UIView {
     
     private var userInteractionSession: UserInteractionSession? = nil
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    
     private var needsLayoutAnimated = false
+    private var needsLayoutSimple = false
+    private var cachedBounds = CGRect.zero
     
     private var containerView: UIView = UIView().with({
         $0.backgroundColor = .clear
     })
     
-    private var containerViewSubviews: [DashboardStackCardView] {
-        containerView.subviews.compactMap({ $0 as? DashboardStackCardView })
+    private var containerViewSubviews: [CardStackCardView] {
+        containerView.subviews.compactMap({ $0 as? CardStackCardView })
     }
     
     private var isUserInteracting: Bool {
@@ -90,20 +88,19 @@ final class DashboardStackView: UIView {
         didSet {
             foregroundAnimator.removeAllBehaviors()
             backgroundAnimator.removeAllBehaviors()
-            setNeedsLayout()
+            setNeedsLayoutSimple()
         }
     }
     
-    private(set) var data: [Model] = []
-    private(set) var selected: Model? = nil {
+    private(set) var cards: [CardStackCard] = [] {
         didSet {
-            guard let selected = selected
-            else {
-                return
-            }
-            
+            selected = cards.first
+        }
+    }
+    
+    private(set) var selected: CardStackCard? = nil {
+        didSet {
             feedbackGenerator.impactOccurred()
-            delegate?.dashboardStackView(self, didChangeSelectedModel: selected)
         }
     }
     
@@ -117,7 +114,7 @@ final class DashboardStackView: UIView {
         return animator
     }()
     
-    weak var delegate: DashboardStackViewDelegate?
+    weak var delegate: CardStackViewDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -150,48 +147,53 @@ final class DashboardStackView: UIView {
         
         containerView.frame = bounds
         
+        guard cachedBounds != bounds || needsLayoutAnimated || needsLayoutSimple
+        else {
+            return
+        }
+        
         layoutContainerViewSubviews(
             excludePositiongOfView: nil,
             animated: needsLayoutAnimated
         )
         
+        cachedBounds = bounds
+        setUnneedsLayout()
+    }
+    
+    func setNeedsLayoutSimple() {
+        super.setNeedsLayout()
+        needsLayoutSimple = true
+    }
+    
+    func setNeedsLayoutAnimated() {
+        super.setNeedsLayout()
+        needsLayoutAnimated = true
+    }
+    
+    func setUnneedsLayout() {
+        super.setNeedsLayout()
         needsLayoutAnimated = false
+        needsLayoutSimple = false
     }
     
-    func resetSelectedIfNeeded() {
-        if self.selected?.account.isFault ?? false {
-            self.selected = nil
-        }
-    }
-    
-    func update(data: [Model], selected: Model? = nil, animated: Bool) {
-        resetSelectedIfNeeded()
-        
+    func update(cards: [CardStackCard], animated: Bool) {
         guard !isUserInteracting
         else {
             return
         }
         
-        var updated = data.sorted(by: { $0.account.name > $1.account.name })
-        var _selected = selected ?? self.selected
-        
-        if let _selected = _selected, let index = updated.firstIndex(of: _selected) {
-            updated = Array(updated[index ..< updated.count]) + Array(updated[0 ..< index])
-        }
-        
-        if let current = _selected, !data.contains(current) {
-            _selected = updated.first
-        } else if _selected == nil {
-            _selected = updated.first
-        }
-        
-        guard self.data != data && self.selected != updated.first
+        guard self.cards != cards
         else {
             return
         }
         
-        self.data = updated
-        self.selected = _selected
+        self.cards = cards
+        self.delegate?.cardStackView(
+            self,
+            didChangeSelectedModel: self.selected,
+            manually: false
+        )
         
         reloadData(animated)
     }
@@ -200,8 +202,8 @@ final class DashboardStackView: UIView {
         containerViewSubviews.forEach({ $0.removeFromSuperview() })
         
         var index = 0
-        data.reversed().forEach({ model in
-            let view = DashboardStackCardView(model: model)
+        cards.reversed().forEach({ model in
+            let view = CardStackCardView(model: model)
             view.bounds = containerSubviewViewBounds(at: index)
             view.center = containerSubviewViewPosition(at: index)
             view.cornerRadius = cornerRadius
@@ -215,8 +217,11 @@ final class DashboardStackView: UIView {
             index += 1
         })
         
-        needsLayoutAnimated = animated
-        setNeedsLayout()
+        if animated {
+            setNeedsLayoutAnimated()
+        } else {
+            setNeedsLayoutSimple()
+        }
     }
     
     private func layoutContainerViewSubviews(excludePositiongOfView: UIView? = nil, animated: Bool) {
@@ -225,7 +230,7 @@ final class DashboardStackView: UIView {
         var index = 0
         containerViewSubviews.reversed().forEach({ view in
             
-            if view.bounds.size == DashboardStackView.minimumCardSize {
+            if view.bounds.size == CardStackView.minimumCardSize {
                 // Guess it's initial state of view
                 view.center = CGPoint(
                     x: self.bounds.midX,
@@ -279,7 +284,7 @@ final class DashboardStackView: UIView {
     }
     
     private func containerSubviewViewBounds(at index: Int) -> CGRect {
-        let size = DashboardStackView.minimumCardSize
+        let size = CardStackView.minimumCardSize
         let offset = CGFloat(index) * 6
         return CGRect(
             x: 0,
@@ -312,10 +317,14 @@ final class DashboardStackView: UIView {
         backgroundAnimator.addBehavior(snapBehaviour)
         backgroundAnimator.addBehavior(itemBehaviour)
         
-        let popped = data[0]
+        let popped = cards[0]
         
-        data = Array(data[1 ..< data.count]) + [popped]
-        selected = data.first
+        cards = Array(cards[1 ..< cards.count]) + [popped]
+        delegate?.cardStackView(
+            self,
+            didChangeSelectedModel: selected,
+            manually: true
+        )
         
         containerView.sendSubviewToBack(card)
         
@@ -414,21 +423,10 @@ final class DashboardStackView: UIView {
     }
 }
 
-extension DashboardStackView.Model: Hashable {
-    
-    static func == (lhs: DashboardStackView.Model, rhs: DashboardStackView.Model) -> Bool {
-        lhs.hashValue == rhs.hashValue
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(account.rawAddress)
-    }
-}
-
-extension DashboardStackView: UIGestureRecognizerDelegate {
+extension CardStackView: UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard data.count > 1
+        guard cards.count > 1
         else {
             return false
         }
@@ -493,9 +491,9 @@ private extension UIView {
     }
 }
 
-private extension DashboardStackView.Presentation {
+private extension CardStackView.Presentation {
     
-    var cardViewState: DashboardStackCardView.State {
+    var cardViewState: CardStackCardView.State {
         switch self {
         case .large:
             return .large
@@ -505,25 +503,25 @@ private extension DashboardStackView.Presentation {
     }
 }
 
-extension DashboardStackView: DashboardStackCardViewDelegate {
+extension CardStackView: CardStackCardViewDelegate {
     
-    func cardStackCardView(_ view: UIView, didClickRemoveButtonWithModel model: Model) {
-        delegate?.dashboardStackView(self, didClickRemoveButtonWithModel: model)
+    func cardStackCardView(_ view: UIView, didClickRemoveButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickRemoveButtonWithModel: model)
     }
     
-    func cardStackCardView(_ view: UIView, didClickSendButtonWithModel model: Model) {
-        delegate?.dashboardStackView(self, didClickSendButtonWithModel: model)
+    func cardStackCardView(_ view: UIView, didClickSendButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickSendButtonWithModel: model)
     }
     
-    func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: Model) {
-        delegate?.dashboardStackView(self, didClickReceiveButtonWithModel: model)
+    func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickReceiveButtonWithModel: model)
     }
     
-    func cardStackCardView(_ view: UIView, didClickSubscribeButtonWithModel model: DashboardStackView.Model) {
-        delegate?.dashboardStackView(self, didClickSubscribeButtonWithModel: model)
+    func cardStackCardView(_ view: UIView, didClickSubscribeButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickSubscribeButtonWithModel: model)
     }
     
-    func cardStackCardView(_ view: UIView, didClickUnsubscrabeButtonWithModel model: DashboardStackView.Model) {
-        delegate?.dashboardStackView(self, didClickUnsubscrabeButtonWithModel: model)
+    func cardStackCardView(_ view: UIView, didClickUnsubscrabeButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickUnsubscrabeButtonWithModel: model)
     }
 }

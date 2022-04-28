@@ -20,4 +20,11 @@
     return block(self, sel, radius, scale);
 }
 
++ (UIBlurEffect *)effectWithTintColor:(UIColor *)color {
+    SEL sel = SUISelectorFromReversedStringParts(@"hTintColor:", @"_effectWit", nil);
+    typedef UIBlurEffect * (*function)(id, SEL, UIColor *);
+    function block = (function)objc_msgSend;
+    return block(self, sel, color);
+}
+
 @end

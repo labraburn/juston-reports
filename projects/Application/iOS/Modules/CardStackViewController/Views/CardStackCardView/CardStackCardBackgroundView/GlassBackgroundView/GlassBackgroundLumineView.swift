@@ -29,7 +29,7 @@ class GlassBackgroundLumineView: UIView {
         }
     }
     
-    let gradientView = GradientView()
+    private let gradientView: GradientView
     
     var cornerRadius: CGFloat = 0 {
         didSet {
@@ -45,21 +45,33 @@ class GlassBackgroundLumineView: UIView {
         }
     }
     
-    init() {
+    init(colors: [UIColor]) {
+        gradientView = {
+            let gradientView = GradientView(
+                colors: colors,
+                angle: SharedGlassGradientAngleMotionEffectView.shared.angle
+            )
+            return gradientView
+        }()
+        
         super.init(frame: .zero)
         _init()
     }
     
     required init?(coder: NSCoder) {
+        gradientView = {
+            let gradientView = GradientView(
+                colors: [.cyan, .magenta],
+                angle: SharedGlassGradientAngleMotionEffectView.shared.angle
+            )
+            return gradientView
+        }()
+        
         super.init(coder: coder)
         _init()
     }
     
     private func _init() {
-        gradientView.colors = [.cyan, .magenta]
-        gradientView.locations = [0, 1]
-        gradientView.angle = 135
-        
         maskingView.layer.shadowColor = UIColor.red.cgColor
         maskingView.layer.shadowOpacity = 1
         maskingView.layer.shadowRadius = glowRadius
@@ -72,19 +84,17 @@ class GlassBackgroundLumineView: UIView {
         addSubview(gradientView)
         gradientView.mask = maskingView
         
-        let effect = GlassGradientAngleMotionEffect(gradientView: gradientView)
-        addMotionEffect(effect)
+        SharedGlassGradientAngleMotionEffectView.shared.addGradientView(gradientView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard layer == self.layer,
-              cachedBounds != bounds
+        guard cachedBounds != bounds
         else {
             return
         }
-        
+
         cachedBounds = bounds
         
         gradientView.frame = CGRect(

@@ -95,7 +95,7 @@ private extension SteppableViewModel {
                                     return
                                 }
 
-                                viewController.next(.appearance(for: address.raw))
+                                viewController.next(.appearance(for: address.raw, flags: .readonly))
                             }
                         ),
                     ]
@@ -145,7 +145,7 @@ private extension SteppableViewModel {
                             title: "AccountAddingNextButton".asLocalizedKey,
                             kind: .primary,
                             action: { viewController in
-                                viewController.next(.appearance(for: address))
+                                viewController.next(.appearance(for: address, flags: []))
                             }
                         ),
                     ]
@@ -156,7 +156,7 @@ private extension SteppableViewModel {
         )
     }
 
-    static func appearance(for rawAddress: Address.RawAddress) -> SteppableViewModel {
+    static func appearance(for rawAddress: Address.RawAddress, flags: PersistenceAccount.Flags) -> SteppableViewModel {
         var name = ""
         return SteppableViewModel(
             title: "AccountAddingAppearanceTitle".asLocalizedKey,
@@ -184,9 +184,17 @@ private extension SteppableViewModel {
                                 else {
                                     return
                                 }
-
-                                let account = PersistenceAccount(rawAddress: rawAddress, name: name, appearance: .default)
-                                try account.save()
+                                
+                                let account = PersistenceAccount(
+                                    rawAddress: rawAddress,
+                                    name: name,
+                                    appearance: .default,
+                                    subscriptions: [],
+                                    flags: flags
+                                )
+                                
+                                try account.saveAsLastSorting()
+                                try account.saveAsLastUsage()
                                 
                                 viewController.finish()
                             }

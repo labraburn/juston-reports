@@ -15,22 +15,28 @@ class ExploreViewController: FloatingTabBarController {
         
         let bookmarksViewController = BookmarksViewController()
         bookmarksViewController.tabBarItem = {
-            let item = UITabBarItem()
+            let item = FloatingTabBarItem()
             item.image = .hui_tabBarPlanet44
+            item.selectedTintColor = .hui_letter_purple
+            item.deselectedTintColor = .hui_tabBarDeselected
             return item
         }()
         
         let dashboardViewController = DashboardViewController()
         dashboardViewController.tabBarItem = {
-            let item = UITabBarItem()
+            let item = FloatingTabBarItem()
             item.image = .hui_tabBarCards44
+            item.selectedTintColor = .hui_letter_blue
+            item.deselectedTintColor = .hui_tabBarDeselected
             return item
         }()
         
         let settingsViewController = SettingsViewController()
         settingsViewController.tabBarItem = {
-            let item = UITabBarItem()
+            let item = FloatingTabBarItem()
             item.image = .hui_tabBarGear44
+            item.selectedTintColor = .hui_letter_violet
+            item.deselectedTintColor = .hui_tabBarDeselected
             return item
         }()
         

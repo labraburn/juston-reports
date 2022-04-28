@@ -16,17 +16,14 @@ public struct Synchronization {
         case full
     }
     
-    public init() {}
+    nonisolated public init() {}
     
-    /// All changes will be pushed into CoreData stack
-    @SynchronizationActor
     public func perform(
         rawAddress: Address.RawAddress,
         transactionReceiveOptions: TransactionReceiveOptions
     ) async throws {
-        let context = PersistenceController.shared.container.newBackgroundContext()
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
+        let context = SynchronizationActor.shared.managedObjectContext
+            
         let wallet = try await Wallet(rawAddress: rawAddress)
         try Task.checkCancellation()
         
@@ -35,7 +32,7 @@ public struct Synchronization {
         try context.save()
         
         var transactions: [Transaction] = []
-        
+
         switch transactionReceiveOptions {
         case .none:
             return
@@ -45,15 +42,15 @@ public struct Synchronization {
         case .full:
             transactions = try await wallet.contract.transactions(after: nil)
         }
-        
+
         try Task.checkCancellation()
-        
+
         transactions.forEach({ transaction in
             guard transaction.in != nil || !transaction.out.isEmpty
             else {
                 return
             }
-            
+
             let persistenceTransaction = PersistenceTransaction(context: context)
             persistenceTransaction.id = transaction.id
             persistenceTransaction.account = persistenceAccount
@@ -61,7 +58,7 @@ public struct Synchronization {
             persistenceTransaction.fees = NSDecimalNumber(
                 decimal: transaction.storageFee.value + transaction.otherFee.value
             )
-            
+
             if let message = transaction.in,
                let sourceAccountAddress = message.sourceAccountAddress
             {
@@ -72,20 +69,20 @@ public struct Synchronization {
             }
             else if !transaction.out.isEmpty {
                 // sended
-                
+
                 var value: Decimal = 0
                 var toAddresses: [Address.RawAddress] = []
-                
+
                 transaction.out.forEach({ message in
                     guard let destinationAccountAddress = message.destinationAccountAddress
                     else {
                         return
                     }
-                    
+
                     value += message.value.value
                     toAddresses.append(destinationAccountAddress)
                 })
-                
+
                 persistenceTransaction.value = NSDecimalNumber(decimal: value)
                 persistenceTransaction.fromAddress = persistenceAccount.rawAddress
                 persistenceTransaction.toAddresses = toAddresses
@@ -95,8 +92,8 @@ public struct Synchronization {
                 // i hope
             }
         })
-        
-        persistenceAccount.synchronizationDate = Date()
+
+        persistenceAccount.dateLastSynchronization = Date()
         do {
             try context.save()
         } catch {
@@ -104,9 +101,8 @@ public struct Synchronization {
         }
     }
     
-    // Helpers
+    // MARK: Helpers
     
-    @SynchronizationActor
     private func account(
         for rawAddress: Address.RawAddress,
         in context: NSManagedObjectContext
@@ -122,7 +118,6 @@ public struct Synchronization {
         return persistenceAccounts[0]
     }
     
-    @SynchronizationActor
     private func lastPersistanceTransaction(
         for account: PersistenceAccount,
         in context: NSManagedObjectContext

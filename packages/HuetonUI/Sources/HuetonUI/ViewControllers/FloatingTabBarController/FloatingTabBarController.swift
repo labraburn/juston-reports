@@ -8,6 +8,10 @@ open class FloatingTabBarController: UITabBarController {
     
     private var transitionAnimatedTransitioning: FloatingTabBarAnimatedTransitioning?
     
+    public var floatingTabBar: FloatingTabBar {
+        super.tabBar as! FloatingTabBar
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,5 +80,12 @@ extension FloatingTabBarController: UITabBarControllerDelegate {
         shouldSelect viewController: UIViewController
     ) -> Bool {
         transitionCoordinator == nil && selectedViewController != viewController
+    }
+}
+
+extension UIViewController {
+    
+    public var floatingTabBarController: FloatingTabBarController? {
+        tabBarController as? FloatingTabBarController
     }
 }

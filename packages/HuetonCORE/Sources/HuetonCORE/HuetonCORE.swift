@@ -34,7 +34,7 @@ public struct HuetonCORE {
         AccountAppearanceTransformer.register()
         
         SwiftyTON.configurate(with: .main)
-        PersistenceObject.startObservingIfNeccessary()
+        ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
     }
 }
 

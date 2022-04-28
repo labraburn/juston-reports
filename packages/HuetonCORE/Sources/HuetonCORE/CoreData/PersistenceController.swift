@@ -5,6 +5,73 @@
 import Foundation
 import CoreData
 
+internal class PersistenceController {
+    
+    internal enum ManagedObjectContextType {
+        
+        case main
+        case background
+    }
+    
+    internal static let shared = PersistenceController()
+    private let container: NSPersistentContainer
+
+    init() {
+        let nameName = "Model"
+        guard let modelURL = Bundle.module.url(forResource: nameName, withExtension: "momd")
+        else {
+            fatalError("[CoreData]: Can't locate \(nameName).momd.")
+        }
+        
+        guard let model = NSManagedObjectModel(contentsOf: modelURL)
+        else {
+            fatalError("[CoreData]: Can't instatiate object model.")
+        }
+        
+        container = PersistentContainer(name: nameName, managedObjectModel: model)
+        
+        let persistentStoreDescription = container.persistentStoreDescriptions.first
+        persistentStoreDescription?.shouldMigrateStoreAutomatically = true
+        persistentStoreDescription?.shouldInferMappingModelAutomatically = true
+        
+        load(removePersistentStoresIfNeeded: true)
+    }
+    
+    internal func managedObjectContext(
+        withType type: ManagedObjectContextType
+    ) -> NSManagedObjectContext {
+        switch type {
+        case .main:
+            return container.viewContext
+        case .background:
+            return container.newBackgroundContext()
+        }
+    }
+    
+    private func load(
+        removePersistentStoresIfNeeded: Bool
+    ) {
+        let container = container
+        container.loadPersistentStores(completionHandler: { [weak self] (storeDescription, error) in
+            if let error = error {
+                let nserror = error as NSError
+                if removePersistentStoresIfNeeded && (nserror.code == 134140 || nserror.code == 134110) {
+                    #warning("TODO: Remove this code.")
+                    if let url = container.persistentStoreDescriptions.first?.url {
+                        try? FileManager.default.removeItem(at: url)
+                        self?.load(removePersistentStoresIfNeeded: false)
+                    }
+                } else {
+                    fatalError("[CoreData]: Unresolved error \(error), \(error.localizedDescription)")
+                }
+            } else {
+                container.viewContext.automaticallyMergesChangesFromParent = true
+                container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+            }
+        })
+    }
+}
+
 private class PersistentContainer: NSPersistentContainer {
     
     private static let _defaultDirectoryURL: URL = {
@@ -16,52 +83,4 @@ private class PersistentContainer: NSPersistentContainer {
     }()
     
     override class func defaultDirectoryURL() -> URL { _defaultDirectoryURL }
-}
-
-internal class PersistenceController {
-    
-    internal static let shared = PersistenceController()
-
-    internal let container: NSPersistentContainer
-    internal var viewContext: NSManagedObjectContext { container.viewContext }
-    internal var managedObjectModel: NSManagedObjectModel { container.managedObjectModel }
-    internal var persistentStoreCoordinator: NSPersistentStoreCoordinator { container.persistentStoreCoordinator }
-
-    init() {
-        let nameName = "Model"
-        guard let modelURL = Bundle.module.url(forResource: nameName, withExtension: "momd")
-        else {
-            fatalError("Can't locate \(nameName).momd.")
-        }
-        
-        guard let model = NSManagedObjectModel(contentsOf: modelURL)
-        else {
-            fatalError("Can't instatiate object model.")
-        }
-        
-        container = PersistentContainer(name: nameName, managedObjectModel: model)
-        container.persistentStoreDescriptions.first?.shouldMigrateStoreAutomatically = true
-        container.persistentStoreDescriptions.first?.shouldInferMappingModelAutomatically = true
-        
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            
-            self.container.viewContext.automaticallyMergesChangesFromParent = true
-            self.container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-            
-            guard let error = error
-            else {
-                return
-            }
-            
-            /*
-             Typical reasons for an error here include:
-             * The parent directory does not exist, cannot be created, or disallows writing.
-             * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-             * The device is out of space.
-             * The store could not be migrated to the current model version.
-             Check the error message to determine what the actual problem was.
-             */
-            fatalError("Unresolved error \(error), \(error.localizedDescription)")
-        })
-    }
 }
