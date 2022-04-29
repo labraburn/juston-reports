@@ -7,6 +7,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="raw_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
         <attribute name="raw_appearance" attributeType="Transformable" valueTransformerName="AccountAppearanceTransformer"/>
+        <attribute name="raw_day_section_name" optional="YES" transient="YES" attributeType="String"/>
         <attribute name="raw_flags" attributeType="Integer 64" usesScalarValueType="YES"/>
         <attribute name="raw_subscriptions" attributeType="Transformable" valueTransformerName="AccountSubscriptionArrayTransformer"/>
         <attribute name="sortingLastUsageValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -34,7 +35,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="179"/>
+        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="194"/>
         <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="149"/>
     </elements>
 </model>

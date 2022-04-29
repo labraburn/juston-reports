@@ -77,7 +77,6 @@ public final class FloatingTabBar: UITabBar {
     }
     
     public func setFloatingHidden(_ flag: Bool, animated: Bool) {
-        
         isFloatingHidden = flag
         let animations = {
             self.layoutContainerViews()

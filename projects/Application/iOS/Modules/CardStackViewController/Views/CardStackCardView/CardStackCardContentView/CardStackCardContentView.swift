@@ -88,4 +88,15 @@ class CardStackCardContentView: UIView {
     func unsubscribeButtonDidClick(_ sender: UIControl?) {
         delegate?.cardStackCardView(self, didClickUnsubscrabeButtonWithModel: model)
     }
+    
+    @objc
+    func copyAddressButtonDidClick(_ sender: UIControl?) {
+        let address = Address(rawAddress: model.account.rawAddress)
+        UIPasteboard.general.string = address.convert(representation: .base64url(flags: .bounceable))
+        
+        InAppAnnouncementCenter.shared.post(
+            announcement: InAppAnnouncementInfo.self,
+            with: .addressCopied
+        )
+    }
 }

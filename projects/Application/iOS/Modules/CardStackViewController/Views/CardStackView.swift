@@ -41,6 +41,11 @@ protocol CardStackViewDelegate: AnyObject {
         _ view: CardStackView,
         didClickReceiveButtonWithModel model: CardStackCard
     )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickWhileModel model: CardStackCard
+    )
 }
 
 final class CardStackView: UIView {
@@ -120,9 +125,15 @@ final class CardStackView: UIView {
         super.init(frame: .zero)
         
         clipsToBounds = false
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .clear
         
         addSubview(containerView)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureDidUpdate(_:)))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        tapGestureRecognizer.delegate = self
+        addGestureRecognizer(tapGestureRecognizer)
         
         let panGestureRecognizer = UIPanGestureRecognizer()
         panGestureRecognizer.addTarget(self, action: #selector(gestureRecongnizerDidUpdate(_:)))
@@ -421,23 +432,42 @@ final class CardStackView: UIView {
             break
         }
     }
+    
+    @objc
+    private func tapGestureDidUpdate(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard !isUserInteracting,
+              let selected = selected
+        else {
+            return
+        }
+        
+        delegate?.cardStackView(self, didClickWhileModel: selected)
+    }
 }
 
 extension CardStackView: UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard cards.count > 1
-        else {
-            return false
+        if let _ = gestureRecognizer as? UITapGestureRecognizer {
+            guard let hitTest = hitTest(gestureRecognizer.location(in: self), with: nil)
+            else {
+                return true
+            }
+            
+            return !hitTest.isKind(of: UIControl.self)
         }
         
-        guard let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer
-        else {
-            return true
+        if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            guard cards.count > 1
+            else {
+                return false
+            }
+            
+            let velocity = panGestureRecognizer.velocity(in: gestureRecognizer.view)
+            return abs(velocity.x) * 1.42 > abs(velocity.y)
         }
         
-        let velocity = panGestureRecognizer.velocity(in: gestureRecognizer.view)
-        return abs(velocity.x) * 1.42 > abs(velocity.y)
+        return true
     }
 }
 

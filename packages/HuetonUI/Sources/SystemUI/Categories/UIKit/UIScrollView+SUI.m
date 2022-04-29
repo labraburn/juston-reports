@@ -57,6 +57,14 @@
 #pragma clang diagnostic pop
 }
 
+
+- (void)sui_scrollToTopIfPossible:(BOOL)flag {
+    SEL sel = SUISelectorFromReversedStringParts(@"pIfPossible:", @"_scrollToTo", nil);
+    typedef void (*function)(id, SEL, BOOL);
+    function block = (function)objc_msgSend;
+    block(self, sel, flag);
+}
+
 - (CGPoint)sui_adjustedContentOffsetForContentOffset:(CGPoint)contentOffset withOriginalAdjustedContentOffset:(CGPoint)originalContentOffset {
     SUIUnclampedInsets unclampedContentInsets = [self sui_unclampedContentInsets];
     

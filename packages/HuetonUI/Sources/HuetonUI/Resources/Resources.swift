@@ -42,16 +42,19 @@ public extension UIImage {
     
     static let hui_send24: UIImage = .named("Send24")
     static let hui_scan24: UIImage = .named("Scan24")
-    static let hui_sendColor24: UIImage = .named("SendColor24")
     static let hui_receive24: UIImage = .named("Receive24")
-    static let hui_receiveColor24: UIImage = .named("ReceiveColor24")
     static let hui_more24: UIImage = .named("More24")
-    static let hui_addCircle24: UIImage = .named("AddCircle24")
+    static let hui_info24: UIImage = .named("Info24")
+    static let hui_copy24: UIImage = .named("Copy24")
+    static let hui_done24: UIImage = .named("Done24")
     
     static let hui_info42: UIImage = .named("Info42")
     static let hui_error42: UIImage = .named("Error42")
     static let hui_warning42: UIImage = .named("Warning42")
     static let hui_development42: UIImage = .named("Development42")
+    
+    static let hui_sendColor51: UIImage = .named("SendColor51")
+    static let hui_receiveColor51: UIImage = .named("ReceiveColor51")
     
     static let hui_placeholder512: UIImage = .named("Placeholder512")
     

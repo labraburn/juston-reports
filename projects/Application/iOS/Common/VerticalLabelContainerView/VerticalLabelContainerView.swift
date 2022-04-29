@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class VerticalLabelContainerView: UIView {
+final class VerticalLabelContainerView: UIControl {
     
     let label: UILabel = UILabel()
     

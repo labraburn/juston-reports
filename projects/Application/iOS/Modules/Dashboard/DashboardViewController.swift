@@ -18,10 +18,15 @@ class DashboardViewController: UIViewController {
     private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
-    private let collectionViewLayout: DashboardCollectionViewLayout = DashboardCollectionViewLayout()
     private var collectionViewHeaderLayoutKind: DashboardCollectionHeaderView.LayoutType.Kind = .large
     private var collectionViewPreviousContentOffset: CGPoint = .zero
     private var collectionViewHeaderLayoutKindAnimator: UIViewPropertyAnimator?
+    
+    private lazy var collectionViewLayout: DashboardCollectionViewLayout = {
+        let layout = DashboardCollectionViewLayout()
+        layout.delegate = self
+        return layout
+    }()
     
     private lazy var collectionView: DiffableCollectionView = {
         let collectionView = DiffableCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
@@ -92,7 +97,7 @@ class DashboardViewController: UIViewController {
         if accountsView.superview == nil && dataSource.snapshot().itemIdentifiers.isEmpty {
             // Force appearing of empty state
             UIView.performWithoutAnimation({
-                dataSource.apply(transactions: [], animated: false)
+                dataSource.apply(transactions: .init(), animated: false)
                 collectionView.layoutIfNeeded()
             })
         }
@@ -137,8 +142,8 @@ extension DashboardViewController: NSFetchedResultsControllerDelegate {
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference
     ) {
-        let objects = snapshot.itemIdentifiers.compactMap({ $0 as? NSManagedObjectID })
-        dataSource.apply(transactions: objects, animated: true)
+        let casted = snapshot as NSDiffableDataSourceSnapshot<String, NSManagedObjectID>
+        dataSource.apply(transactions: casted, animated: true)
     }
 }
 
@@ -319,7 +324,7 @@ extension DashboardViewController: CardStackViewControllerDelegate {
         guard let account = account
         else {
             fetchResultsController = nil
-            dataSource.apply(transactions: [], animated: true)
+            dataSource.apply(transactions: .init(), animated: true)
             return
         }
 
@@ -327,7 +332,10 @@ extension DashboardViewController: CardStackViewControllerDelegate {
         transactionsRequest.predicate = NSPredicate(format: "account = %@", account)
         transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 
-        fetchResultsController = PersistenceTransaction.fetchedResultsController(request: transactionsRequest)
+        fetchResultsController = PersistenceTransaction.fetchedResultsController(
+            request: transactionsRequest,
+            sections: .day
+        )
         fetchResultsController?.delegate = self
 
         try? fetchResultsController?.performFetch()
@@ -352,5 +360,41 @@ extension DashboardViewController: CardStackViewControllerDelegate {
             }
             self?.task = nil
         }
+    }
+    
+    func cardStackViewController(
+        _ viewController: CardStackViewController,
+        didClickAtModel model: CardStackCard?
+    ) {
+        switch collectionViewHeaderLayoutKind {
+        case .large:
+            updateDashboardViewCollectionViewHeaderLayoutKind(.compact, animated: true)
+        case .compact:
+            if !isScrolledToTop {
+                scrollToTop()
+            } else {
+                updateDashboardViewCollectionViewHeaderLayoutKind(.large, animated: true)
+            }
+        }
+    }
+}
+
+extension DashboardViewController: DashboardCollectionViewLayoutDelegate {
+    
+    func dashboardCollectionViewLayoutSectionForIndex(
+        index: Int
+    ) -> DashboardDiffableDataSource.Section? {
+        dataSource.sectionIdentifier(forSectionIndex: index)
+    }
+}
+
+extension DashboardViewController: ScrollToTopContainerController {
+    
+    var isScrolledToTop: Bool {
+        collectionView.isScrolledToTop
+    }
+    
+    func scrollToTop() {
+        collectionView.scrollToTopIfPossible()
     }
 }

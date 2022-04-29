@@ -8,7 +8,16 @@
 import UIKit
 import HuetonUI
 
+protocol DashboardCollectionViewLayoutDelegate: AnyObject {
+    
+    func dashboardCollectionViewLayoutSectionForIndex(
+        index: Int
+    ) -> DashboardDiffableDataSource.Section?
+}
+
 class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
+    
+    weak var delegate: DashboardCollectionViewLayoutDelegate?
     
     override init() {
         super.init()
@@ -20,7 +29,7 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         withEnvironmant: NSCollectionLayoutEnvironment
     ) -> NSCollectionLayoutSection? {
         
-        guard let section = DashboardDiffableDataSource.Section(rawValue: index)
+        guard let section = delegate?.dashboardCollectionViewLayoutSectionForIndex(index: index)
         else {
             fatalError("Can't identifiy DashboardCollectionViewLayout with index: \(index)")
         }
@@ -35,12 +44,23 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
             let item = NSCollectionLayoutItem(layoutSize: size)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
 
+            let dateItem = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(DashboardDateReusableView.estimatedHeight)),
+                elementKind: String(describing: DashboardDateReusableView.self),
+                alignment: .top
+            )
+            dateItem.zIndex = -1
+            
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 16
+            section.supplementariesFollowContentInsets = true
+            section.boundarySupplementaryItems = [
+                dateItem
+            ]
             section.contentInsets = NSDirectionalEdgeInsets(
-                top: 12,
+                top: 16,
                 leading: 12,
-                bottom: 12,
+                bottom: 16,
                 trailing: 12
             )
 
@@ -56,6 +76,7 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         )
         
         item.pinToVisibleBounds = pinToVisibleBounds
+        item.zIndex = .max
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.scrollDirection = .vertical

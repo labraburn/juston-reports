@@ -79,7 +79,17 @@ extension FloatingTabBarController: UITabBarControllerDelegate {
         _ tabBarController: UITabBarController,
         shouldSelect viewController: UIViewController
     ) -> Bool {
-        transitionCoordinator == nil && selectedViewController != viewController
+        if selectedViewController == viewController,
+           let viewController = viewController as? ScrollToTopContainerController
+        {
+            if !viewController.isScrolledToTop {
+                viewController.scrollToTop()
+            }
+            
+            return false
+        }
+        
+        return transitionCoordinator == nil && selectedViewController != viewController
     }
 }
 

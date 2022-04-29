@@ -22,7 +22,7 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     
     typealias Model = PersistenceTransaction
     
-    static let absoluteHeight: CGFloat = 66
+    static let absoluteHeight: CGFloat = 51
     
     var model: Model? {
         didSet {
@@ -32,6 +32,15 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
             }
             
             update(model: model)
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            setHighlightedAnimated(isHighlighted)
+            if isHighlighted {
+               impactOccurred()
+            }
         }
     }
     
@@ -56,7 +65,10 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .hui_backgroundSecondary
+        insertFeedbackGenerator()
+        insertHighlightingScaleAnimation()
+        
+        contentView.backgroundColor = .hui_backgroundPrimary
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
         
@@ -65,16 +77,17 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(addressLabel)
         
         NSLayoutConstraint.activate({
-            imageView.leftAnchor.pin(to: contentView.leftAnchor, constant: 16)
-            imageView.centerYAnchor.pin(to: contentView.centerYAnchor)
+            imageView.leftAnchor.pin(to: contentView.leftAnchor, constant: 0)
+            imageView.pin(vertically: contentView)
+            imageView.widthAnchor.pin(to: imageView.heightAnchor)
             
-            balanceLabel.topAnchor.pin(to: contentView.topAnchor, constant: 12)
-            balanceLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 12)
-            rightAnchor.pin(to: balanceLabel.rightAnchor, constant: 12)
+            balanceLabel.topAnchor.pin(to: contentView.topAnchor, constant: 4)
+            balanceLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
+            rightAnchor.pin(to: balanceLabel.rightAnchor, constant: 0)
             
             addressLabel.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 6)
-            addressLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 12)
-            rightAnchor.pin(to: addressLabel.rightAnchor, constant: 12)
+            addressLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
+            rightAnchor.pin(to: addressLabel.rightAnchor, constant: 0)
         })
     }
     
@@ -89,10 +102,11 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        balanceLabel.text = Self.balanceFormatter.string(from: model.value)
         
         if model.fromAddress == account.rawAddress {
-            imageView.image = .hui_sendColor24
+            imageView.image = .hui_sendColor51
+            
+            balanceLabel.text = "-\(Self.balanceFormatter.string(from: model.value) ?? "")"
             balanceLabel.textColor = .hui_letter_red
             
             if let toAddressRaw = model.toAddresses.first {
@@ -103,7 +117,9 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
                 addressLabel.text = "to ..."
             }
         } else {
-            imageView.image = .hui_receiveColor24
+            imageView.image = .hui_receiveColor51
+            
+            balanceLabel.text = "+\(Self.balanceFormatter.string(from: model.value) ?? "")"
             balanceLabel.textColor = .hui_letter_green
             
             let fromAddress = Address(rawAddress: model.fromAddress)

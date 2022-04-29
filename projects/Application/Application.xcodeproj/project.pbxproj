@@ -44,6 +44,12 @@
 		F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678143281AA4A000EB05F4 /* CardStackCardContentLargeView.swift */; };
 		F0678146281AA4E700EB05F4 /* CardStackCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678145281AA4E700EB05F4 /* CardStackCardButton.swift */; };
 		F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678148281AA51F00EB05F4 /* VerticalLabelContainerView.swift */; };
+		F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067814B281B371C00EB05F4 /* InAppAnnouncementWindow.swift */; };
+		F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067814D281B372D00EB05F4 /* InAppAnnouncementCenter.swift */; };
+		F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067814F281B378000EB05F4 /* InAppAnnouncement.swift */; };
+		F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */; };
+		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
+		F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */; };
 		F0909B4827E8862A00FC8404 /* AccountAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */; };
 		F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */; };
 		F0909B5127E88D8200FC8404 /* SteppableButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */; };
@@ -90,7 +96,6 @@
 		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
 		F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */; };
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
-		F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
@@ -133,6 +138,12 @@
 		F0678143281AA4A000EB05F4 /* CardStackCardContentLargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardContentLargeView.swift; sourceTree = "<group>"; };
 		F0678145281AA4E700EB05F4 /* CardStackCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardButton.swift; sourceTree = "<group>"; };
 		F0678148281AA51F00EB05F4 /* VerticalLabelContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLabelContainerView.swift; sourceTree = "<group>"; };
+		F067814B281B371C00EB05F4 /* InAppAnnouncementWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementWindow.swift; sourceTree = "<group>"; };
+		F067814D281B372D00EB05F4 /* InAppAnnouncementCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementCenter.swift; sourceTree = "<group>"; };
+		F067814F281B378000EB05F4 /* InAppAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncement.swift; sourceTree = "<group>"; };
+		F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementInfo.swift; sourceTree = "<group>"; };
+		F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementView.swift; sourceTree = "<group>"; };
+		F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDateReusableView.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingViewController.swift; sourceTree = "<group>"; };
 		F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableImageViewCell.swift; sourceTree = "<group>"; };
 		F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableButtonCell.swift; sourceTree = "<group>"; };
@@ -184,7 +195,6 @@
 		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
-		F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHuetonView.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
@@ -321,7 +331,6 @@
 			children = (
 				F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */,
 				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
-				F0D3D14727FA68B800E972B4 /* DashboardHuetonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -372,6 +381,26 @@
 				F0678148281AA51F00EB05F4 /* VerticalLabelContainerView.swift */,
 			);
 			path = VerticalLabelContainerView;
+			sourceTree = "<group>";
+		};
+		F067814A281B36F100EB05F4 /* InAppAnnouncement */ = {
+			isa = PBXGroup;
+			children = (
+				F0678151281B37E600EB05F4 /* Announcements */,
+				F067814B281B371C00EB05F4 /* InAppAnnouncementWindow.swift */,
+				F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */,
+				F067814D281B372D00EB05F4 /* InAppAnnouncementCenter.swift */,
+				F067814F281B378000EB05F4 /* InAppAnnouncement.swift */,
+			);
+			path = InAppAnnouncement;
+			sourceTree = "<group>";
+		};
+		F0678151281B37E600EB05F4 /* Announcements */ = {
+			isa = PBXGroup;
+			children = (
+				F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */,
+			);
+			path = Announcements;
 			sourceTree = "<group>";
 		};
 		F0909B4427E781F400FC8404 /* AccountAdding */ = {
@@ -462,6 +491,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
 				F0118DA9281075D500B518A9 /* Web3ViewController */,
 				F0118D992810612000B518A9 /* SafariViewController */,
@@ -573,6 +603,7 @@
 				F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */,
 				F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */,
 				F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */,
+				F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */,
 			);
 			path = DashboardCollectionView;
 			sourceTree = "<group>";
@@ -744,13 +775,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */,
+				F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* SteppableLabelCell.swift in Sources */,
 				F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */,
 				F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */,
+				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* SteppableWordCell.swift in Sources */,
-				F0D3D14827FA68B800E972B4 /* DashboardHuetonView.swift in Sources */,
 				F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* SCLS3000LogoHeaderView.swift in Sources */,
+				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* SCLS3000CompositionalLayout.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
@@ -799,6 +832,7 @@
 				F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */,
 				F0909B5A27E8B6F000FC8404 /* SteppableWordsDecorationView.swift in Sources */,
 				F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */,
+				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* SteppableViewModel.swift in Sources */,
 				F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */,
@@ -813,8 +847,10 @@
 				F0118D9B2810614600B518A9 /* SafariViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
+				F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,
 				F0118DAD2810764C00B518A9 /* Web3WebView.swift in Sources */,
+				F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */,

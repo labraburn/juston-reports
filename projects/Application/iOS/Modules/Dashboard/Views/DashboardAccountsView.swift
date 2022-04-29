@@ -35,7 +35,11 @@ protocol DashboardAccountsViewDelegate: AnyObject {
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
-    private var safeAreaView = UIView()
+    private var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(radius: 42))
+    private var lineView = UIView().with({
+        $0.backgroundColor = UIColor(rgb: 0x353535)
+    })
+    
     private let cardsStackContainerView = ContainerView<CardStackView>()
     private(set) var isLoading: Bool = false
     
@@ -46,7 +50,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         $0.distribution = .equalCentering
     })
     
-    private var huetonView = DashboardHuetonView().with({
+    private var huetonView = HuetonView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
@@ -59,7 +63,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     weak var delegate: DashboardAccountsViewDelegate?
     
-    internal let compacthHeight = CGFloat(103)
+    internal let compacthHeight = CGFloat(135)
     
     var cardStackView: CardStackView? {
         get { cardsStackContainerView.enclosingView }
@@ -79,10 +83,10 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .clear
         
-        safeAreaView.backgroundColor = .hui_backgroundPrimary
-        addSubview(safeAreaView)
+        addSubview(visualEffectView)
+        addSubview(lineView)
         
         navigationStackView.addArrangedSubview({
             let button = UIButton()
@@ -200,11 +204,18 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private func updateLayout() {
         let safeAreaInsets = layoutType.safeAreaInsets
-        safeAreaView.frame = CGRect(
+        visualEffectView.frame = CGRect(
             x: -safeAreaInsets.left,
             y: -safeAreaInsets.top,
             width: bounds.width + safeAreaInsets.left + safeAreaInsets.right,
-            height: safeAreaInsets.top
+            height: bounds.height + safeAreaInsets.top - 18
+        )
+        
+        lineView.frame = CGRect(
+            x: 0,
+            y: visualEffectView.frame.maxY - 1,
+            width: bounds.width,
+            height: 1
         )
         
         switch layoutType.kind {
@@ -231,6 +242,8 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             })
         }
         
+        lineView.alpha = 0
+        
         navigationStackView.alpha = 1
         updateLogoViewLayout()
         
@@ -243,8 +256,9 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private func updateCompactLayoutType() {
         navigationStackView.alpha = 0
+        lineView.alpha = 1
         
-        cardsStackContainerView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height)
+        cardsStackContainerView.frame = CGRect(x: 12, y: 0, width: bounds.width - 24, height: bounds.height - 32)
         cardsStackContainerView.enclosingView?.presentation = .compact
         cardsStackContainerView.enclosingView?.cornerRadius = 16
     }

@@ -25,6 +25,9 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.windowRootViewController.child = viewController
         
         self.window = window
+        
+        let inAppAnnouncementWindow = InAppAnnouncementWindow(windowScene: windowScene)
+        inAppAnnouncementWindow.makeKeyAndVisible()
     }
     
     enum ViewControllerType {

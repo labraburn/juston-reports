@@ -13,14 +13,14 @@ class ExploreViewController: FloatingTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let bookmarksViewController = BookmarksViewController()
-        bookmarksViewController.tabBarItem = {
-            let item = FloatingTabBarItem()
-            item.image = .hui_tabBarPlanet44
-            item.selectedTintColor = .hui_letter_purple
-            item.deselectedTintColor = .hui_tabBarDeselected
-            return item
-        }()
+//        let bookmarksViewController = BookmarksViewController()
+//        bookmarksViewController.tabBarItem = {
+//            let item = FloatingTabBarItem()
+//            item.image = .hui_tabBarPlanet44
+//            item.selectedTintColor = .hui_letter_purple
+//            item.deselectedTintColor = .hui_tabBarDeselected
+//            return item
+//        }()
         
         let dashboardViewController = DashboardViewController()
         dashboardViewController.tabBarItem = {
@@ -41,12 +41,12 @@ class ExploreViewController: FloatingTabBarController {
         }()
         
         viewControllers = [
-            instantiateNavigationController(rootViewController: bookmarksViewController),
+//            instantiateNavigationController(rootViewController: bookmarksViewController),
             instantiateNavigationController(rootViewController: dashboardViewController),
             instantiateNavigationController(rootViewController: settingsViewController)
         ]
         
-        selectedIndex = 1
+        selectedIndex = 0
     }
     
     private func instantiateNavigationController(

@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Call to trigger system mechanizm that determinates offsets that depends on insets
 - (void)sui_adjustContentOffsetIfNecessary;
 
+/// Scroll to top via system animation
+- (void)sui_scrollToTopIfPossible:(BOOL)flag;
+
 @end
 
 NS_ASSUME_NONNULL_END

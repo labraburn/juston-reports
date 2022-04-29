@@ -4,33 +4,18 @@
 
 import UIKit
 
-private class _GradientLayer: CAGradientLayer {
+private class GradientLayer: CAGradientLayer {
     
-    override class func needsDisplay(forKey key: String) -> Bool {
-        false
-    }
-    
-    override func action(forKey event: String) -> CAAction? {
-        NSNull()
-    }
-}
-
-public class GradientLayer: CALayer {
-    
-    @NSManaged public var angle: Double
-    @NSManaged public var colors: [CGColor]
-    @NSManaged public var locations: [Double]
-    
-    let systemLayer: CAGradientLayer = _GradientLayer()
+    @NSManaged public var _angle: Double
+    @NSManaged public var _colors: [CGColor]
+    @NSManaged public var _locations: [Double]
     
     public override init() {
         super.init()
-        initialize()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        initialize()
     }
     
     public override init(layer: Any) {
@@ -41,13 +26,9 @@ public class GradientLayer: CALayer {
         
         super.init(layer: layer)
         
-        angle = layer.angle
-        colors = layer.colors
-        locations = layer.locations
-    }
-    
-    private func initialize() {
-        addSublayer(systemLayer)
+        _angle = layer._angle
+        _colors = layer._colors
+        _locations = layer._locations
     }
     
     public override func display() {
@@ -61,27 +42,22 @@ public class GradientLayer: CALayer {
     }
     
     private func display(from layer: GradientLayer) {
-        systemLayer.frame = layer.bounds
-        
-        systemLayer.colors = layer.colors
-        systemLayer.locations = layer.locations.map({ NSNumber(floatLiteral: $0) })
+        colors = layer._colors
+        locations = layer._locations.map({ NSNumber(floatLiteral: $0) })
         
         let points = layer._points()
-        systemLayer.startPoint = points.0
-        systemLayer.endPoint = points.1
-        
-        systemLayer.setNeedsDisplay()
-        systemLayer.displayIfNeeded()
+        startPoint = points.0
+        endPoint = points.1
     }
     
-    private func _angle() -> Double {
-        var angle = abs(angle).truncatingRemainder(dividingBy: 360)
+    private func __angle() -> Double {
+        var angle = abs(_angle).truncatingRemainder(dividingBy: 360)
         angle = angle + 45
         return angle
     }
     
     private func _points() -> (CGPoint, CGPoint) {
-        let x = _angle() / 360
+        let x = __angle() / 360
         let a = pow(sin((2 * .pi * ((x + 0.75) / 2))), 2)
         let b = pow(sin((2 * .pi * ((x + 0.0) / 2))), 2);
         let c = pow(sin((2 * .pi * ((x + 0.25) / 2))), 2);
@@ -90,7 +66,7 @@ public class GradientLayer: CALayer {
     }
     
     internal class func isAnimationKeyImplemented(_ key: String) -> Bool {
-        key == #keyPath(angle) || key == #keyPath(colors) || key == #keyPath(locations)
+        key == #keyPath(_angle) || key == #keyPath(_colors) || key == #keyPath(_locations)
     }
     
     public override class func needsDisplay(forKey key: String) -> Bool {
@@ -148,20 +124,20 @@ open class GradientView: UIView {
     
     /// Gradient colors
     @objc public var colors: [UIColor] {
-        set { _layer.colors = newValue.map({ $0.cgColor }) }
-        get { _layer.colors.map({ UIColor(cgColor: $0) }) }
+        set { _layer._colors = newValue.map({ $0.cgColor }) }
+        get { _layer._colors.map({ UIColor(cgColor: $0) }) }
     }
     
     /// Value in º
     @objc public var angle: Double {
-        set { _layer.angle = newValue }
-        get { _layer.angle }
+        set { _layer._angle = newValue }
+        get { _layer._angle }
     }
     
     ///
     @objc public var locations: [Double] {
-        set { _layer.locations = newValue }
-        get { _layer.locations }
+        set { _layer._locations = newValue }
+        get { _layer._locations }
     }
     
     public init(colors: [UIColor], angle: CGFloat) {

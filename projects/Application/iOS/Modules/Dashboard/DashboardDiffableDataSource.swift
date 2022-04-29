@@ -25,9 +25,9 @@ protocol DashboardDiffableDataSourceDelegate: AnyObject {
 
 class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDiffableDataSource.Section, DashboardDiffableDataSource.Item> {
 
-    enum Section: Int {
+    enum Section: Hashable {
         
-        case transactions
+        case transactions(dateString: String)
     }
     
     enum Item: Hashable {
@@ -39,6 +39,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
     
     override init(collectionView: UICollectionView) {
         super.init(collectionView: collectionView)
+        collectionView.register(reusableSupplementaryViewClass: DashboardDateReusableView.self)
         collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
     }
     
@@ -78,15 +79,34 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
             )
             
             return view
+        case String(describing: DashboardDateReusableView.self):
+            guard let sectionIdentifier = sectionIdentifier(forSectionIndex: indexPath.section)
+            else {
+                fatalError("[DashboardDiffableDataSource] - Can't idetify section for \(indexPath)")
+            }
+            let view = collectionView.dequeue(
+                reusableSupplementaryViewClass: DashboardDateReusableView.self,
+                elementKind: elementKind,
+                for: indexPath
+            )
+            switch sectionIdentifier {
+            case let .transactions(date):
+                view.model = date
+            }
+            return view
         default:
             return nil
         }
     }
     
-    func apply(transactions: [NSManagedObjectID], animated: Bool) {
+    func apply(transactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>, animated: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections([.transactions])
-        snapshot.appendItems(transactions.map({ .transaction(value: $0) }), toSection: .transactions)
+        for sectionIdentifier in transactions.sectionIdentifiers {
+            snapshot.appendSection(
+                .transactions(dateString: sectionIdentifier),
+                items: transactions.itemIdentifiers(inSection: sectionIdentifier).map({ .transaction(value: $0) })
+            )
+        }
         apply(snapshot, animatingDifferences: animated)
     }
 }

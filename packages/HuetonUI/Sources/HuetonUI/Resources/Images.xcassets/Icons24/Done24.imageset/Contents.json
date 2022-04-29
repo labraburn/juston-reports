@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Frame 716.png",
+      "filename" : "Type=Done42.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Frame 716@2x.png",
+      "filename" : "Type=Done42@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Frame 716@3x.png",
+      "filename" : "Type=Done42@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -19,5 +19,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

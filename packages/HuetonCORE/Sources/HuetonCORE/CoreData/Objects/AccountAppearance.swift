@@ -9,8 +9,8 @@ public struct AccountAppearance {
     public static let `default` = AccountAppearance(
         kind: .glass(gradient0Color: 0xEB03FFFF, gradient1Color: 0x23FFD7A5),
         tintColor: 0xFFFFFFFF,
-        controlsForegroundColor: 0x000000FF,
-        controlsBackgroundColor: 0xFFFFFFFF
+        controlsForegroundColor: 0xFFFFFFFF,
+        controlsBackgroundColor: 0x1D3738FF
     )
     
     public enum Kind {

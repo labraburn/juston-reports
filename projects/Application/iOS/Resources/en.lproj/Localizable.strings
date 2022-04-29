@@ -129,3 +129,13 @@
 /*
  END - AccountCard
  */
+
+/*
+ START - Announcements
+ */
+
+"AnnouncementAddressCopied" = "Account address copied to pasteboard";
+
+/*
+ END - Announcements
+ */

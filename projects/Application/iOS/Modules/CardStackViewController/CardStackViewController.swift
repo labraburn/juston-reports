@@ -15,6 +15,11 @@ protocol CardStackViewControllerDelegate: AnyObject {
         _ viewController: CardStackViewController,
         didChangeSelectedModel model: CardStackCard?
     )
+    
+    func cardStackViewController(
+        _ viewController: CardStackViewController,
+        didClickAtModel model: CardStackCard?
+    )
 }
 
 class CardStackViewController: UIViewController {
@@ -155,5 +160,12 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickReceiveButtonWithModel model: CardStackCard
     ) {
         presentUnderDevelopment()
+    }
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickWhileModel model: CardStackCard
+    ) {
+        delegate?.cardStackViewController(self, didClickAtModel: model)
     }
 }

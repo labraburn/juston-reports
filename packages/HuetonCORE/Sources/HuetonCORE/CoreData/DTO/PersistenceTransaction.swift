@@ -69,6 +69,18 @@ extension PersistenceTransaction {
     @NSManaged private var raw_hash: String
     @NSManaged private var raw_from_address: String
     @NSManaged private var raw_to_addresses: [String]
+    
+    private static let dateDaySectionFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM"
+        return formatter
+    }()
+    
+    @objc private var raw_day_section_name: String {
+        let original = date ?? Date()
+        let startOfDay = Calendar.current.startOfDay(for: original)
+        return Self.dateDaySectionFormatter.string(from: startOfDay)
+    }
 }
 
 // MARK: - CoreData Methods
@@ -98,15 +110,29 @@ public extension PersistenceTransaction {
         return request
     }
     
+    enum FetchedResultsControllerSection {
+        
+        case none
+        case day
+    }
+    
     @MainActor
     @nonobjc class func fetchedResultsController(
-        request: NSFetchRequest<PersistenceTransaction>
+        request: NSFetchRequest<PersistenceTransaction>,
+        sections: FetchedResultsControllerSection
     ) -> NSFetchedResultsController<PersistenceTransaction> {
         let viewContext = PersistenceController.shared.managedObjectContext(withType: .main)
         return NSFetchedResultsController(
             fetchRequest: request,
             managedObjectContext: viewContext,
-            sectionNameKeyPath: nil,
+            sectionNameKeyPath: {
+                switch sections {
+                case .none:
+                    return nil
+                case .day:
+                    return #keyPath(raw_day_section_name)
+                }
+            }(),
             cacheName: nil
         )
     }
