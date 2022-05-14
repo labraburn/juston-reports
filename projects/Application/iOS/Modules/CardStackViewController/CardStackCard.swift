@@ -21,6 +21,6 @@ extension CardStackCard: Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(account.rawAddress)
+        hasher.combine(account.selectedAddress.rawValue)
     }
 }

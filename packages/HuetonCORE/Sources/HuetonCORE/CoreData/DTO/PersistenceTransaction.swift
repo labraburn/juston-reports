@@ -14,33 +14,46 @@ public class PersistenceTransaction: PersistenceObject {
     public convenience init(
         id: Transaction.ID,
         account: PersistenceAccount,
-        date: Date
+        date: Date,
+        flags: Flags
     ) {
         self.init()
         self.id = id
         self.account = account
         self.date = date
+        self.flags = flags
     }
 }
 
 // MARK: - CoreData Properties
 
-extension PersistenceTransaction {
+public extension PersistenceTransaction {
     
-    public var id: Transaction.ID {
+    struct Flags: OptionSet {
+        
+        public let rawValue: Int64
+
+        public static let pending = Flags(rawValue: 1 << 0)
+        
+        public init(rawValue: Int64) {
+            self.rawValue = rawValue
+        }
+    }
+    
+    var id: Transaction.ID {
         get {
             Transaction.ID(
-                value: raw_identifier,
+                logicalTime: raw_logical_time,
                 hash: Data(hex: raw_hash)
             )
         }
         set {
-            raw_identifier = newValue.value
+            raw_logical_time = newValue.logicalTime
             raw_hash = newValue.hash.toHexString()
         }
     }
     
-    public var fromAddress: Address.RawAddress {
+    var fromAddress: Address.RawAddress {
         get {
             Address.RawAddress(rawValue: raw_from_address)!
         }
@@ -49,7 +62,7 @@ extension PersistenceTransaction {
         }
     }
     
-    public var toAddresses: [Address.RawAddress] {
+    var toAddresses: [Address.RawAddress] {
         get {
             raw_to_addresses.compactMap({ Address.RawAddress(rawValue: $0) })
         }
@@ -58,27 +71,40 @@ extension PersistenceTransaction {
         }
     }
     
-    @NSManaged public var date: Date?
-    @NSManaged public var account: PersistenceAccount?
-    @NSManaged public var value: NSDecimalNumber
-    @NSManaged public var fees: NSDecimalNumber
+    var flags: Flags {
+        set { raw_flags = newValue.rawValue }
+        get { Flags(rawValue: raw_flags) }
+    }
+    
+    @NSManaged var date: Date
+    @NSManaged var account: PersistenceAccount
+    @NSManaged var value: NSDecimalNumber
+    @NSManaged var fees: NSDecimalNumber
     
     // MARK: Internal
     
-    @NSManaged private var raw_identifier: Int64
-    @NSManaged private var raw_hash: String
-    @NSManaged private var raw_from_address: String
-    @NSManaged private var raw_to_addresses: [String]
+    /// OptionSet
+    @NSManaged
+    private var raw_flags: Int64
     
-    private static let dateDaySectionFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d MMMM"
-        return formatter
-    }()
+    /// Logical time of transaction id
+    @NSManaged
+    private var raw_logical_time: Int64
     
-    @objc private var raw_day_section_name: String {
-        let original = date ?? Date()
-        let startOfDay = Calendar.current.startOfDay(for: original)
+    /// Hash of transaction id
+    @NSManaged
+    private var raw_hash: String
+    
+    @NSManaged
+    private var raw_from_address: String
+    
+    @NSManaged
+    private var raw_to_addresses: [String]
+    
+    /// Transient
+    @objc
+    private var raw_day_section_name: String {
+        let startOfDay = Calendar.current.startOfDay(for: date)
         return Self.dateDaySectionFormatter.string(from: startOfDay)
     }
 }
@@ -96,7 +122,7 @@ public extension PersistenceTransaction {
     ) -> NSFetchRequest<PersistenceTransaction> {
         let request = NSFetchRequest<PersistenceTransaction>(entityName: "PersistenceTransaction")
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            NSPredicate(format: "raw_identifier == %i", id.value),
+            NSPredicate(format: "raw_logical_time == %i", id.logicalTime),
             NSPredicate(format: "raw_hash == %@", id.hash.toHexString()),
         ])
         return request
@@ -136,4 +162,13 @@ public extension PersistenceTransaction {
             cacheName: nil
         )
     }
+}
+
+private extension PersistenceTransaction {
+    
+    private static let dateDaySectionFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM"
+        return formatter
+    }()
 }

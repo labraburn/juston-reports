@@ -12,15 +12,44 @@ public class PersistenceAccount: PersistenceObject {
     /// Create and insert into main context
     @MainActor
     public convenience init(
-        rawAddress: Address.RawAddress,
+        keyPublic: String,
+        keySecretEncrypted: String,
+        selectedAddress: Address,
         name: String,
         appearance: AccountAppearance,
         subscriptions: [AccountSubscription],
         flags: Flags
     ) {
         self.init()
+        self.raw_unique_identifier = keyPublic.sha256()
+        
+        self.keyPublic = keyPublic
+        self.keySecretEncrypted = keySecretEncrypted
+        
+        self.selectedAddress = selectedAddress
         self.name = name
-        self.rawAddress = rawAddress
+        self.appearance = appearance
+        self.subscriptions = subscriptions
+        self.flags = flags
+    }
+    
+    /// Create and insert into main context
+    @MainActor
+    public convenience init(
+        selectedAddress: Address,
+        name: String,
+        appearance: AccountAppearance,
+        subscriptions: [AccountSubscription],
+        flags: Flags
+    ) {
+        self.init()
+        self.raw_unique_identifier = selectedAddress.rawValue.rawValue.sha256()
+        
+        self.keyPublic = nil
+        self.keySecretEncrypted = nil
+        
+        self.selectedAddress = selectedAddress
+        self.name = name
         self.appearance = appearance
         self.subscriptions = subscriptions
         self.flags = flags
@@ -99,14 +128,14 @@ public extension PersistenceAccount {
         }
     }
     
-    var rawAddress: Address.RawAddress {
-        set { raw_address = newValue.rawValue }
+    var selectedAddress: Address {
+        set { raw_selected_address = newValue.rawValue.rawValue }
         get {
-            guard let rawAddress = Address.RawAddress(rawValue: raw_address)
+            guard let selectedRawAddress = Address.RawAddress(rawValue: raw_selected_address)
             else {
                 fatalError("Looks like data is fault.")
             }
-            return rawAddress
+            return Address(rawValue: selectedRawAddress)
         }
     }
     
@@ -126,6 +155,9 @@ public extension PersistenceAccount {
         get { Flags(rawValue: raw_flags) }
     }
     
+    @NSManaged var keyPublic: String?
+    @NSManaged var keySecretEncrypted: String?
+    
     @NSManaged var name: String
     @NSManaged var balance: NSDecimalNumber
     
@@ -143,7 +175,11 @@ public extension PersistenceAccount {
     
     /// -1:00000000000000
     @NSManaged
-    private var raw_address: String
+    private var raw_selected_address: String
+    
+    /// Hash from public key or raw_address
+    @NSManaged
+    private var raw_unique_identifier: String
     
     /// AccountAppearanceTransformer
     @NSManaged
@@ -179,11 +215,11 @@ public extension PersistenceAccount {
     }
     
     @nonobjc class func fetchRequest(
-        rawAddress: Address.RawAddress
+        selectedAddress: Address
     ) -> NSFetchRequest<PersistenceAccount> {
         let request = NSFetchRequest<PersistenceAccount>(entityName: "PersistenceAccount")
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            NSPredicate(format: "raw_address == %@", rawAddress.rawValue),
+            NSPredicate(format: "raw_selected_address == %@", selectedAddress.rawValue.rawValue),
         ])
         return request
     }

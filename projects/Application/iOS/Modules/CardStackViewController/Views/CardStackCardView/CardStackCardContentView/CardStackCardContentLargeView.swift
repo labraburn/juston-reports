@@ -86,7 +86,11 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         addSubview(balanceLabel)
         addSubview(bottomButtonsHStackView)
         
-        bottomButtonsHStackView.addArrangedSubview(sendButton)
+        let isReadonlyAccount = model.account.flags.contains(.readonly)
+        if !isReadonlyAccount {
+            bottomButtonsHStackView.addArrangedSubview(sendButton)
+        }
+        
         bottomButtonsHStackView.addArrangedSubview(receiveButton)
         bottomButtonsHStackView.addArrangedSubview(moreButton)
         
@@ -142,7 +146,10 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .required - 1)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
             
-            sendButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
+            if !isReadonlyAccount {
+                sendButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
+            }
+            
             receiveButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
             moreButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
         })
@@ -170,8 +177,9 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
-        let address = Address(rawAddress: model.account.rawAddress)
-            .convert(representation: .base64url(flags: [.bounceable]))
+        let address = model.account.selectedAddress.convert(
+            representation: .base64url(flags: [])
+        )
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)

@@ -97,20 +97,27 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     }
     
     private func update(model: Model) {
-        guard let account = model.account
-        else {
-            return
-        }
-        
-        
-        if model.fromAddress == account.rawAddress {
+        if model.toAddresses.count == 1, model.fromAddress == model.toAddresses.first {
+            imageView.image = .hui_sendColor51
+            
+            balanceLabel.text = "\(Self.balanceFormatter.string(from: model.value) ?? "")"
+            balanceLabel.textColor = .hui_letter_red
+            
+            if let toAddressRaw = model.toAddresses.first {
+                let toAddress = Address(rawValue: toAddressRaw)
+                let addressURL = toAddress.convert(representation: .base64url(flags: []))
+                addressLabel.text = "to \(addressURL)"
+            } else {
+                addressLabel.text = "to ..."
+            }
+        } else if model.fromAddress == model.account.selectedAddress.rawValue {
             imageView.image = .hui_sendColor51
             
             balanceLabel.text = "-\(Self.balanceFormatter.string(from: model.value) ?? "")"
             balanceLabel.textColor = .hui_letter_red
             
             if let toAddressRaw = model.toAddresses.first {
-                let toAddress = Address(rawAddress: toAddressRaw)
+                let toAddress = Address(rawValue: toAddressRaw)
                 let addressURL = toAddress.convert(representation: .base64url(flags: []))
                 addressLabel.text = "to \(addressURL)"
             } else {
@@ -122,7 +129,7 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
             balanceLabel.text = "+\(Self.balanceFormatter.string(from: model.value) ?? "")"
             balanceLabel.textColor = .hui_letter_green
             
-            let fromAddress = Address(rawAddress: model.fromAddress)
+            let fromAddress = Address(rawValue: model.fromAddress)
             let addressURL = fromAddress.convert(representation: .base64url(flags: []))
             addressLabel.text = "from \(addressURL)"
         }

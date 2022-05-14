@@ -67,8 +67,9 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         super.reload()
         
         let name = model.account.name
-        let address = Address(rawAddress: model.account.rawAddress)
-            .convert(representation: .base64url(flags: [.bounceable]))
+        let address = model.account.selectedAddress.convert(
+            representation: .base64url(flags: [])
+        )
         
         let tintColor = UIColor(rgba: model.account.appearance.tintColor)
         

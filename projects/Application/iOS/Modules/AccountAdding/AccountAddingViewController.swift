@@ -43,8 +43,16 @@ private extension SteppableViewModel {
                             action: { @MainActor viewController in
                                 let authentication = PasscodeAuthentication(inside: viewController)
                                 let passcode = try await authentication.key()
+                                
                                 let key = try await Key.create(password: passcode)
-                                viewController.next(.words(key.1, address: key.0.rawAddress))
+                                let words = try await key.words(password: passcode)
+                                
+                                let initial = try await Wallet3.initial(key: key)
+                                let address = try await Address(initial: initial)
+                                
+                                viewController.next(
+                                    .words(for: key, address: address, words: words)
+                                )
                             }
                         ),
                         .synchronousButton(
@@ -95,7 +103,9 @@ private extension SteppableViewModel {
                                     return
                                 }
 
-                                viewController.next(.appearance(for: address.raw, flags: .readonly))
+                                viewController.next(
+                                    .appearance(for: nil, address: address, flags: .readonly)
+                                )
                             }
                         ),
                     ]
@@ -106,7 +116,11 @@ private extension SteppableViewModel {
         )
     }
 
-    static func words(_ array: [String], address: Address.RawAddress) -> SteppableViewModel {
+    static func words(
+        `for` key: Key,
+        address: Address,
+        words: [String]
+    ) -> SteppableViewModel {
         SteppableViewModel(
             title: "AccountAddingWordsTitle".asLocalizedKey,
             sections: [
@@ -123,7 +137,7 @@ private extension SteppableViewModel {
                     items: { () -> [SteppableItem] in
                         var result = [SteppableItem]()
                         var index = 0
-                        array.forEach({
+                        words.forEach({
                             result.append(.word(index: index, word: $0))
                             index += 1
                         })
@@ -138,14 +152,16 @@ private extension SteppableViewModel {
                             kind: .primary,
                             action: { _ in
                                 let pasteboard = UIPasteboard.general
-                                pasteboard.string = array.joined(separator: " ")
+                                pasteboard.string = words.joined(separator: " ")
                             }
                         ),
                         .synchronousButton(
                             title: "AccountAddingNextButton".asLocalizedKey,
                             kind: .primary,
                             action: { viewController in
-                                viewController.next(.appearance(for: address, flags: []))
+                                viewController.next(
+                                    .appearance(for: key, address: address, flags: [])
+                                )
                             }
                         ),
                     ]
@@ -156,7 +172,11 @@ private extension SteppableViewModel {
         )
     }
 
-    static func appearance(for rawAddress: Address.RawAddress, flags: PersistenceAccount.Flags) -> SteppableViewModel {
+    static func appearance(
+        for key: Key?,
+        address: Address,
+        flags: PersistenceAccount.Flags
+    ) -> SteppableViewModel {
         var name = ""
         return SteppableViewModel(
             title: "AccountAddingAppearanceTitle".asLocalizedKey,
@@ -185,13 +205,26 @@ private extension SteppableViewModel {
                                     return
                                 }
                                 
-                                let account = PersistenceAccount(
-                                    rawAddress: rawAddress,
-                                    name: name,
-                                    appearance: .default,
-                                    subscriptions: [],
-                                    flags: flags
-                                )
+                                let account: PersistenceAccount
+                                if let key = key {
+                                    account = PersistenceAccount(
+                                        keyPublic: key.publicKey,
+                                        keySecretEncrypted: key.encryptedSecretKey.toHexString(),
+                                        selectedAddress: address,
+                                        name: name,
+                                        appearance: .default,
+                                        subscriptions: [],
+                                        flags: flags
+                                    )
+                                } else {
+                                    account = PersistenceAccount(
+                                        selectedAddress: address,
+                                        name: name,
+                                        appearance: .default,
+                                        subscriptions: [],
+                                        flags: flags
+                                    )
+                                }
                                 
                                 try account.saveAsLastSorting()
                                 try account.saveAsLastUsage()

@@ -14,14 +14,14 @@ private extension Configuration {
         network: .test,
         configurationFileURL: URL(string: "https://newton-blockchain.github.io/testnet-global.config.json")!,
         keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
-        logging: .verbose
+        logging: .debug
     )
     
     static let main = Configuration(
         network: .main,
         configurationFileURL: URL(string: "https://newton-blockchain.github.io/global.config.json")!,
         keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
-        logging: .warning
+        logging: .debug
     )
 }
 

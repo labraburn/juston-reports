@@ -19,16 +19,20 @@ public struct Synchronization {
     nonisolated public init() {}
     
     public func perform(
-        rawAddress: Address.RawAddress,
+        address: Address,
         transactionReceiveOptions: TransactionReceiveOptions
     ) async throws {
         let context = SynchronizationActor.shared.managedObjectContext
             
-        let wallet = try await Wallet(rawAddress: rawAddress)
+        let contract = try await Contract(rawAddress: address.rawValue)
         try Task.checkCancellation()
         
-        let persistenceAccount = try account(for: rawAddress, in: context)
-        persistenceAccount.balance = NSDecimalNumber(decimal: wallet.contract.info.balance.value)
+        guard let persistenceAccount = try account(forSelectedAddress: address, in: context)
+        else {
+            return
+        }
+        
+        persistenceAccount.balance = NSDecimalNumber(decimal: contract.info.balance.value)
         try context.save()
         
         var transactions: [Transaction] = []
@@ -38,23 +42,19 @@ public struct Synchronization {
             return
         case .afterLastSaved:
             let lastPersistance = try lastPersistanceTransaction(for: persistenceAccount, in: context)
-            transactions = try await wallet.contract.transactions(after: lastPersistance?.id)
+            transactions = try await contract.transactions(after: lastPersistance?.id)
         case .full:
-            transactions = try await wallet.contract.transactions(after: nil)
+            transactions = try await contract.transactions(after: nil)
         }
 
         try Task.checkCancellation()
 
         transactions.forEach({ transaction in
-            guard transaction.in != nil || !transaction.out.isEmpty
-            else {
-                return
-            }
-
             let persistenceTransaction = PersistenceTransaction(context: context)
             persistenceTransaction.id = transaction.id
             persistenceTransaction.account = persistenceAccount
             persistenceTransaction.date = transaction.date
+            persistenceTransaction.flags = []
             persistenceTransaction.fees = NSDecimalNumber(
                 decimal: transaction.storageFee.value + transaction.otherFee.value
             )
@@ -65,7 +65,7 @@ public struct Synchronization {
                 // received
                 persistenceTransaction.value = NSDecimalNumber(decimal: message.value.value)
                 persistenceTransaction.fromAddress = sourceAccountAddress
-                persistenceTransaction.toAddresses = [persistenceAccount.rawAddress]
+                persistenceTransaction.toAddresses = [persistenceAccount.selectedAddress.rawValue]
             }
             else if !transaction.out.isEmpty {
                 // sended
@@ -84,38 +84,32 @@ public struct Synchronization {
                 })
 
                 persistenceTransaction.value = NSDecimalNumber(decimal: value)
-                persistenceTransaction.fromAddress = persistenceAccount.rawAddress
+                persistenceTransaction.fromAddress = persistenceAccount.selectedAddress.rawValue
                 persistenceTransaction.toAddresses = toAddresses
             }
             else {
-                // can't being happend
-                // i hope
+                // Looks like transaction to self (deply or maybe)
+                
+                persistenceTransaction.value = 0
+                persistenceTransaction.fromAddress = persistenceAccount.selectedAddress.rawValue
+                persistenceTransaction.toAddresses = [persistenceAccount.selectedAddress.rawValue]
             }
         })
 
         persistenceAccount.dateLastSynchronization = Date()
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        try context.save()
     }
     
     // MARK: Helpers
     
     private func account(
-        for rawAddress: Address.RawAddress,
+        forSelectedAddress address: Address,
         in context: NSManagedObjectContext
-    ) throws -> PersistenceAccount {
-        let persistenceAccountsRequest = PersistenceAccount.fetchRequest(rawAddress: rawAddress)
+    ) throws -> PersistenceAccount? {
+        let persistenceAccountsRequest = PersistenceAccount.fetchRequest(selectedAddress: address)
         let persistenceAccounts = try context.fetch(persistenceAccountsRequest)
         
-        guard persistenceAccounts.count == 1
-        else {
-            throw SynchronizationError.accountDoesNotExists(rawAddress: rawAddress)
-        }
-        
-        return persistenceAccounts[0]
+        return persistenceAccounts.first
     }
     
     private func lastPersistanceTransaction(

@@ -345,7 +345,7 @@ extension DashboardViewController: CardStackViewControllerDelegate {
             do {
                 let synchronization = Synchronization()
                 try await synchronization.perform(
-                    rawAddress: account.rawAddress,
+                    address: account.selectedAddress,
                     transactionReceiveOptions: .afterLastSaved
                 )
                 self?.accountsView.stopLoadingIfAvailable()
