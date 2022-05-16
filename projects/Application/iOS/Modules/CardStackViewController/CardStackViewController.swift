@@ -26,6 +26,7 @@ class CardStackViewController: UIViewController {
     
     private var fetchResultsController: NSFetchedResultsController<PersistenceAccount>?
     private var snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>?
+    private var task: Task<(), Never>?
     
     var cardStackView: CardStackView { view as! CardStackView }
     var cards: [CardStackCard] { cardStackView.cards }
@@ -152,7 +153,106 @@ extension CardStackViewController: CardStackViewDelegate {
         _ view: CardStackView,
         didClickSendButtonWithModel model: CardStackCard
     ) {
-        presentUnderDevelopment()
+        guard let publicKey = model.account.keyPublic,
+              let encryptedSecretKey = model.account.keySecretEncrypted
+        else {
+            return
+        }
+        
+        let viewController = TransferViewController(
+            initialConfiguration: .init(
+                fromAddress: model.account.selectedAddress,
+                toAddress: nil,
+                key: .init(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey)),
+                amount: nil,
+                message: nil)
+        )
+        
+        present(viewController, animated: true)
+//        presentUnderDevelopment()
+        
+        
+        
+        guard task == nil
+        else {
+            print("in progress")
+            return
+        }
+        
+//        Task { [weak self] in
+//
+//            do {
+//
+//                let account = model.account
+//
+//                guard let self = self,
+//                      let publicKey = account.keyPublic,
+//                      let encryptedSecretKey = account.keySecretEncrypted
+//                else {
+//                    throw SwiftyTON.Error.undefined
+//                }
+//
+//                let authentication = PasscodeAuthentication(inside: self)
+//                let passcode = try await authentication.key()
+//                let key = Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
+//
+//                var message = try await Wallet3.deploy(key: key, passcode: passcode)
+//                try await message.prepare()
+//
+//                let fees = try await message.fees()
+//                print("Deployment fees: \(fees)")
+//
+//                try await message.send()
+//            } catch {
+//                print(error)
+//            }
+//
+//            self?.task = nil
+//        }
+        
+//        Task { [weak self] in
+//            
+//            do {
+//                
+//                let account = model.account
+//                
+//                guard let self = self,
+//                      let publicKey = account.keyPublic,
+//                      let encryptedSecretKey = account.keySecretEncrypted
+//                else {
+//                    throw SwiftyTON.Error.undefined
+//                }
+//                
+//                let authentication = PasscodeAuthentication(inside: self)
+//                let passcode = try await authentication.key()
+//                let key = Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
+//                
+//                guard let wallet = try await Wallet3(rawAddress: account.selectedAddress.rawValue)
+//                else {
+//                    throw SwiftyTON.Error.undefined
+//                }
+//                
+//                var message = try await wallet.transfer(
+//                    to: try Address(base64EncodedString: "UQDg9_pJnr1wjmLjIQJF9dLVhzX_C_JDF5YF1T52HxvITaOS"),
+//                    amount: Balance(value: 0.001),
+//                    message: "HUETON",
+//                    key: key,
+//                    passcode: passcode
+//                )
+//                
+//                try await message.prepare()
+//                
+//                let fees = try await message.fees()
+//                print("Sending fees: \(fees)")
+//                
+//                try await message.send()
+//            } catch {
+//                print(error)
+//            }
+//            
+//            self?.task = nil
+//        }
+        
     }
     
     func cardStackView(

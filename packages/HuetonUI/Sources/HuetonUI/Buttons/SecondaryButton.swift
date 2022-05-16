@@ -4,11 +4,12 @@
 
 import UIKit
 
-public final class PrimaryButton: UIButton {
+public class SecondaryButton: UIControl {
     
-    private let gradientView = GradientView(colors: [UIColor(rgb: 0x4776E6), UIColor(rgb: 0x8E54E9)], angle: 45).with({
+    private let borderView = GradientBorderedView(colors: [UIColor(rgb: 0x4876E6), UIColor(rgb: 0x8D55E9)]).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.isUserInteractionEnabled = false
+        $0.cornerRadius = 12
     })
     
     private let textLabel = UILabel().with({
@@ -16,7 +17,7 @@ public final class PrimaryButton: UIButton {
         $0.isUserInteractionEnabled = false
         $0.font = .monospacedSystemFont(ofSize: 16, weight: .medium)
         $0.textAlignment = .center
-        $0.textColor = .white
+        $0.textColor = UIColor(rgb: 0x7B66FF)
     })
     
     public var title: String = "" {
@@ -40,22 +41,16 @@ public final class PrimaryButton: UIButton {
         setContentHuggingPriority(.required, for: .vertical)
         setContentCompressionResistancePriority(.required, for: .vertical)
         
-        clipsToBounds = true
-        
-        layer.cornerRadius = 12
-        layer.cornerCurve = .continuous
-        layer.masksToBounds = true
-        
-        addSubview(gradientView)
+        addSubview(borderView)
         addSubview(textLabel)
         
         NSLayoutConstraint.activate({
-            gradientView.pin(edges: self)
+            borderView.pin(edges: self)
             textLabel.pin(edges: self)
         })
         
         insertHighlightingScaleAnimation()
-        insertFeedbackGenerator(style: .heavy)
+        insertFeedbackGenerator(style: .medium)
     }
     
     public override var intrinsicContentSize: CGSize {

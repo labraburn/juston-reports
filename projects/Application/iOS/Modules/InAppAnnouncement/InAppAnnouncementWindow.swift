@@ -37,6 +37,7 @@ class InAppAnnouncementWindow: UIWindow {
         rootViewController = UIViewController()
         rootViewController?.view.isUserInteractionEnabled = false
         rootViewController?.view.alpha = 0
+        overrideUserInterfaceStyle = .dark
         
         Self.retain = self
         self.subscribe()

@@ -50,6 +50,7 @@
 		F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */; };
 		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
 		F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */; };
+		F07C7F9828329A8700A10B41 /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferViewController.swift */; };
 		F0909B4827E8862A00FC8404 /* AccountAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */; };
 		F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */; };
 		F0909B5127E88D8200FC8404 /* SteppableButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */; };
@@ -100,6 +101,10 @@
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
+		F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */; };
+		F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */; };
+		F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */; };
+		F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +149,7 @@
 		F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementInfo.swift; sourceTree = "<group>"; };
 		F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementView.swift; sourceTree = "<group>"; };
 		F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDateReusableView.swift; sourceTree = "<group>"; };
+		F07C7F9728329A8700A10B41 /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingViewController.swift; sourceTree = "<group>"; };
 		F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableImageViewCell.swift; sourceTree = "<group>"; };
 		F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableButtonCell.swift; sourceTree = "<group>"; };
@@ -200,6 +206,10 @@
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
 		F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerImage.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
+		F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.swift; sourceTree = "<group>"; };
+		F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +413,16 @@
 			path = Announcements;
 			sourceTree = "<group>";
 		};
+		F07C7F9628329A4C00A10B41 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				F0F071462832DA76009AA6F9 /* Confirmation */,
+				F0F0714328329D7B009AA6F9 /* Details */,
+				F07C7F9728329A8700A10B41 /* TransferViewController.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		F0909B4427E781F400FC8404 /* AccountAdding */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,6 +511,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F07C7F9628329A4C00A10B41 /* Transfer */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
 				F0118DA9281075D500B518A9 /* Web3ViewController */,
@@ -689,6 +710,24 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		F0F0714328329D7B009AA6F9 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */,
+				F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		F0F071462832DA76009AA6F9 /* Confirmation */ = {
+			isa = PBXGroup;
+			children = (
+				F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */,
+				F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */,
+			);
+			path = Confirmation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -779,6 +818,7 @@
 				F0909B5327E88D9000FC8404 /* SteppableLabelCell.swift in Sources */,
 				F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */,
 				F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */,
+				F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */,
 				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* SteppableWordCell.swift in Sources */,
 				F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */,
@@ -800,12 +840,15 @@
 				F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */,
+				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
+				F07C7F9828329A8700A10B41 /* TransferViewController.swift in Sources */,
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* SCLS3000ApplicationVersionHeaderView.swift in Sources */,
+				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* SteppableTextFieldCell.swift in Sources */,
 				F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */,
 				F0118DA02810671C00B518A9 /* UserBookmark.swift in Sources */,
@@ -840,6 +883,7 @@
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
 				F0118D9D2810637700B518A9 /* SCLS3000BookmarkCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* SteppableNavigationController.swift in Sources */,
+				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
 				F0118D78280F1CA800B518A9 /* ExploreViewController.swift in Sources */,
 				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,

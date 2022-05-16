@@ -1,20 +1,21 @@
 //
-//  SteppableNavigationController.swift
+//  TransferViewController.swift
 //  iOS
 //
-//  Created by Anton Spivak on 10.04.2022.
+//  Created by Anton Spivak on 16.05.2022.
 //
 
 import UIKit
 import HuetonUI
 import SystemUI
 
-class SteppableNavigationController: SUINavigationController {
+class TransferViewController: SUINavigationController {
     
-    init(rootViewModel: SteppableViewModel) {
-        let viewController = SteppableViewController(model: rootViewModel)
-        super.init(rootViewController: viewController)
-        modalPresentationStyle = .pageSheet
+    typealias InitialConfiguration = TransferDetailsViewController.InitialConfiguration
+    
+    init(initialConfiguration: InitialConfiguration) {
+        let detailsViewController = TransferDetailsViewController(initialConfiguration: initialConfiguration)
+        super.init(rootViewController: detailsViewController)
     }
     
     @available(*, unavailable)
@@ -30,15 +31,12 @@ class SteppableNavigationController: SUINavigationController {
         navigationBar.standardAppearance = .hue_standardAppearance
         navigationBar.scrollEdgeAppearance = .hue_scrollEdgeAppearance
         navigationBar.tintColor = .hui_textPrimary
-        
-        navigationBar.prefersLargeTitles = false
-        navigationBar.layer.masksToBounds = true
     }
     
     override func trickyAnimatedTransitioning(
         for operation: UINavigationController.Operation
     ) -> SUINavigationControllerAnimatedTransitioning? {
-        .addingNavigationTransitioning(with: operation)
+        .transferNavigationTransitioning(with: operation)
     }
 }
 
@@ -56,7 +54,7 @@ private extension UINavigationController.Operation {
 
 private extension SUINavigationControllerAnimatedTransitioning {
     
-    static func addingNavigationTransitioning(
+    static func transferNavigationTransitioning(
         with operation: UINavigationController.Operation
     ) -> SUINavigationControllerAnimatedTransitioning {
         SUINavigationControllerAnimatedTransitioning(
@@ -80,33 +78,23 @@ private extension SUINavigationControllerAnimatedTransitioning {
                 switch operation {
                 case .push:
                     containerView.addSubview(toView)
-                    toView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
                 case .pop:
                     containerView.insertSubview(toView, belowSubview: fromView)
-                    
-                    toView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
-                    toView.alpha = 0.2
                 case .none:
                     break
                 @unknown default:
                     break
                 }
                 
+                toView.transform = .identity.scaledBy(x: 0.96, y: 0.96)
+                toView.alpha = 0.0
+                
                 let animations = {
                     toView.transform = .identity
                     toView.alpha = 1
                     
-                    switch operation {
-                    case .push:
-                        fromView.transform = .identity.scaledBy(x: 0.8, y: 0.8)
-                        fromView.alpha = 0.2
-                    case .pop:
-                        fromView.transform = .identity.translatedBy(x: containerView.bounds.width, y: 0)
-                    case .none:
-                        break
-                    @unknown default:
-                        break
-                    }
+                    fromView.transform = .identity.scaledBy(x: 0.96, y: 0.96)
+                    fromView.alpha = 0.0
                 }
                 
                 let completion = { (_ finished: Bool) in
