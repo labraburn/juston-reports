@@ -17,5 +17,6 @@ extension TransferConfirmationViewController {
         let toAddress: Address
         let amount: Currency
         var message: Message
+        var estimatedFees: Currency
     }
 }

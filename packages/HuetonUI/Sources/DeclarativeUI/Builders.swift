@@ -44,6 +44,45 @@ public enum SubviewsBuilder {
 }
 
 ///
+/// AttributedStringBuilder
+///
+
+@resultBuilder
+public enum AttributedStringBuilder {
+    public static func buildBlock() -> [NSAttributedString] {
+        []
+    }
+
+    public static func buildBlock(_ components: NSAttributedString...) -> [NSAttributedString] {
+        components
+    }
+
+    public static func buildBlock(_ components: [NSAttributedString]...) -> [NSAttributedString] {
+        components.flatMap { $0 }
+    }
+
+    public static func buildArray(_ components: [[NSAttributedString]]) -> [NSAttributedString] {
+        components.flatMap { $0 }
+    }
+
+    public static func buildIf(_ content: NSAttributedString?) -> [NSAttributedString] {
+        guard let content = content else {
+            return []
+        }
+
+        return [content]
+    }
+
+    public static func buildEither(first: NSAttributedString) -> [NSAttributedString] {
+        [first]
+    }
+
+    public static func buildEither(second: NSAttributedString) -> [NSAttributedString] {
+        [second]
+    }
+}
+
+///
 /// ConstraintsBuilder
 ///
 

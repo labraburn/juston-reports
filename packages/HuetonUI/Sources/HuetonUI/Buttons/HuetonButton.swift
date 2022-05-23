@@ -6,7 +6,7 @@ import UIKit
 
 public class HuetonButton: UIControl {
     
-    private var task: Task<(), Never>? = nil
+    public private(set) var operation: Task<(), Never>? = nil
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,26 +26,26 @@ public class HuetonButton: UIControl {
     }
     
     deinit {
-        task?.cancel()
+        operation?.cancel()
     }
     
     // MARK: Operations
     
     public func startAsynchronousOperation(
         priority: TaskPriority? = nil,
-        operation: @escaping @Sendable () async -> ()
+        _ block: @escaping @Sendable () async -> ()
     ) {
-        guard task == nil
+        guard operation == nil
         else {
             return
         }
         
         startLoadingAnimation(delay: 0.2)
-        task = Task { [weak self] in
-            await operation()
+        operation = Task { [weak self] in
+            await block()
             
             self?.stopLoadingAnimation()
-            self?.task = nil
+            self?.operation = nil
         }
     }
     

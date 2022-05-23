@@ -28,6 +28,11 @@ public class GradientBorderedView: UIView {
         get { _gradientView.colors }
     }
     
+    public var gradientAngle: Double {
+        set { _gradientView.angle = newValue }
+        get { _gradientView.angle }
+    }
+    
     init(colors: [UIColor]) {
         _gradientView = GradientView(colors: colors, angle: 45)
         super.init(frame: .zero)

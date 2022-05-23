@@ -9,13 +9,18 @@ import UIKit
 import HuetonUI
 import HuetonCORE
 import SwiftyTON
+import DeclarativeUI
 
 class TransferConfirmationViewController: UIViewController {
     
-    private let imageView = UIImageView(image: .hui_placeholder512).with({
+    private let descriptionLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFill
-        $0.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        $0.textAlignment = .center
+        $0.font = .font(for: .headline)
+        $0.textColor = .hui_textPrimary
+        $0.text = "Please, review transfer details and then press send if it's correct"
+        $0.numberOfLines = 0
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
     private let textLabel = UILabel().with({
@@ -25,17 +30,15 @@ class TransferConfirmationViewController: UIViewController {
         $0.numberOfLines = 0
     })
     
-    private lazy var processButton = PrimaryButton(title: "PROCESS").with({
+    private lazy var processButton = PrimaryButton(title: "SEND").with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(processButtonDidClick(_:)), for: .touchUpInside)
     })
     
-    private lazy var cancelButton = TeritaryButton(title: "CANCEL").with({
+    private lazy var cancelButton = TeritaryButton(title: "BACK").with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(cancelButtonDidClick(_:)), for: .touchUpInside)
     })
-    
-    private var infinityFeesTask: Task<(), Never>?
     
     let initialConfiguration: InitialConfiguration
     
@@ -48,10 +51,6 @@ class TransferConfirmationViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    deinit {
-        infinityFeesTask?.cancel()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,16 +59,16 @@ class TransferConfirmationViewController: UIViewController {
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
-        view.addSubview(imageView)
+        view.addSubview(descriptionLabel)
         view.addSubview(textLabel)
         view.addSubview(processButton)
         view.addSubview(cancelButton)
         
         NSLayoutConstraint.activate({
-            imageView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 8)
-            imageView.pin(horizontally: view, left: 16, right: 16)
+            descriptionLabel.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+            descriptionLabel.pin(horizontally: view, left: 16, right: 16)
             
-            textLabel.topAnchor.pin(to: imageView.bottomAnchor, constant: 12)
+            textLabel.topAnchor.pin(to: descriptionLabel.bottomAnchor, constant: 32)
             textLabel.pin(horizontally: view, left: 16, right: 16)
             
             processButton.topAnchor.pin(greaterThan: textLabel.bottomAnchor, constant: 12)
@@ -81,43 +80,20 @@ class TransferConfirmationViewController: UIViewController {
             view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 0)
         })
         
-        updateTextLabel()
-        
-        let message = initialConfiguration.message
-        infinityFeesTask = Task.detachedInfinityLoop(
-            delay: 5,
-            operation: { [weak self] in
-                let fees = try await message.fees()
-                await self?.updateTextLabel(fees: fees)
-            }
-        )
-    }
-    
-    private func updateTextLabel(fees: Currency? = nil) {
-        let string = NSMutableAttributedString()
-        string.append(.string("Address: ", with: .body, kern: .default))
-        string.append(.string("\(initialConfiguration.toAddress)", with: .body, kern: .four))
-        
-        string.append(.init(string: "\n\n"))
-        
-        string.append(.string("Value: ", with: .body, kern: .default))
-        string.append(.string("\(initialConfiguration.amount.string(with: .maximum9))", with: .body, kern: .four))
-        
-        string.append(.init(string: "\n\n"))
-        
-        string.append(.string("Estimated fees: ", with: .body, kern: .default))
-        if let fees = fees?.string(with: .maximum9) {
-            string.append(.string("\(fees)", with: .body, kern: .four))
-        } else {
-            string.append(.string("...", with: .body, kern: .four))
-        }
-        
-        textLabel.attributedText = string
-    }
-    
-    private func finish() {
-        infinityFeesTask?.cancel()
-        dismiss(animated: true)
+        let spacing = NSAttributedString(" \n", with: .body, lineHeight: 6)
+        textLabel.attributedText = NSMutableAttributedString({
+            NSAttributedString("Destination address:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            spacing
+            NSAttributedString("\(initialConfiguration.toAddress)\n\n", with: .body)
+            
+            NSAttributedString("Amount:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            spacing
+            NSAttributedString("\(initialConfiguration.amount.string(with: .maximum9))\n\n", with: .body)
+            
+            NSAttributedString("Estimated fees:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            spacing
+            NSAttributedString("\(initialConfiguration.estimatedFees.string(with: .maximum9))\n\n", with: .body)
+        })
     }
     
     // MARK: Actions
@@ -128,16 +104,16 @@ class TransferConfirmationViewController: UIViewController {
         let accoundID = initialConfiguration.fromAccount.objectID
         let message = initialConfiguration.message
         
-        sender.startAsynchronousOperation(operation: { [weak self] in
+        sender.startAsynchronousOperation({ [weak self] in
             do {
                 let account = await PersistenceAccount.writeableObject(id: accoundID)
-                
+
                 try await message.send()
                 try await PersistencePendingTransaction(
                     account: account,
                     destinationAddress: initialConfiguration.toAddress,
                     value: initialConfiguration.amount,
-                    estimatedFees: Currency(value: 0),
+                    estimatedFees: initialConfiguration.estimatedFees,
                     body: initialConfiguration.message.body.data,
                     bodyHash: initialConfiguration.message.bodyHash
                 ).save()
@@ -146,7 +122,11 @@ class TransferConfirmationViewController: UIViewController {
                 await self?.present(error)
             }
             
-            await self?.finish()
+            if let navigationController = await self?.navigationController {
+                await navigationController.dismiss(animated: true)
+            } else {
+                await self?.dismiss(animated: true)
+            }
         })
     }
     

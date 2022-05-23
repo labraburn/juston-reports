@@ -14,9 +14,14 @@ class TransferDetailsViewController: UIViewController {
     
     private let errorFeedbackGenerator = UIImpactFeedbackGenerator(style: .rigid)
     
-    private let imageView = UIImageView(image: .hui_placeholder512).with({
+    private let descriptionLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleToFill
+        $0.textAlignment = .center
+        $0.font = .font(for: .headline)
+        $0.textColor = .hui_textPrimary
+        $0.text = "Fill up destination address of transfer and amount and then press next"
+        $0.numberOfLines = 0
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
     private lazy var destinationAddressView = BorderedTextView(caption: "Address").with({
@@ -93,11 +98,10 @@ class TransferDetailsViewController: UIViewController {
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
-        view.addSubview(imageView)
+        view.addSubview(descriptionLabel)
         view.addSubview(destinationAddressView)
         view.addSubview(amountTextView)
         view.addSubview(messageTextView)
-        
         view.addSubview(processButton)
         view.addSubview(cancelButton)
         
@@ -125,7 +129,7 @@ class TransferDetailsViewController: UIViewController {
         let messageKeyboardConstraint = KeyboardLayoutConstraint(
             item: processButton,
             attribute: .top,
-            relatedBy: .equal,
+            relatedBy: .greaterThanOrEqual,
             toItem: messageTextView,
             attribute: .bottom,
             multiplier: 1,
@@ -133,10 +137,10 @@ class TransferDetailsViewController: UIViewController {
         )
         
         NSLayoutConstraint.activate({
-            imageView.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 8)
-            imageView.pin(horizontally: view, left: 16, right: 16)
+            descriptionLabel.topAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+            descriptionLabel.pin(horizontally: view, left: 16, right: 16)
             
-            destinationAddressView.topAnchor.pin(greaterThan: imageView.bottomAnchor, constant: 24)
+            destinationAddressView.topAnchor.pin(to: descriptionLabel.bottomAnchor, constant: 32)
             destinationAddressView.pin(horizontally: view, left: 16, right: 16)
             destinationKeyboardConstraint
             
@@ -159,6 +163,11 @@ class TransferDetailsViewController: UIViewController {
         self.messageKeyboardConstraint = messageKeyboardConstraint
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        destinationAddressView.textView.becomeFirstResponder()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(false)
@@ -173,7 +182,7 @@ class TransferDetailsViewController: UIViewController {
         let fromAccount = initialConfiguration.fromAccount
         let key = initialConfiguration.key
         
-        sender.startAsynchronousOperation(operation: { [weak self] in
+        sender.startAsynchronousOperation({ [weak self] in
             do {
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
@@ -190,13 +199,15 @@ class TransferDetailsViewController: UIViewController {
                     key: key,
                     passcode: passcode
                 )
-
+                
+                let fees = try await message.fees()
                 let confimationViewController = await TransferConfirmationViewController(
                     initialConfiguration: .init(
                         fromAccount: fromAccount,
                         toAddress: outAddress,
                         amount: amount,
-                        message: message
+                        message: message,
+                        estimatedFees: fees
                     )
                 )
 
@@ -209,7 +220,7 @@ class TransferDetailsViewController: UIViewController {
     }
     
     fileprivate func markTextViewAsError(_ textView: UITextView) {
-        textView.shake()
+        textView.superview?.shake()
         textView.textColor = .hui_letter_red
         errorFeedbackGenerator.impactOccurred()
     }
@@ -252,6 +263,15 @@ class TransferDetailsViewController: UIViewController {
 extension TransferDetailsViewController: UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        guard processButton.operation == nil
+        else {
+            return false
+        }
+        
+        destinationAddressView.setFocused(textView == destinationAddressView.textView)
+        amountTextView.setFocused(textView == amountTextView.textView)
+        messageTextView.setFocused(textView == messageTextView.textView)
+        
         switch textView {
         case destinationAddressView.textView:
             destinationKeyboardConstraint?.bottomAnchor = .view(view: .init(amountTextView))
@@ -295,6 +315,7 @@ extension TransferDetailsViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        (textView.superview as? BorderedTextView)?.setFocused(false)
         guard textView.hasText
         else {
             return

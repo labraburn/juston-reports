@@ -12,40 +12,53 @@ extension NSAttributedString {
         case four
     }
     
-    public static func string(
+    public convenience init(
         _ string: String?,
         with textStyle: UIFont.TextStyle,
         kern: Kern = .default,
+        foregroundColor: UIColor = .hui_textPrimary,
         lineHeight: CGFloat? = nil
-    ) -> NSAttributedString {
+    ) {
         guard let string = string
         else {
-            return NSAttributedString(string: "")
+            self.init(string: "")
+            return
         }
-
-        let range = NSRange(location: 0, length: string.count)
-        let result = NSMutableAttributedString(string: string)
-        result.addAttribute(.font, value: UIFont.font(for: textStyle), range: range)
+        
+        var attributes: [NSMutableAttributedString.Key : Any] = [:]
+        attributes[.font] = UIFont.font(for: textStyle)
+        attributes[.foregroundColor] = foregroundColor
         
         switch kern {
         case .default:
             break
         case .four:
-            result.addAttribute(.kern, value: 4, range: range)
+            attributes[.kern] = 4
         }
         
         if let lineHeight = lineHeight {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.minimumLineHeight = lineHeight
             paragraphStyle.maximumLineHeight = lineHeight
-            result.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
+            attributes[.paragraphStyle] = paragraphStyle
         }
         
-        guard let copy = result.copy() as? NSAttributedString
-        else {
-            return NSAttributedString(string: "")
-        }
-        
-        return copy
+        self.init(string: string, attributes: attributes)
+    }
+    
+    public static func string(
+        _ string: String?,
+        with textStyle: UIFont.TextStyle,
+        kern: Kern = .default,
+        foregroundColor: UIColor = .hui_textPrimary,
+        lineHeight: CGFloat? = nil
+    ) -> NSAttributedString {
+        NSAttributedString(
+            string,
+            with: textStyle,
+            kern: kern,
+            foregroundColor: foregroundColor,
+            lineHeight: lineHeight
+        )
     }
 }

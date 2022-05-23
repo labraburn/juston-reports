@@ -74,6 +74,8 @@ public class BorderedTextView: UIView {
             textView.heightAnchor.pin(greaterThan: 17)
             bottomAnchor.pin(to: textView.bottomAnchor, constant: 12)
         })
+        
+        setFocused(false, animated: false)
     }
     
     public override func layoutSubviews() {
@@ -98,5 +100,26 @@ public class BorderedTextView: UIView {
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
         textView.layoutContainerView = superview
+    }
+    
+    // MARK: API
+    
+    public func setFocused(_ flag: Bool, animated: Bool = true) {
+        let changes = {
+            self.borderView.gradientColors = flag ? [UIColor(rgb: 0x85FFC4), UIColor(rgb: 0xBC85FF)] : [.hui_textSecondary, .hui_textSecondary]
+            self.borderView.gradientAngle = flag ? 12 : 68
+        }
+        
+        if animated {
+            UIView.animate(
+                withDuration: 0.21,
+                delay: 0,
+                options: [.beginFromCurrentState],
+                animations: changes,
+                completion: nil
+            )
+        } else {
+            changes()
+        }
     }
 }

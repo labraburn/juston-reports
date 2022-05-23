@@ -2,9 +2,9 @@
 //  Created by Anton Spivak
 //
 
-import UIKit
+import Foundation
 
-public extension UIView {
+public extension NSMutableAttributedString {
     /// Simple extensions for UIView that can easily build hierarchy
     ///
     /// ```
@@ -16,9 +16,9 @@ public extension UIView {
     /// }
     /// ```
     convenience init(
-        @SubviewsBuilder _ builder: () -> [UIView]
+        @AttributedStringBuilder _ builder: () -> [NSAttributedString]
     ) {
         self.init()
-        builder().forEach { addSubview($0) }
+        builder().forEach { append($0) }
     }
 }
