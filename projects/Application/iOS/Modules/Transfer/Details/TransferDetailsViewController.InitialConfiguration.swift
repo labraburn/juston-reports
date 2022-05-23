@@ -6,18 +6,19 @@
 //
 
 import Foundation
+import HuetonCORE
 import SwiftyTON
 
 extension TransferDetailsViewController {
     
     struct InitialConfiguration {
         
-        let fromAddress: Address
+        let fromAccount: PersistenceAccount
         let toAddress: Address?
         
         let key: Key
         
-        let amount: Balance?
+        let amount: Currency?
         let message: String?
     }
 }

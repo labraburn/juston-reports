@@ -6,13 +6,22 @@ import UIKit
 
 public final class OverlayLoadingView: UIView {
     
-    private let gradientView: GradientView = GradientView(colors: [.cyan, .magenta], angle: 45)
+    private let gradientView: GradientView = GradientView(colors: [.hui_letter_purple, .hui_letter_violet], angle: 45)
     private let gradientMaskView: OverlayLoadingViewMaskView = OverlayLoadingViewMaskView()
     
     private var isAnimationInProgress: Bool = false
     
-    public var cornerRadius: CGFloat = 10
-    public var cornerCurve: CALayerCornerCurve = .continuous
+    public var cornerRadius: CGFloat = 10 {
+        didSet {
+            layer.cornerRadius = cornerRadius
+        }
+    }
+    
+    public var cornerCurve: CALayerCornerCurve = .continuous {
+        didSet {
+            layer.cornerCurve = cornerCurve
+        }
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +39,9 @@ public final class OverlayLoadingView: UIView {
         
         addSubview(gradientView)
         gradientView.mask = gradientMaskView
+        
+        cornerRadius = 12
+        cornerCurve = .continuous
     }
     
     public override func layoutSubviews() {
@@ -48,11 +60,12 @@ public final class OverlayLoadingView: UIView {
         
         alpha = 0
         isUserInteractionEnabled = true
+        isAnimationInProgress = true
         
         layer.removeAllAnimations()
         UIView.animate(withDuration: 0.3, delay: delay, options: .beginFromCurrentState, animations: {
             self.alpha = 1
-            self.gradientMaskView.animate(with: 1.0)
+            self.gradientMaskView.animate(with: 1.2)
         }, completion: nil)
     }
     
@@ -64,7 +77,7 @@ public final class OverlayLoadingView: UIView {
         }
         
         // Animation doesn't start yet
-        if layer.presentation()?.opacity != 0 {
+        if layer.presentation()?.opacity == 0 {
             layer.removeAllAnimations()
             
             alpha = 0
@@ -84,26 +97,15 @@ public final class OverlayLoadingView: UIView {
             self.alpha = 0
         }, completion: { finished in
             self.alpha = 0
+            
+            self.gradientMaskView.layer.removeAllAnimations()
             self.isAnimationInProgress = false
+            
             completion?()
         })
     }
 }
 
-extension OverlayLoadingView: OverlayLoadingViewMaskViewDelegate {
-    
-    fileprivate func overlayLoadingViewMaskViewShouldRestartAnimation(_ view: OverlayLoadingViewMaskView) -> Bool {
-        return isAnimationInProgress
-    }
-}
-
-// MARK: LoadingWindowViewMaskViewDelegate
-fileprivate protocol OverlayLoadingViewMaskViewDelegate: AnyObject {
-    
-    func overlayLoadingViewMaskViewShouldRestartAnimation(_ view: OverlayLoadingViewMaskView) -> Bool
-}
-
-// MARK: LoadingWindowViewMaskView
 fileprivate class OverlayLoadingViewMaskView: UIView {
     
     override class var layerClass: AnyClass { CAShapeLayer.self }
@@ -114,20 +116,27 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
     var cornerRadius: CGFloat = 10
     var cornerCurve: CALayerCornerCurve = .continuous
     
-    weak var delegate: OverlayLoadingViewMaskViewDelegate? = nil
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let cornerRadius = self.cornerRadius == 0 ? 4 : self.cornerRadius
-        shapeLayer.path = path(frame: bounds, cornerRadius: cornerRadius).cgPath
-        shapeLayer.lineWidth = 3
+        shapeLayer.path = path(
+            frame: CGRect(
+                x: 1,
+                y: 1,
+                width: bounds.width - 2,
+                height: bounds.height - 2
+            ),
+            cornerRadius: cornerRadius
+        ).cgPath
+        shapeLayer.lineWidth = 1
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.white.cgColor
         
         shapeLayer.lineJoin = .round
         shapeLayer.strokeStart = 0
-        shapeLayer.strokeEnd = 0
+        shapeLayer.strokeEnd = 1
+        shapeLayer.opacity = 1
     }
     
     func animate(with duration: TimeInterval) {
@@ -135,30 +144,53 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
         
         let inAnimation: CAAnimation = {
             let animation = CABasicAnimation(keyPath: "strokeEnd")
-            animation.duration = duration
+            animation.duration = duration / 4 * 3
             animation.fromValue = 0
             animation.toValue = 1
-            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
+            animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             return animation
         }()
          
         let outAnimation: CAAnimation = {
             let animation = CABasicAnimation(keyPath: "strokeStart")
-            animation.beginTime = duration / 2
-            animation.duration = duration
+            animation.beginTime = duration / 4
+            animation.duration = duration / 4 * 3
             animation.fromValue = 0
             animation.toValue = 1
-            animation.timingFunction = CAMediaTimingFunction(name:  CAMediaTimingFunctionName.easeOut)
+            animation.timingFunction = CAMediaTimingFunction(name:  .easeInEaseOut)
+            return animation
+        }()
+        
+        let opacityInAnimation: CAAnimation = {
+            let animation = CABasicAnimation(keyPath: "opacity")
+            animation.duration = duration / 3
+            animation.fromValue = 0
+            animation.toValue = 1
+            animation.timingFunction = CAMediaTimingFunction(name:  .easeInEaseOut)
+            return animation
+        }()
+        
+        let opacityOutAnimation: CAAnimation = {
+            let animation = CABasicAnimation(keyPath: "opacity")
+            animation.beginTime = duration / 5 * 4
+            animation.duration = duration / 5
+            animation.fromValue = 1
+            animation.toValue = 0
+            animation.timingFunction = CAMediaTimingFunction(name:  .easeInEaseOut)
             return animation
         }()
     
         let strokeAnimationGroup = CAAnimationGroup()
-        strokeAnimationGroup.duration = duration + outAnimation.beginTime
-        strokeAnimationGroup.repeatCount = 1
-        strokeAnimationGroup.animations = [inAnimation, outAnimation]
-        strokeAnimationGroup.delegate = self
+        strokeAnimationGroup.duration = duration
+        strokeAnimationGroup.repeatCount = .infinity
+        strokeAnimationGroup.animations = [
+            inAnimation,
+            outAnimation,
+            opacityInAnimation,
+            opacityOutAnimation
+        ]
         
-        layer.add(strokeAnimationGroup, forKey: "strokeAnimation")
+        layer.add(strokeAnimationGroup, forKey: "strokeAnimationGroup")
     }
     
     private func path(frame: CGRect, cornerRadius: CGFloat) -> UIBezierPath {
@@ -204,23 +236,6 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
         path.close()
         path.apply(CGAffineTransform(translationX: frame.origin.x, y: frame.origin.y))
 
-        return path;
-    }
-}
-
-extension OverlayLoadingViewMaskView: CAAnimationDelegate {
-    
-    func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        var delegateShouldRestart = true
-        if let delegate = delegate {
-            delegateShouldRestart = delegate.overlayLoadingViewMaskViewShouldRestartAnimation(self)
-        }
-        
-        guard flag && delegateShouldRestart
-        else {
-            return
-        }
-        
-        animate(with: animationDuration)
+        return path
     }
 }

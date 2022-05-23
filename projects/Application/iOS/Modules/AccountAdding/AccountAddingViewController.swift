@@ -94,7 +94,7 @@ private extension SteppableViewModel {
                 .init(
                     section: .init(kind: .simple),
                     items: [
-                        .synchronousButton(
+                        .asynchronousButton(
                             title: "AccountAddingNextButton".asLocalizedKey,
                             kind: .primary,
                             action: { viewController in
@@ -102,9 +102,20 @@ private extension SteppableViewModel {
                                 else {
                                     return
                                 }
-
+                                
+                                let contract = try await Contract(rawAddress: address.rawValue)
+                                var keyPublic: Data? = nil
+                                
+                                if contract.kind != .uninitialized {
+                                    keyPublic = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
+                                }
+                                
                                 viewController.next(
-                                    .appearance(for: nil, address: address, flags: .readonly)
+                                    .appearance(
+                                        keyPublic: keyPublic?.toHexString(),
+                                        keySecretEncrypted: nil,
+                                        selectedAddress: address
+                                    )
                                 )
                             }
                         ),
@@ -160,7 +171,11 @@ private extension SteppableViewModel {
                             kind: .primary,
                             action: { viewController in
                                 viewController.next(
-                                    .appearance(for: key, address: address, flags: [])
+                                    .appearance(
+                                        keyPublic: try key.deserializedPublicKey().toHexString(),
+                                        keySecretEncrypted: key.encryptedSecretKey.toHexString(),
+                                        selectedAddress: address
+                                    )
                                 )
                             }
                         ),
@@ -173,9 +188,9 @@ private extension SteppableViewModel {
     }
 
     static func appearance(
-        for key: Key?,
-        address: Address,
-        flags: PersistenceAccount.Flags
+        keyPublic: String?,
+        keySecretEncrypted: String?,
+        selectedAddress: Address
     ) -> SteppableViewModel {
         var name = ""
         return SteppableViewModel(
@@ -196,7 +211,7 @@ private extension SteppableViewModel {
                 .init(
                     section: .init(kind: .simple),
                     items: [
-                        .synchronousButton(
+                        .asynchronousButton(
                             title: "AccountAddingDoneButton".asLocalizedKey,
                             kind: .primary,
                             action: { viewController in
@@ -205,29 +220,16 @@ private extension SteppableViewModel {
                                     return
                                 }
                                 
-                                let account: PersistenceAccount
-                                if let key = key {
-                                    account = PersistenceAccount(
-                                        keyPublic: key.publicKey,
-                                        keySecretEncrypted: key.encryptedSecretKey.toHexString(),
-                                        selectedAddress: address,
-                                        name: name,
-                                        appearance: .default,
-                                        subscriptions: [],
-                                        flags: flags
-                                    )
-                                } else {
-                                    account = PersistenceAccount(
-                                        selectedAddress: address,
-                                        name: name,
-                                        appearance: .default,
-                                        subscriptions: [],
-                                        flags: flags
-                                    )
-                                }
+                                let account = await PersistenceAccount(
+                                    keyPublic: keyPublic,
+                                    keySecretEncrypted: keySecretEncrypted,
+                                    selectedAddress: selectedAddress,
+                                    name: name,
+                                    appearance: .default
+                                )
                                 
-                                try account.saveAsLastSorting()
-                                try account.saveAsLastUsage()
+                                try await account.saveAsLastSorting()
+                                try await account.saveAsLastUsage()
                                 
                                 viewController.finish()
                             }

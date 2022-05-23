@@ -17,14 +17,6 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         case calm
     }
     
-    static let balanceFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 9
-        formatter.minimumFractionDigits = 9
-        formatter.decimalSeparator = "."
-        return formatter
-    }()
-    
     private let accountNameLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .monospacedSystemFont(ofSize: 32, weight: .bold)
@@ -86,8 +78,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         addSubview(balanceLabel)
         addSubview(bottomButtonsHStackView)
         
-        let isReadonlyAccount = model.account.flags.contains(.readonly)
-        if !isReadonlyAccount {
+        if !model.account.isReadonly {
             bottomButtonsHStackView.addArrangedSubview(sendButton)
         }
         
@@ -146,7 +137,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .required - 1)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
             
-            if !isReadonlyAccount {
+            if !model.account.isReadonly {
                 sendButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
             }
             
@@ -177,9 +168,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
-        let address = model.account.selectedAddress.convert(
-            representation: .base64url(flags: [])
-        )
+        let address = model.account.selectedAddress.convert(to: .base64url(flags: []))
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
@@ -189,8 +178,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         
         synchronizationLabel.textColor = tintColor.withAlphaComponent(0.1)
         
-        let balance = model.account.balance
-        let balances = (Self.balanceFormatter.string(from: balance) ?? "0.0").components(separatedBy: ".")
+        let balance = CurrencyFormatter.string(from: model.account.balance, options: .maximum9minimum9)
+        let balances = balance.components(separatedBy: ".")
         
         balanceLabel.textColor = tintColor
         balanceLabel.attributedText = NSMutableAttributedString().with({

@@ -35,7 +35,7 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         }
 
         switch section {
-        case .transactions:
+        case .pendingTransactions, .processedTransactions:
             let size = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .absolute(DashboardTransactionCollectionViewCell.absoluteHeight)

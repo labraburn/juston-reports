@@ -173,3 +173,41 @@ extension UIView {
         layer.add(animation, forKey: "shake")
     }
 }
+
+//
+// Loading animation
+//
+
+extension UIView {
+    
+    private static let overlayLoadingViewTag = 0x0f56
+    
+    public func startLoadingAnimation(delay: TimeInterval = 0.2) {
+        isUserInteractionEnabled = false
+        
+        var view = viewWithTag(UIView.overlayLoadingViewTag) as? OverlayLoadingView
+        if view == nil {
+            let loadingView = OverlayLoadingView()
+            loadingView.tag = UIView.overlayLoadingViewTag
+            loadingView.translatesAutoresizingMaskIntoConstraints = false
+            loadingView.cornerRadius = layer.cornerRadius
+            loadingView.cornerCurve = layer.cornerCurve
+            
+            addSubview(loadingView)
+            loadingView.pinned(edges: self)
+            
+            view = loadingView
+        }
+        
+        view?.startAnimation(delay: delay)
+    }
+    
+    public func stopLoadingAnimation() {
+        isUserInteractionEnabled = true
+        
+        let view = viewWithTag(UIView.overlayLoadingViewTag) as? OverlayLoadingView
+        view?.stopAnimation(completion: {
+            view?.removeFromSuperview()
+        })
+    }
+}

@@ -52,7 +52,7 @@ public extension NSManagedObject {
     }
     
     /// Warning - should be called only at main tread
-    fileprivate func _didUpdateInsideViewContext() {
+    fileprivate func _didUpdateInsideReadableContext() {
         let enumerator = observers.objectEnumerator()
         while let value = enumerator?.nextObject() as? ObserverContainer {
             value.block()
@@ -61,7 +61,7 @@ public extension NSManagedObject {
     
     // MARK: API
     
-    @MainActor
+    @PersistenceReadableActor
     func addObjectDidChangeObserver(_ observer: @escaping () -> ()) -> PersistenceObjectObserver {
         let key = PersistenceObjectObserver()
         observers.setObject(ObserverContainer(observer), forKey: key)
@@ -80,7 +80,7 @@ internal struct ManagedObjectContextObjectsDidChangeObserver {
         }
         
         let didSave = { (_ persistenceObject: PersistenceObject) in
-            persistenceObject._didUpdateInsideViewContext()
+            persistenceObject._didUpdateInsideReadableContext()
         }
         
         let block = { (_ notification: Notification) in
@@ -90,7 +90,7 @@ internal struct ManagedObjectContextObjectsDidChangeObserver {
         
         observer = NotificationCenter.default.addObserver(
             forName: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-            object: PersistenceController.shared.managedObjectContext(withType: .main),
+            object: PersistenceReadableActor.shared.managedObjectContext,
             queue: .main,
             using: block
         )

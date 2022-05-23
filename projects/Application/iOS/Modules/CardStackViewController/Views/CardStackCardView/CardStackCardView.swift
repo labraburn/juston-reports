@@ -29,6 +29,11 @@ protocol CardStackCardViewDelegate: AnyObject {
     
     func cardStackCardView(
         _ view: UIView,
+        didClickResynchronizeButtonWithModel model: CardStackCard
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
         didClickSendButtonWithModel model: CardStackCard
     )
     

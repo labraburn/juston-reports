@@ -10,18 +10,6 @@ import HuetonUI
 
 protocol DashboardAccountsViewDelegate: AnyObject {
     
-    func dashboardAccountsViewShouldStartRefreshing(
-        _ view: DashboardAccountsView
-    ) -> Bool
-    
-    func dashboardAccountsViewDidStartRefreshing(
-        _ view: DashboardAccountsView
-    )
-    
-    func dashboardAccountsViewIsUserInteractig(
-        _ view: DashboardAccountsView
-    ) -> Bool
-    
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
         addAccountButtonDidClick button: UIButton
@@ -41,7 +29,6 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     })
     
     private let cardsStackContainerView = ContainerView<CardStackView>()
-    private(set) var isLoading: Bool = false
     
     private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
         $0.translatesAutoresizingMaskIntoConstraints = true
@@ -54,31 +41,17 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    private let logoViewReloadOffset = CGFloat(44)
-    private let logoViewDefaultOffset = CGFloat(24)
     private var logoViewAdditionalOffset = CGFloat(0)
-    private var isAbleToRefreshAnimation = true
     private var cachedBounds = CGRect.zero
     
     weak var delegate: DashboardAccountsViewDelegate?
     
     internal let compacthHeight = CGFloat(135)
     
+    var layoutType: DashboardCollectionHeaderView.LayoutType = .init(bounds: .zero, safeAreaInsets: .zero, kind: .large)
     var cardStackView: CardStackView? {
         get { cardsStackContainerView.enclosingView }
         set { cardsStackContainerView.enclosingView = newValue }
-    }
-    
-    var layoutType: DashboardCollectionHeaderView.LayoutType = .init(bounds: .zero, safeAreaInsets: .zero, kind: .large) {
-        didSet {
-            guard layoutType != oldValue
-            else {
-                return
-            }
-            
-            isAbleToRefreshAnimation = false
-        }
     }
     
     init() {
@@ -143,63 +116,15 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     // MARK: API
     
-    func startLoadingAnimationIfAvailable() {
-        startLoadingAnimationIfNeccessary()
-    }
-    
-    func stopLoadingIfAvailable() {
-        stopLoadingAnimationIfNeccessary()
-    }
-    
-    func enclosingScrollViewWillStartDraging(_ scrollView: UIScrollView) {
-        isAbleToRefreshAnimation = true
-    }
-    
     func enclosingScrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
         
         logoViewAdditionalOffset = max(-contentOffset / 2, 0)
         updateLogoViewLayout()
         
-        guard !isLoading, isAbleToRefreshAnimation, layoutType.kind == .large
-        else {
-            return
-        }
-        
         let additionalOffset = -contentOffset / 2
-        let progress = additionalOffset / logoViewReloadOffset
+        let progress = additionalOffset / 44
         huetonView.set(progress: progress)
-        
-        if additionalOffset > logoViewReloadOffset && scrollView.isTracking {
-            startLoadingAnimationIfNeccessary()
-        }
-    }
-    
-    // MARK: Private
-    
-    private func startLoadingAnimationIfNeccessary() {
-        guard !isLoading, (delegate?.dashboardAccountsViewShouldStartRefreshing(self) ?? false)
-        else {
-            return
-        }
-        
-        isLoading = true
-        isAbleToRefreshAnimation = false
-        
-        huetonView.startInfinityAnimation()
-        feedbackGenerator.impactOccurred()
-        
-        delegate?.dashboardAccountsViewDidStartRefreshing(self)
-    }
-    
-    private func stopLoadingAnimationIfNeccessary() {
-        guard isLoading
-        else {
-            return
-        }
-        
-        huetonView.stopInfinityAnimation()
-        isLoading = false
     }
     
     private func updateLayout() {
@@ -236,12 +161,6 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     }
     
     private func updateLargeLayoutType() {
-        if !isLoading {
-            UIView.performWithoutAnimation({
-                huetonView.performUpdatesWithLetters { $0.on() }
-            })
-        }
-        
         lineView.alpha = 0
         
         navigationStackView.alpha = 1

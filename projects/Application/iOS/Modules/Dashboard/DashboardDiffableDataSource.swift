@@ -25,14 +25,16 @@ protocol DashboardDiffableDataSourceDelegate: AnyObject {
 
 class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDiffableDataSource.Section, DashboardDiffableDataSource.Item> {
 
-    enum Section: Hashable {
+    enum Section {
         
-        case transactions(dateString: String)
+        case pendingTransactions
+        case processedTransactions(dateString: String)
     }
     
     enum Item: Hashable {
         
-        case transaction(value: NSManagedObjectID)
+        case pendingTransaction(id: NSManagedObjectID)
+        case processedTransaction(id: NSManagedObjectID)
     }
     
     weak var delegate: DashboardDiffableDataSourceDelegate?
@@ -49,12 +51,19 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         item: Item
     ) -> UICollectionViewCell? {
         switch item {
-        case let .transaction(value):
+        case let .pendingTransaction(id):
             let cell = collectionView.dequeue(
                 reusableCellClass: DashboardTransactionCollectionViewCell.self,
                 for: indexPath
             )
-            cell.model = PersistenceObject.object(with: value, type: PersistenceTransaction.self)
+            cell.model = .init(transaction: PersistencePendingTransaction.readableObject(id: id))
+            return cell
+        case let .processedTransaction(id):
+            let cell = collectionView.dequeue(
+                reusableCellClass: DashboardTransactionCollectionViewCell.self,
+                for: indexPath
+            )
+            cell.model = .init(transaction: PersistenceProcessedTransaction.readableObject(id: id))
             return cell
         }
     }
@@ -90,8 +99,10 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 for: indexPath
             )
             switch sectionIdentifier {
-            case let .transactions(date):
-                view.model = date
+            case .pendingTransactions:
+                view.model = "Pending"
+            case let .processedTransactions(dateString):
+                view.model = dateString
             }
             return view
         default:
@@ -99,13 +110,27 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         }
     }
     
-    func apply(transactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>, animated: Bool) {
+    func apply(
+        pendingTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
+        processedTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
+        animated: Bool
+    ) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        for sectionIdentifier in transactions.sectionIdentifiers {
-            snapshot.appendSection(
-                .transactions(dateString: sectionIdentifier),
-                items: transactions.itemIdentifiers(inSection: sectionIdentifier).map({ .transaction(value: $0) })
-            )
+        if !pendingTransactions.itemIdentifiers.isEmpty {
+            pendingTransactions.sectionIdentifiers.forEach({
+                snapshot.appendSection(
+                    .pendingTransactions,
+                    items: pendingTransactions.itemIdentifiers(inSection: $0).map({ .pendingTransaction(id: $0) })
+                )
+            })
+        }
+        if !processedTransactions.itemIdentifiers.isEmpty {
+            processedTransactions.sectionIdentifiers.forEach({
+                snapshot.appendSection(
+                    .processedTransactions(dateString: $0),
+                    items: processedTransactions.itemIdentifiers(inSection: $0).map({ .processedTransaction(id: $0) })
+                )
+            })
         }
         apply(snapshot, animatingDifferences: animated)
     }
@@ -122,5 +147,51 @@ extension DashboardDiffableDataSource: DashboardCollectionHeaderViewDelegate {
         }
         
         return delegate.dashboardDiffableDataSource(self, layoutTypeForCollectionHeaderView: view)
+    }
+}
+
+extension DashboardDiffableDataSource.Section: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .pendingTransactions:
+            hasher.combine("pending_transactions")
+        case let .processedTransactions(dateString):
+            hasher.combine("processed_transactions_\(dateString)")
+        }
+    }
+}
+
+extension DashboardTransactionCollectionViewCell.Model {
+    
+    init(transaction: PersistencePendingTransaction) {
+        from = transaction.account.selectedAddress
+        to = [transaction.destinationAddress]
+        
+        kind = .pending
+        value = transaction.value
+    }
+    
+    init(transaction: PersistenceProcessedTransaction) {
+        if !transaction.out.isEmpty {
+            from = transaction.account.selectedAddress
+            to = transaction.out.compactMap({ $0.destinationAddress })
+            
+            kind = .out
+            value = transaction.out.reduce(into: Currency(value: 0), { $0 += $1.value })
+        } else if let action = transaction.in {
+            from = transaction.account.selectedAddress
+            to = [action].compactMap({ $0.destinationAddress })
+            
+            kind = .in
+            value = action.value
+        } else {
+            // Possible just deploying or SMC run
+            from = transaction.account.selectedAddress
+            to = [transaction.account.selectedAddress]
+            
+            kind = .out
+            value = Currency(value: 0)
+        }
     }
 }

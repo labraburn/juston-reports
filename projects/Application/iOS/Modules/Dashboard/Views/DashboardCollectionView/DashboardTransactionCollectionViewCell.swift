@@ -12,15 +12,20 @@ import DeclarativeUI
 
 class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     
-    static let balanceFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 9
-        formatter.minimumFractionDigits = 9
-        formatter.decimalSeparator = "."
-        return formatter
-    }()
-    
-    typealias Model = PersistenceTransaction
+    struct Model: Hashable {
+        
+        enum Kind {
+            
+            case `in`
+            case out
+            case pending
+        }
+        
+        let kind: Kind
+        let from: Address?
+        let to: [Address]
+        let value: Currency
+    }
     
     static let absoluteHeight: CGFloat = 51
     
@@ -46,6 +51,11 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
+    })
+    
+    private let loadingView = OverlayLoadingView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.cornerRadius = 12
     })
     
     private let addressLabel = UILabel().with({
@@ -97,41 +107,61 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     }
     
     private func update(model: Model) {
-        if model.toAddresses.count == 1, model.fromAddress == model.toAddresses.first {
-            imageView.image = .hui_sendColor51
-            
-            balanceLabel.text = "\(Self.balanceFormatter.string(from: model.value) ?? "")"
-            balanceLabel.textColor = .hui_letter_red
-            
-            if let toAddressRaw = model.toAddresses.first {
-                let toAddress = Address(rawValue: toAddressRaw)
-                let addressURL = toAddress.convert(representation: .base64url(flags: []))
-                addressLabel.text = "to \(addressURL)"
-            } else {
-                addressLabel.text = "to ..."
-            }
-        } else if model.fromAddress == model.account.selectedAddress.rawValue {
-            imageView.image = .hui_sendColor51
-            
-            balanceLabel.text = "-\(Self.balanceFormatter.string(from: model.value) ?? "")"
-            balanceLabel.textColor = .hui_letter_red
-            
-            if let toAddressRaw = model.toAddresses.first {
-                let toAddress = Address(rawValue: toAddressRaw)
-                let addressURL = toAddress.convert(representation: .base64url(flags: []))
-                addressLabel.text = "to \(addressURL)"
-            } else {
-                addressLabel.text = "to ..."
-            }
-        } else {
+        let value = CurrencyFormatter.string(from: model.value, options: .maximum9)
+        switch model.kind {
+        case .in:
             imageView.image = .hui_receiveColor51
             
-            balanceLabel.text = "+\(Self.balanceFormatter.string(from: model.value) ?? "")"
-            balanceLabel.textColor = .hui_letter_green
+            if let from = model.from {
+                addressLabel.text = "from \(from.description)"
+            } else {
+                addressLabel.text = "from ..."
+            }
             
-            let fromAddress = Address(rawValue: model.fromAddress)
-            let addressURL = fromAddress.convert(representation: .base64url(flags: []))
-            addressLabel.text = "from \(addressURL)"
+            balanceLabel.text = "\(value)"
+            balanceLabel.textColor = .hui_letter_green
+        case .out:
+            imageView.image = .hui_sendColor51
+            
+            if let to = model.to.first { // TODO: Fixme and show all addresses
+                addressLabel.text = "to \(to.description)"
+            } else {
+                addressLabel.text = "to ..."
+            }
+            
+            balanceLabel.text = "\(value)"
+            balanceLabel.textColor = .hui_letter_red
+        case .pending:
+            imageView.image = .hui_sendColor51
+            
+            if let to = model.to.first { // TODO: Fixme and show all addresses
+                addressLabel.text = "to \(to.description)"
+            } else {
+                addressLabel.text = "to ..."
+            }
+            
+            balanceLabel.text = "\(value)"
+            balanceLabel.textColor = .hui_textPrimary
+        }
+        
+        startLoadingAnimationIfNeeded(model: model)
+    }
+    
+    private func startLoadingAnimationIfNeeded(model: Model) {
+        switch model.kind {
+        case .pending:
+            if loadingView.superview == nil {
+                contentView.addSubview(loadingView)
+                NSLayoutConstraint.activate({
+                    loadingView.leftAnchor.pin(to: contentView.leftAnchor, constant: 0)
+                    loadingView.pin(vertically: contentView)
+                    loadingView.widthAnchor.pin(to: imageView.heightAnchor)
+                })
+            }
+            loadingView.startAnimation(delay: 0)
+        case .in, .out:
+            loadingView.removeFromSuperview()
+            loadingView.stopAnimation(completion: nil)
         }
     }
 }

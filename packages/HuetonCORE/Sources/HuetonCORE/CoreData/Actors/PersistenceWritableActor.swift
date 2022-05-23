@@ -5,9 +5,11 @@
 import Foundation
 import CoreData
 
-public final actor PersistenceActor: Actor {
+@globalActor
+public final actor PersistenceWritableActor: Actor {
     
-    private let executor: PersistenceExecutor
+    public static var shared = PersistenceWritableActor()
+    private let executor: PersistenceWritableExecutor
     
     public nonisolated var unownedExecutor: UnownedSerialExecutor {
         executor.asUnownedSerialExecutor()
@@ -18,14 +20,12 @@ public final actor PersistenceActor: Actor {
     }
     
     public init() {
-        let managedObjectContext = PersistenceController.shared.managedObjectContext(withType: .background)
-        managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        executor = PersistenceExecutor(managedObjectContext: managedObjectContext)
+        let managedObjectContext = PersistenceController.shared.managedObjectContext(withType: .writeContext)
+        executor = PersistenceWritableExecutor(managedObjectContext: managedObjectContext)
     }
 }
 
-private final class PersistenceExecutor: SerialExecutor {
+private final class PersistenceWritableExecutor: SerialExecutor {
     
     let managedObjectContext: NSManagedObjectContext
     
@@ -36,7 +36,9 @@ private final class PersistenceExecutor: SerialExecutor {
     func enqueue(_ job: UnownedJob) {
         let unownedSerialExecutor = asUnownedSerialExecutor()
         managedObjectContext.perform({
-            job._runSynchronously(on: unownedSerialExecutor)
+            autoreleasepool(invoking: {
+                job._runSynchronously(on: unownedSerialExecutor)
+            })
         })
     }
     

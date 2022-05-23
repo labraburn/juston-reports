@@ -7,6 +7,7 @@
 
 import UIKit
 import HuetonUI
+import HuetonCORE
 import SwiftyTON
 
 class TransferConfirmationViewController: UIViewController {
@@ -35,7 +36,6 @@ class TransferConfirmationViewController: UIViewController {
     })
     
     private var infinityFeesTask: Task<(), Never>?
-    private var sendingTask: Task<(), Never>?
     
     let initialConfiguration: InitialConfiguration
     
@@ -51,12 +51,6 @@ class TransferConfirmationViewController: UIViewController {
     
     deinit {
         infinityFeesTask?.cancel()
-        sendingTask?.cancel()
-        
-        let message = initialConfiguration.message
-        Task {
-            try? await message.unprepare()
-        }
     }
 
     override func viewDidLoad() {
@@ -90,24 +84,16 @@ class TransferConfirmationViewController: UIViewController {
         updateTextLabel()
         
         let message = initialConfiguration.message
-        infinityFeesTask = Task { [weak self] in
-            while true {
-                guard !Task.isCancelled
-                else {
-                    break
-                }
-                
-                do {
-                    let fees = try await message.fees()
-                    self?.updateTextLabel(fees: fees)
-                    
-                    try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
-                } catch {}
+        infinityFeesTask = Task.detachedInfinityLoop(
+            delay: 5,
+            operation: { [weak self] in
+                let fees = try await message.fees()
+                await self?.updateTextLabel(fees: fees)
             }
-        }
+        )
     }
     
-    private func updateTextLabel(fees: Balance? = nil) {
+    private func updateTextLabel(fees: Currency? = nil) {
         let string = NSMutableAttributedString()
         string.append(.string("Address: ", with: .body, kern: .default))
         string.append(.string("\(initialConfiguration.toAddress)", with: .body, kern: .four))
@@ -115,12 +101,12 @@ class TransferConfirmationViewController: UIViewController {
         string.append(.init(string: "\n\n"))
         
         string.append(.string("Value: ", with: .body, kern: .default))
-        string.append(.string("\(initialConfiguration.amount.value)", with: .body, kern: .four))
+        string.append(.string("\(initialConfiguration.amount.string(with: .maximum9))", with: .body, kern: .four))
         
         string.append(.init(string: "\n\n"))
         
         string.append(.string("Estimated fees: ", with: .body, kern: .default))
-        if let fees = fees {
+        if let fees = fees?.string(with: .maximum9) {
             string.append(.string("\(fees)", with: .body, kern: .four))
         } else {
             string.append(.string("...", with: .body, kern: .four))
@@ -131,32 +117,37 @@ class TransferConfirmationViewController: UIViewController {
     
     private func finish() {
         infinityFeesTask?.cancel()
-        sendingTask?.cancel()
-        
         dismiss(animated: true)
     }
     
     // MARK: Actions
     
     @objc
-    private func processButtonDidClick(_ sender: UIButton) {
-        guard sendingTask == nil
-        else {
-            return
-        }
-        
+    private func processButtonDidClick(_ sender: HuetonButton) {
+        let initialConfiguration = initialConfiguration
+        let accoundID = initialConfiguration.fromAccount.objectID
         let message = initialConfiguration.message
-        sendingTask = Task { [weak self] in
+        
+        sender.startAsynchronousOperation(operation: { [weak self] in
             do {
+                let account = await PersistenceAccount.writeableObject(id: accoundID)
+                
                 try await message.send()
+                try await PersistencePendingTransaction(
+                    account: account,
+                    destinationAddress: initialConfiguration.toAddress,
+                    value: initialConfiguration.amount,
+                    estimatedFees: Currency(value: 0),
+                    body: initialConfiguration.message.body.data,
+                    bodyHash: initialConfiguration.message.bodyHash
+                ).save()
             } catch is CancellationError {
             } catch {
-                self?.present(error)
+                await self?.present(error)
             }
             
-            self?.sendingTask = nil
-            self?.finish()
-        }
+            await self?.finish()
+        })
     }
     
     @objc

@@ -12,10 +12,10 @@ import CoreData
 
 class DashboardViewController: UIViewController {
     
+    private let synchronizationLoop = SynchronizationLoop()
     private var isInitialNavigationBarHidden = false
-    private var task: Task<(), Never>? = nil
     
-    private var fetchResultsController: NSFetchedResultsController<PersistenceTransaction>?
+    private var fetchResultsController: FetchedResultsControllerCombination2<String, PersistencePendingTransaction, String, PersistenceProcessedTransaction>?
     private let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private var collectionViewHeaderLayoutKind: DashboardCollectionHeaderView.LayoutType.Kind = .large
@@ -67,10 +67,6 @@ class DashboardViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        task?.cancel()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,10 +90,16 @@ class DashboardViewController: UIViewController {
             animated: animated
         )
         
-        if accountsView.superview == nil && dataSource.snapshot().itemIdentifiers.isEmpty {
+        if accountsView.superview == nil,
+           dataSource.snapshot().itemIdentifiers.isEmpty
+        {
             // Force appearing of empty state
             UIView.performWithoutAnimation({
-                dataSource.apply(transactions: .init(), animated: false)
+                dataSource.apply(
+                    pendingTransactions: .init(),
+                    processedTransactions: .init(),
+                    animated: true
+                )
                 collectionView.layoutIfNeeded()
             })
         }
@@ -106,7 +108,9 @@ class DashboardViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+        if let navigationController = navigationController,
+           navigationController.viewControllers.count > 1
+        {
             navigationController.isNavigationBarHidden = isInitialNavigationBarHidden
         }
     }
@@ -134,19 +138,6 @@ class DashboardViewController: UIViewController {
     }
 }
 
-// MARK: - NSFetchedResultsControllerDelegate
-
-extension DashboardViewController: NSFetchedResultsControllerDelegate {
-    
-    func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference
-    ) {
-        let casted = snapshot as NSDiffableDataSourceSnapshot<String, NSManagedObjectID>
-        dataSource.apply(transactions: casted, animated: true)
-    }
-}
-
 // MARK: - UICollectionViewDelegate
 
 extension DashboardViewController: UICollectionViewDelegate {
@@ -156,10 +147,6 @@ extension DashboardViewController: UICollectionViewDelegate {
 // MARK: - UIScrollViewDelegate
 
 extension DashboardViewController: UIScrollViewDelegate {
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        accountsView.enclosingScrollViewWillStartDraging(scrollView)
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         accountsView.enclosingScrollViewDidScroll(scrollView)
@@ -259,32 +246,6 @@ extension DashboardViewController {
 
 extension DashboardViewController: DashboardAccountsViewDelegate {
     
-    func dashboardAccountsViewShouldStartRefreshing(
-        _ view: DashboardAccountsView
-    ) -> Bool {
-        task == nil && !cardsStackViewController.cards.isEmpty
-    }
-    
-    func dashboardAccountsViewDidStartRefreshing(
-        _ view: DashboardAccountsView
-    ) {
-        guard let model = cardsStackViewController.cards.first
-        else {
-            return
-        }
-
-        refresh(
-            withSelectedAccount: model.account,
-            manually: true
-        )
-    }
-    
-    func dashboardAccountsViewIsUserInteractig(
-        _ view: DashboardAccountsView
-    ) -> Bool {
-        collectionView.isDragging || collectionView.isTracking || collectionView.isDecelerating
-    }
-    
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
         addAccountButtonDidClick button: UIButton
@@ -312,54 +273,51 @@ extension DashboardViewController: CardStackViewControllerDelegate {
         didChangeSelectedModel model: CardStackCard?
     ) {
         refresh(
-            withSelectedAccount: model?.account,
-            manually: false
+            withSelectedAccount: model?.account
         )
     }
     
     private func refresh(
-        withSelectedAccount account: PersistenceAccount?,
-        manually: Bool
+        withSelectedAccount account: PersistenceAccount?
     ) {
         guard let account = account
         else {
             fetchResultsController = nil
-            dataSource.apply(transactions: .init(), animated: true)
+            dataSource.apply(
+                pendingTransactions: .init(),
+                processedTransactions: .init(),
+                animated: true
+            )
             return
         }
 
-        let transactionsRequest = PersistenceTransaction.fetchRequest()
-        transactionsRequest.predicate = NSPredicate(format: "account = %@", account)
-        transactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-
-        fetchResultsController = PersistenceTransaction.fetchedResultsController(
-            request: transactionsRequest,
-            sections: .day
+        let pendingTransactionsRequest = PersistencePendingTransaction.fetchRequest()
+        pendingTransactionsRequest.predicate = NSPredicate(format: "account = %@", account)
+        pendingTransactionsRequest.sortDescriptors = [NSSortDescriptor(key: "dateCreated", ascending: false)]
+        
+        let processedTransactionsRequest = PersistenceProcessedTransaction.fetchRequest()
+        processedTransactionsRequest.predicate = NSPredicate(format: "account = %@", account)
+        processedTransactionsRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        fetchResultsController = FetchedResultsControllerCombination2(
+            PersistencePendingTransaction.fetchedResultsController(
+                request: pendingTransactionsRequest
+            ),
+            PersistenceProcessedTransaction.fetchedResultsController(
+                request: processedTransactionsRequest,
+                sections: .day
+            ),
+            results: { [weak self] pendingTransactions, processedTransactions in
+                self?.dataSource.apply(
+                    pendingTransactions: pendingTransactions,
+                    processedTransactions: processedTransactions,
+                    animated: true
+                )
+            }
         )
-        fetchResultsController?.delegate = self
 
         try? fetchResultsController?.performFetch()
-        
-        task?.cancel()
-        task = Task { [weak self] in
-            do {
-                let synchronization = Synchronization()
-                try await synchronization.perform(
-                    address: account.selectedAddress,
-                    transactionReceiveOptions: .afterLastSaved
-                )
-                self?.accountsView.stopLoadingIfAvailable()
-            } catch is CancellationError {
-                if !manually {
-                    // Seems like we are manually cancelled task by refresh control
-                    self?.accountsView.stopLoadingIfAvailable()
-                }
-            } catch {
-                self?.present(error)
-                self?.accountsView.stopLoadingIfAvailable()
-            }
-            self?.task = nil
-        }
+        synchronizationLoop.use(address: account.selectedAddress)
     }
     
     func cardStackViewController(

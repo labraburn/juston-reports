@@ -8,31 +8,16 @@ import Objective42
 
 public class PersistenceObject: NSManagedObject {
     
-    /// Create and insert into main context
-    @MainActor
+    
+    // This methods/properties hidden from public usage to make write/read operations consistent
+    // MARK: - Unavailable
+    
+    @available(*, unavailable)
     internal convenience init() {
-        let context = PersistenceController.shared.managedObjectContext(withType: .main)
-        self.init(
-            context: context
-        )
+        fatalError()
     }
     
-    /// Create and insert into context
-    internal convenience init(context: NSManagedObjectContext) {
-        let entityName = String(describing: Self.self)
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
-        else {
-            fatalError("Can't create entity named '\(entityName)'.")
-        }
-        
-        self.init(
-            entity: entity,
-            insertInto: context
-        )
-    }
-    
-    /// Create and insert into context
+    @available(*, unavailable)
     private override init(
         entity: NSEntityDescription,
         insertInto context: NSManagedObjectContext?
@@ -43,50 +28,99 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
-    @MainActor
+    // This methods/properties only internal because NSManagedObjectContext usage hidden from public
+    // MARK: - Internal init
+    
+    internal init(
+        context: NSManagedObjectContext
+    ) {
+        let entityName = String(describing: Self.self).replacingOccurrences(of: "Persistence", with: "")
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
+        else {
+            fatalError("Can't create entity named '\(entityName)'.")
+        }
+        
+        super.init(
+            entity: entity,
+            insertInto: context
+        )
+    }
+    
+    // This methods/properties available in PersistenceWritableActor to add ability to perfrom write operations in CoreData
+    // MARK: - Writable
+    
+    @PersistenceWritableActor
+    public final class func writeableObjectIfExisted(
+        id: NSManagedObjectID
+    ) -> Self? {
+        let context = PersistenceWritableActor.shared.managedObjectContext
+        guard let object = try? context.existingObject(with: id) as? Self
+        else {
+            return nil
+        }
+        return object
+    }
+    
+    @PersistenceWritableActor
+    public final class func writeableObject(
+        id: NSManagedObjectID
+    ) -> Self {
+        let context = PersistenceWritableActor.shared.managedObjectContext
+        guard let object = try? context.existingObject(with: id) as? Self
+        else {
+            fatalError()
+        }
+        return object
+    }
+    
+    @PersistenceWritableActor
     open func save() throws {
-        try managedObjectContext?.save()
+        let context = PersistenceWritableActor.shared.managedObjectContext
+        guard context == managedObjectContext
+        else {
+            fatalError("Can't save \(self) from another context.")
+        }
+        
+        try context.save()
     }
     
-    @MainActor
+    @PersistenceWritableActor
     open func delete() throws {
-        managedObjectContext?.delete(self)
-        try managedObjectContext?.save()
-    }
-    
-    public final class func object<T>(with id: NSManagedObjectID, type: T.Type) -> T where T: NSManagedObject {
-        let context = PersistenceController.shared.managedObjectContext(withType: .main)
-        var object: NSManagedObject? = nil
-        
-        try? O42NSExceptionHandler.execute({ object = context.object(with: id) })
-        
-        guard let object = object
+        let context = PersistenceWritableActor.shared.managedObjectContext
+        guard context == managedObjectContext
         else {
-            fatalError("Can't locate object with id \(id).")
+            fatalError("Can't save \(self) from another context.")
         }
         
-        guard let casted = object as? T
+        context.delete(self)
+        try context.save()
+    }
+    
+    // This methods/properties available in PersistenceWritableActor to add ability to perfrom write operations in CoreData
+    // MARK: - Readable
+    
+    @PersistenceReadableActor
+    public final class func readableObjectIfExisted(
+        id: NSManagedObjectID
+    ) -> Self? {
+        let context = PersistenceReadableActor.shared.managedObjectContext
+        guard let object = try? context.existingObject(with: id) as? Self
         else {
-            fatalError("Can't cast managed object: \(object) to type : \(String(describing: T.self)).")
+            return nil
         }
-        
-        return casted
-    }
-}
-
-// MARK: - Fetches
-
-extension PersistenceObject {
-    
-    @MainActor
-    public class func fetch<T>(_ request: NSFetchRequest<T>) throws -> [T] where T : NSFetchRequestResult {
-        let viewContext = PersistenceController.shared.managedObjectContext(withType: .main)
-        return try viewContext.fetch(request)
+        return object
     }
     
-    @MainActor
-    public class func count<T>(for request: NSFetchRequest<T>) throws -> Int where T : NSFetchRequestResult {
-        let viewContext = PersistenceController.shared.managedObjectContext(withType: .main)
-        return try viewContext.count(for: request)
+    @PersistenceReadableActor
+    public final class func readableObject(
+        id: NSManagedObjectID
+    ) -> Self {
+        let context = PersistenceReadableActor.shared.managedObjectContext
+        guard let object = try? context.existingObject(with: id) as? Self
+        else {
+            fatalError("")
+        }
+        return object
     }
 }

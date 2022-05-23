@@ -35,15 +35,25 @@ class CardStackCardContentView: UIView {
         
         children.append(UIAction(
             title: "CommonRemove".asLocalizedKey,
+            image: UIImage(systemName: "trash"),
             attributes: .destructive,
             handler: { [weak self] _ in
                 self?.removeButtonDidClick(nil)
             }
         ))
         
-        if model.account.subscriptions.contains(.transactions) {
+        children.append(UIAction(
+            title: "AccountCardResynchronizeButton".asLocalizedKey,
+            image: UIImage(systemName: "arrow.clockwise"),
+            handler: { [weak self] _ in
+                self?.resynchronizeButtonDidClick(nil)
+            }
+        ))
+        
+        if model.account.flags.contains(.isNotificationsEnabled) {
             children.append(UIAction(
                 title: "AccountCardUnsubscribeButton".asLocalizedKey,
+                image: UIImage(systemName: "bell.slash"),
                 handler: { [weak self] _ in
                     self?.unsubscribeButtonDidClick(nil)
                 }
@@ -51,6 +61,7 @@ class CardStackCardContentView: UIView {
         } else {
             children.append(UIAction(
                 title: "AccountCardSubscribeButton".asLocalizedKey,
+                image: UIImage(systemName: "bell"),
                 handler: { [weak self] _ in
                     self?.subscribeButtonDidClick(nil)
                 }
@@ -90,11 +101,14 @@ class CardStackCardContentView: UIView {
     }
     
     @objc
+    func resynchronizeButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickResynchronizeButtonWithModel: model)
+    }
+    
+    @objc
     func copyAddressButtonDidClick(_ sender: UIControl?) {
         let address = model.account.selectedAddress
-        UIPasteboard.general.string = address.convert(
-            representation: .base64url(flags: [])
-        )
+        UIPasteboard.general.string = address.convert(to: .base64url(flags: []))
         
         InAppAnnouncementCenter.shared.post(
             announcement: InAppAnnouncementInfo.self,

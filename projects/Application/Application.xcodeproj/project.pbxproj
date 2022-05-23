@@ -71,8 +71,6 @@
 		F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */; };
 		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
-		F0A151352800E05000EF9F83 /* iOSDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */; };
-		F0A151362800E05000EF9F83 /* iOSRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */; };
 		F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513B2802529D00EF9F83 /* OnboardingViewController.swift */; };
 		F0A1513F280252DB00EF9F83 /* SteppableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513E280252DB00EF9F83 /* SteppableNavigationController.swift */; };
 		F0A151412802532B00EF9F83 /* SteppableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A151402802532B00EF9F83 /* SteppableViewController.swift */; };
@@ -763,7 +761,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					F0995F5E27A0B7CA003A090C = {
 						CreatedOnToolsVersion = 13.2;
@@ -797,12 +795,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0A151352800E05000EF9F83 /* iOSDebug.xcconfig in Resources */,
 				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
 				F0A15158280329EE00EF9F83 /* PasscodeView.xib in Resources */,
-				F0A151362800E05000EF9F83 /* iOSRelease.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1049,6 +1045,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We are using Face ID to secure your passcode";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Launch;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
@@ -1074,6 +1071,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We are using Face ID to secure your passcode";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Launch;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;

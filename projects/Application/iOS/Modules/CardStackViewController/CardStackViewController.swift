@@ -29,7 +29,9 @@ class CardStackViewController: UIViewController {
     private var task: Task<(), Never>?
     
     var cardStackView: CardStackView { view as! CardStackView }
+    
     var cards: [CardStackCard] { cardStackView.cards }
+    var selectedCard: CardStackCard? { cardStackView.selected }
     
     weak var delegate: CardStackViewControllerDelegate?
     
@@ -63,7 +65,7 @@ extension CardStackViewController: NSFetchedResultsControllerDelegate {
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
         let cards = { (_ snapshot: NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>) in
             snapshot.itemIdentifiers.map({
-                CardStackCard(account: PersistenceObject.object(with: $0, type: PersistenceAccount.self))
+                CardStackCard(account: PersistenceAccount.readableObject(id: $0))
             })
         }
         
@@ -96,7 +98,15 @@ extension CardStackViewController: CardStackViewDelegate {
         manually: Bool
     ) {
         if manually {
-            try? model?.account.saveAsLastUsage()
+            Task { @PersistenceWritableActor in
+                guard let id = model?.account.objectID
+                else {
+                    return
+                }
+                
+                let object = PersistenceAccount.writeableObject(id: id)
+                try? object.saveAsLastUsage()
+            }
         }
         
         delegate?.cardStackViewController(self, didChangeSelectedModel: model)
@@ -114,8 +124,8 @@ extension CardStackViewController: CardStackViewDelegate {
                 .init(
                     title: "AccountDeleteDestructiveTitle".asLocalizedKey,
                     block: { viewController in
-                        try? model.account.delete()
-                        viewController.dismiss(animated: true)
+//                        try? model.account.delete()
+//                        viewController.dismiss(animated: true)
                     },
                     style: .destructive
                 ),
@@ -131,22 +141,44 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         UIApplication.shared.requestNotificationsPermissionIfNeeded()
 
-        var subscriptions = model.account.subscriptions
-        subscriptions.append(.transactions)
-
-        model.account.subscriptions = subscriptions
-        try? model.account.save()
+        let id = model.account.objectID
+        let flags = model.account.flags
+        
+        Task { @PersistenceWritableActor in
+            var mflags = flags
+            mflags.insert(.isNotificationsEnabled)
+            
+            let object = PersistenceAccount.writeableObject(id: id)
+            object.flags = mflags
+            try? object.save()
+        }
     }
     
     func cardStackView(
         _ view: CardStackView,
         didClickUnsubscrabeButtonWithModel model: CardStackCard
     ) {
-        var subscriptions = model.account.subscriptions
-        subscriptions.removeAll(where: { $0 == .transactions })
-
-        model.account.subscriptions = subscriptions
-        try? model.account.save()
+        let id = model.account.objectID
+        let flags = model.account.flags
+        
+        Task { @PersistenceWritableActor in
+            var mflags = flags
+            mflags.remove(.isNotificationsEnabled)
+            
+            let object = PersistenceAccount.writeableObject(id: id)
+            object.flags = mflags
+            try? object.save()
+        }
+    }
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickResynchronizeButtonWithModel model: CardStackCard
+    ) {
+        Task { @PersistenceWritableActor in
+            try? PersistencePendingTransaction.removeAll(for: model.account)
+            try? PersistenceProcessedTransaction.removeAll(for: model.account)
+        }
     }
     
     func cardStackView(
@@ -154,105 +186,23 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickSendButtonWithModel model: CardStackCard
     ) {
         guard let publicKey = model.account.keyPublic,
-              let encryptedSecretKey = model.account.keySecretEncrypted
+              let encryptedSecretKey = model.account.keySecretEncrypted,
+              let key = try? Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
         else {
             return
         }
         
         let viewController = TransferViewController(
             initialConfiguration: .init(
-                fromAddress: model.account.selectedAddress,
+                fromAccount: model.account,
                 toAddress: nil,
-                key: .init(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey)),
+                key: key,
                 amount: nil,
-                message: nil)
+                message: nil
+            )
         )
         
         present(viewController, animated: true)
-//        presentUnderDevelopment()
-        
-        
-        
-        guard task == nil
-        else {
-            print("in progress")
-            return
-        }
-        
-//        Task { [weak self] in
-//
-//            do {
-//
-//                let account = model.account
-//
-//                guard let self = self,
-//                      let publicKey = account.keyPublic,
-//                      let encryptedSecretKey = account.keySecretEncrypted
-//                else {
-//                    throw SwiftyTON.Error.undefined
-//                }
-//
-//                let authentication = PasscodeAuthentication(inside: self)
-//                let passcode = try await authentication.key()
-//                let key = Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
-//
-//                var message = try await Wallet3.deploy(key: key, passcode: passcode)
-//                try await message.prepare()
-//
-//                let fees = try await message.fees()
-//                print("Deployment fees: \(fees)")
-//
-//                try await message.send()
-//            } catch {
-//                print(error)
-//            }
-//
-//            self?.task = nil
-//        }
-        
-//        Task { [weak self] in
-//            
-//            do {
-//                
-//                let account = model.account
-//                
-//                guard let self = self,
-//                      let publicKey = account.keyPublic,
-//                      let encryptedSecretKey = account.keySecretEncrypted
-//                else {
-//                    throw SwiftyTON.Error.undefined
-//                }
-//                
-//                let authentication = PasscodeAuthentication(inside: self)
-//                let passcode = try await authentication.key()
-//                let key = Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
-//                
-//                guard let wallet = try await Wallet3(rawAddress: account.selectedAddress.rawValue)
-//                else {
-//                    throw SwiftyTON.Error.undefined
-//                }
-//                
-//                var message = try await wallet.transfer(
-//                    to: try Address(base64EncodedString: "UQDg9_pJnr1wjmLjIQJF9dLVhzX_C_JDF5YF1T52HxvITaOS"),
-//                    amount: Balance(value: 0.001),
-//                    message: "HUETON",
-//                    key: key,
-//                    passcode: passcode
-//                )
-//                
-//                try await message.prepare()
-//                
-//                let fees = try await message.fees()
-//                print("Sending fees: \(fees)")
-//                
-//                try await message.send()
-//            } catch {
-//                print(error)
-//            }
-//            
-//            self?.task = nil
-//        }
-        
     }
     
     func cardStackView(

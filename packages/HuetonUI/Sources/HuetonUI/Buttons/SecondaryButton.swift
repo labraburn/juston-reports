@@ -4,7 +4,7 @@
 
 import UIKit
 
-public class SecondaryButton: UIControl {
+public class SecondaryButton: HuetonButton {
     
     private let borderView = GradientBorderedView(colors: [UIColor(rgb: 0x4876E6), UIColor(rgb: 0x8D55E9)]).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -29,17 +29,16 @@ public class SecondaryButton: UIControl {
     public init(title: String) {
         super.init(frame: .zero)
         textLabel.text = title
-        _init()
+        _initialize()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        _init()
+        _initialize()
     }
     
-    private func _init() {
-        setContentHuggingPriority(.required, for: .vertical)
-        setContentCompressionResistancePriority(.required, for: .vertical)
+    override func _initialize() {
+        super._initialize()
         
         addSubview(borderView)
         addSubview(textLabel)
@@ -49,27 +48,6 @@ public class SecondaryButton: UIControl {
             textLabel.pin(edges: self)
         })
         
-        insertHighlightingScaleAnimation()
         insertFeedbackGenerator(style: .medium)
-    }
-    
-    public override var intrinsicContentSize: CGSize {
-        var intrinsicContentSize = super.intrinsicContentSize
-        intrinsicContentSize.height = 60
-        return intrinsicContentSize
-    }
-    
-    public override func systemLayoutSizeFitting(
-        _ targetSize: CGSize,
-        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-        verticalFittingPriority: UILayoutPriority
-    ) -> CGSize {
-        var systemLayoutSizeFitting = super.systemLayoutSizeFitting(
-            targetSize,
-            withHorizontalFittingPriority: horizontalFittingPriority,
-            verticalFittingPriority: verticalFittingPriority
-        )
-        systemLayoutSizeFitting.height = 60
-        return systemLayoutSizeFitting
     }
 }

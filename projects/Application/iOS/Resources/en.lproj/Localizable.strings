@@ -125,6 +125,7 @@
 
 "AccountCardSubscribeButton" = "Enable notifications";
 "AccountCardUnsubscribeButton" = "Disable notifications";
+"AccountCardResynchronizeButton" = "Re-synchronize";
 
 /*
  END - AccountCard

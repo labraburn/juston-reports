@@ -9,29 +9,17 @@ open class HuetonView: SignboardView {
     public init() {
         super.init(
             letters: [
-                .init(character: "H", color: .hui_letter_red, tumbler: .off),
-                .init(character: "U", color: .hui_letter_yellow, tumbler: .off),
-                .init(character: "E", color: .hui_letter_green, tumbler: .off),
-                .init(character: "T", color: .hui_letter_blue, tumbler: .off),
-                .init(character: "O", color: .hui_letter_violet, tumbler: .off),
-                .init(character: "N", color: .hui_letter_purple, tumbler: .off),
+                .init(character: "H", color: .hui_letter_red, tumbler: .on),
+                .init(character: "U", color: .hui_letter_yellow, tumbler: .on),
+                .init(character: "E", color: .hui_letter_green, tumbler: .on),
+                .init(character: "T", color: .hui_letter_blue, tumbler: .on),
+                .init(character: "O", color: .hui_letter_violet, tumbler: .on),
+                .init(character: "N", color: .hui_letter_purple, tumbler: .on),
             ]
         )
     }
     
     // MARK: API
-    
-    public func startInfinityAnimation() {
-        endUpdates()
-        performUpdatesWithLetters({ $0.infinity() })
-    }
-    
-    public func stopInfinityAnimation() {
-        endUpdates()
-        DispatchQueue.main.async(execute: {
-            self.performUpdatesWithLetters({ $0.on() })
-        })
-    }
     
     public func set(progress: Double) {
         let _progress = max(min(progress, 1), 0)

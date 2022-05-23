@@ -7,6 +7,7 @@
 
 import UIKit
 import HuetonUI
+import HuetonCORE
 import SwiftyTON
 
 class TransferDetailsViewController: UIViewController {
@@ -66,7 +67,7 @@ class TransferDetailsViewController: UIViewController {
     let initialConfiguration: InitialConfiguration
     
     private var outDestinationAddress: Address?
-    private var outAmount: Balance?
+    private var outAmount: Currency?
     private var outMessage: String?
     
     private var prepareMessageTask: Task<(), Never>?
@@ -165,54 +166,46 @@ class TransferDetailsViewController: UIViewController {
     
     private func prepareMessageAndConfirm(
         outAddress: Address,
-        amount: Balance,
-        message: String?
+        amount: Currency,
+        message: String?,
+        sender: HuetonButton
     ) {
-        guard prepareMessageTask == nil
-        else {
-            return
-        }
-        
-        let fromAddress = initialConfiguration.fromAddress
+        let fromAccount = initialConfiguration.fromAccount
         let key = initialConfiguration.key
         
-        prepareMessageTask = Task { [weak self] in
+        sender.startAsynchronousOperation(operation: { [weak self] in
             do {
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
-                
-                guard let wallet = try await Wallet3(rawAddress: fromAddress.rawValue)
+
+                guard let wallet = try await Wallet3(rawAddress: fromAccount.selectedAddress.rawValue)
                 else {
                     throw SwiftyTON.ContractError.unknownContractType
                 }
-                
-                var message = try await wallet.transfer(
+
+                let message = try await wallet.transfer(
                     to: outAddress,
                     amount: amount,
                     message: message,
                     key: key,
                     passcode: passcode
                 )
-                
-                try await message.prepare()
-                
-                let confimationViewController = TransferConfirmationViewController(
+
+                let confimationViewController = await TransferConfirmationViewController(
                     initialConfiguration: .init(
-                        fromAddress: fromAddress,
+                        fromAccount: fromAccount,
                         toAddress: outAddress,
                         amount: amount,
                         message: message
                     )
                 )
-                
-                show(confimationViewController, sender: nil)
+
+                await self?.show(confimationViewController, sender: nil)
             } catch is CancellationError {
-                // skip
             } catch {
-                self?.present(error)
+                await self?.present(error)
             }
-            self?.prepareMessageTask = nil
-        }
+        })
     }
     
     fileprivate func markTextViewAsError(_ textView: UITextView) {
@@ -224,7 +217,7 @@ class TransferDetailsViewController: UIViewController {
     // MARK: Actions
     
     @objc
-    private func nextButtonDidClick(_ sender: UIButton) {
+    private func nextButtonDidClick(_ sender: HuetonButton) {
         guard let address = outDestinationAddress
         else {
             markTextViewAsError(destinationAddressView.textView)
@@ -245,7 +238,8 @@ class TransferDetailsViewController: UIViewController {
         prepareMessageAndConfirm(
             outAddress: address,
             amount: amout,
-            message: message
+            message: message,
+            sender: sender
         )
     }
     
@@ -300,14 +294,6 @@ extension TransferDetailsViewController: UITextViewDelegate {
         return false
     }
     
-    static let amountFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 9
-        formatter.minimumFractionDigits = 9
-        formatter.decimalSeparator = ","
-        return formatter
-    }()
-    
     func textViewDidEndEditing(_ textView: UITextView) {
         guard textView.hasText
         else {
@@ -317,21 +303,20 @@ extension TransferDetailsViewController: UITextViewDelegate {
         switch textView {
         case destinationAddressView.textView:
             guard let address = Address(string: textView.text),
-                  address != initialConfiguration.fromAddress
+                  address != initialConfiguration.fromAccount.selectedAddress
             else {
                 markTextViewAsError(textView)
                 return
             }
             outDestinationAddress = address
         case amountTextView.textView:
-            let number = Self.amountFormatter.number(from: textView.text)
-            guard let amount = number?.decimalValue,
-                    amount >= 0.000_000_001
+            guard let amount = Currency(value: textView.text),
+                  amount > 0
             else {
                 markTextViewAsError(textView)
                 return
             }
-            outAmount = Balance(value: amount)
+            outAmount = amount
         case messageTextView.textView:
             outMessage = textView.text
         default:

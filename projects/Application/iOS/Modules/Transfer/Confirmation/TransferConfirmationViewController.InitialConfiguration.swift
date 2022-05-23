@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import HuetonCORE
 import SwiftyTON
 
 extension TransferConfirmationViewController {
     
     struct InitialConfiguration {
         
-        let fromAddress: Address
+        let fromAccount: PersistenceAccount
         let toAddress: Address
-        let amount: Balance
+        let amount: Currency
         var message: Message
     }
 }

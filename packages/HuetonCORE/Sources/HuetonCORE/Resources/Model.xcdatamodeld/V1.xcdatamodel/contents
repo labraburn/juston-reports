@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="PersistenceAccount" representedClassName="PersistenceAccount" syncable="YES">
-        <attribute name="balance" attributeType="Decimal" defaultValueString="0.0"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Account" representedClassName="PersistenceAccount" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateLastSynchronization" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="keyPublic" optional="YES" attributeType="String"/>
         <attribute name="keySecretEncrypted" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="raw_appearance" attributeType="Transformable" valueTransformerName="AccountAppearanceTransformer"/>
-        <attribute name="raw_flags" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="raw_balance" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="raw_flags" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="raw_selected_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
-        <attribute name="raw_subscriptions" attributeType="Transformable" valueTransformerName="AccountSubscriptionArrayTransformer"/>
         <attribute name="raw_unique_identifier" attributeType="String"/>
-        <attribute name="sortingLastUsageValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sortingLastUsageValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortingUserValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -20,17 +19,37 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="PersistenceTransaction" representedClassName="PersistenceTransaction" syncable="YES">
+    <entity name="PendingTransaction" representedClassName="PersistencePendingTransaction" syncable="YES">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="raw_body" attributeType="String"/>
+        <attribute name="raw_body_hash" attributeType="String"/>
+        <attribute name="raw_destination_address" attributeType="String" valueTransformerName="StringArrayTransformer"/>
+        <attribute name="raw_estimated_fees" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="raw_value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="No Action" destinationEntity="Account"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="raw_body_hash"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="ProcessedAction" representedClassName="PersistenceProcessedAction" syncable="YES">
+        <attribute name="raw_body" attributeType="String"/>
+        <attribute name="raw_body_hash" attributeType="String"/>
+        <attribute name="raw_destination_address" optional="YES" attributeType="String"/>
+        <attribute name="raw_fees" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="raw_source_address" optional="YES" attributeType="String"/>
+        <attribute name="raw_value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="ProcessedTransaction" representedClassName="PersistenceProcessedTransaction" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="fees" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="raw_day_section_name" optional="YES" transient="YES" attributeType="String"/>
-        <attribute name="raw_flags" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="raw_from_address" attributeType="String"/>
+        <attribute name="raw_fees" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="raw_hash" attributeType="String"/>
-        <attribute name="raw_logical_time" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="raw_to_addresses" attributeType="Transformable" valueTransformerName="StringArrayTransformer"/>
-        <attribute name="value" attributeType="Decimal" defaultValueString="0"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="PersistenceAccount"/>
+        <attribute name="raw_logical_time" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account"/>
+        <relationship name="in" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ProcessedAction"/>
+        <relationship name="out" toMany="YES" deletionRule="Cascade" destinationEntity="ProcessedAction"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_logical_time"/>
@@ -39,7 +58,9 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="PersistenceAccount" positionX="-63" positionY="-9" width="128" height="224"/>
-        <element name="PersistenceTransaction" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="Account" positionX="-63" positionY="-9" width="128" height="223"/>
+        <element name="ProcessedTransaction" positionX="212.5859375" positionY="349.9296875" width="128" height="163"/>
+        <element name="PendingTransaction" positionX="-125.953125" positionY="400.44140625" width="128" height="148"/>
+        <element name="ProcessedAction" positionX="468.75390625" positionY="697.4296875" width="128" height="133"/>
     </elements>
 </model>

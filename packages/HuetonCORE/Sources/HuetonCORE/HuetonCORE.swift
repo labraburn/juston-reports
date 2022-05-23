@@ -29,10 +29,7 @@ public struct HuetonCORE {
     
     /// Initialize HuetonCORE and it's dependencies
     public static func initialize() {
-        StringArrayTransformer.register()
-        AccountSubscriptionArrayTransformer.register()
         AccountAppearanceTransformer.register()
-        
         SwiftyTON.configurate(with: .main)
         ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
     }
