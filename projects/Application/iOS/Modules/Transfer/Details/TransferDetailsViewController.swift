@@ -105,6 +105,14 @@ class TransferDetailsViewController: UIViewController {
         view.addSubview(processButton)
         view.addSubview(cancelButton)
         
+        destinationAddressView.textView.text = initialConfiguration.toAddress?.description ?? ""
+        textViewDidEndEditing(destinationAddressView.textView)
+        
+        amountTextView.textView.text = initialConfiguration.amount?.string(with: .maximum9) ?? ""
+        textViewDidEndEditing(amountTextView.textView)
+        
+        messageTextView.textView.text = initialConfiguration.message ?? ""
+        textViewDidEndEditing(messageTextView.textView)
         
         let destinationKeyboardConstraint = KeyboardLayoutConstraint(
             item: amountTextView,
@@ -165,7 +173,21 @@ class TransferDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        destinationAddressView.textView.becomeFirstResponder()
+        
+        
+        if let navigationController = navigationController,
+           navigationController.viewControllers.first == self
+        {
+            cancelButton.title = "CANCEL"
+        } else {
+            cancelButton.title = "BACK"
+        }
+        
+        if !destinationAddressView.textView.hasText {
+            destinationAddressView.textView.becomeFirstResponder()
+        } else if !amountTextView.textView.hasText {
+            amountTextView.textView.becomeFirstResponder()
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -256,7 +278,7 @@ class TransferDetailsViewController: UIViewController {
     
     @objc
     private func cancelButtonDidClick(_ sender: UIButton) {
-        dismiss(animated: true)
+        hide(animated: true)
     }
 }
 

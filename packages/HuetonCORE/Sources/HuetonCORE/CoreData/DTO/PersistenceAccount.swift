@@ -141,6 +141,17 @@ public extension PersistenceAccount {
         get { Flags(rawValue: raw_flags) }
     }
     
+    var keyIfAvailable: Key? {
+        guard let publicKey = keyPublic,
+              let encryptedSecretKey = keySecretEncrypted,
+              let key = try? Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
+        else {
+            return nil
+        }
+        
+        return key
+    }
+    
     var isPublicKey: Bool { keyPublic != nil }
     var isReadonly: Bool { keySecretEncrypted == nil }
     

@@ -50,7 +50,7 @@
 		F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */; };
 		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
 		F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */; };
-		F07C7F9828329A8700A10B41 /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferViewController.swift */; };
+		F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */; };
 		F0909B4827E8862A00FC8404 /* AccountAddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */; };
 		F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */; };
 		F0909B5127E88D8200FC8404 /* SteppableButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */; };
@@ -85,6 +85,8 @@
 		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
+		F0A4579C283C47BD0039F6CA /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4579B283C47BD0039F6CA /* QRViewController.swift */; };
+		F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A457A2283D79910039F6CA /* NavigationController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
@@ -146,7 +148,7 @@
 		F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementInfo.swift; sourceTree = "<group>"; };
 		F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementView.swift; sourceTree = "<group>"; };
 		F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDateReusableView.swift; sourceTree = "<group>"; };
-		F07C7F9728329A8700A10B41 /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
+		F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferNavigationController.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* AccountAddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAddingViewController.swift; sourceTree = "<group>"; };
 		F0909B4E27E88D5900FC8404 /* SteppableImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableImageViewCell.swift; sourceTree = "<group>"; };
 		F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableButtonCell.swift; sourceTree = "<group>"; };
@@ -188,6 +190,8 @@
 		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
+		F0A4579B283C47BD0039F6CA /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		F0A457A2283D79910039F6CA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
@@ -414,7 +418,7 @@
 			children = (
 				F0F071462832DA76009AA6F9 /* Confirmation */,
 				F0F0714328329D7B009AA6F9 /* Details */,
-				F07C7F9728329A8700A10B41 /* TransferViewController.swift */,
+				F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */,
 			);
 			path = Transfer;
 			sourceTree = "<group>";
@@ -507,6 +511,8 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F0A457A1283D79780039F6CA /* NavigationController */,
+				F0A4579A283C47AD0039F6CA /* QR */,
 				F07C7F9628329A4C00A10B41 /* Transfer */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
@@ -611,6 +617,22 @@
 				F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */,
 			);
 			path = Passcode;
+			sourceTree = "<group>";
+		};
+		F0A4579A283C47AD0039F6CA /* QR */ = {
+			isa = PBXGroup;
+			children = (
+				F0A4579B283C47BD0039F6CA /* QRViewController.swift */,
+			);
+			path = QR;
+			sourceTree = "<group>";
+		};
+		F0A457A1283D79780039F6CA /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				F0A457A2283D79910039F6CA /* NavigationController.swift */,
+			);
+			path = NavigationController;
 			sourceTree = "<group>";
 		};
 		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
@@ -822,6 +844,7 @@
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
 				F0118D8E281059CE00B518A9 /* SCLS3000ViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
+				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* SCLS3000AccessoryCollectionViewCell.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
 				F0A15145280253C500EF9F83 /* SteppableViewCollectionViewDataSource.swift in Sources */,
@@ -833,10 +856,11 @@
 				F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */,
+				F0A4579C283C47BD0039F6CA /* QRViewController.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
-				F07C7F9828329A8700A10B41 /* TransferViewController.swift in Sources */,
+				F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */,
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
@@ -1041,6 +1065,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We are using camera to scna QR codes with TON urls";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We are using Face ID to secure your passcode";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Launch;
@@ -1067,6 +1092,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Supporting/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We are using camera to scna QR codes with TON urls";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We are using Face ID to secure your passcode";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = Launch;

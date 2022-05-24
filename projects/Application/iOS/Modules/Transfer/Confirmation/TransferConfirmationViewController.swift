@@ -122,21 +122,13 @@ class TransferConfirmationViewController: UIViewController {
                 await self?.present(error)
             }
             
-            if let navigationController = await self?.navigationController {
-                await navigationController.dismiss(animated: true)
-            } else {
-                await self?.dismiss(animated: true)
-            }
+            await self?.hide(animated: true, popIfAvailable: false)
         })
     }
     
     @objc
     private func cancelButtonDidClick(_ sender: UIButton) {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        } else {
-            dismiss(animated: true)
-        }
+        hide(animated: true)
     }
 }
 

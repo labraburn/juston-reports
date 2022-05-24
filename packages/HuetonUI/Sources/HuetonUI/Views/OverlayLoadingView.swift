@@ -35,7 +35,7 @@ public final class OverlayLoadingView: UIView {
     
     private func initialize() {
         alpha = 0
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundColor = .clear
         
         addSubview(gradientView)
         gradientView.mask = gradientMaskView
@@ -52,7 +52,7 @@ public final class OverlayLoadingView: UIView {
         gradientView.frame = bounds
     }
     
-    public func startAnimation(delay: TimeInterval = 0.0) {
+    public func startAnimation(delay: TimeInterval = 0.0, fade: Bool = true) {
         guard !isAnimationInProgress
         else {
             return
@@ -65,6 +65,7 @@ public final class OverlayLoadingView: UIView {
         layer.removeAllAnimations()
         UIView.animate(withDuration: 0.3, delay: delay, options: .beginFromCurrentState, animations: {
             self.alpha = 1
+            self.backgroundColor = fade ? .black.withAlphaComponent(0.8) : .clear
             self.gradientMaskView.animate(with: 1.2)
         }, completion: nil)
     }
@@ -95,12 +96,10 @@ public final class OverlayLoadingView: UIView {
         
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .beginFromCurrentState, animations: {
             self.alpha = 0
+            self.backgroundColor = .clear
         }, completion: { finished in
-            self.alpha = 0
-            
             self.gradientMaskView.layer.removeAllAnimations()
             self.isAnimationInProgress = false
-            
             completion?()
         })
     }

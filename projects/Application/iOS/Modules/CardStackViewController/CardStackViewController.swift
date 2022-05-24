@@ -185,14 +185,12 @@ extension CardStackViewController: CardStackViewDelegate {
         _ view: CardStackView,
         didClickSendButtonWithModel model: CardStackCard
     ) {
-        guard let publicKey = model.account.keyPublic,
-              let encryptedSecretKey = model.account.keySecretEncrypted,
-              let key = try? Key(publicKey: publicKey, encryptedSecretKey: Data(hex: encryptedSecretKey))
+        guard let key = model.account.keyIfAvailable
         else {
             return
         }
         
-        let viewController = TransferViewController(
+        let viewController = TransferNavigationController(
             initialConfiguration: .init(
                 fromAccount: model.account,
                 toAddress: nil,

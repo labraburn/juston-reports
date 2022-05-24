@@ -259,7 +259,11 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         _ view: DashboardAccountsView,
         scanQRButtonDidClick button: UIButton
     ) {
-        presentUnderDevelopment()
+        let qrViewController = QRViewController()
+        qrViewController.delegate = self
+        
+        let navigationController = NavigationController(rootViewController: qrViewController)
+        hui_present(navigationController, animated: true, completion: nil)
     }
 }
 
@@ -355,5 +359,39 @@ extension DashboardViewController: ScrollToTopContainerController {
     
     func scrollToTop() {
         collectionView.scrollToTopIfPossible()
+    }
+}
+
+extension DashboardViewController: QRViewControllerDelegate {
+    
+    func qrViewController(
+        _ viewController: QRViewController,
+        didRecognizeConvenienceURL convenienceURL: ConvenienceURL
+    ) {
+        let navigationController = viewController.navigationController
+        
+        switch convenienceURL {
+        case let .transfer(destination, amount, text):
+            guard let account = self.cardsStackViewController.selectedCard?.account,
+                  let key = account.keyIfAvailable
+            else {
+                return
+            }
+            
+            let viewController = TransferDetailsViewController(
+                initialConfiguration: .init(
+                    fromAccount: account,
+                    toAddress: destination,
+                    key: key,
+                    amount: amount,
+                    message: text
+                )
+            )
+            
+            navigationController?.pushViewController(
+                viewController,
+                animated: true
+            )
+        }
     }
 }
