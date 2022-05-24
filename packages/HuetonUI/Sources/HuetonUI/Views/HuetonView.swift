@@ -68,7 +68,7 @@ open class HuetonView: SignboardView {
     }
     
     private func timerDidChange() {
-        guard Int.random(in: 0..<99) < 42
+        guard Int.random(in: 0..<99) < 33
         else {
             return
         }
