@@ -17,8 +17,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        let viewController = LaunchViewController()
-        viewController.delegate = self
+        let viewController = ExploreViewController()
         
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
@@ -28,38 +27,6 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let inAppAnnouncementWindow = InAppAnnouncementWindow(windowScene: windowScene)
         inAppAnnouncementWindow.makeKeyAndVisible()
-    }
-    
-    enum ViewControllerType {
-        
-        case loading
-        case explore
-    }
-    
-    private func setApplicationController(with type: ViewControllerType, animated: Bool = true) {
-        window?.windowRootViewController.child = type.viewController(with: self)
-    }
-}
-
-extension ApplicationWindowSceneDelegate: LaunchViewControllerDelegate {
-    
-    func launchViewController(_ viewController: LaunchViewController, didFinishAnimation finished: Bool) {
-        setApplicationController(with: .explore, animated: false)
-    }
-}
-
-extension ApplicationWindowSceneDelegate.ViewControllerType {
-    
-    func viewController(with sceneDelegate: ApplicationWindowSceneDelegate) -> UIViewController {
-        switch self {
-        case .loading:
-            let viewController = LaunchViewController()
-            viewController.delegate = sceneDelegate
-            return viewController
-        case .explore:
-            let viewController = ExploreViewController()
-            return viewController
-        }
     }
 }
 

@@ -21,6 +21,11 @@ protocol DashboardAccountsViewDelegate: AnyObject {
     )
 }
 
+extension HuetonView {
+    
+    static var applicationHeight = CGFloat(20)
+}
+
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(radius: 42))
@@ -116,15 +121,15 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     // MARK: API
     
+    func perfromApperingAnimation() {
+        huetonView.perfromLoadingAnimationAndStartInfinity()
+    }
+    
     func enclosingScrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
         
         logoViewAdditionalOffset = max(-contentOffset / 2, 0)
         updateLogoViewLayout()
-        
-        let additionalOffset = -contentOffset / 2
-        let progress = additionalOffset / 44
-        huetonView.set(progress: progress)
     }
     
     private func updateLayout() {

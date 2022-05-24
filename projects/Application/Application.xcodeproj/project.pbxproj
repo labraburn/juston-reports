@@ -69,7 +69,6 @@
 		F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9A27A0B9C5003A090C /* ApplicationWindow.swift */; };
 		F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */; };
 		F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */; };
-		F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA727A0BCA3003A090C /* LaunchViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
 		F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513B2802529D00EF9F83 /* OnboardingViewController.swift */; };
 		F0A1513F280252DB00EF9F83 /* SteppableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513E280252DB00EF9F83 /* SteppableNavigationController.swift */; };
@@ -169,7 +168,6 @@
 		F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowScene.swift; sourceTree = "<group>"; };
 		F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowViewController.swift; sourceTree = "<group>"; };
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
-		F0995FA727A0BCA3003A090C /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSDebug.xcconfig; sourceTree = "<group>"; };
 		F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSRelease.xcconfig; sourceTree = "<group>"; };
@@ -533,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				F0995F6D27A0B7CB003A090C /* Launch.storyboard */,
-				F0995FA727A0BCA3003A090C /* LaunchViewController.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -893,7 +890,6 @@
 				F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
-				F0995FA827A0BCA3003A090C /* LaunchViewController.swift in Sources */,
 				F0118D892810362000B518A9 /* SCLS3000ListGroupHeaderView.swift in Sources */,
 				F0A1515128026CFA00EF9F83 /* NSObject.swift in Sources */,
 			);

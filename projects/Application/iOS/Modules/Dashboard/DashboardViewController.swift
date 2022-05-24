@@ -118,6 +118,7 @@ class DashboardViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showParoleViewControllerIfNeeded()
+        accountsView.perfromApperingAnimation()
     }
     
     // MARK: Private
