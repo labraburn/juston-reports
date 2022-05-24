@@ -154,7 +154,7 @@ class QRViewController: UIViewController {
             let layer = AVCaptureVideoPreviewLayer(session: session)
             
             DispatchQueue.main.async(execute: {
-                self.cameraView.layer.addSublayer(layer)
+                self.cameraView.layer.insertSublayer(layer, at: 0)
                 self.view.setNeedsLayout()
             })
             
