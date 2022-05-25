@@ -33,6 +33,7 @@ extension UIControl {
         addTarget(self, action: #selector(_touchUp), for: .touchUpOutside)
         addTarget(self, action: #selector(_touchUp), for: .touchDragExit)
         addTarget(self, action: #selector(_touchUp), for: .touchDragOutside)
+        addTarget(self, action: #selector(_touchUp), for: .touchCancel)
     }
     
     @objc
