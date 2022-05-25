@@ -91,7 +91,7 @@ class CameraViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        cameraView.startLoadingAnimation(delay: 0.1, fade: false)
+        cameraView.startLoadingAnimation(delay: 0.1, fade: false, width: 3)
         convenienceURL = nil
     }
     

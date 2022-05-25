@@ -52,7 +52,7 @@ public final class OverlayLoadingView: UIView {
         gradientView.frame = bounds
     }
     
-    public func startAnimation(delay: TimeInterval = 0.0, fade: Bool = true) {
+    public func startAnimation(delay: TimeInterval = 0.0, fade: Bool = true, width: CGFloat = 1) {
         guard !isAnimationInProgress
         else {
             return
@@ -61,6 +61,7 @@ public final class OverlayLoadingView: UIView {
         alpha = 0
         isUserInteractionEnabled = true
         isAnimationInProgress = true
+        gradientMaskView.lineWidth = width
         
         layer.removeAllAnimations()
         UIView.animate(withDuration: 0.3, delay: delay, options: .beginFromCurrentState, animations: {
@@ -114,6 +115,7 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
     
     var cornerRadius: CGFloat = 10
     var cornerCurve: CALayerCornerCurve = .continuous
+    var lineWidth: CGFloat = 1
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -121,14 +123,14 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
         let cornerRadius = self.cornerRadius == 0 ? 4 : self.cornerRadius
         shapeLayer.path = path(
             frame: CGRect(
-                x: 1,
-                y: 1,
-                width: bounds.width - 2,
-                height: bounds.height - 2
+                x: lineWidth,
+                y: lineWidth,
+                width: bounds.width - lineWidth * 2,
+                height: bounds.height - lineWidth * 2
             ),
             cornerRadius: cornerRadius
         ).cgPath
-        shapeLayer.lineWidth = 1
+        shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.white.cgColor
         
