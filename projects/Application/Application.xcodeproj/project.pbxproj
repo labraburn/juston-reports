@@ -70,6 +70,9 @@
 		F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */; };
 		F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */; };
 		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
+		F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */; };
+		F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */; };
+		F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */ = {isa = PBXBuildFile; productRef = F09E2A2B283E93E500D7BC55 /* QRCodeStatic */; };
 		F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513B2802529D00EF9F83 /* OnboardingViewController.swift */; };
 		F0A1513F280252DB00EF9F83 /* SteppableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513E280252DB00EF9F83 /* SteppableNavigationController.swift */; };
 		F0A151412802532B00EF9F83 /* SteppableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A151402802532B00EF9F83 /* SteppableViewController.swift */; };
@@ -85,7 +88,7 @@
 		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
 		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
-		F0A4579C283C47BD0039F6CA /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4579B283C47BD0039F6CA /* QRViewController.swift */; };
+		F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4579B283C47BD0039F6CA /* CameraViewController.swift */; };
 		F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A457A2283D79910039F6CA /* NavigationController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
@@ -171,6 +174,8 @@
 		F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowViewController.swift; sourceTree = "<group>"; };
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.swift; sourceTree = "<group>"; };
+		F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSDebug.xcconfig; sourceTree = "<group>"; };
 		F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSRelease.xcconfig; sourceTree = "<group>"; };
 		F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSDebug.entitlements; sourceTree = "<group>"; };
@@ -190,7 +195,7 @@
 		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
-		F0A4579B283C47BD0039F6CA /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
+		F0A4579B283C47BD0039F6CA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F0A457A2283D79910039F6CA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 				F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */,
 				F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */,
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
+				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,8 +517,9 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F09E2A25283E924600D7BC55 /* QR */,
 				F0A457A1283D79780039F6CA /* NavigationController */,
-				F0A4579A283C47AD0039F6CA /* QR */,
+				F0A4579A283C47AD0039F6CA /* Camera */,
 				F07C7F9628329A4C00A10B41 /* Transfer */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
@@ -570,6 +577,15 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
+		F09E2A25283E924600D7BC55 /* QR */ = {
+			isa = PBXGroup;
+			children = (
+				F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */,
+				F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */,
+			);
+			path = QR;
+			sourceTree = "<group>";
+		};
 		F0A151322800E01C00EF9F83 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,12 +635,12 @@
 			path = Passcode;
 			sourceTree = "<group>";
 		};
-		F0A4579A283C47AD0039F6CA /* QR */ = {
+		F0A4579A283C47AD0039F6CA /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				F0A4579B283C47BD0039F6CA /* QRViewController.swift */,
+				F0A4579B283C47BD0039F6CA /* CameraViewController.swift */,
 			);
-			path = QR;
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		F0A457A1283D79780039F6CA /* NavigationController */ = {
@@ -767,6 +783,7 @@
 				F02FECEA27F3153F00CC306C /* HuetonCORE */,
 				F02FECEC27F3153F00CC306C /* HuetonUI */,
 				F0118DA42810699100B518A9 /* Nuke */,
+				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
@@ -799,6 +816,7 @@
 			packageReferences = (
 				F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */,
 				F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */,
+				F09E2A2A283E93E400D7BC55 /* XCRemoteSwiftPackageReference "QRCode" */,
 			);
 			productRefGroup = F0995F6027A0B7CA003A090C /* Products */;
 			projectDirPath = "";
@@ -856,7 +874,7 @@
 				F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* SteppableImageViewCell.swift in Sources */,
-				F0A4579C283C47BD0039F6CA /* QRViewController.swift in Sources */,
+				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
@@ -865,10 +883,12 @@
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* SCLS3000ApplicationVersionHeaderView.swift in Sources */,
+				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
 				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* SteppableTextFieldCell.swift in Sources */,
 				F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */,
 				F0118DA02810671C00B518A9 /* UserBookmark.swift in Sources */,
+				F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */,
 				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
 				F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */,
 				F0118D9628105E6100B518A9 /* BookmarksViewController.swift in Sources */,
@@ -1151,6 +1171,14 @@
 				kind = branch;
 			};
 		};
+		F09E2A2A283E93E400D7BC55 /* XCRemoteSwiftPackageReference "QRCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/oboupo/QRCode";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1174,6 +1202,11 @@
 		F064CC9A27B23DDC00076245 /* SystemUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SystemUI;
+		};
+		F09E2A2B283E93E500D7BC55 /* QRCodeStatic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F09E2A2A283E93E400D7BC55 /* XCRemoteSwiftPackageReference "QRCode" */;
+			productName = QRCodeStatic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

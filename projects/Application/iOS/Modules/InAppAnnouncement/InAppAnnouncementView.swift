@@ -30,6 +30,7 @@ final class InAppAnnouncementView: UIView {
     })
     
     private let textLabel = UILabel().with({
+        $0.textColor = .white
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.numberOfLines = 0
     })

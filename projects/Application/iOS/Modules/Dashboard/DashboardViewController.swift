@@ -259,7 +259,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         _ view: DashboardAccountsView,
         scanQRButtonDidClick button: UIButton
     ) {
-        let qrViewController = QRViewController()
+        let qrViewController = CameraViewController()
         qrViewController.delegate = self
         
         let navigationController = NavigationController(rootViewController: qrViewController)
@@ -362,10 +362,10 @@ extension DashboardViewController: ScrollToTopContainerController {
     }
 }
 
-extension DashboardViewController: QRViewControllerDelegate {
+extension DashboardViewController: CameraViewControllerDelegate {
     
     func qrViewController(
-        _ viewController: QRViewController,
+        _ viewController: CameraViewController,
         didRecognizeConvenienceURL convenienceURL: ConvenienceURL
     ) {
         let navigationController = viewController.navigationController

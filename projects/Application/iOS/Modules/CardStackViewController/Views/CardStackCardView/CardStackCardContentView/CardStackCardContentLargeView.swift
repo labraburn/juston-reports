@@ -78,11 +78,10 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         addSubview(balanceLabel)
         addSubview(bottomButtonsHStackView)
         
+        bottomButtonsHStackView.addArrangedSubview(receiveButton)
         if !model.account.isReadonly {
             bottomButtonsHStackView.addArrangedSubview(sendButton)
         }
-        
-        bottomButtonsHStackView.addArrangedSubview(receiveButton)
         bottomButtonsHStackView.addArrangedSubview(moreButton)
         
         accountCurrentAddressLabel.sui_touchAreaInsets = UIEdgeInsets(top: 0, left: -24, right: -24, bottom: 0)

@@ -10,15 +10,15 @@ import AVFoundation
 import SwiftyTON
 import HuetonUI
 
-protocol QRViewControllerDelegate: AnyObject {
+protocol CameraViewControllerDelegate: AnyObject {
     
     func qrViewController(
-        _ viewController: QRViewController,
+        _ viewController: CameraViewController,
         didRecognizeConvenienceURL convenienceURL: ConvenienceURL
     )
 }
 
-class QRViewController: UIViewController {
+class CameraViewController: UIViewController {
     
     private enum CaptureSessionError: Error {
         
@@ -50,7 +50,7 @@ class QRViewController: UIViewController {
     private let queue = DispatchQueue(label: "com.hueton.capture-session")
     private var convenienceURL: ConvenienceURL? = nil
     
-    weak var delegate: QRViewControllerDelegate?
+    weak var delegate: CameraViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +76,7 @@ class QRViewController: UIViewController {
             
             cancelButton.topAnchor.pin(to: cameraView.bottomAnchor, constant: 16)
             cancelButton.pin(horizontally: view, left: 16, right: 16)
-            view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 0)
+            view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 8)
         })
         
         startCaptureSessionIfNeeded({ error in
@@ -169,11 +169,11 @@ class QRViewController: UIViewController {
     
     @objc
     private func cancelButtonDidClick(_ sender: UIButton) {
-        dismiss(animated: true)
+        hide(animated: true)
     }
 }
 
-extension QRViewController: AVCaptureMetadataOutputObjectsDelegate {
+extension CameraViewController: AVCaptureMetadataOutputObjectsDelegate {
 
     func metadataOutput(
         _ output: AVCaptureMetadataOutput,

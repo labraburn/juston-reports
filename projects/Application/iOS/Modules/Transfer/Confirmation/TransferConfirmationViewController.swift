@@ -77,7 +77,7 @@ class TransferConfirmationViewController: UIViewController {
             cancelButton.topAnchor.pin(to: processButton.bottomAnchor, constant: 12)
             cancelButton.pin(horizontally: view, left: 16, right: 16)
             
-            view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 0)
+            view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 8)
         })
         
         let spacing = NSAttributedString(" \n", with: .body, lineHeight: 6)

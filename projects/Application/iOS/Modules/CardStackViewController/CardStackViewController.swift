@@ -200,14 +200,21 @@ extension CardStackViewController: CardStackViewDelegate {
             )
         )
         
-        present(viewController, animated: true)
+        hui_present(viewController, animated: true)
     }
     
     func cardStackView(
         _ view: CardStackView,
         didClickReceiveButtonWithModel model: CardStackCard
     ) {
-        presentUnderDevelopment()
+        let viewController = QRSharingViewController(
+            initialConfiguration: .init(
+                address: model.account.selectedAddress
+            )
+        )
+        
+        let navigationController = NavigationController(rootViewController: viewController)
+        hui_present(navigationController, animated: true)
     }
     
     func cardStackView(

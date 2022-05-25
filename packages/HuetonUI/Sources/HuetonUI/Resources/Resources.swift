@@ -57,6 +57,7 @@ public extension UIImage {
     static let hui_receiveColor51: UIImage = .named("ReceiveColor51")
     
     static let hui_placeholder512: UIImage = .named("Placeholder512")
+    static let hui_qrCodeOverlay512: UIImage = .named("QRCodeOverlay512")
     
     static let hui_cardGradient0: UIImage = .named("CardGradient0")
     
