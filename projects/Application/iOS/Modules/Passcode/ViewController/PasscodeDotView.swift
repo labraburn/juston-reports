@@ -10,6 +10,10 @@ import HuetonCORE
 
 class PasscodeDotView: UIView {
     
+    private let innerView: UIView = UIView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    })
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -23,6 +27,9 @@ class PasscodeDotView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        innerView.layer.cornerRadius = innerView.bounds.height / 2
+        innerView.layer.cornerCurve = .continuous
+        
         layer.cornerRadius = bounds.height / 2
         layer.cornerCurve = .circular
     }
@@ -30,18 +37,19 @@ class PasscodeDotView: UIView {
     var filled: Bool = false {
         didSet {
             if filled {
-                backgroundColor = tintColor
-                layer.borderColor = nil
-                layer.borderWidth = 0
+                innerView.alpha = 1
+                innerView.backgroundColor = tintColor
             } else {
-                backgroundColor = .clear
-                layer.borderColor = tintColor.cgColor
-                layer.borderWidth = 1
+                innerView.alpha = 0
+                innerView.backgroundColor = .clear
             }
         }
     }
     
     private func initialize() {
-        insertHighlightingScaleAnimation()
+        addSubview(innerView)
+        NSLayoutConstraint.activate({
+            innerView.pin(edges: self, insets: UIEdgeInsets(top: 6, left: 6, right: 6, bottom: 6))
+        })
     }
 }

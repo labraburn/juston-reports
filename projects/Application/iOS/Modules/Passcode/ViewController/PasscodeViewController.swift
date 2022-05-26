@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HuetonUI
 import HuetonCORE
 
 protocol PasscodeViewControllerDelegate: AnyObject {
@@ -46,6 +47,10 @@ class PasscodeViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var passcodeHStackView: UIStackView!
     
+    @IBOutlet private weak var faceIDButton: UIButton!
+    @IBOutlet private weak var deleteButton: UIButton!
+    @IBOutlet private weak var cancelButton: TeritaryButton!
+    
     private let feedbackGenerator = UINotificationFeedbackGenerator()
     weak var delegate: PasscodeViewControllerDelegate?
     
@@ -84,6 +89,22 @@ class PasscodeViewController: UIViewController {
         
         titleLabel.font = .font(for: .headline)
         view.backgroundColor = .hui_backgroundPrimary
+        
+        faceIDButton.setImage(
+            UIImage(
+                systemName: "faceid",
+                withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)),
+            for: .normal
+        )
+        
+        deleteButton.setImage(
+            UIImage(
+                systemName: "delete.left",
+                withConfiguration: UIImage.SymbolConfiguration(pointSize: 22)),
+            for: .normal
+        )
+        
+        cancelButton.title = "CANCEL"
         
         updatePasscodeViews()
     }
@@ -174,7 +195,7 @@ class PasscodeViewController: UIViewController {
     }
     
     @IBAction
-    private func cancelButtonDidClick(_ sender: UIButton) {
+    private func cancelButtonDidClick(_ sender: TeritaryButton) {
         delegate?.passcodeViewControllerDidCancel(self)
     }
 }

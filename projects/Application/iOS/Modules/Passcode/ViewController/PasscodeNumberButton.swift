@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HuetonUI
 import HuetonCORE
 
 class PasscodeNumberButton: UIButton {
@@ -30,8 +31,9 @@ class PasscodeNumberButton: UIButton {
     private func initialize() {
         layer.masksToBounds = true
         titleLabel?.font = .font(for: .title2)
+        backgroundColor = UIColor(rgb: 0x1C1924)
+        
         insertFeedbackGenerator(style: .light)
-        insertVisualEffectViewWithEffect(UIBlurEffect(style: .light))
         insertHighlightingScaleAnimation()
     }
 }

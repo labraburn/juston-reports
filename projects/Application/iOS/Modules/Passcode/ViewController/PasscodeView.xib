@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PasscodeViewController" customModule="H3000" customModuleProvider="target">
             <connections>
+                <outlet property="cancelButton" destination="4gO-UX-ECj" id="dOy-An-xzO"/>
+                <outlet property="deleteButton" destination="p83-w7-9Hj" id="KyQ-MR-Te2"/>
+                <outlet property="faceIDButton" destination="fxK-jf-a6q" id="ASd-Y0-Eih"/>
                 <outlet property="passcodeHStackView" destination="pcy-UM-I2Z" id="JyL-nQ-Xbf"/>
                 <outlet property="titleLabel" destination="ohB-oA-7F4" id="xJl-1H-Q94"/>
                 <outlet property="view" destination="iN0-l3-epB" id="36Y-Ri-pY5"/>
@@ -22,54 +25,60 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pcy-UM-I2Z">
-                    <rect key="frame" x="139" y="208" width="136" height="16"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pcy-UM-I2Z">
+                    <rect key="frame" x="77" y="127.5" width="260" height="30"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DrM-fm-Cfs" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="1VR-ur-zjb"/>
+                                <constraint firstAttribute="width" constant="30" id="1VR-ur-zjb"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOA-XE-gAC" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="24" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="46" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="NXz-8L-xg1"/>
+                                <constraint firstAttribute="width" constant="30" id="NXz-8L-xg1"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FSP-2S-iAx" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="48" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="92" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="H3T-1Z-AnA"/>
+                                <constraint firstAttribute="width" constant="30" id="H3T-1Z-AnA"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XeJ-B4-N1u" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="72" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="138" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="3fR-93-vgu"/>
+                                <constraint firstAttribute="width" constant="30" id="3fR-93-vgu"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPM-bg-4y9" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="96" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="184" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="Fp7-1M-7Ya"/>
+                                <constraint firstAttribute="width" constant="30" id="Fp7-1M-7Ya"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WK-AD-E4t" customClass="PasscodeDotView" customModule="H3000" customModuleProvider="target">
-                            <rect key="frame" x="120" y="0.0" width="16" height="16"/>
-                            <color key="backgroundColor" name="AppColor"/>
+                            <rect key="frame" x="230" y="0.0" width="30" height="30"/>
+                            <color key="backgroundColor" red="0.10980392156862745" green="0.098039215686274508" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="ZJq-tO-42Z"/>
+                                <constraint firstAttribute="width" constant="30" id="ZJq-tO-42Z"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="16" id="Fct-3y-7e9"/>
+                        <constraint firstAttribute="height" constant="30" id="Fct-3y-7e9"/>
                     </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="wsZ-gC-108">
@@ -211,6 +220,7 @@
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal">
                                         <imageReference key="image" image="faceid" catalog="system" symbolScale="large"/>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                     </state>
                                     <connections>
                                         <action selector="biometryButtonDidClick:" destination="-1" eventType="touchUpInside" id="BX1-uF-hxf"/>
@@ -246,35 +256,39 @@
                             </subviews>
                         </stackView>
                     </subviews>
+                    <color key="tintColor" red="0.4823529411764706" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="999" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohB-oA-7F4">
-                    <rect key="frame" x="32" y="163.5" width="350" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                    <rect key="frame" x="32" y="76" width="350" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkL-eK-rWf">
-                    <rect key="frame" x="183" y="800" width="48" height="30"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Cancel"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gO-UX-ECj" customClass="TeritaryButton" customModule="HuetonUI">
+                    <rect key="frame" x="16" y="794" width="382" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" placeholder="YES" id="71m-4v-1CC"/>
+                    </constraints>
                     <connections>
-                        <action selector="cancelButtonDidClick:" destination="-1" eventType="touchUpInside" id="toN-sL-N5o"/>
+                        <action selector="cancelButtonDidClick:" destination="-1" eventType="touchUpInside" id="C5s-KC-duO"/>
                     </connections>
-                </button>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="BackgroundPrimary"/>
             <constraints>
                 <constraint firstItem="ohB-oA-7F4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="32" id="10h-Sf-f8P"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vkL-eK-rWf" secondAttribute="bottom" constant="32" id="A5z-AF-H8b"/>
-                <constraint firstItem="wsZ-gC-108" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DXv-TB-2pE"/>
-                <constraint firstItem="ohB-oA-7F4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="IVS-hW-iQL"/>
-                <constraint firstItem="wsZ-gC-108" firstAttribute="top" secondItem="pcy-UM-I2Z" secondAttribute="bottom" constant="48" id="Jar-hf-hxq"/>
-                <constraint firstItem="vkL-eK-rWf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UDK-F8-b9w"/>
+                <constraint firstItem="4gO-UX-ECj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="8fS-Tl-qWw"/>
+                <constraint firstItem="ohB-oA-7F4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="IVS-hW-iQL"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pcy-UM-I2Z" secondAttribute="bottom" constant="32" id="QMz-O1-WKL"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4gO-UX-ECj" secondAttribute="trailing" constant="16" id="aXI-Xs-E1W"/>
                 <constraint firstItem="pcy-UM-I2Z" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="cLO-tP-oHc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ohB-oA-7F4" secondAttribute="trailing" constant="32" id="eBe-4u-7bA"/>
-                <constraint firstItem="wsZ-gC-108" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ej2-0D-MXJ"/>
-                <constraint firstItem="pcy-UM-I2Z" firstAttribute="top" secondItem="ohB-oA-7F4" secondAttribute="bottom" constant="24" id="iS8-O4-ZA5"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" priority="999" id="fTJ-00-585"/>
+                <constraint firstItem="pcy-UM-I2Z" firstAttribute="top" secondItem="ohB-oA-7F4" secondAttribute="bottom" constant="32" id="iS8-O4-ZA5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="4gO-UX-ECj" secondAttribute="bottom" constant="8" id="kYA-6d-MqN"/>
+                <constraint firstItem="wsZ-gC-108" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vFP-5F-ORb"/>
             </constraints>
             <point key="canvasLocation" x="139" y="144"/>
         </view>
@@ -282,9 +296,6 @@
     <resources>
         <image name="delete.left" catalog="system" width="128" height="104"/>
         <image name="faceid" catalog="system" width="128" height="115"/>
-        <namedColor name="AppColor">
-            <color red="0.83921568627450982" green="0.24705882352941178" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="BackgroundPrimary">
             <color red="1" green="0.98799997568130493" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
