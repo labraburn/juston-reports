@@ -28,6 +28,13 @@ extension HuetonView {
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
+    private class StackView: UIStackView {
+        
+        override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+            bounds.inset(by: UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)).contains(point)
+        }
+    }
+    
     private var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(radius: 42))
     private var lineView = UIView().with({
         $0.backgroundColor = UIColor(rgb: 0x353535)
@@ -35,7 +42,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private let cardsStackContainerView = ContainerView<CardStackView>()
     
-    private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
+    private let navigationStackView = StackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
         $0.translatesAutoresizingMaskIntoConstraints = true
         $0.axis = .horizontal
         $0.alignment = .top
@@ -71,7 +78,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.insertHighlightingScaleAnimation()
             button.insertFeedbackGenerator(style: .light)
-            button.sui_touchAreaInsets = UIEdgeInsets(top: 0, left: -24, right: -24, bottom: -24)
+            button.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
             button.setImage(.hui_scan20, for: .normal)
             button.addTarget(self, action: #selector(scanQRButtonDidClick(_:)), for: .touchUpInside)
             button.tintColor = .hui_textPrimary
@@ -89,7 +96,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.insertHighlightingScaleAnimation()
             button.insertFeedbackGenerator(style: .light)
-            button.sui_touchAreaInsets = UIEdgeInsets(top: 0, left: -24, right: -24, bottom: -24)
+            button.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
             button.setImage(.hui_addCircle20, for: .normal)
             button.addTarget(self, action: #selector(addAccountButtonDidClick(_:)), for: .touchUpInside)
             button.tintColor = .hui_textPrimary
