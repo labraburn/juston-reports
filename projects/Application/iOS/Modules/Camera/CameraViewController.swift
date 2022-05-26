@@ -23,14 +23,11 @@ class CameraViewController: UIViewController {
     private enum CaptureSessionError: LocalizedError {
         
         case noCamera
-        case noPermission
         
         var errorDescription: String? {
             switch self {
             case .noCamera:
                 return "Hmm, looks like we can't fina any camera on device"
-            case .noPermission:
-                return "Please, allow camera access in settings to scan QR code"
             }
         }
     }
@@ -106,7 +103,7 @@ class CameraViewController: UIViewController {
         
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied, .restricted:
-            present(CaptureSessionError.noPermission)
+            present(CameraPermissionError.noCameraAccessQRCode)
         default:
             break
         }

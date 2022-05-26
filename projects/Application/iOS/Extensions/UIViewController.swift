@@ -38,11 +38,21 @@ extension UIViewController {
             }
         }
         
+        var actions: [AlertViewController.Action] = []
+        
+        switch errorToPresent {
+        case is PermissionError:
+            actions.append(.settings)
+            actions.append(.cancel)
+        default:
+            actions.append(.done)
+        }
+        
         let viewController = AlertViewController(
             image: .image(.hui_error42, tintColor: .hui_letter_red),
             title: ":(",
             message: errorToPresent.localizedDescription,
-            actions: [.done]
+            actions: actions
         )
         
         topmostPresentedViewController.present(viewController, animated: animated, completion: completion)

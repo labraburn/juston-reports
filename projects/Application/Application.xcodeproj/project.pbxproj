@@ -73,6 +73,7 @@
 		F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */; };
 		F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */; };
 		F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */ = {isa = PBXBuildFile; productRef = F09E2A2B283E93E500D7BC55 /* QRCodeStatic */; };
+		F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */; };
 		F0A1513C2802529D00EF9F83 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513B2802529D00EF9F83 /* OnboardingViewController.swift */; };
 		F0A1513F280252DB00EF9F83 /* SteppableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1513E280252DB00EF9F83 /* SteppableNavigationController.swift */; };
 		F0A151412802532B00EF9F83 /* SteppableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A151402802532B00EF9F83 /* SteppableViewController.swift */; };
@@ -176,6 +177,7 @@
 		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.swift; sourceTree = "<group>"; };
 		F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionError.swift; sourceTree = "<group>"; };
 		F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSDebug.xcconfig; sourceTree = "<group>"; };
 		F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSRelease.xcconfig; sourceTree = "<group>"; };
 		F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSDebug.entitlements; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				F0A1514E280268F000EF9F83 /* ApplicationError.swift */,
+				F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				F0118D78280F1CA800B518A9 /* ExploreViewController.swift in Sources */,
 				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
+				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
 				F0118D9B2810614600B518A9 /* SafariViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,

@@ -17,7 +17,7 @@ class QRSharingViewController: UIViewController {
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
         $0.textColor = .hui_textPrimary
-        $0.text = "Share this QR code to receive coins"
+        $0.text = "Share this QR code to others receive coins into account"
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
@@ -39,7 +39,17 @@ class QRSharingViewController: UIViewController {
         $0.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
     })
     
-    private lazy var doneButton = PrimaryButton(title: "DONE").with({
+    private lazy var shareImageButton = PrimaryButton(title: "SHARE QR").with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(shareImageButtonDidClick(_:)), for: .touchUpInside)
+    })
+    
+    private lazy var shareAddressButton = PrimaryButton(title: "SHARE ADDRESS").with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(shareAddressButtonDidClick(_:)), for: .touchUpInside)
+    })
+    
+    private lazy var doneButton = TeritaryButton(title: "DONE").with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
     })
@@ -59,22 +69,20 @@ class QRSharingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Sharing"
+        title = "Your address"
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(qrImageView)
         view.addSubview(addressButton)
+        
+        view.addSubview(shareImageButton)
+        view.addSubview(shareAddressButton)
         view.addSubview(doneButton)
         
         let address = initialConfiguration.address
-        addressButton.setTitle(
-        """
-        or just copy address:
-        
-        \(address.convert(to: .base64url(flags: [])))
-        """, for: .normal)
+        addressButton.setTitle(address.convert(to: .base64url(flags: [])), for: .normal)
         
         let url = ConvenienceURL.transfer(
             destination: address,
@@ -110,19 +118,53 @@ class QRSharingViewController: UIViewController {
             
             qrImageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 32)
             qrImageView.pin(horizontally: view, left: 48, right: 48)
-            qrImageView.heightAnchor.pin(to: qrImageView.widthAnchor)
+            qrImageView.heightAnchor.pin(lessThan: qrImageView.widthAnchor)
             
             addressButton.topAnchor.pin(to: qrImageView.bottomAnchor, constant: 16)
-            addressButton.pin(horizontally: view, left: 16, right: 16)
+            addressButton.centerXAnchor.pin(to: view.centerXAnchor)
+            addressButton.widthAnchor.pin(to: qrImageView.widthAnchor)
             
-            doneButton.topAnchor.pin(lessThan: addressButton.bottomAnchor, constant: 16)
+            shareImageButton.topAnchor.pin(greaterThan: addressButton.bottomAnchor, constant: 24)
+            shareImageButton.pin(horizontally: view, left: 16, right: 16)
+            
+            shareAddressButton.topAnchor.pin(lessThan: shareImageButton.bottomAnchor, constant: 16)
+            shareAddressButton.pin(horizontally: view, left: 16, right: 16)
+            
+            doneButton.topAnchor.pin(lessThan: shareAddressButton.bottomAnchor, constant: 8)
             doneButton.pin(horizontally: view, left: 16, right: 16)
-            view.safeAreaLayoutGuide.bottomAnchor.pin(to: doneButton.bottomAnchor, constant: 16)
+            view.safeAreaLayoutGuide.bottomAnchor.pin(to: doneButton.bottomAnchor, constant: 8)
         })
         
     }
     
     // MARK: Actions
+    
+    @objc
+    private func shareImageButtonDidClick(_ sender: UIButton) {
+        guard let image = qrImageView.image
+        else {
+            return
+        }
+        
+        let activityItems = [image]
+        let activityViewController = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: nil
+        )
+        
+        hui_present(activityViewController, animated: true)
+    }
+    
+    @objc
+    private func shareAddressButtonDidClick(_ sender: UIButton) {
+        let activityItems = [initialConfiguration.address.convert(to: .base64url(flags: []))]
+        let activityViewController = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: nil
+        )
+        
+        hui_present(activityViewController, animated: true)
+    }
     
     @objc
     private func doneButtonDidClick(_ sender: UIButton) {

@@ -11,6 +11,9 @@ public final class OverlayLoadingView: UIView {
     
     private var isAnimationInProgress: Bool = false
     
+    private var willMoveToBackground: NSObjectProtocol?
+    private var didMoveToForeground: NSObjectProtocol?
+    
     public var cornerRadius: CGFloat = 10 {
         didSet {
             layer.cornerRadius = cornerRadius
@@ -33,6 +36,10 @@ public final class OverlayLoadingView: UIView {
         initialize()
     }
     
+    deinit {
+        
+    }
+    
     private func initialize() {
         alpha = 0
         backgroundColor = .clear
@@ -42,6 +49,43 @@ public final class OverlayLoadingView: UIView {
         
         cornerRadius = 12
         cornerCurve = .continuous
+        
+        willMoveToBackground = NotificationCenter.default.addObserver(
+            forName: UIApplication.didEnterBackgroundNotification,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                guard let self = self,
+                      self.isAnimationInProgress
+                else {
+                    return
+                }
+                
+                self.stopAnimation(completion: {
+                    self.isAnimationInProgress = true
+                })
+            }
+        )
+        
+        didMoveToForeground = NotificationCenter.default.addObserver(
+            forName: UIApplication.willEnterForegroundNotification,
+            object: nil,
+            queue: .main,
+            using: { [weak self] _ in
+                guard let self = self,
+                      self.isAnimationInProgress
+                else {
+                    return
+                }
+                
+                self.isAnimationInProgress = false
+                self.startAnimation(
+                    delay: 0,
+                    fade: self.backgroundColor != .clear,
+                    width: self.gradientMaskView.lineWidth
+                )
+            }
+        )
     }
     
     public override func layoutSubviews() {
