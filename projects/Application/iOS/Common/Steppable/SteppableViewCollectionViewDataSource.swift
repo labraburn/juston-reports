@@ -32,15 +32,23 @@ enum SteppableItem {
     
     typealias TextFieldAction = (_ textField: UITextField) -> ()
     
+    enum LabelKind {
+        
+        case headline
+        case body
+    }
+    
     enum ButtonKind {
         
         case primary
         case secondary
+        case teritary
     }
     
     case image(image: UIImage)
-    case label(text: String)
+    case label(text: String, kind: LabelKind)
     case word(index: Int, word: String)
+    case importAccountTextField(uuid: UUID, action: (_ result: SteppableImportAccountCollectionCell.Result) -> Void)
     case textField(title: String, placeholder: String, action: TextFieldAction)
     
     case synchronousButton(title: String, kind: ButtonKind, action: SynchronousButtonAction)
@@ -57,6 +65,7 @@ class SteppableViewCollectionViewDataSource: CollectionViewDiffableDataSource<St
         collectionView.register(reusableCellClass: SteppableButtonCell.self)
         collectionView.register(reusableCellClass: SteppableWordCell.self)
         collectionView.register(reusableCellClass: SteppableTextFieldCell.self)
+        collectionView.register(reusableCellClass: SteppableImportAccountCollectionCell.self)
         collectionView.collectionViewLayout.register(reusableDecorationViewOfKind: SteppableWordsDecorationView.self)
     }
     
@@ -70,18 +79,17 @@ class SteppableViewCollectionViewDataSource: CollectionViewDiffableDataSource<St
             let cell = collectionView.dequeue(reusableCellClass: SteppableImageViewCell.self, for: indexPath)
             cell.image = image
             return cell
-        case let .label(text):
+        case let .label(text, kind):
             let cell = collectionView.dequeue(reusableCellClass: SteppableLabelCell.self, for: indexPath)
-            cell.text = text
+            cell.model = .init(text: text, kind: kind)
             return cell
         case let .synchronousButton(title, kind, _), let .asynchronousButton(title, kind, _): // action handled in controller
             let cell = collectionView.dequeue(reusableCellClass: SteppableButtonCell.self, for: indexPath)
-            cell.title = title
-            cell.kind = kind
+            cell.model = .init(title: title, kind: kind)
             return cell
         case let .word(index, word):
             let cell = collectionView.dequeue(reusableCellClass: SteppableWordCell.self, for: indexPath)
-            cell.text = "\(index). \(word)"
+            cell.model = .init(index: index, word: word)
             return cell
         case let .textField(title, placeholder, action):
             let cell = collectionView.dequeue(reusableCellClass: SteppableTextFieldCell.self, for: indexPath)
@@ -90,6 +98,10 @@ class SteppableViewCollectionViewDataSource: CollectionViewDiffableDataSource<St
             cell.change = { textField in
                 action(textField)
             }
+            return cell
+        case let .importAccountTextField(_, action):
+            let cell = collectionView.dequeue(reusableCellClass: SteppableImportAccountCollectionCell.self, for: indexPath)
+            cell.done = action
             return cell
         }
     }
@@ -116,8 +128,9 @@ extension SteppableItem: Hashable {
         switch self {
         case let .image(image):
             hasher.combine(image)
-        case let .label(text):
+        case let .label(text, kind):
             hasher.combine(text)
+            hasher.combine(kind)
         case let .synchronousButton(title, _, _), let .asynchronousButton(title, _, _):
             hasher.combine(title)
         case let .word(index, word):
@@ -126,6 +139,8 @@ extension SteppableItem: Hashable {
         case let .textField(title, placeholder, _):
             hasher.combine(title)
             hasher.combine(placeholder)
+        case let .importAccountTextField(uuid, _):
+            hasher.combine(uuid)
         }
     }
 }

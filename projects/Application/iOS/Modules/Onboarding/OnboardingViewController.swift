@@ -24,10 +24,11 @@ private extension SteppableViewModel {
                     section: .init(kind: .simple),
                     items: [
                         .image(
-                            image: .hui_placeholder512
+                            image: .hui_placeholderV1512
                         ),
                         .label(
-                            text: "OnboardingInitialDescription".asLocalizedKey
+                            text: "OnboardingInitialDescription".asLocalizedKey,
+                            kind: .body
                         ),
                     ]
                 ),
@@ -57,10 +58,11 @@ private extension SteppableViewModel {
                     section: .init(kind: .simple),
                     items: [
                         .image(
-                            image: .hui_placeholder512
+                            image: .hui_placeholderV1512
                         ),
                         .label(
-                            text: "OnboardingPasscodeDescription".asLocalizedKey
+                            text: "OnboardingPasscodeDescription".asLocalizedKey,
+                            kind: .body
                         ),
                     ]
                 ),
@@ -92,10 +94,11 @@ private extension SteppableViewModel {
                     section: .init(kind: .simple),
                     items: [
                         .image(
-                            image: .hui_placeholder512
+                            image: .hui_placeholderV1512
                         ),
                         .label(
-                            text: "OnboardingFinishDescription".asLocalizedKey
+                            text: "OnboardingFinishDescription".asLocalizedKey,
+                            kind: .body
                         ),
                     ]
                 ),

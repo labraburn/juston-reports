@@ -37,6 +37,11 @@ public class BorderedTextView: UIView {
         }
     }
     
+    public var containerViewAnchor: UIView? {
+        get { textView.layoutContainerView }
+        set { textView.layoutContainerView = newValue }
+    }
+    
     public init(caption: String) {
         super.init(frame: .zero)
         captionLabel.text = caption
@@ -99,6 +104,12 @@ public class BorderedTextView: UIView {
     
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
+        
+        guard containerViewAnchor == nil || containerViewAnchor == superview
+        else {
+            return
+        }
+        
         textView.layoutContainerView = superview
     }
     

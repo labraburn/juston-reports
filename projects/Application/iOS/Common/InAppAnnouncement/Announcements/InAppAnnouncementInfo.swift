@@ -45,4 +45,10 @@ extension InAppAnnouncementInfo.Content {
         icon: .copying,
         tintColor: .hui_letter_blue
     )
+    
+    static let wordsCopied = InAppAnnouncementInfo.Content(
+        text: "AnnouncementWordsCopied".asLocalizedKey,
+        icon: .copying,
+        tintColor: .hui_letter_blue
+    )
 }

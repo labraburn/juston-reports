@@ -40,37 +40,22 @@ class SteppableViewCollectionViewLayout: CollectionViewCompositionalLayout {
             )
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 12
-            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18, bottom: 12, trailing: 18)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 18, trailing: 18)
             return section
         case .words:
-            let width = withEnvironmant.container.contentSize.width
-            let iwidth = (width - 68) / 2 - 1 // 1 it's truth
-            
             let item = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(iwidth), heightDimension: .estimated(1))
+                layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(1), heightDimension: .estimated(1))
             )
             
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)),
-                subitems: [item, item]
+                subitems: [item, item, item]
             )
-            group.interItemSpacing = .flexible(8)
-            
-            let decorationItem = NSCollectionLayoutDecorationItem.background(
-                elementKind: String(describing: SteppableWordsDecorationView.self)
-            )
-            
-            decorationItem.contentInsets = NSDirectionalEdgeInsets(
-                top: 12,
-                leading: 18,
-                bottom: 12,
-                trailing: 18
-            )
+            group.interItemSpacing = .fixed(12)
             
             let section = NSCollectionLayoutSection(group: group)
-            section.decorationItems = [decorationItem]
             section.interGroupSpacing = 12
-            section.contentInsets = NSDirectionalEdgeInsets(top: 24, leading: 30, bottom: 24, trailing: 30)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 18, bottom: 18, trailing: 18)
             return section
         }
     }

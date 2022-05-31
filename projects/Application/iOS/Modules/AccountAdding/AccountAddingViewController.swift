@@ -9,6 +9,7 @@ import UIKit
 import SystemUI
 import HuetonUI
 import HuetonCORE
+import CoreData
 
 class AccountAddingViewController: SteppableNavigationController {
     
@@ -24,19 +25,31 @@ private extension SteppableViewModel {
             title: "AccountAddingIOCTitle".asLocalizedKey,
             sections: [
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
                         .image(
-                            image: .hui_placeholder512
+                            image: .hui_placeholderV4512
                         ),
                         .label(
-                            text: "AccountAddingIOCDescription".asLocalizedKey
+                            text: "AccountAddingIOCDescription".asLocalizedKey,
+                            kind: .body
                         ),
                     ]
                 ),
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
+                        .synchronousButton(
+                            title: "AccountAddingImportButton".asLocalizedKey,
+                            kind: .secondary,
+                            action: { viewController in
+                                viewController.next(.import)
+                            }
+                        ),
                         .asynchronousButton(
                             title: "AccountAddingCreateButton".asLocalizedKey,
                             kind: .primary,
@@ -55,13 +68,6 @@ private extension SteppableViewModel {
                                 )
                             }
                         ),
-                        .synchronousButton(
-                            title: "AccountAddingImportButton".asLocalizedKey,
-                            kind: .primary,
-                            action: { viewController in
-                                viewController.next(.import)
-                            }
-                        ),
                     ]
                 )
             ],
@@ -71,50 +77,81 @@ private extension SteppableViewModel {
     }
 
     static var `import`: SteppableViewModel {
-        // TODO: Should be reworked
-        var address = ""
+        var result: SteppableImportAccountCollectionCell.Result? = nil
         return SteppableViewModel(
             title: "AccountAddingImportTitle".asLocalizedKey,
             sections: [
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
                         .label(
-                            text: "AccountAddingImportDescription".asLocalizedKey
+                            text: "AccountAddingImportDescription".asLocalizedKey,
+                            kind: .body
                         ),
-                        .textField(
-                            title: "Public key".asLocalizedKey,
-                            placeholder: "Text key here".asLocalizedKey,
-                            action: { textField in
-                                address = textField.text ?? ""
+                        .importAccountTextField(
+                            uuid: UUID(),
+                            action: { _result in
+                                result = _result
                             }
                         ),
                     ]
                 ),
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
                         .asynchronousButton(
                             title: "AccountAddingNextButton".asLocalizedKey,
                             kind: .primary,
-                            action: { viewController in
-                                guard let address = Address(string: address)
-                                else {
+                            action: { @MainActor viewController in
+                                var keyPublic: String? = nil
+                                var keySecretEncrypted: String? = nil
+                                let selectedAddress: Address
+                                
+                                let context = PersistenceReadableActor.shared.managedObjectContext
+                                
+                                switch result {
+                                case let .address(value):
+                                    let contract = try await Contract(rawAddress: value.rawValue)
+                                    if contract.kind != .uninitialized {
+                                        let data = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
+                                        keyPublic = data?.toHexString()
+                                    }
+                                    selectedAddress = value
+                                case let .words(value):
+                                    let authentication = PasscodeAuthentication(inside: viewController)
+                                    let passcode = try await authentication.key()
+                                    let key = try await Key.import(password: passcode, words: value)
+                                    
+                                    keyPublic = try key.deserializedPublicKey().toHexString()
+                                    keySecretEncrypted = key.encryptedSecretKey.toHexString()
+                                    selectedAddress = try await Address(
+                                        initial: try await Wallet3.initial(key: key)
+                                    )
+                                case .none:
                                     return
                                 }
                                 
-                                let contract = try await Contract(rawAddress: address.rawValue)
-                                var keyPublic: Data? = nil
+                                let request: NSFetchRequest<PersistenceAccount>
+                                if let keyPublic = keyPublic {
+                                    request = PersistenceAccount.fetchRequest(keyPublic: keyPublic)
+                                } else {
+                                    request = PersistenceAccount.fetchRequest(selectedAddress: selectedAddress)
+                                }
                                 
-                                if contract.kind != .uninitialized {
-                                    keyPublic = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
+                                let result = (try? context.fetch(request))?.first
+                                if let account = result {
+                                    throw AccountError.accountExists(name: account.name)
                                 }
                                 
                                 viewController.next(
                                     .appearance(
-                                        keyPublic: keyPublic?.toHexString(),
-                                        keySecretEncrypted: nil,
-                                        selectedAddress: address
+                                        keyPublic: keyPublic,
+                                        keySecretEncrypted: keySecretEncrypted,
+                                        selectedAddress: selectedAddress
                                     )
                                 )
                             }
@@ -136,18 +173,23 @@ private extension SteppableViewModel {
             title: "AccountAddingWordsTitle".asLocalizedKey,
             sections: [
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
                         .label(
-                            text: "AccountAddingWordsDescription".asLocalizedKey
+                            text: "AccountAddingWordsDescription1".asLocalizedKey,
+                            kind: .headline
                         ),
                     ]
                 ),
                 .init(
-                    section: .init(kind: .words),
+                    section: .init(
+                        kind: .words
+                    ),
                     items: { () -> [SteppableItem] in
                         var result = [SteppableItem]()
-                        var index = 0
+                        var index = 1
                         words.forEach({
                             result.append(.word(index: index, word: $0))
                             index += 1
@@ -156,12 +198,30 @@ private extension SteppableViewModel {
                     }()
                 ),
                 .init(
-                    section: .init(kind: .simple),
+                    section: .init(
+                        kind: .simple
+                    ),
+                    items: [
+                        .label(
+                            text: "AccountAddingWordsDescription2".asLocalizedKey,
+                            kind: .body
+                        ),
+                    ]
+                ),
+                .init(
+                    section: .init(
+                        kind: .simple
+                    ),
                     items: [
                         .synchronousButton(
                             title: "AccountAddingCopyButton".asLocalizedKey,
-                            kind: .primary,
+                            kind: .secondary,
                             action: { _ in
+                                InAppAnnouncementCenter.shared.post(
+                                    announcement: InAppAnnouncementInfo.self,
+                                    with: .wordsCopied
+                                )
+                                
                                 let pasteboard = UIPasteboard.general
                                 pasteboard.string = words.joined(separator: " ")
                             }
@@ -182,8 +242,8 @@ private extension SteppableViewModel {
                     ]
                 )
             ],
-            isModalInPresentation: true,
-            isBackActionAvailable: false
+            isModalInPresentation: false,
+            isBackActionAvailable: true
         )
     }
 
@@ -200,8 +260,8 @@ private extension SteppableViewModel {
                     section: .init(kind: .simple),
                     items: [
                         .textField(
-                            title: "AccountAddingAccountNameTitle".asLocalizedKey,
-                            placeholder: "AccountAddingAccountNamePlaceholder".asLocalizedKey,
+                            title: "AccountAddingAppearanceNameTitle".asLocalizedKey,
+                            placeholder: "AccountAddingAppearanceNamePlaceholder".asLocalizedKey,
                             action: { textField in
                                 name = textField.text ?? ""
                             }

@@ -32,6 +32,13 @@ public class SelfSizingTextView: UITextView {
                     initialSpringVelocity: 0.1,
                     options: [.curveEaseInOut],
                     animations: {
+                        switch self.layoutContainerView {
+                        case is UICollectionView:
+                            (self.layoutContainerView as? UICollectionView)?.collectionViewLayout.invalidateLayout()
+                        default:
+                            break
+                        }
+                        
                         self.layoutContainerView?.layoutIfNeeded()
                         self.superview?.layoutIfNeeded()
                         self.layoutIfNeeded()

@@ -10,9 +10,27 @@ import HuetonUI
 
 class SteppableLabelCell: UICollectionViewCell {
     
-    var text: String? {
-        get { textLabel.text }
-        set { textLabel.text = newValue }
+    struct Model: Equatable {
+        
+        let text: String?
+        let kind: SteppableItem.LabelKind
+    }
+    
+    var model: Model? = nil {
+        didSet {
+            guard oldValue != model
+            else {
+                return
+            }
+            
+            textLabel.text = model?.text
+            switch model?.kind {
+            case .body, .none:
+                textLabel.font = .font(for: .body)
+            case .headline:
+                textLabel.font = .font(for: .headline)
+            }
+        }
     }
     
     private let textLabel = UILabel().with({

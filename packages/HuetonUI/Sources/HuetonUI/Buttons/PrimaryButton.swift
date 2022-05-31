@@ -19,13 +19,13 @@ public final class PrimaryButton: HuetonButton {
         $0.textColor = .white
     })
     
-    public var title: String = "" {
+    public override var title: String? {
         didSet {
             textLabel.text = title
         }
     }
     
-    public init(title: String) {
+    public init(title: String? = nil) {
         super.init(frame: .zero)
         textLabel.text = title
         _initialize()

@@ -26,23 +26,21 @@
  START - AccountCreating
  */
 
-"AccountAddingInitialTitle" = "Hey!";
-"AccountAddingInitialDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
+"AccountAddingIOCTitle" = "Add account";
+"AccountAddingIOCDescription" = "Here you can create new TON account or import any if you know it's passphrase or public address";
 
-"AccountAddingIOCTitle" = "Choose your destiny";
-"AccountAddingIOCDescription" = "Do you have a account or you want to import it?";
+"AccountAddingWordsTitle" = "Danger zone!";
+"AccountAddingWordsDescription1" = "This is your secret 24-word passphrase";
+"AccountAddingWordsDescription2" = "Save it and NEVER share it with anyone! If you forget this passphrase - we cannot restore account associated with it.\n\nYour passphrase - only your money";
 
-"AccountAddingWordsTitle" = "Success, my friend";
-"AccountAddingWordsDescription" = "Please, save your passphrase and don’t share it with anyone. Your passphrase - your money";
-
-"AccountAddingImportTitle" = "Keys";
-"AccountAddingImportDescription" = "You can import any account by passphrase or public key (will be only readonly)";
+"AccountAddingImportTitle" = "Account details";
+"AccountAddingImportDescription" = "To import account you can use secret 24-word passphrase or account public address (will be added in read only mode)";
+"AccountAddingImportTitleCaption" = "Address or 24-word passphrase";
 
 "AccountAddingAppearanceTitle" = "Finishing up";
-"AccountAddingAppearanceDescription" = "Please, backup your passphrase and don’t share it with anyone. Your passphrase - your money";
-
-"AccountAddingAccountNameTitle" = "Select name of your account";
-"AccountAddingAccountNamePlaceholder" = "Text name here";
+"AccountAddingAppearanceDescription" = "Choose way how your account card will be looks like";
+"AccountAddingAppearanceNameTitle" = "Name of account";
+"AccountAddingAppearanceNamePlaceholder" = "Text name here";
 
 "AccountAddingNextButton" = "NEXT";
 "AccountAddingCreateButton" = "CREATE";
@@ -108,6 +106,16 @@
  */
 
 /*
+ START - AccountError
+ */
+
+"AccountErrorAccountExists" = "Account already exists with name '%@'";
+
+/*
+ END - AccountError
+ */
+
+/*
  START - PermissionError
  */
 
@@ -147,6 +155,7 @@
  */
 
 "AnnouncementAddressCopied" = "Account address copied to pasteboard";
+"AnnouncementWordsCopied" = "Account secret passphrase copied to pasteboard";
 
 /*
  END - Announcements

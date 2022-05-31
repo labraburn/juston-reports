@@ -87,10 +87,10 @@ final class InAppAnnouncementView: UIView {
         tintView.layer.cornerCurve = .continuous
         
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.height / 2).cgPath
-        layer.shadowColor = UIColor(rgb: 0x646464).cgColor
-        layer.shadowOpacity = 0.4
+        layer.shadowColor = UIColor(rgb: 0x000000).cgColor
+        layer.shadowOpacity = 0.8
         layer.shadowOffset = .zero
-        layer.shadowRadius = 16
+        layer.shadowRadius = 24
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

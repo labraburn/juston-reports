@@ -20,13 +20,13 @@ public class SecondaryButton: HuetonButton {
         $0.textColor = UIColor(rgb: 0x7B66FF)
     })
     
-    public var title: String = "" {
+    public override var title: String? {
         didSet {
             textLabel.text = title
         }
     }
     
-    public init(title: String) {
+    public init(title: String? = nil) {
         super.init(frame: .zero)
         textLabel.text = title
         _initialize()

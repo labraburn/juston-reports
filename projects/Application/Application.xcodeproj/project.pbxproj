@@ -31,6 +31,8 @@
 		F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */; };
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
+		F01E2ABC2846ABBE00AA108F /* SteppableImportAccountCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABB2846ABBE00AA108F /* SteppableImportAccountCollectionCell.swift */; };
+		F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABD2846BE2700AA108F /* AccountError.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
@@ -134,6 +136,8 @@
 		F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3NavigationView.swift; sourceTree = "<group>"; };
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
+		F01E2ABB2846ABBE00AA108F /* SteppableImportAccountCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppableImportAccountCollectionCell.swift; sourceTree = "<group>"; };
+		F01E2ABD2846BE2700AA108F /* AccountError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountError.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
@@ -447,6 +451,7 @@
 				F0909B5027E88D8200FC8404 /* SteppableButtonCell.swift */,
 				F0909B5627E8B2D000FC8404 /* SteppableWordCell.swift */,
 				F0909B6227E8DB1900FC8404 /* SteppableTextFieldCell.swift */,
+				F01E2ABB2846ABBE00AA108F /* SteppableImportAccountCollectionCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -523,16 +528,13 @@
 				F0A457A1283D79780039F6CA /* NavigationController */,
 				F0A4579A283C47AD0039F6CA /* Camera */,
 				F07C7F9628329A4C00A10B41 /* Transfer */,
-				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
 				F0118DA9281075D500B518A9 /* Web3ViewController */,
 				F0118D992810612000B518A9 /* SafariViewController */,
 				F0118D9428105E4900B518A9 /* Bookmarks */,
-				F0118D8C2810599500B518A9 /* SCLS3000 */,
 				F0118D7B28102DC000B518A9 /* Settings */,
 				F0118D76280F1C8A00B518A9 /* Explore */,
 				F0A151522802726000EF9F83 /* Passcode */,
-				F0A1513D280252AA00EF9F83 /* Steppable */,
 				F0A1513A2802527B00EF9F83 /* Onboarding */,
 				F0DBFA4F27F607FB00956DC9 /* Alert */,
 				F0909B4427E781F400FC8404 /* AccountAdding */,
@@ -624,6 +626,7 @@
 			children = (
 				F0A1514E280268F000EF9F83 /* ApplicationError.swift */,
 				F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */,
+				F01E2ABD2846BE2700AA108F /* AccountError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -738,6 +741,9 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
+				F0A1513D280252AA00EF9F83 /* Steppable */,
+				F0118D8C2810599500B518A9 /* SCLS3000 */,
 				F0678147281AA51200EB05F4 /* VerticalLabelContainerView */,
 				F0118DA6281069DB00B518A9 /* RemoteImageView */,
 				F0A1514D280268E300EF9F83 /* Errors */,
@@ -868,6 +874,7 @@
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* SCLS3000AccessoryCollectionViewCell.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
+				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
 				F0A15145280253C500EF9F83 /* SteppableViewCollectionViewDataSource.swift in Sources */,
 				F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */,
 				F0BC3C43280AACE80036F53A /* GlassBackgroundLumineView.swift in Sources */,
@@ -885,6 +892,7 @@
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
+				F01E2ABC2846ABBE00AA108F /* SteppableImportAccountCollectionCell.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* SCLS3000ApplicationVersionHeaderView.swift in Sources */,
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
 				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,

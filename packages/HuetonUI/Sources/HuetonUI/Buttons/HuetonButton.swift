@@ -7,6 +7,7 @@ import UIKit
 public class HuetonButton: UIControl {
     
     public private(set) var operation: Task<(), Never>? = nil
+    public var title: String? = nil
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

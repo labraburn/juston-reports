@@ -238,6 +238,17 @@ public extension PersistenceAccount {
         return request
     }
     
+    @nonobjc
+    class func fetchRequest(
+        keyPublic: String
+    ) -> NSFetchRequest<PersistenceAccount> {
+        let request = NSFetchRequest<PersistenceAccount>(entityName: "Account")
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "keyPublic == %@", keyPublic),
+        ])
+        return request
+    }
+    
     @PersistenceReadableActor
     @nonobjc
     class func fetchedResultsController(
