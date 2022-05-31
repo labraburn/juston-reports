@@ -77,8 +77,9 @@
  START - AccountRemoving
  */
 
-"AccountDeletePromptMessage" = "Do you remember recovery keys? You account will be removed forever and we cannot being restore it!";
-"AccountDeleteDestructiveTitle" = "Delete account";
+"AccountDeletePromptMessagePublic" = "Are you sure about this?";
+"AccountDeletePromptMessagePrivate" = "Do you remember 24-word passphrase?\n\nYou account will be removed completely forever and we cannot being restore it!";
+"AccountDeleteDestructiveButtonTitle" = "Yes, remove account";
 
 /*
  END - AccountRemoving

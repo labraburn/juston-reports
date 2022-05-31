@@ -148,13 +148,13 @@ class AlertViewController: UIViewController {
             switch action.style {
             case .`default`:
                 button.tintColor = .hui_textPrimary
-                button.setAttributedTitle(.string(action.title, with: .body, kern: .default), for: .normal)
+                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .hui_textPrimary), for: .normal)
             case .destructive:
                 button.tintColor = .hui_letter_red
-                button.setAttributedTitle(.string(action.title, with: .body, kern: .default), for: .normal)
+                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .hui_letter_red), for: .normal)
             case .cancel:
                 button.tintColor = .hui_textPrimary
-                button.setAttributedTitle(.string(action.title, with: .headline, kern: .default), for: .normal)
+                button.setAttributedTitle(.string(action.title, with: .headline, foregroundColor: .hui_textPrimary), for: .normal)
             }
             verticalStackView.addArrangedSubview(button)
             index += 1

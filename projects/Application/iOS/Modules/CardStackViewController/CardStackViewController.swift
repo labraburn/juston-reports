@@ -116,16 +116,27 @@ extension CardStackViewController: CardStackViewDelegate {
         _ view: CardStackView,
         didClickRemoveButtonWithModel model: CardStackCard
     ) {
+        let prompt: String
+        if model.account.isReadonly {
+            prompt = "AccountDeletePromptMessagePublic".asLocalizedKey
+        } else {
+            prompt = "AccountDeletePromptMessagePrivate".asLocalizedKey
+        }
+        
         let viewController = AlertViewController(
             image: .image(.hui_warning42, tintColor: .hui_letter_red),
             title: "CommonAttention".asLocalizedKey,
-            message: "AccountDeletePromptMessage".asLocalizedKey,
+            message: prompt,
             actions: [
                 .init(
-                    title: "AccountDeleteDestructiveTitle".asLocalizedKey,
+                    title: "AccountDeleteDestructiveButtonTitle".asLocalizedKey,
                     block: { viewController in
-//                        try? model.account.delete()
-//                        viewController.dismiss(animated: true)
+                        let id = model.account.objectID
+                        Task { @PersistenceWritableActor in
+                            let object = PersistenceAccount.writeableObject(id: id)
+                            try? object.delete()
+                        }
+                        viewController.dismiss(animated: true)
                     },
                     style: .destructive
                 ),
