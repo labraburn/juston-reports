@@ -117,24 +117,24 @@ class DashboardViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showParoleViewControllerIfNeeded()
+        showOnboardingViewControllerIfNeeded()
         accountsView.perfromApperingAnimation()
     }
     
     // MARK: Private
     
-    private func showParoleViewControllerIfNeeded() {
+    fileprivate func showOnboardingViewControllerIfNeeded() {
+        guard cardsStackViewController.cards.isEmpty || !UDS.isAgreementsAccepted || !UDS.isWelcomeScreenViewed
+        else {
+            return
+        }
+        
         Task {
-            let parole = SecureParole()
-            let isKeyGenerated = await parole.isKeyGenerated
+            let navigationController = OnboardingNavigationController(
+                initialConfiguration: await .dependsUserDefaults()
+            )
             
-            guard !isKeyGenerated
-            else {
-                return
-            }
-            
-            let viewController = OnboardingViewController()
-            hui_present(viewController, animated: true)
+            hui_present(navigationController, animated: true, completion: nil)
         }
     }
 }
@@ -251,8 +251,14 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         _ view: DashboardAccountsView,
         addAccountButtonDidClick button: UIButton
     ) {
-        let navigationController = AccountAddingViewController()
-        hui_present(navigationController, animated: true, completion: nil)
+        // This is simple task
+        Task {
+            let navigationController = OnboardingNavigationController(
+                initialConfiguration: await .dependsUserDefaults()
+            )
+            
+            hui_present(navigationController, animated: true, completion: nil)
+        }
     }
     
     func dashboardAccountsView(

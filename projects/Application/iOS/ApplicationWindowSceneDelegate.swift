@@ -26,7 +26,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         
         let inAppAnnouncementWindow = InAppAnnouncementWindow(windowScene: windowScene)
-        inAppAnnouncementWindow.makeKeyAndVisible()
+        inAppAnnouncementWindow.isHidden = false
     }
 }
 

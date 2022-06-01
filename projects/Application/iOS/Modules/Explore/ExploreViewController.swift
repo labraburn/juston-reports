@@ -13,17 +13,8 @@ class ExploreViewController: FloatingTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let bookmarksViewController = BookmarksViewController()
-//        bookmarksViewController.tabBarItem = {
-//            let item = FloatingTabBarItem()
-//            item.image = .hui_tabBarPlanet44
-//            item.selectedTintColor = .hui_letter_purple
-//            item.deselectedTintColor = .hui_tabBarDeselected
-//            return item
-//        }()
-        
-        let dashboardViewController = DashboardViewController()
-        dashboardViewController.tabBarItem = {
+        let dashboardNavigationController = NavigationController(rootViewController: DashboardViewController())
+        dashboardNavigationController.tabBarItem = {
             let item = FloatingTabBarItem()
             item.image = .hui_tabBarCards44
             item.selectedTintColor = .hui_letter_blue
@@ -31,8 +22,8 @@ class ExploreViewController: FloatingTabBarController {
             return item
         }()
         
-        let settingsViewController = SettingsViewController()
-        settingsViewController.tabBarItem = {
+        let settingsNavigationController = C42NavigationController(rootViewController: SettingsViewController())
+        settingsNavigationController.tabBarItem = {
             let item = FloatingTabBarItem()
             item.image = .hui_tabBarGear44
             item.selectedTintColor = .hui_letter_violet
@@ -41,26 +32,10 @@ class ExploreViewController: FloatingTabBarController {
         }()
         
         viewControllers = [
-//            instantiateNavigationController(rootViewController: bookmarksViewController),
-            instantiateNavigationController(rootViewController: dashboardViewController),
-            instantiateNavigationController(rootViewController: settingsViewController)
+            dashboardNavigationController,
+            settingsNavigationController
         ]
         
         selectedIndex = 0
-    }
-    
-    private func instantiateNavigationController(
-        rootViewController: UIViewController
-    ) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        
-        let navigationItemAppearence = UINavigationBarAppearance()
-        navigationItemAppearence.configureWithDefaultBackground()
-        
-        let navigationBar = navigationController.navigationBar
-        navigationBar.standardAppearance = navigationItemAppearence
-        navigationBar.scrollEdgeAppearance = navigationItemAppearence
-        
-        return navigationController
     }
 }

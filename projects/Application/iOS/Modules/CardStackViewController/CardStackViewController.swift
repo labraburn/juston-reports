@@ -128,6 +128,37 @@ extension CardStackViewController: CardStackViewDelegate {
     
     func cardStackView(
         _ view: CardStackView,
+        didClickBackupButtonWithModel model: CardStackCard
+    ) {
+        guard let keyPublic = model.account.keyPublic,
+              let keySecretEncrypted = model.account.keySecretEncrypted
+        else {
+            return
+        }
+        
+        Task {
+            let authentication = PasscodeAuthentication(inside: self)
+            let passcode = try await authentication.key()
+            
+            let key = try Key(
+                publicKey: keyPublic,
+                encryptedSecretKey: Data(hex: keySecretEncrypted)
+            )
+            
+            let words = try await key.words(password: passcode)
+            
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = words.joined(separator: " ")
+            
+            InAppAnnouncementCenter.shared.post(
+                announcement: InAppAnnouncementInfo.self,
+                with: .wordsCopied
+            )
+        }
+    }
+    
+    func cardStackView(
+        _ view: CardStackView,
         didClickRemoveButtonWithModel model: CardStackCard
     ) {
         let prompt: String

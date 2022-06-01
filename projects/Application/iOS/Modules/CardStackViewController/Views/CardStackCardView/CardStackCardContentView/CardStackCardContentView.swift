@@ -76,6 +76,16 @@ class CardStackCardContentView: UIView {
             }
         ))
         
+        if !model.account.isReadonly {
+            children.append(UIAction(
+                title: "AccountCardBackupButton".asLocalizedKey,
+                image: UIImage(systemName: "key"),
+                handler: { [weak self] _ in
+                    self?.backupButtonDidClick(nil)
+                }
+            ))
+        }
+        
         return UIMenu(
             children: children
         )
@@ -101,6 +111,11 @@ class CardStackCardContentView: UIView {
     @objc
     func appearanceButtonDidClick(_ sender: UIControl?) {
         delegate?.cardStackCardView(self, didClickAppearanceButtonWithModel: model)
+    }
+    
+    @objc
+    func backupButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickBackupButtonWithModel: model)
     }
     
     @objc

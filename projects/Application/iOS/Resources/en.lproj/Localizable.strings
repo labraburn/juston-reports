@@ -10,6 +10,7 @@
  START - Common
  */
 
+"CommonYes" = "Yes";
 "CommonCancel" = "Cancel";
 "CommonDone" = "Done";
 "CommonRemove" = "Remove";
@@ -17,60 +18,52 @@
 "CommonAttention" = "Attention!";
 "CommonSettings" = "Open settings";
 "CommonOK" = "OK";
+"CommonUndoneAction" = "Are you sure? This action cannot being undone!";
 
 /*
  END - Common
  */
 
 /*
- START - AccountCreating
+ START - Onboarding
  */
 
-"AccountAddingIOCTitle" = "Add account";
-"AccountAddingIOCDescription" = "Here you can create new TON account or import any if you know it's passphrase or public address";
 
-"AccountAddingWordsTitle" = "Danger zone!";
-"AccountAddingWordsDescription1" = "This is your secret 24-word passphrase";
-"AccountAddingWordsDescription2" = "Save it and NEVER share it with anyone! If you forget this passphrase - we cannot restore account associated with it.\n\nYour passphrase - only your money";
+"OnboardingWelcomeTitle" = "Hey!";
+"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-castodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network";
 
-"AccountAddingImportTitle" = "Account details";
-"AccountAddingImportDescription" = "To import account you can use secret 24-word passphrase or account public address (will be added in read only mode)";
-"AccountAddingImportTitleCaption" = "Address or 24-word passphrase";
-
-"AccountAddingAppearanceTitle" = "Finishing up";
-"AccountAddingAppearanceDescription" = "Choose way how your account card will be looks like";
-"AccountAddingAppearanceNameTitle" = "Name of account";
-"AccountAddingAppearanceNamePlaceholder" = "Text name here";
-
-"AccountAddingNextButton" = "NEXT";
-"AccountAddingCreateButton" = "CREATE";
-"AccountAddingImportButton" = "IMPORT";
-"AccountAddingCopyButton" = "COPY";
-"AccountAddingDoneButton" = "DONE";
-
-/*
- END - AccountCreating
- */
-
-/*
- START - AccountCreating
- */
-
-"OnboardingInitialTitle" = "Hey!";
-"OnboardingInitialDescription" = "This is a BILF, simple and non-castodial (we don’t store your keys on our side) wallet for TON network";
+"OnboardingAgreementsTitle" = "User agreements";
+"OnboardingAgreementsDescription" = "Please, review agreements and click accept button";
+"OnboardingAgreementsActionButton" = "ACCEPT";
 
 "OnboardingPasscodeTitle" = "Protection";
-"OnboardingPasscodeDescription" = "Before you create any account you should protect your data and create 6-digit passcode. This data will be secured with Secure Enclave Apple technology";
+"OnboardingPasscodeDescription" = "Before you create any account you should create 6-digit passcode to protect your keys with secure enclave chip";
+"OnboardingPasscodeActionButton" = "CREATE PASSCODE";
 
-"OnboardingFinishTitle" = "Yep, thats all";
-"OnboardingFinishDescription" = "Enjoy the best (in our opinion) wallet aplication for TON network";
+"OnboardingIOCTitle" = "Add account";
+"OnboardingIOCDescription" = "Here you can create new TON account or import any if you know it's passphrase or public address";
+
+"OnboardingWordsTitle" = "Danger zone!";
+"OnboardingWordsDescription1" = "This is your secret 24-word passphrase";
+"OnboardingWordsDescription2" = "Save it and NEVER share it with anyone! If you forget this passphrase - we cannot restore account associated with it.\n\nYour passphrase - only your money";
+
+"OnboardingImportTitle" = "Account details";
+"OnboardingImportDescription" = "To import account you can use secret 24-word passphrase or account public address (will be added in read only mode)";
+"OnboardingImportTitleCaption" = "Address or 24-word passphrase";
+
+"OnboardingAppearanceTitle" = "Finishing up";
+"OnboardingAppearanceDescription" = "Choose way how your account card will be looks like";
+"OnboardingAppearanceNameTitle" = "Name of account";
+"OnboardingAppearanceNamePlaceholder" = "Text name here";
 
 "OnboardingNextButton" = "NEXT";
 "OnboardingCreateButton" = "CREATE";
+"OnboardingImportButton" = "IMPORT";
+"OnboardingCopyButton" = "COPY";
 "OnboardingDoneButton" = "DONE";
 
 /*
- END - AccountCreating
+ END - Onboarding
  */
 
 /*
@@ -159,6 +152,7 @@
 "AccountCardUnsubscribeButton" = "Disable notifications";
 "AccountCardResynchronizeButton" = "Re-synchronize";
 "AccountCardChangeApperanceButton" = "Change apperance";
+"AccountCardBackupButton" = "Backup keys";
 
 /*
  END - AccountCard

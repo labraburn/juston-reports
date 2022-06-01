@@ -43,7 +43,12 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
     override var isHighlighted: Bool {
         didSet {
             setHighlightedAnimated(isHighlighted)
-            if isHighlighted {
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
                impactOccurred()
             }
         }
