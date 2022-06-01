@@ -47,6 +47,16 @@ public class PersistenceObject: NSManagedObject {
         )
     }
     
+    // Sometimes, when no inverse relationship..
+    // Shit happend
+    public override func setValue(_ value: Any?, forUndefinedKey key: String) {
+        if key == "" {
+            return
+        }
+        
+        super.setValue(value, forUndefinedKey: key)
+    }
+    
     // This methods/properties available in PersistenceWritableActor to add ability to perfrom write operations in CoreData
     // MARK: - Writable
     
