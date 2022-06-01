@@ -135,9 +135,9 @@
  START - PasscodeView
  */
 
-"PasscodeViewEnterCode" = "Please, enter your 6-digit code to authorize this operation";
-"PasscodeViewCreateCode1" = "Create 6-digit and remember it";
-"PasscodeViewCreateCode2" = "Repeat 6-digit and remember it";
+"PasscodeViewEnterCode" = "Enter your 6-digit passcode to authorize this operation";
+"PasscodeViewCreateCode1" = "Create 6-digit passcode and remember it";
+"PasscodeViewCreateCode2" = "Please, repeat 6-digit passcode and remember it";
 
 /*
  END - PasscodeView
