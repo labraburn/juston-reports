@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct AccountAppearance {
     
@@ -16,13 +17,25 @@ public struct AccountAppearance {
     public enum Kind {
         
         case glass(gradient0Color: Int, gradient1Color: Int)
-        case gradientImage(imageData: Data, shadowColor: Int)
+        case gradientImage(imageData: Data, strokeColor: Int)
     }
     
     public let kind: Kind
     public let tintColor: Int
     public let controlsForegroundColor: Int
     public let controlsBackgroundColor: Int
+    
+    public init(
+        kind: Kind,
+        tintColor: Int,
+        controlsForegroundColor: Int,
+        controlsBackgroundColor: Int
+    ) {
+        self.kind = kind
+        self.tintColor = tintColor
+        self.controlsForegroundColor = controlsForegroundColor
+        self.controlsBackgroundColor = controlsBackgroundColor
+    }
 }
 
 extension AccountAppearance: Codable {
@@ -82,7 +95,7 @@ extension AccountAppearance.Kind: Codable {
         case gradient1Color
         
         case imageData
-        case shadowColor
+        case strokeColor
     }
     
     public init(from decoder: Decoder) throws {
@@ -98,7 +111,7 @@ extension AccountAppearance.Kind: Codable {
         case "gradientImage":
             self = .gradientImage(
                 imageData: container.decode(Data.self, forKey: .imageData, fallback: Data()),
-                shadowColor: container.decode(Int.self, forKey: .shadowColor, fallback: 0x000000FF)
+                strokeColor: container.decode(Int.self, forKey: .strokeColor, fallback: 0xFEF6FF0A)
             )
         default:
             self = .glass(
@@ -115,10 +128,13 @@ extension AccountAppearance.Kind: Codable {
             try container.encode("glass", forKey: .kase)
             try container.encode(gradient0Color, forKey: .gradient0Color)
             try container.encode(gradient1Color, forKey: .gradient1Color)
-        case let .gradientImage(imageData, shadowColor):
-            try container.encode("glass", forKey: .kase)
+        case let .gradientImage(imageData, strokeColor):
+            try container.encode("gradientImage", forKey: .kase)
             try container.encode(imageData, forKey: .imageData)
-            try container.encode(shadowColor, forKey: .shadowColor)
+            try container.encode(strokeColor, forKey: .strokeColor)
         }
     }
 }
+
+extension AccountAppearance.Kind: Hashable {}
+extension AccountAppearance: Hashable {}

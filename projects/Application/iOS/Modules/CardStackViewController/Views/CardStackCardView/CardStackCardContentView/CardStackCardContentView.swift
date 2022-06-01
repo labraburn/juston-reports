@@ -68,6 +68,14 @@ class CardStackCardContentView: UIView {
             ))
         }
         
+        children.append(UIAction(
+            title: "AccountCardChangeApperanceButton".asLocalizedKey,
+            image: UIImage(systemName: "paintbrush"),
+            handler: { [weak self] _ in
+                self?.appearanceButtonDidClick(nil)
+            }
+        ))
+        
         return UIMenu(
             children: children
         )
@@ -88,6 +96,11 @@ class CardStackCardContentView: UIView {
     @objc
     func removeButtonDidClick(_ sender: UIControl?) {
         delegate?.cardStackCardView(self, didClickRemoveButtonWithModel: model)
+    }
+    
+    @objc
+    func appearanceButtonDidClick(_ sender: UIControl?) {
+        delegate?.cardStackCardView(self, didClickAppearanceButtonWithModel: model)
     }
     
     @objc

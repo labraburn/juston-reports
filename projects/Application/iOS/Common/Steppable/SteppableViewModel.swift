@@ -23,3 +23,13 @@ struct SteppableViewModel {
     let isModalInPresentation: Bool
     let isBackActionAvailable: Bool
 }
+
+@MainActor
+struct SteppableViewGenericModel {
+    
+    let title: String
+    let viewController: (_ navigationController: UINavigationController) -> UIViewController
+    
+    let isModalInPresentation: Bool
+    let isBackActionAvailable: Bool
+}

@@ -16,11 +16,18 @@ class GradientImageBackgroundView: UIView, CardStackCardBackgroundContentView {
         $0.clipsToBounds = true
     })
     
+    var borderColor: UIColor = .white.withAlphaComponent(0) {
+        didSet {
+            imageView.layer.borderWidth = 2
+            imageView.layer.borderColor = borderColor.cgColor
+            setNeedsLayout()
+        }
+    }
+    
     var cornerRadius: CGFloat = 0 {
         didSet {
             imageView.layer.cornerRadius = cornerRadius
             imageView.layer.cornerCurve = .continuous
-            
             setNeedsLayout()
         }
     }
@@ -44,16 +51,7 @@ class GradientImageBackgroundView: UIView, CardStackCardBackgroundContentView {
     private func _init() {
         addSubview(imageView)
         imageView.pinned(edges: self)
-        
         clipsToBounds = false
-        
-        layer.shadowOffset = .zero
-        layer.shadowColor = UIColor(rgb: 0x9341F9).cgColor
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 1
-        
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor(rgb: 0xFEF6FF).withAlphaComponent(0.1).cgColor
     }
     
     override func layoutSubviews() {

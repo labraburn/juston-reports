@@ -68,6 +68,22 @@ class SteppableViewController: UIViewController {
         navigationController?.pushViewController(nextViewController, animated: true)
     }
     
+    func next(_ model: SteppableViewGenericModel) {
+        guard let navigationController = navigationController
+        else {
+            fatalError()
+        }
+        
+        let nextViewController = model.viewController(navigationController)
+        nextViewController.loadViewIfNeeded()
+        
+        nextViewController.title = model.title
+        nextViewController.navigationItem.backButtonTitle = ""
+        nextViewController.navigationItem.setHidesBackButton(!model.isBackActionAvailable, animated: true)
+        
+        navigationController.pushViewController(nextViewController, animated: true)
+    }
+    
     func finish() {
         navigationController?.dismiss(animated: true, completion: nil)
     }

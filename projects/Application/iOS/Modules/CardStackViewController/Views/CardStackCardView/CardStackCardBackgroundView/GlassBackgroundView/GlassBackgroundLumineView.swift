@@ -45,7 +45,11 @@ class GlassBackgroundLumineView: UIView {
         }
     }
     
-    init(colors: [UIColor]) {
+    init(
+        colors: [UIColor],
+        lineWidth: CGFloat
+    ) {
+        self.lineWidth = lineWidth
         gradientView = {
             let gradientView = GradientView(
                 colors: colors,

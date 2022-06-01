@@ -114,6 +114,20 @@ extension CardStackViewController: CardStackViewDelegate {
     
     func cardStackView(
         _ view: CardStackView,
+        didClickAppearanceButtonWithModel model: CardStackCard
+    ) {
+        let viewController = AccountAppearenceViewController(
+            initialConfiguration: .init(
+                account: model.account
+            )
+        )
+        
+        let navigationController = NavigationController(rootViewController: viewController)
+        hui_present(navigationController, animated: true)
+    }
+    
+    func cardStackView(
+        _ view: CardStackView,
         didClickRemoveButtonWithModel model: CardStackCard
     ) {
         let prompt: String

@@ -246,58 +246,37 @@ private extension SteppableViewModel {
             isBackActionAvailable: true
         )
     }
+}
 
+private extension SteppableViewGenericModel {
+    
     static func appearance(
         keyPublic: String?,
         keySecretEncrypted: String?,
         selectedAddress: Address
-    ) -> SteppableViewModel {
-        var name = ""
-        return SteppableViewModel(
+    ) -> SteppableViewGenericModel {
+        SteppableViewGenericModel(
             title: "AccountAddingAppearanceTitle".asLocalizedKey,
-            sections: [
-                .init(
-                    section: .init(kind: .simple),
-                    items: [
-                        .textField(
-                            title: "AccountAddingAppearanceNameTitle".asLocalizedKey,
-                            placeholder: "AccountAddingAppearanceNamePlaceholder".asLocalizedKey,
-                            action: { textField in
-                                name = textField.text ?? ""
-                            }
-                        ),
-                    ]
-                ),
-                .init(
-                    section: .init(kind: .simple),
-                    items: [
-                        .asynchronousButton(
-                            title: "AccountAddingDoneButton".asLocalizedKey,
-                            kind: .primary,
-                            action: { viewController in
-                                guard !name.isEmpty
-                                else {
-                                    return
-                                }
-                                
-                                let account = await PersistenceAccount(
-                                    keyPublic: keyPublic,
-                                    keySecretEncrypted: keySecretEncrypted,
-                                    selectedAddress: selectedAddress,
-                                    name: name,
-                                    appearance: .default
-                                )
-                                
-                                try await account.saveAsLastSorting()
-                                try await account.saveAsLastUsage()
-                                
-                                viewController.finish()
-                            }
-                        ),
-                    ]
-                ),
-            ],
-            isModalInPresentation: true,
+            viewController: { navigationController in
+                CreatingAccountAppearenceViewController(
+                    completionBlock: { [weak navigationController] name, appearence in
+                        let account = await PersistenceAccount(
+                            keyPublic: keyPublic,
+                            keySecretEncrypted: keySecretEncrypted,
+                            selectedAddress: selectedAddress,
+                            name: name,
+                            appearance: appearence
+                        )
+
+                        try await account.saveAsLastSorting()
+                        try await account.saveAsLastUsage()
+
+                        // TODO: Fix this weird code
+                        navigationController?.dismiss(animated: true)
+                    }
+                )
+            },
+            isModalInPresentation: false,
             isBackActionAvailable: true
         )
     }

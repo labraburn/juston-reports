@@ -39,6 +39,8 @@ public extension UIImage {
     
     static let hui_addCircle20: UIImage = .named("AddCircle20")
     static let hui_scan20: UIImage = .named("Scan20")
+    static let hui_radioButtonSelected20: UIImage = .named("RadioButtonSelected20")
+    static let hui_radioButtonDeselected20: UIImage = .named("RadioButtonDeselected20")
     
     static let hui_send24: UIImage = .named("Send24")
     static let hui_scan24: UIImage = .named("Scan24")
@@ -65,6 +67,11 @@ public extension UIImage {
     static let hui_qrCodeOverlay512: UIImage = .named("QRCodeOverlay512")
     
     static let hui_cardGradient0: UIImage = .named("CardGradient0")
+    static let hui_cardGradient1: UIImage = .named("CardGradient1")
+    static let hui_cardGradient2: UIImage = .named("CardGradient2")
+    static let hui_cardGradient3: UIImage = .named("CardGradient3")
+    static let hui_cardGradient4: UIImage = .named("CardGradient4")
+    static let hui_cardGradient5: UIImage = .named("CardGradient5")
     
     static let hui_tabBarCards44: UIImage = .named("TabBar/Cards44")
     static let hui_tabBarGear44: UIImage = .named("TabBar/Gear44")

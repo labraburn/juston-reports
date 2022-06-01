@@ -24,6 +24,11 @@ protocol CardStackViewDelegate: AnyObject {
     
     func cardStackView(
         _ view: CardStackView,
+        didClickAppearanceButtonWithModel model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
         didClickSubscribeButtonWithModel model: CardStackCard
     )
     
@@ -550,6 +555,10 @@ extension CardStackView: CardStackCardViewDelegate {
     
     func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: CardStackCard) {
         delegate?.cardStackView(self, didClickReceiveButtonWithModel: model)
+    }
+    
+    func cardStackCardView(_ view: UIView, didClickAppearanceButtonWithModel model: CardStackCard) {
+        delegate?.cardStackView(self, didClickAppearanceButtonWithModel: model)
     }
     
     func cardStackCardView(_ view: UIView, didClickSubscribeButtonWithModel model: CardStackCard) {

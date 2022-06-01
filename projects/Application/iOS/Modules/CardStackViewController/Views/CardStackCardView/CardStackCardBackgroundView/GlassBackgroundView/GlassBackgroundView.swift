@@ -12,15 +12,36 @@ import DeclarativeUI
 
 class GlassBackgroundView: UIView, CardStackCardBackgroundContentView {
     
-    private let borderView = UIView().with({
+    enum EffectsSize {
+        
+        case small
+        case large
+        
+        fileprivate var blurEffect: UIBlurEffect {
+            switch self {
+            case .small: return UIBlurEffect(radius: 10, scale: 100)
+            case .large: return UIBlurEffect(radius: 67, scale: 100)
+            }
+        }
+        
+        fileprivate var lineWidth: CGFloat {
+            switch self {
+            case .small: return 6
+            case .large: return 18
+            }
+        }
+    }
+    
+    private lazy var borderView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    private let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(radius: 67, scale: 100)).with({
+    private lazy var visualEffectView = UIVisualEffectView(effect: effectsSize.blurEffect).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    let lumineView: GlassBackgroundLumineView
+    private let lumineView: GlassBackgroundLumineView
+    private let effectsSize: EffectsSize
     
     var cornerRadius: CGFloat = 0 {
         didSet {
@@ -29,8 +50,15 @@ class GlassBackgroundView: UIView, CardStackCardBackgroundContentView {
         }
     }
     
-    init(colors: [UIColor]) {
-        lumineView = GlassBackgroundLumineView(colors: colors).with({
+    init(
+        colors: [UIColor],
+        effectsSize: EffectsSize = .large
+    ) {
+        self.effectsSize = effectsSize
+        lumineView = GlassBackgroundLumineView(
+            colors: colors,
+            lineWidth: effectsSize.lineWidth
+        ).with({
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
@@ -38,8 +66,14 @@ class GlassBackgroundView: UIView, CardStackCardBackgroundContentView {
         _init()
     }
     
-    required init?(coder: NSCoder) {
-        lumineView = GlassBackgroundLumineView(colors: [.cyan, .magenta]).with({
+    required init?(
+        coder: NSCoder
+    ) {
+        self.effectsSize = .large
+        lumineView = GlassBackgroundLumineView(
+            colors: [.cyan, .magenta],
+            lineWidth: EffectsSize.large.lineWidth
+        ).with({
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
         
