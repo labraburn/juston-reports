@@ -182,7 +182,8 @@ extension UIView {
     
     private static let overlayLoadingViewTag = 0x0f56
     
-    public func startLoadingAnimation(delay: TimeInterval = 0.2, fade: Bool = true, width: CGFloat = 1) {
+    @objc
+    open func startLoadingAnimation(delay: TimeInterval = 0.2, fade: Bool = true, width: CGFloat = 1) {
         isUserInteractionEnabled = false
         
         var view = viewWithTag(UIView.overlayLoadingViewTag) as? OverlayLoadingView
@@ -202,7 +203,8 @@ extension UIView {
         view?.startAnimation(delay: delay, fade: fade, width: width)
     }
     
-    public func stopLoadingAnimation() {
+    @objc
+    open func stopLoadingAnimation() {
         isUserInteractionEnabled = true
         
         let view = viewWithTag(UIView.overlayLoadingViewTag) as? OverlayLoadingView

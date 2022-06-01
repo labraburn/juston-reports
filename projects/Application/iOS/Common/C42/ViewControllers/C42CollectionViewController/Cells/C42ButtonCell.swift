@@ -75,6 +75,19 @@ class C42ButtonCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func startAsynchronousOperation(
+        priority: TaskPriority? = nil,
+        _ block: @escaping @Sendable () async -> ()
+    ) {
+        button?.startAsynchronousOperation(
+            priority: priority,
+            block,
+            { [weak button] in
+                button?.isUserInteractionEnabled = false
+            }
+        )
+    }
+    
     // MARK: Sizing
     
     public override var intrinsicContentSize: CGSize {

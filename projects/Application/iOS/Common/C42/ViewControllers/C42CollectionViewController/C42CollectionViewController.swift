@@ -92,28 +92,40 @@ extension C42CollectionViewController: UICollectionViewDelegate {
             return
         }
         
-        switch itemIdentifier {
-        case let .synchronousButton(_, _, action):
-            do {
-                try action(self)
-            } catch {
-                present(error)
-            }
-        case let .asynchronousButton(_, _, action):
-            view.isUserInteractionEnabled = true
-            task?.cancel()
-            task = Task {
+        if let cell = collectionView.cellForItem(at: indexPath) as? C42ButtonCell,
+           case let C42Item.asynchronousButton(_, _, action) = itemIdentifier
+        {
+            cell.startAsynchronousOperation({ @MainActor in
                 do {
                     try await action(self)
                 } catch {
+                    self.present(error)
+                }
+            })
+        } else {
+            switch itemIdentifier {
+            case let .synchronousButton(_, _, action):
+                do {
+                    try action(self)
+                } catch {
                     present(error)
                 }
-                
+            case let .asynchronousButton(_, _, action):
                 view.isUserInteractionEnabled = true
-                task = nil
+                task?.cancel()
+                task = Task {
+                    do {
+                        try await action(self)
+                    } catch {
+                        present(error)
+                    }
+                    
+                    view.isUserInteractionEnabled = true
+                    task = nil
+                }
+            default:
+                break
             }
-        default:
-            break
         }
     }
 }

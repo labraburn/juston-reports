@@ -34,7 +34,8 @@ public class HuetonButton: UIControl {
     
     public func startAsynchronousOperation(
         priority: TaskPriority? = nil,
-        _ block: @escaping @Sendable () async -> ()
+        _ block: @escaping @Sendable () async -> (),
+        _ completion: (@MainActor () -> ())? = nil
     ) {
         guard operation == nil
         else {
@@ -47,6 +48,8 @@ public class HuetonButton: UIControl {
             
             self?.stopLoadingAnimation()
             self?.operation = nil
+            
+            completion?()
         }
     }
     
