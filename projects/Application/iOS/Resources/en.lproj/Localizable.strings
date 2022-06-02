@@ -147,3 +147,8 @@
 "DeveloperCopyAPNs" = "Copy APNs token";
 "DeveloperClearAllDataButton" = "Clear all data";
 /* END - Developer */
+
+/* START - DashboardTransactions */
+"DashboardTransactionsEmptyTitle" = "There are no transactions yet";
+"DashboardTransactionsEmptyButton" = "RECEIVE";
+/* END - DashboardTransactions */

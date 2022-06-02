@@ -35,6 +35,19 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         }
 
         switch section {
+        case .empty:
+            let placeholderItem = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(DashboardPlaceholderCollectionReusableView.estimatedHeight)),
+                elementKind: String(describing: DashboardPlaceholderCollectionReusableView.self),
+                alignment: .top
+            )
+            placeholderItem.zIndex = -1
+            
+            let section: NSCollectionLayoutSection = .zero
+            section.boundarySupplementaryItems = [
+                placeholderItem
+            ]
+            return section
         case .pendingTransactions, .processedTransactions:
             let size = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),

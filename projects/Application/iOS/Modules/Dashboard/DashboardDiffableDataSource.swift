@@ -27,6 +27,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
 
     enum Section {
         
+        case empty
         case pendingTransactions
         case processedTransactions(dateString: String)
     }
@@ -42,6 +43,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
     override init(collectionView: UICollectionView) {
         super.init(collectionView: collectionView)
         collectionView.register(reusableSupplementaryViewClass: DashboardDateReusableView.self)
+        collectionView.register(reusableSupplementaryViewClass: DashboardPlaceholderCollectionReusableView.self)
         collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
     }
     
@@ -74,6 +76,13 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         indexPath: IndexPath
     ) -> UICollectionReusableView? {
         switch elementKind {
+        case String(describing: DashboardPlaceholderCollectionReusableView.self):
+            let view = collectionView.dequeue(
+                reusableSupplementaryViewClass: DashboardPlaceholderCollectionReusableView.self,
+                elementKind: elementKind,
+                for: indexPath
+            )
+            return view
         case String(describing: DashboardCollectionHeaderView.self):
             let view = collectionView.dequeue(
                 reusableSupplementaryViewClass: DashboardCollectionHeaderView.self,
@@ -99,6 +108,8 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 for: indexPath
             )
             switch sectionIdentifier {
+            case .empty:
+                view.model = ""
             case .pendingTransactions:
                 view.model = "Pending"
             case let .processedTransactions(dateString):
@@ -111,6 +122,32 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
     }
     
     func apply(
+        pendingTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
+        processedTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
+        animated: Bool
+    ) {
+        if pendingTransactions.numberOfItems == 0 && processedTransactions.numberOfItems == 0 {
+            _apply(
+                emptyDataSourceAnimated: animated
+            )
+        } else {
+            _apply(
+                pendingTransactions: pendingTransactions,
+                processedTransactions: processedTransactions,
+                animated: animated
+            )
+        }
+    }
+    
+    private func _apply(
+        emptyDataSourceAnimated animated: Bool
+    ) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.empty])
+        apply(snapshot, animatingDifferences: animated)
+    }
+    
+    func _apply(
         pendingTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
         processedTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
         animated: Bool
@@ -154,6 +191,8 @@ extension DashboardDiffableDataSource.Section: Hashable {
     
     func hash(into hasher: inout Hasher) {
         switch self {
+        case .empty:
+            hasher.combine("empty")
         case .pendingTransactions:
             hasher.combine("pending_transactions")
         case let .processedTransactions(dateString):

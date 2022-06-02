@@ -188,7 +188,13 @@ extension DashboardViewController: DashboardDiffableDataSourceDelegate {
         layoutTypeForCollectionHeaderView view: DashboardCollectionHeaderView
     ) -> DashboardCollectionHeaderView.LayoutType {
         DashboardCollectionHeaderView.LayoutType(
-            bounds: self.view.bounds,
+            bounds: CGRect(
+                origin: .zero,
+                size: CGSize(
+                    width: self.view.bounds.width,
+                    height: self.view.bounds.height + self.view.safeAreaInsets.bottom
+                )
+            ),
             safeAreaInsets: self.view.safeAreaInsets,
             kind: collectionViewHeaderLayoutKind
         )
