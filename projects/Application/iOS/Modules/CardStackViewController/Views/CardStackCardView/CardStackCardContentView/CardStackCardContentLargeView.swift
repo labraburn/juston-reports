@@ -56,6 +56,16 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.clipsToBounds = false
     })
     
+    private let loadingIndicatorView = UIView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.heightAnchor.pin(to: 24).isActive = true
+        $0.widthAnchor.pin(to: 24).isActive = true
+        $0.backgroundColor = .clear
+        
+        $0.layer.cornerRadius = 12
+        $0.layer.cornerCurve = .circular
+    })
+    
     private let sendButton = CardStackCardButton.createBottomButton(.hui_send24)
     private let receiveButton = CardStackCardButton.createBottomButton(.hui_receive24)
     private let moreButton = CardStackCardButton.createBottomButton(.hui_more24)
@@ -77,6 +87,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         addSubview(accountCurrentAddressLabel)
         addSubview(balanceLabel)
         addSubview(bottomButtonsHStackView)
+        addSubview(loadingIndicatorView)
         
         bottomButtonsHStackView.addArrangedSubview(receiveButton)
         if !model.account.isReadonly {
@@ -142,6 +153,9 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             
             receiveButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
             moreButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
+            
+            loadingIndicatorView.centerXAnchor.pin(to: centerXAnchor)
+            loadingIndicatorView.topAnchor.pin(to: bottomAnchor, constant: 42)
         })
         
         reload()
@@ -192,8 +206,25 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             $0.append(.string("\n." + balances[1], with: .body, kern: .four, lineHeight: 17))
         })
         
-        moreButton.menu = nil
-        moreButton.menu = more()
+        if !moreButton.isHighlighted {
+            moreButton.menu = nil
+            moreButton.menu = more()
+        }
+        
+        if model.account.isSynchronizing {
+            loadingIndicatorView.startLoadingAnimation(delay: 2.1)
+            loadingIndicatorView.layer.add({
+                let animation = CABasicAnimation(keyPath: "transform.rotation")
+                animation.fromValue = 0
+                animation.toValue = Float.pi * 2
+                animation.duration = 4.2
+                animation.repeatCount = .infinity
+                return animation
+            }(), forKey: "rotation")
+        } else {
+            loadingIndicatorView.stopLoadingAnimation()
+            loadingIndicatorView.layer.removeAnimation(forKey: "rotation")
+        }
         
         updateSynchronizationLabel()
     }

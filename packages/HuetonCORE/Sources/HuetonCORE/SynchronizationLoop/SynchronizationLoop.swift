@@ -52,18 +52,17 @@ public final class SynchronizationLoop {
         try Task.checkCancellation()
         
         let context = PersistenceWritableActor.shared.managedObjectContext
-        guard let address = address
+        guard let address = address,
+              let persistenceAccount = try account(forSelectedAddress: address, in: context)
         else {
             return
         }
+        
+        persistenceAccount.isSynchronizing = true
+        try context.save()
 
         let contract = try await Contract(rawAddress: address.rawValue)
         try Task.checkCancellation()
-        
-        guard let persistenceAccount = try account(forSelectedAddress: address, in: context)
-        else {
-            return
-        }
         
         persistenceAccount.balance = contract.info.balance
         try context.save()
@@ -102,6 +101,8 @@ public final class SynchronizationLoop {
         })
 
         persistenceAccount.dateLastSynchronization = Date()
+        persistenceAccount.isSynchronizing = false
+        
         try context.save()
     }
     

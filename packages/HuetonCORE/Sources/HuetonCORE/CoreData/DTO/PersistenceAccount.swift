@@ -177,6 +177,9 @@ public extension PersistenceAccount {
     @NSManaged
     var sortingLastUsageValue: Int64
     
+    @NSManaged
+    var isSynchronizing: Bool
+    
     // MARK: Internal
     
     /// nanotons

@@ -96,6 +96,30 @@ public final class OverlayLoadingView: UIView {
         gradientView.frame = bounds
     }
     
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        guard isAnimationInProgress
+        else {
+            return
+        }
+        
+        if window == nil {
+            stopAnimation(
+                completion: {
+                    self.isAnimationInProgress = true
+                }
+            )
+        } else {
+            isAnimationInProgress = false
+            startLoadingAnimation(
+                delay: 0,
+                fade: backgroundColor != .clear,
+                width: gradientMaskView.lineWidth
+            )
+        }
+    }
+    
     public func startAnimation(delay: TimeInterval = 0.0, fade: Bool = true, width: CGFloat = 1) {
         guard !isAnimationInProgress
         else {
@@ -239,6 +263,11 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
     }
     
     private func path(frame: CGRect, cornerRadius: CGFloat) -> UIBezierPath {
+        guard cornerRadius < frame.height / 2 && cornerRadius < frame.width / 2
+        else {
+            return UIBezierPath(ovalIn: frame)
+        }
+        
         let path = UIBezierPath()
         path.move(to: CGPoint(x: frame.width / 2.0, y: 0))
         
