@@ -131,6 +131,13 @@ class PasscodeViewController: UIViewController {
     // MARK: Private
     
     private func updatePasscodeViews() {
+        switch model {
+        case .get:
+            break
+        case .create1Step, .create2Step:
+            self.faceIDButton.alpha = 0
+        }
+        
         var index = 0
         passcodeHStackView.arrangedSubviews.forEach({ subview in
             guard let subview = subview as? PasscodeDotView
