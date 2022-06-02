@@ -121,7 +121,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV1512
+                            image: .hui_placeholderV2512
                         ),
                         .label(
                             text: "OnboardingWelcomeDescription".asLocalizedKey,
@@ -158,7 +158,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV1512
+                            image: .hui_placeholderV3512
                         ),
                         .label(
                             text: "OnboardingAgreementsDescription".asLocalizedKey,
@@ -237,7 +237,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV4512
+                            image: .hui_placeholderV5512
                         ),
                         .label(
                             text: "OnboardingIOCDescription".asLocalizedKey,
