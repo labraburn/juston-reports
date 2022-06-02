@@ -26,6 +26,8 @@ class DashboardPlaceholderCollectionReusableView: UICollectionReusableView {
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
+    var action: (() -> ())? = nil
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -34,13 +36,14 @@ class DashboardPlaceholderCollectionReusableView: UICollectionReusableView {
         addSubview(textLabel)
         addSubview(button)
         
+        button.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
+        
         NSLayoutConstraint.activate({
             textLabel.topAnchor.pin(to: topAnchor, constant: 12)
             textLabel.pin(horizontally: self, left: 36, right: 36)
             
             button.topAnchor.pin(to: textLabel.bottomAnchor, constant: 24)
             button.pin(horizontally: self, left: 36, right: 36)
-//            bottomAnchor.pin(to: button.bottomAnchor, constant: 0)
             
             heightAnchor.pin(greaterThan: Self.estimatedHeight)
         })
@@ -49,5 +52,12 @@ class DashboardPlaceholderCollectionReusableView: UICollectionReusableView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    private func buttonDidClick(_ sender: UIControl) {
+        action?()
     }
 }

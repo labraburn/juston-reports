@@ -21,6 +21,11 @@ protocol DashboardDiffableDataSourceDelegate: AnyObject {
         _ dataSource: DashboardDiffableDataSource,
         subviewForCollectionHeaderView view: DashboardCollectionHeaderView
     ) -> DashboardCollectionHeaderSubview
+    
+    func dashboardDiffableDataSource(
+        _ dataSource: DashboardDiffableDataSource,
+        emptyStateButtonDidClick view: DashboardPlaceholderCollectionReusableView
+    )
 }
 
 class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDiffableDataSource.Section, DashboardDiffableDataSource.Item> {
@@ -82,6 +87,18 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 elementKind: elementKind,
                 for: indexPath
             )
+            view.action = { [weak self, weak view] in
+                guard let self = self,
+                      let view = view
+                else {
+                    return
+                }
+                
+                self.delegate?.dashboardDiffableDataSource(
+                    self,
+                    emptyStateButtonDidClick: view
+                )
+            }
             return view
         case String(describing: DashboardCollectionHeaderView.self):
             let view = collectionView.dequeue(

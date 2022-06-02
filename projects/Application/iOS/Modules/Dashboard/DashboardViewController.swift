@@ -199,6 +199,25 @@ extension DashboardViewController: DashboardDiffableDataSourceDelegate {
             kind: collectionViewHeaderLayoutKind
         )
     }
+    
+    func dashboardDiffableDataSource(
+        _ dataSource: DashboardDiffableDataSource,
+        emptyStateButtonDidClick view: DashboardPlaceholderCollectionReusableView
+    ) {
+        guard let account = cardsStackViewController.selectedCard?.account
+        else {
+            return
+        }
+        
+        let viewController = QRSharingViewController(
+            initialConfiguration: .init(
+                address: account.selectedAddress
+            )
+        )
+        
+        let navigationController = NavigationController(rootViewController: viewController)
+        hui_present(navigationController, animated: true)
+    }
 }
 
 // MARK: - CollectionViewHeaderLayoutKind
