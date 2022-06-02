@@ -37,6 +37,7 @@
 		F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AD82847BF2C00AA108F /* UDS.swift */; };
 		F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */; };
 		F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */; };
+		F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
@@ -144,6 +145,7 @@
 		F01E2AD82847BF2C00AA108F /* UDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDS.swift; sourceTree = "<group>"; };
 		F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
 		F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42SettingsButtonCell.swift; sourceTree = "<group>"; };
+		F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountImportViewController.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				F01E2AC92846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift */,
+				F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */,
 				F01E2AD12847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift */,
 				F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */,
 			);
@@ -877,6 +880,7 @@
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
+				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
 				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
 				F0A15145280253C500EF9F83 /* C42CollectionViewDataSource.swift in Sources */,

@@ -43,7 +43,6 @@ public extension UIImage {
     static let hui_radioButtonDeselected20: UIImage = .named("RadioButtonDeselected20")
     
     static let hui_send24: UIImage = .named("Send24")
-    static let hui_scan24: UIImage = .named("Scan24")
     static let hui_receive24: UIImage = .named("Receive24")
     static let hui_more24: UIImage = .named("More24")
     static let hui_info24: UIImage = .named("Info24")

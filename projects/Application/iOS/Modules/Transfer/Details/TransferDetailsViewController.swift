@@ -106,6 +106,14 @@ class TransferDetailsViewController: UIViewController {
         view.addSubview(cancelButton)
         
         destinationAddressView.textView.text = initialConfiguration.toAddress?.description ?? ""
+        destinationAddressView.actions = [
+            .init(
+                image: .hui_scan20,
+                block: { [weak self] in
+                    self?.scanQRAndFill()
+                }
+            )
+        ]
         textViewDidEndEditing(destinationAddressView.textView)
         
         amountTextView.textView.text = initialConfiguration.amount?.string(with: .maximum9) ?? ""
@@ -249,6 +257,14 @@ class TransferDetailsViewController: UIViewController {
     
     // MARK: Actions
     
+    private func scanQRAndFill() {
+        let qrViewController = CameraViewController()
+        qrViewController.delegate = self
+        
+        let navigationController = NavigationController(rootViewController: qrViewController)
+        hui_present(navigationController, animated: true, completion: nil)
+    }
+    
     @objc
     private func nextButtonDidClick(_ sender: HuetonButton) {
         guard let address = outDestinationAddress
@@ -364,6 +380,30 @@ extension TransferDetailsViewController: UITextViewDelegate {
             outMessage = textView.text
         default:
             break
+        }
+    }
+}
+
+extension TransferDetailsViewController: CameraViewControllerDelegate {
+    
+    func qrViewController(
+        _ viewController: CameraViewController,
+        didRecognizeConvenienceURL convenienceURL: ConvenienceURL
+    ) {
+    
+        viewController.hide(animated: true)
+        
+        switch convenienceURL {
+        case let .transfer(destination, amount, text):
+            destinationAddressView.textView.text = destination.description
+            
+            if let amount = amount {
+                amountTextView.textView.text = amount.string(with: .maximum9)
+            }
+            
+            if let text = text {
+                messageTextView.textView.text = text
+            }
         }
     }
 }

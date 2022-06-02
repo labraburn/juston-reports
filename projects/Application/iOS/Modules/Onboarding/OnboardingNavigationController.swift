@@ -69,7 +69,7 @@ class OnboardingNavigationController: C42NavigationController {
     
     fileprivate func nextAccountImport() {
         next(
-            C42CollectionViewController.onboardingImportAccount()
+            C42ConcreteViewController.onboardingImportAccount()
         )
     }
     
@@ -285,92 +285,6 @@ extension C42CollectionViewController {
         )
     }
     
-    static func onboardingImportAccount() -> C42CollectionViewController {
-        var result: C42ImportAccountCollectionCell.Result? = nil
-        return C42CollectionViewController(
-            title: "OnboardingImportTitle".asLocalizedKey,
-            sections: [
-                .init(
-                    section: .init(
-                        kind: .simple
-                    ),
-                    items: [
-                        .label(
-                            text: "OnboardingImportDescription".asLocalizedKey,
-                            kind: .body
-                        ),
-                        .importAccountTextField(
-                            uuid: UUID(),
-                            action: { _result in
-                                result = _result
-                            }
-                        ),
-                    ]
-                ),
-                .init(
-                    section: .init(
-                        kind: .simple
-                    ),
-                    items: [
-                        .asynchronousButton(
-                            title: "OnboardingNextButton".asLocalizedKey,
-                            kind: .primary,
-                            action: { @MainActor viewController in
-                                var keyPublic: String? = nil
-                                var keySecretEncrypted: String? = nil
-                                let selectedAddress: Address
-                                
-                                let context = PersistenceReadableActor.shared.managedObjectContext
-                                
-                                switch result {
-                                case let .address(value):
-                                    let contract = try await Contract(rawAddress: value.rawValue)
-                                    if contract.kind != .uninitialized {
-                                        let data = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
-                                        keyPublic = data?.toHexString()
-                                    }
-                                    selectedAddress = value
-                                case let .words(value):
-                                    let authentication = PasscodeAuthentication(inside: viewController)
-                                    let passcode = try await authentication.key()
-                                    let key = try await Key.import(password: passcode, words: value)
-                                    
-                                    keyPublic = try key.deserializedPublicKey().toHexString()
-                                    keySecretEncrypted = key.encryptedSecretKey.toHexString()
-                                    selectedAddress = try await Address(
-                                        initial: try await Wallet3.initial(key: key)
-                                    )
-                                case .none:
-                                    return
-                                }
-                                
-                                let request: NSFetchRequest<PersistenceAccount>
-                                if let keyPublic = keyPublic {
-                                    request = PersistenceAccount.fetchRequest(keyPublic: keyPublic)
-                                } else {
-                                    request = PersistenceAccount.fetchRequest(selectedAddress: selectedAddress)
-                                }
-                                
-                                let result = (try? context.fetch(request))?.first
-                                if let account = result {
-                                    throw AccountError.accountExists(name: account.name)
-                                }
-                                
-                                viewController.onboardingNavigationController?.nextAccountAppearance(
-                                    keyPublic: keyPublic,
-                                    keySecretEncrypted: keySecretEncrypted,
-                                    selectedAddress: selectedAddress
-                                )
-                            }
-                        ),
-                    ]
-                ),
-            ],
-            isModalInPresentation: false,
-            isBackActionAvailable: true
-        )
-    }
-    
     static func onboardingPassphrase(
         `for` key: Key,
         address: Address,
@@ -454,6 +368,59 @@ extension C42CollectionViewController {
 }
 
 extension C42ConcreteViewController {
+    
+    static func onboardingImportAccount(
+    ) -> C42ConcreteViewController {
+        OnboardingAccountImportViewController(
+            completionBlock: { @MainActor viewController, result in
+                var keyPublic: String? = nil
+                var keySecretEncrypted: String? = nil
+                let selectedAddress: Address
+                
+                let context = PersistenceReadableActor.shared.managedObjectContext
+                
+                switch result {
+                case let .address(value):
+                    let contract = try await Contract(rawAddress: value.rawValue)
+                    if contract.kind != .uninitialized {
+                        let data = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
+                        keyPublic = data?.toHexString()
+                    }
+                    selectedAddress = value
+                case let .words(value):
+                    let authentication = PasscodeAuthentication(inside: viewController)
+                    let passcode = try await authentication.key()
+                    let key = try await Key.import(password: passcode, words: value)
+                    
+                    keyPublic = try key.deserializedPublicKey().toHexString()
+                    keySecretEncrypted = key.encryptedSecretKey.toHexString()
+                    selectedAddress = try await Address(
+                        initial: try await Wallet3.initial(key: key)
+                    )
+                }
+                
+                let request: NSFetchRequest<PersistenceAccount>
+                if let keyPublic = keyPublic {
+                    request = PersistenceAccount.fetchRequest(keyPublic: keyPublic)
+                } else {
+                    request = PersistenceAccount.fetchRequest(selectedAddress: selectedAddress)
+                }
+                
+                let result = (try? context.fetch(request))?.first
+                if let account = result {
+                    throw AccountError.accountExists(name: account.name)
+                }
+                
+                viewController.onboardingNavigationController?.nextAccountAppearance(
+                    keyPublic: keyPublic,
+                    keySecretEncrypted: keySecretEncrypted,
+                    selectedAddress: selectedAddress
+                )
+            },
+            isModalInPresentation: false,
+            isBackActionAvailable: true
+        )
+    }
     
     static func appearance(
         keyPublic: String?,
