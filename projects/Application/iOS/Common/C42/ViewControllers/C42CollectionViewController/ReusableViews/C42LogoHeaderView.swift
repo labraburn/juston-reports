@@ -11,31 +11,45 @@ import HuetonCORE
 
 class C42LogoHeaderView: UICollectionReusableView {
     
-    let huetonView = HuetonView().with({
+    var action: (() -> ())? = nil
+    
+    let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.pin(to: 20).isActive = true
-        $0.setContentCompressionResistancePriority(.required, for: .vertical)
+        $0.heightAnchor.pin(to: 128).isActive = true
+        $0.widthAnchor.pin(to: 128).isActive = true
+        $0.image = .hui_appIcon128
     })
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        huetonView.performUpdatesWithLetters({ $0.on() })
-        
         backgroundColor = .hui_backgroundPrimary
         clipsToBounds = true
         
-        addSubview(huetonView)
+        addSubview(imageView)
         
         NSLayoutConstraint.activate({
-            huetonView.topAnchor.pin(to: topAnchor, constant: 16)
-            huetonView.centerXAnchor.pin(to: centerXAnchor)
-            bottomAnchor.pin(to: huetonView.bottomAnchor, constant: 12)
+            imageView.topAnchor.pin(to: topAnchor)
+            imageView.centerXAnchor.pin(to: centerXAnchor)
+            bottomAnchor.pin(to: imageView.bottomAnchor)
         })
+        
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 3
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerDidAction(_:)))
+        
+        addGestureRecognizer(tapGestureRecognizer)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    private func tapGestureRecognizerDidAction(_ sender: UITapGestureRecognizer) {
+        action?()
     }
 }

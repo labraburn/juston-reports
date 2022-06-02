@@ -73,6 +73,8 @@ public extension UIImage {
     static let hui_cardGradient4: UIImage = .named("CardGradient4")
     static let hui_cardGradient5: UIImage = .named("CardGradient5")
     
+    static let hui_appIcon128: UIImage = .named("AppIcon128")
+    
     static let hui_tabBarCards44: UIImage = .named("TabBar/Cards44")
     static let hui_tabBarGear44: UIImage = .named("TabBar/Gear44")
     static let hui_tabBarPlanet44: UIImage = .named("TabBar/Planet44")

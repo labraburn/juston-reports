@@ -8,13 +8,25 @@
 import UIKit
 import HuetonUI
 
+typealias C42SynchronousButtonAction = (_ viewController: C42ViewController) throws -> ()
+typealias C42AsynchronousButtonAction = (_ viewController: C42ViewController) async throws -> ()
+
 struct C42Section {
     
     enum Header {
         
         case none
-        case title(value: String)
-        case logo
+        
+        case title(
+            value: String,
+            textAligment: NSTextAlignment = .left,
+            foregroundColor: UIColor = .hui_textSecondary
+        )
+        
+        case logo(
+            secretAction: C42SynchronousButtonAction
+        )
+        
         case applicationVersion
     }
     
@@ -38,9 +50,6 @@ struct C42Section {
 
 enum C42Item {
     
-    typealias SynchronousButtonAction = (_ viewController: C42ViewController) throws -> ()
-    typealias AsynchronousButtonAction = (_ viewController: C42ViewController) async throws -> ()
-    
     typealias TextFieldAction = (_ textField: UITextField) -> ()
     
     enum LabelKind {
@@ -61,10 +70,12 @@ enum C42Item {
     case word(index: Int, word: String)
     case importAccountTextField(uuid: UUID, action: (_ result: C42ImportAccountCollectionCell.Result) -> Void)
     case textField(title: String, placeholder: String, action: TextFieldAction)
-    case text(value: String)
+    case text(value: String, numberOfLines: Int = 1, textAligment: NSTextAlignment = .left)
     
-    case synchronousButton(title: String, kind: ButtonKind, action: SynchronousButtonAction)
-    case asynchronousButton(title: String, kind: ButtonKind, action: AsynchronousButtonAction)
+    case settingsButton(title: String, titleColor: UIColor, action: C42SynchronousButtonAction)
+    
+    case synchronousButton(title: String, kind: ButtonKind, action: C42SynchronousButtonAction)
+    case asynchronousButton(title: String, kind: ButtonKind, action: C42AsynchronousButtonAction)
 }
 
 class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, C42Item> {
@@ -74,12 +85,14 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
         
         collectionView.register(reusableCellClass: C42ImageViewCell.self)
         collectionView.register(reusableCellClass: C42LabelCell.self)
-        collectionView.register(reusableCellClass: C42ButtonCell.self)
         collectionView.register(reusableCellClass: C42WordCell.self)
         collectionView.register(reusableCellClass: C42TextFieldCell.self)
         collectionView.register(reusableCellClass: C42ImportAccountCollectionCell.self)
         collectionView.register(reusableCellClass: C42AccessoryCollectionViewCell.self)
         collectionView.register(reusableCellClass: C42BookmarkCollectionViewCell.self)
+        
+        collectionView.register(reusableCellClass: C42ButtonCell.self)
+        collectionView.register(reusableCellClass: C42SettingsButtonCell.self)
         
         collectionView.register(reusableSupplementaryViewClass: C42ListGroupHeaderView.self)
         collectionView.register(reusableSupplementaryViewClass: C42SimpleGroupHeaderView.self)
@@ -104,6 +117,10 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
             let cell = collectionView.dequeue(reusableCellClass: C42LabelCell.self, for: indexPath)
             cell.model = .init(text: text, kind: kind)
             return cell
+        case let .settingsButton(title, titleColor, _):
+            let cell = collectionView.dequeue(reusableCellClass: C42SettingsButtonCell.self, for: indexPath)
+            cell.model = .init(title: title, titleColor: titleColor)
+            return cell
         case let .synchronousButton(title, kind, _), let .asynchronousButton(title, kind, _): // action handled in controller
             let cell = collectionView.dequeue(reusableCellClass: C42ButtonCell.self, for: indexPath)
             cell.model = .init(title: title, kind: kind)
@@ -120,12 +137,14 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
                 action(textField)
             }
             return cell
-        case let .text(value):
+        case let .text(value, numberOfLines, textAligment):
             let cell = collectionView.dequeue(
                 reusableCellClass: C42AccessoryCollectionViewCell.self,
                 for: indexPath
             )
             cell.text = value
+            cell.numberOfLines = numberOfLines
+            cell.textAligment = textAligment
             return cell
         case let .importAccountTextField(_, action):
             let cell = collectionView.dequeue(reusableCellClass: C42ImportAccountCollectionCell.self, for: indexPath)
@@ -152,8 +171,10 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
             )
             
             switch section.header {
-            case let .title(value):
+            case let .title(value, textAligment, foregroundColor):
                 view.title = value
+                view.textAligment = textAligment
+                view.foregroundColor = foregroundColor
             case .logo, .applicationVersion, .none:
                 view.title = ""
             }
@@ -166,8 +187,10 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
             )
             
             switch section.header {
-            case let .title(value):
+            case let .title(value, textAligment, foregroundColor):
                 view.title = value
+                view.textAligment = textAligment
+                view.foregroundColor = foregroundColor
             case .logo, .applicationVersion, .none:
                 view.title = ""
             }
@@ -178,6 +201,25 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
                 reusableSupplementaryViewClass: C42LogoHeaderView.self,
                 for: indexPath
             )
+            
+            switch section.header {
+            case let .logo(action):
+                view.action = { [weak collectionView] in
+                    guard let viewController = collectionView?.delegate as? C42ViewController
+                    else {
+                        fatalError("")
+                    }
+                    
+                    do {
+                        try action(viewController)
+                    } catch {
+                        viewController.present(error)
+                    }
+                }
+            default:
+                view.action = nil
+            }
+            
             return view
         case String(describing: C42ApplicationVersionHeaderView.self):
             let view = collectionView.dequeue(
@@ -215,6 +257,8 @@ extension C42Item: Hashable {
         case let .label(text, kind):
             hasher.combine(text)
             hasher.combine(kind)
+        case let .settingsButton(title, _, _):
+            hasher.combine(title)
         case let .synchronousButton(title, _, _), let .asynchronousButton(title, _, _):
             hasher.combine(title)
         case let .word(index, word):
@@ -225,7 +269,7 @@ extension C42Item: Hashable {
             hasher.combine(placeholder)
         case let .importAccountTextField(uuid, _):
             hasher.combine(uuid)
-        case let .text(value):
+        case let .text(value, _, _):
             hasher.combine(value)
         }
     }

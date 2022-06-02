@@ -16,6 +16,18 @@ class C42TitleHeaderView: UICollectionReusableView {
         }
     }
     
+    var textAligment: NSTextAlignment = .left {
+        didSet {
+            titleLabel.textAlignment = textAligment
+        }
+    }
+    
+    var foregroundColor: UIColor = .hui_textSecondary {
+        didSet {
+            titleLabel.textColor = foregroundColor
+        }
+    }
+    
     fileprivate let titleLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -58,7 +70,7 @@ class C42SimpleGroupHeaderView: C42TitleHeaderView {
         titleLabel.textColor = .hui_textSecondary
         
         NSLayoutConstraint.activate({
-            titleLabel.pin(edges: self, insets: UIEdgeInsets(top: 0, left: 0, right: 0, bottom: 8))
+            titleLabel.pin(edges: self, insets: UIEdgeInsets(top: 0, left: 0, right: 0, bottom: 16))
         })
     }
 }

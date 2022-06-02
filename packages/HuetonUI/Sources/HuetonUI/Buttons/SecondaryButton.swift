@@ -26,6 +26,12 @@ public class SecondaryButton: HuetonButton {
         }
     }
     
+    public var titleColor: UIColor = UIColor(rgb: 0x7B66FF) {
+        didSet {
+            textLabel.textColor = titleColor
+        }
+    }
+    
     public init(title: String? = nil) {
         super.init(frame: .zero)
         textLabel.text = title

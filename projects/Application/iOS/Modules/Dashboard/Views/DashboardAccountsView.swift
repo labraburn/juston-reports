@@ -17,6 +17,11 @@ protocol DashboardAccountsViewDelegate: AnyObject {
     
     func dashboardAccountsView(
         _ view: DashboardAccountsView,
+        logotypeControlDidClick button: UIControl
+    )
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
         scanQRButtonDidClick button: UIButton
     )
 }
@@ -28,13 +33,6 @@ extension HuetonView {
 
 final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
-    private class StackView: UIStackView {
-        
-        override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-            bounds.inset(by: UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)).contains(point)
-        }
-    }
-    
     private var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(radius: 42))
     private var lineView = UIView().with({
         $0.backgroundColor = UIColor(rgb: 0x353535)
@@ -42,14 +40,15 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     
     private let cardsStackContainerView = ContainerView<CardStackView>()
     
-    private let navigationStackView = StackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
+    private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
         $0.translatesAutoresizingMaskIntoConstraints = true
         $0.axis = .horizontal
         $0.alignment = .top
         $0.distribution = .equalCentering
+        $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -24)
     })
     
-    private var huetonView = HuetonView().with({
+    private var logotypeView = DashboardLogotypeView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
@@ -85,10 +84,16 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
             return button
         }())
         navigationStackView.addArrangedSubview({
+            let touchAreaInsets = UIEdgeInsets(top: -24, left: 0, right: 0, bottom: -24)
             let wrapperView = UIView()
-            wrapperView.addSubview(huetonView)
+            wrapperView.addSubview(logotypeView)
             wrapperView.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
-            huetonView.pinned(edges: wrapperView)
+            logotypeView.pinned(edges: wrapperView)
+            logotypeView.addTarget(self, action: #selector(logotypeControlDidClick(_:)), for: .touchUpInside)
+            
+            wrapperView.sui_touchAreaInsets = touchAreaInsets
+            logotypeView.sui_touchAreaInsets = touchAreaInsets
+            
             return wrapperView
         }())
         navigationStackView.addArrangedSubview({
@@ -129,7 +134,7 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     // MARK: API
     
     func perfromApperingAnimation() {
-        huetonView.perfromLoadingAnimationAndStartInfinity()
+        logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
     }
     
     func enclosingScrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -222,7 +227,37 @@ final class DashboardAccountsView: UIView, DashboardCollectionHeaderSubview {
     }
     
     @objc
+    private func logotypeControlDidClick(_ sender: UIControl) {
+        delegate?.dashboardAccountsView(self, logotypeControlDidClick: sender)
+    }
+    
+    @objc
     private func scanQRButtonDidClick(_ sender: UIButton) {
         delegate?.dashboardAccountsView(self, scanQRButtonDidClick: sender)
+    }
+}
+
+
+final class DashboardLogotypeView: UIControl {
+    
+    let huetonView = HuetonView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isUserInteractionEnabled = false
+    })
+    
+    init() {
+        super.init(frame: .zero)
+        
+        backgroundColor = .clear
+        addSubview(huetonView)
+        huetonView.pinned(edges: self)
+        
+        insertHighlightingScaleAnimation()
+        insertFeedbackGenerator(style: .light)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

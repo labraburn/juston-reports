@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns view controller for which `self` is root view
 @property (nonatomic, strong, readonly, nullable) UIViewController *sui_enclosingViewController;
 
+/// Insets to extend tappable area.
+@property (nonatomic, assign, setter=sui_setTouchAreaInsets:) UIEdgeInsets sui_touchAreaInsets;
+
 // Returns `YES` if code currently running in [UIView animate..] block
 + (BOOL)sui_isInAnimationBlock;
 

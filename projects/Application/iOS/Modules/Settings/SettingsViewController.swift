@@ -10,31 +10,40 @@ import HuetonUI
 import HuetonCORE
 import MessageUI
 
-class SettingsViewController: C42CollectionViewController, MFMailComposeViewControllerDelegate {
+class SettingsViewController: C42CollectionViewController {
     
     init(
         isModalInPresentation: Bool = false,
         isBackActionAvailable: Bool = true,
-        isNavigationBarHidden: Bool = true
+        isNavigationBarHidden: Bool = false
     ) {
         super.init(
-            title: "Settings",
+            title: "SettingsTitle".asLocalizedKey,
             sections: [
                 // Application logo
                 .init(
                     section: .init(
                         kind: .simple,
-                        header: .logo
+                        header: .logo(
+                            secretAction: { viewController in
+                                (viewController as? SettingsViewController)?.openDeveloperViewController()
+                            }
+                        )
                     ),
                     items: []
                 ),
-                // Application version
+                // Description
                 .init(
                     section: .init(
-                        kind: .simple,
-                        header: .applicationVersion
+                        kind: .simple
                     ),
-                    items: []
+                    items: [
+                        .text(
+                            value: "SettingsDescription".asLocalizedKey,
+                            numberOfLines: 0,
+                            textAligment: .center
+                        )
+                    ]
                 ),
                 // General
                 .init(
@@ -43,31 +52,40 @@ class SettingsViewController: C42CollectionViewController, MFMailComposeViewCont
                         header: .none
                     ),
                     items: [
-                        .synchronousButton(
-                            title: "About",
-                            kind: .secondary,
-                            action: { _ in }
-                        ),
-                        .synchronousButton(
-                            title: "Share",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsShareButton".asLocalizedKey,
+                            titleColor: .hui_letter_blue,
                             action: { viewController in
                                 let items = [URL(string: "https://hueton.com")!]
                                 let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                                viewController.present(activityViewController, animated: true)
+                                viewController.hui_present(activityViewController, animated: true)
                             }
                         ),
-                        .synchronousButton(
-                            title: "Rate Us",
-                            kind: .secondary,
-                            action: { _ in
-    //                            let url = URL(string: "itms-apps://apple.com/app/id1601121482")!
-    //                            viewController.open(url: url)
+                        .settingsButton(
+                            title: "SettingsRateButton".asLocalizedKey,
+                            titleColor: .hui_letter_blue,
+                            action: { viewController in
+                                #warning("TODO: Replace URL")
+                                let url = URL(string: "itms-apps://apple.com/app/id1601121482")!
+                                viewController.open(url: url)
                             }
                         ),
-                        .synchronousButton(
-                            title: "Notifications",
-                            kind: .secondary,
+                    ]
+                ),
+                // System settings
+                .init(
+                    section: .init(
+                        kind: .simple,
+                        header: .title(
+                            value: "SettingsSystemSettingsTitle".asLocalizedKey,
+                            textAligment: .center,
+                            foregroundColor: .hui_textPrimary
+                        )
+                    ),
+                    items: [
+                        .settingsButton(
+                            title: "SettingsNotificationsButton".asLocalizedKey,
+                            titleColor: .hui_letter_purple,
                             action: { viewController in
                                 let url = URL(string: UIApplication.openSettingsURLString)
                                 viewController.open(url: url)
@@ -80,22 +98,26 @@ class SettingsViewController: C42CollectionViewController, MFMailComposeViewCont
                     section: .init(
                         kind: .simple,
                         header: .title(
-                            value: "Agreements"
+                            value: "SettingsAgreementsTitle".asLocalizedKey,
+                            textAligment: .center,
+                            foregroundColor: .hui_textPrimary
                         )
                     ),
                     items: [
-                        .synchronousButton(
-                            title: "Privacy Policy",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsPrivacyPolicyButton".asLocalizedKey,
+                            titleColor: .hui_letter_violet,
                             action: { viewController in
+                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://hueton.com/policy")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
                         ),
-                        .synchronousButton(
-                            title: "Terms of Use",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsTermsOfUseButton".asLocalizedKey,
+                            titleColor: .hui_letter_violet,
                             action: { viewController in
+                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://hueton.com/terms")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
@@ -107,31 +129,25 @@ class SettingsViewController: C42CollectionViewController, MFMailComposeViewCont
                     section: .init(
                         kind: .simple,
                         header: .title(
-                            value: "Support"
+                            value: "SettingsSupportTitle".asLocalizedKey,
+                            textAligment: .center,
+                            foregroundColor: .hui_textPrimary
                         )
                     ),
                     items: [
-                        .synchronousButton(
-                            title: "Contact Developer",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsContactDeveloperButton".asLocalizedKey,
+                            titleColor: .hui_letter_yellow,
                             action: { viewController in
-                                let email = "hello@hueton.com"
-                                if MFMailComposeViewController.canSendMail() {
-                                    let mailComposeViewController = MFMailComposeViewController()
-                                    mailComposeViewController.mailComposeDelegate = viewController as? SettingsViewController
-                                    mailComposeViewController.setToRecipients([email])
-                                    viewController.present(mailComposeViewController, animated: true)
-                                } else {
-                                    let url = URL(string: "mailto:\(email)")
-                                    viewController.open(url: url)
-                                }
+                                (viewController as? SettingsViewController)?.openMailComposeViewControllerIfAvailable()
                             }
                         ),
-                        .synchronousButton(
-                            title: "Open Chat",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsCommunityChatButton".asLocalizedKey,
+                            titleColor: .hui_letter_yellow,
                             action: { viewController in
-                                let url = URL(string: "https://t.me/hueton_chat")
+                                #warning("TODO: Replace URL")
+                                let url = URL(string: "https://t.me/hueton_ru_chat")
                                 viewController.open(url: url)
                             }
                         ),
@@ -142,83 +158,30 @@ class SettingsViewController: C42CollectionViewController, MFMailComposeViewCont
                     section: .init(
                         kind: .simple,
                         header: .title(
-                            value: "Social Networks"
+                            value: "SettingsSocialTitle".asLocalizedKey,
+                            textAligment: .center,
+                            foregroundColor: .hui_textPrimary
                         )
                     ),
                     items: [
-                        .synchronousButton(
-                            title: "Telegram",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsTelegramButton".asLocalizedKey,
+                            titleColor: .hui_letter_green,
                             action: { viewController in
-                                let url = URL(string: "https://t.me/hueton3000")
+                                #warning("TODO: Replace URL")
+                                let url = URL(string: "https://t.me/hueton_ru")
                                 viewController.open(url: url)
                             }
                         ),
-                        .synchronousButton(
-                            title: "Twitter",
-                            kind: .secondary,
+                        .settingsButton(
+                            title: "SettingsTwitterButton".asLocalizedKey,
+                            titleColor: .hui_letter_green,
                             action: { viewController in
+                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://twitter.com/hueton3000")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
                         ),
-                    ]
-                ),
-                // Debug
-                .init(
-                    section: .init(
-                        kind: .simple,
-                        header: .title(
-                            value: "Debug"
-                        )
-                    ),
-                    items: [
-                        .synchronousButton(
-                            title: "Copy device push token",
-                            kind: .secondary,
-                            action: { viewController in
-                                UIPasteboard.general.string = PushIdentificator.shared.APNSToken
-                            }
-                        ),
-                        .synchronousButton(
-                            title: "Clear all data",
-                            kind: .teritary,
-                            action: { viewController in
-                                let alertViewController = AlertViewController(
-                                    image: .image(.hui_warning42, tintColor: .hui_letter_red),
-                                    title: "CommonAttention".asLocalizedKey,
-                                    message: "CommonUndoneAction".asLocalizedKey,
-                                    actions: [
-                                        .init(
-                                            title: "CommonYes".asLocalizedKey,
-                                            block: { viewController in
-                                                Task { @PersistenceWritableActor in
-                                                    let context = PersistenceWritableActor.shared.managedObjectContext
-                                                    let request = PersistenceAccount.fetchRequestSortingLastUsage()
-                                                    let result = try context.fetch(request)
-                                                    
-                                                    try result.forEach({
-                                                        try $0.delete()
-                                                    })
-                                                    
-                                                    let parole = SecureParole()
-                                                    try await parole.removeKey()
-                                                    
-                                                    UDS.isWelcomeScreenViewed = false
-                                                    UDS.isAgreementsAccepted = false
-                                                    
-                                                    fatalError("42")
-                                                }
-                                            },
-                                            style: .destructive
-                                        ),
-                                        .cancel
-                                    ]
-                                )
-                                
-                                viewController.hui_present(alertViewController, animated: true)
-                            }
-                        )
                     ]
                 ),
             ],
@@ -226,6 +189,29 @@ class SettingsViewController: C42CollectionViewController, MFMailComposeViewCont
             isBackActionAvailable: isBackActionAvailable,
             isNavigationBarHidden: isNavigationBarHidden
         )
+    }
+}
+
+extension SettingsViewController {
+    
+    func openDeveloperViewController() {
+        next(DeveloperViewController())
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    
+    func openMailComposeViewControllerIfAvailable() {
+        let email = "hello@hueton.com"
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeViewController = MFMailComposeViewController()
+            mailComposeViewController.mailComposeDelegate = self
+            mailComposeViewController.setToRecipients([email])
+            hui_present(mailComposeViewController, animated: true)
+        } else {
+            let url = URL(string: "mailto:\(email)")
+            open(url: url)
+        }
     }
     
     func mailComposeController(

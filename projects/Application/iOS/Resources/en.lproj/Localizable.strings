@@ -1,15 +1,6 @@
-/* 
-  Localizable.strings
-  Application
+/* Created by Anton Spivak */
 
-  Created by Anton Spivak on 21.03.2022.
-  
-*/
-
-/*
- START - Common
- */
-
+/* START - Common */
 "CommonYes" = "Yes";
 "CommonCancel" = "Cancel";
 "CommonDone" = "Done";
@@ -19,18 +10,13 @@
 "CommonSettings" = "Open settings";
 "CommonOK" = "OK";
 "CommonUndoneAction" = "Are you sure? This action cannot being undone!";
-
-/*
- END - Common
- */
-
-/*
- START - Onboarding
- */
+/* END - Common */
 
 
+
+/* START - Onboarding */
 "OnboardingWelcomeTitle" = "Hey!";
-"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-castodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network";
+"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-castodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
 
 "OnboardingAgreementsTitle" = "User agreements";
 "OnboardingAgreementsDescription" = "Please, review agreements and click accept button";
@@ -61,110 +47,103 @@
 "OnboardingImportButton" = "IMPORT";
 "OnboardingCopyButton" = "COPY";
 "OnboardingDoneButton" = "DONE";
+/* END - Onboarding */
 
-/*
- END - Onboarding
- */
 
-/*
- START - AccountRemoving
- */
 
+/* START - AccountRemoving */
 "AccountDeletePromptMessagePublic" = "Are you sure about this?";
 "AccountDeletePromptMessagePrivate" = "Do you remember 24-word passphrase?\n\nYou account will be removed completely forever and we cannot being restore it!";
 "AccountDeleteDestructiveButtonTitle" = "Yes, remove account";
+/* END - AccountRemoving */
 
-/*
- END - AccountRemoving
- */
 
-/*
- START - UnderDevelopment
- */
 
+/* START - UnderDevelopment */
 "UnderDevelopmentPromptTitle" = "Will be available soon";
 "UnderDevelopmentPromptMessage" = "We are working hard to make your dreams come true";
+/* END - UnderDevelopment */
 
-/*
- END - UnderDevelopment
- */
 
-/*
- START - ApplicationError
- */
 
+/* START - ApplicationError */
 "ApplicationErrorPasscodeNotSet" = "We can't create new account since application not protected with passcode";
+/* END - ApplicationError */
 
-/*
- END - ApplicationError
- */
 
-/*
- START - AccountError
- */
 
+/* START - AccountError */
 "AccountErrorAccountExists" = "Account already exists with name '%@'";
+/* END - AccountError */
 
-/*
- END - AccountError
- */
 
-/*
- START - AccountAppearence
- */
 
+/* START - PermissionError */
+"PermissionErrorCameraAccessQRCode" = "We can't scan QR code without access to camera. Please allow camera usage in settings";
+/* END - PermissionError */
+
+
+
+/* START - AccountAppearence */
 "AccountAppearenceTitle" = "Appearence";
 "AccountAppearenceDescription" = "Choose account name and visual style";
 "AccountAppearenceNameFieldDescription" = "Name";
+/* END - AccountAppearence */
 
-/*
- END - AccountAppearence
- */
 
-/*
- START - PermissionError
- */
 
-"PermissionErrorCameraAccessQRCode" = "We can't scan QR code without access to camera. Please allow camera usage in settings";
-
-/*
- END - PermissionError
- */
-
-/*
- START - PasscodeView
- */
-
+/* START - PasscodeView */
 "PasscodeViewEnterCode" = "Enter your 6-digit passcode to authorize this operation";
 "PasscodeViewCreateCode1" = "Create 6-digit passcode and remember it";
 "PasscodeViewCreateCode2" = "Please, repeat 6-digit passcode and remember it";
-
-/*
- END - PasscodeView
- */
+/* END - PasscodeView */
 
 
-/*
- START - AccountCard
- */
 
+/* START - AccountCard */
 "AccountCardSubscribeButton" = "Enable notifications";
 "AccountCardUnsubscribeButton" = "Disable notifications";
 "AccountCardResynchronizeButton" = "Re-synchronize";
 "AccountCardChangeApperanceButton" = "Change apperance";
 "AccountCardBackupButton" = "Backup keys";
+/* END - AccountCard */
 
-/*
- END - AccountCard
- */
 
-/*
- START - Announcements
- */
 
+/* START - Announcements */
 "AnnouncementAddressCopied" = "Account address copied to pasteboard";
 "AnnouncementWordsCopied" = "Account secret passphrase copied to pasteboard";
+/* END - Announcements */
 
-/*
- END - Announcements
- */
+
+
+/* START - Settings */
+"SettingsTitle" = "HUETON";
+"SettingsDescription" = "We are strongly believe in future without bureaucratic and all centralized stuff. Our mission is a freedom and all products will be pointed to achieve it.\n\nEnjoy and feel free to contact us!";
+
+"SettingsShareButton" = "Share";
+"SettingsRateButton" = "Rate us";
+
+"SettingsSystemSettingsTitle" = "System settings";
+"SettingsNotificationsButton" = "System settings";
+
+"SettingsAgreementsTitle" = "Agreements";
+"SettingsPrivacyPolicyButton" = "Privacy policy";
+"SettingsTermsOfUseButton" = "Terms of use";
+
+"SettingsSupportTitle" = "Support";
+"SettingsContactDeveloperButton" = "Contact developer";
+"SettingsCommunityChatButton" = "Community chat";
+
+"SettingsSocialTitle" = "Social";
+"SettingsTelegramButton" = "Telegram";
+"SettingsTwitterButton" = "Twitter";
+/* END - Settings */
+
+/* START - Developer */
+"DeveloperTitle" = "Developer";
+"DeveloperDescription" = "This is page only for developers. Some action can be dangerius!";
+
+"DeveloperCopyAPNs" = "Copy APNs token";
+"DeveloperClearAllDataButton" = "Clear all data";
+/* END - Developer */

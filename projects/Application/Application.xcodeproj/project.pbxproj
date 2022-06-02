@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
-		F0118D78280F1CA800B518A9 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D77280F1CA800B518A9 /* ExploreViewController.swift */; };
 		F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D7C28102DD100B518A9 /* SettingsViewController.swift */; };
 		F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */; };
 		F0118D872810343A00B518A9 /* C42ListGroupDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D862810343A00B518A9 /* C42ListGroupDecorationView.swift */; };
@@ -36,6 +35,8 @@
 		F01E2ACC2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ACB2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift */; };
 		F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AD12847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift */; };
 		F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AD82847BF2C00AA108F /* UDS.swift */; };
+		F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */; };
+		F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
@@ -116,7 +117,6 @@
 /* Begin PBXFileReference section */
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
-		F0118D77280F1CA800B518A9 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		F0118D7C28102DD100B518A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42AccessoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0118D862810343A00B518A9 /* C42ListGroupDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ListGroupDecorationView.swift; sourceTree = "<group>"; };
@@ -142,6 +142,8 @@
 		F01E2ACB2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAccountAppearenceViewController.StyleCell.swift; sourceTree = "<group>"; };
 		F01E2AD12847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F01E2AD82847BF2C00AA108F /* UDS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDS.swift; sourceTree = "<group>"; };
+		F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
+		F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42SettingsButtonCell.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
@@ -242,14 +244,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F0118D76280F1C8A00B518A9 /* Explore */ = {
-			isa = PBXGroup;
-			children = (
-				F0118D77280F1CA800B518A9 /* ExploreViewController.swift */,
-			);
-			path = Explore;
-			sourceTree = "<group>";
-		};
 		F0118D7B28102DC000B518A9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +263,7 @@
 				F01E2ABB2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift */,
 				F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */,
 				F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */,
+				F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -382,6 +377,14 @@
 				F0A151402802532B00EF9F83 /* C42CollectionViewController.swift */,
 			);
 			path = C42CollectionViewController;
+			sourceTree = "<group>";
+		};
+		F01E2ADA2848F06B00AA108F /* Developer */ = {
+			isa = PBXGroup;
+			children = (
+				F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */,
+			);
+			path = Developer;
 			sourceTree = "<group>";
 		};
 		F02FECEE27F315F700CC306C /* Entitlements */ = {
@@ -540,6 +543,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F01E2ADA2848F06B00AA108F /* Developer */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
 				F09E2A25283E924600D7BC55 /* QR */,
 				F0A4579A283C47AD0039F6CA /* Camera */,
@@ -547,7 +551,6 @@
 				F0118DA9281075D500B518A9 /* Web3ViewController */,
 				F0118D992810612000B518A9 /* SafariViewController */,
 				F0118D7B28102DC000B518A9 /* Settings */,
-				F0118D76280F1C8A00B518A9 /* Explore */,
 				F0A151522802726000EF9F83 /* Passcode */,
 				F0A1513A2802527B00EF9F83 /* Onboarding */,
 				F0DBFA4F27F607FB00956DC9 /* Alert */,
@@ -921,12 +924,14 @@
 				F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */,
 				F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */,
 				F01E2ACA2846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift in Sources */,
+				F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */,
 				F0909B5A27E8B6F000FC8404 /* C42WordsDecorationView.swift in Sources */,
 				F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */,
 				F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */,
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
+				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
 				F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
@@ -935,7 +940,6 @@
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
-				F0118D78280F1CA800B518A9 /* ExploreViewController.swift in Sources */,
 				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,

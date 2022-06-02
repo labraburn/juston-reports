@@ -16,6 +16,21 @@ class C42AccessoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    var textAligment: NSTextAlignment = .left {
+        didSet {
+            textLabel.textAlignment = textAligment
+        }
+    }
+    
+    var numberOfLines: Int = 1 {
+        didSet {
+            textLabel.numberOfLines = numberOfLines
+            
+            invalidateIntrinsicContentSize()
+            setNeedsLayout()
+        }
+    }
+    
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .body)

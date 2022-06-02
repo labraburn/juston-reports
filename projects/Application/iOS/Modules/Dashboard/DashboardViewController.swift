@@ -251,7 +251,7 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
         _ view: DashboardAccountsView,
         addAccountButtonDidClick button: UIButton
     ) {
-        // This is simple task
+        // This is simple and low-weight and fast task
         Task {
             let navigationController = OnboardingNavigationController(
                 initialConfiguration: await .dependsUserDefaults()
@@ -259,6 +259,14 @@ extension DashboardViewController: DashboardAccountsViewDelegate {
             
             hui_present(navigationController, animated: true, completion: nil)
         }
+    }
+    
+    func dashboardAccountsView(
+        _ view: DashboardAccountsView,
+        logotypeControlDidClick button: UIControl
+    ) {
+        let settingsNavigationController = C42NavigationController(rootViewController: SettingsViewController())
+        hui_present(settingsNavigationController, animated: true)
     }
     
     func dashboardAccountsView(

@@ -54,7 +54,7 @@ class C42CollectionViewCompositionalLayout: CollectionViewCompositionalLayout {
                 )
             default:
                 boundarySupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(28)),
+                    layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(36)),
                     elementKind: String(describing: C42SimpleGroupHeaderView.self),
                     alignment: .top
                 )
@@ -63,7 +63,7 @@ class C42CollectionViewCompositionalLayout: CollectionViewCompositionalLayout {
         case .logo:
             headerHeightOffset += 48
             let boundarySupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(48)),
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(128)),
                 elementKind: String(describing: C42LogoHeaderView.self),
                 alignment: .top
             )

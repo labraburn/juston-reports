@@ -30,6 +30,9 @@
         
         // didAddSubview:
         SUISwizzleInstanceMethodOfClass(self, @selector(didAddSubview:), @selector(sui_sw_didAddSubview:));
+        
+        // pointInside:withEvent:
+        SUISwizzleInstanceMethodOfClass(self, @selector(pointInside:withEvent:), @selector(sui_pointInside:withEvent:));
     });
 }
 
@@ -117,6 +120,17 @@
 //_systemContentInsetIncludingAccessories
 
 /// Warning! This is swizzled method
+- (BOOL)sui_pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    UIEdgeInsets touchAreaInsets = [self sui_touchAreaInsets];
+    if (UIEdgeInsetsEqualToEdgeInsets(touchAreaInsets, UIEdgeInsetsZero)) {
+        return [self sui_pointInside:point withEvent:event];
+    }
+    
+    CGRect extendedBounds = UIEdgeInsetsInsetRect(self.bounds, touchAreaInsets);
+    return CGRectContainsPoint(extendedBounds, point);
+}
+
+/// Warning! This is swizzled method
 - (void)sui_sw_didAddSubview:(UIView *)subview {
     [self sui_sw_didAddSubview:subview];
     
@@ -190,6 +204,24 @@ static void * kSUIExcludesUnclampedInsetsKey = &kSUIExcludesUnclampedInsetsKey;
 - (BOOL)sui_excludesUnclampedInsets {
     NSNumber *value = objc_getAssociatedObject(self, kSUIExcludesUnclampedInsetsKey);
     return value == nil ? NO : [value boolValue];
+}
+
+// sui_touchAreaInsets
+
+static void * kSUITouchAreaInsetsKey = &kSUITouchAreaInsetsKey;
+
+- (UIEdgeInsets)sui_touchAreaInsets {
+    NSValue *value = objc_getAssociatedObject(self, kSUITouchAreaInsetsKey);
+    UIEdgeInsets touchAreaInsets = UIEdgeInsetsZero;
+    if (value != nil) {
+        [value getValue:&touchAreaInsets];
+    }
+    return touchAreaInsets;
+}
+
+- (void)sui_setTouchAreaInsets:(UIEdgeInsets)touchAreaInsets {
+    NSValue *value = [NSValue value:&touchAreaInsets withObjCType:@encode(UIEdgeInsets)];
+    objc_setAssociatedObject(self, kSUITouchAreaInsetsKey, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

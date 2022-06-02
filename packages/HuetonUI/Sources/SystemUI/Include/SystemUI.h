@@ -21,7 +21,6 @@
 #import <../Categories/UIKit/UICollectionView+SUI.h>
 #import <../Categories/UIKit/UIViewController+SUI.h>
 #import <../Categories/UIKit/UIPageViewController+SUI.h>
-#import <../Categories/UIKit/UIControl+SUI.h>
 #import <../Categories/UIKit/UIBlurEffect+SUI.h>
 
 #import <../Categories/Foundation/NSValue+SUIGeometry.h>
