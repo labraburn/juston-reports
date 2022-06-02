@@ -68,7 +68,6 @@ enum C42Item {
     case image(image: UIImage)
     case label(text: String, kind: LabelKind)
     case word(index: Int, word: String)
-    case importAccountTextField(uuid: UUID, action: (_ result: C42ImportAccountCollectionCell.Result) -> Void)
     case textField(title: String, placeholder: String, action: TextFieldAction)
     case text(value: String, numberOfLines: Int = 1, textAligment: NSTextAlignment = .left)
     
@@ -87,7 +86,6 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
         collectionView.register(reusableCellClass: C42LabelCell.self)
         collectionView.register(reusableCellClass: C42WordCell.self)
         collectionView.register(reusableCellClass: C42TextFieldCell.self)
-        collectionView.register(reusableCellClass: C42ImportAccountCollectionCell.self)
         collectionView.register(reusableCellClass: C42AccessoryCollectionViewCell.self)
         collectionView.register(reusableCellClass: C42BookmarkCollectionViewCell.self)
         
@@ -145,10 +143,6 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
             cell.text = value
             cell.numberOfLines = numberOfLines
             cell.textAligment = textAligment
-            return cell
-        case let .importAccountTextField(_, action):
-            let cell = collectionView.dequeue(reusableCellClass: C42ImportAccountCollectionCell.self, for: indexPath)
-            cell.done = action
             return cell
         }
     }
@@ -267,8 +261,6 @@ extension C42Item: Hashable {
         case let .textField(title, placeholder, _):
             hasher.combine(title)
             hasher.combine(placeholder)
-        case let .importAccountTextField(uuid, _):
-            hasher.combine(uuid)
         case let .text(value, _, _):
             hasher.combine(value)
         }

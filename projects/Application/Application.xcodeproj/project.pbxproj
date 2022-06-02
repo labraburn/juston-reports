@@ -26,7 +26,6 @@
 		F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */; };
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
-		F01E2ABC2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABB2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift */; };
 		F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABD2846BE2700AA108F /* AccountError.swift */; };
 		F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */; };
 		F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AC22846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift */; };
@@ -134,7 +133,6 @@
 		F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3NavigationView.swift; sourceTree = "<group>"; };
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
-		F01E2ABB2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ImportAccountCollectionCell.swift; sourceTree = "<group>"; };
 		F01E2ABD2846BE2700AA108F /* AccountError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountError.swift; sourceTree = "<group>"; };
 		F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAccountAppearenceViewController.swift; sourceTree = "<group>"; };
 		F01E2AC22846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAppearenceViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 				F0909B5027E88D8200FC8404 /* C42ButtonCell.swift */,
 				F0909B5627E8B2D000FC8404 /* C42WordCell.swift */,
 				F0909B6227E8DB1900FC8404 /* C42TextFieldCell.swift */,
-				F01E2ABB2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift */,
 				F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */,
 				F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */,
 				F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */,
@@ -900,7 +897,6 @@
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
-				F01E2ABC2846ABBE00AA108F /* C42ImportAccountCollectionCell.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */,
 				F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */,
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,

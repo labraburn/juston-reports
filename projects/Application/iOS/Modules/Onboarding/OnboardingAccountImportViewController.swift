@@ -207,7 +207,7 @@ extension OnboardingAccountImportViewController: CameraViewControllerDelegate {
         viewController.hide(animated: true)
         
         switch convenienceURL {
-        case let .transfer(destination, amount, text):
+        case let .transfer(destination, _, _):
             inputTextView.textView.text = destination.description
         }
     }
