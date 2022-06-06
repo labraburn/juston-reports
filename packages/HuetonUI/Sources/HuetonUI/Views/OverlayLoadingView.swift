@@ -9,6 +9,7 @@ public final class OverlayLoadingView: UIView {
     private let gradientView: GradientView = GradientView(colors: [.hui_letter_purple, .hui_letter_violet], angle: 45)
     private let gradientMaskView: OverlayLoadingViewMaskView = OverlayLoadingViewMaskView()
     
+    private var isAnimationSuspended: Bool = false
     private var isAnimationInProgress: Bool = false
     
     private var willMoveToBackground: NSObjectProtocol?
@@ -36,10 +37,6 @@ public final class OverlayLoadingView: UIView {
         initialize()
     }
     
-    deinit {
-        
-    }
-    
     private func initialize() {
         alpha = 0
         backgroundColor = .clear
@@ -55,15 +52,7 @@ public final class OverlayLoadingView: UIView {
             object: nil,
             queue: .main,
             using: { [weak self] _ in
-                guard let self = self,
-                      self.isAnimationInProgress
-                else {
-                    return
-                }
-                
-                self.stopAnimation(completion: {
-                    self.isAnimationInProgress = true
-                })
+                self?.suspendAnimationIfNeeded()
             }
         )
         
@@ -72,18 +61,7 @@ public final class OverlayLoadingView: UIView {
             object: nil,
             queue: .main,
             using: { [weak self] _ in
-                guard let self = self,
-                      self.isAnimationInProgress
-                else {
-                    return
-                }
-                
-                self.isAnimationInProgress = false
-                self.startAnimation(
-                    delay: 0,
-                    fade: self.backgroundColor != .clear,
-                    width: self.gradientMaskView.lineWidth
-                )
+                self?.unsuspendAnimationIfNeeded()
             }
         )
     }
@@ -98,37 +76,25 @@ public final class OverlayLoadingView: UIView {
     
     public override func didMoveToWindow() {
         super.didMoveToWindow()
-        
-        guard isAnimationInProgress
-        else {
-            return
-        }
-        
         if window == nil {
-            stopAnimation(
-                completion: {
-                    self.isAnimationInProgress = true
-                }
-            )
+            suspendAnimationIfNeeded()
         } else {
-            isAnimationInProgress = false
-            startLoadingAnimation(
-                delay: 0,
-                fade: backgroundColor != .clear,
-                width: gradientMaskView.lineWidth
-            )
+            unsuspendAnimationIfNeeded()
         }
     }
     
     public func startAnimation(delay: TimeInterval = 0.0, fade: Bool = true, width: CGFloat = 1) {
-        guard !isAnimationInProgress
+        guard !isAnimationInProgress || isAnimationSuspended
         else {
             return
         }
         
         alpha = 0
         isUserInteractionEnabled = true
+        
         isAnimationInProgress = true
+        isAnimationSuspended = false
+        
         gradientMaskView.lineWidth = width
         
         layer.removeAllAnimations()
@@ -151,6 +117,7 @@ public final class OverlayLoadingView: UIView {
             layer.removeAllAnimations()
             
             alpha = 0
+            isAnimationInProgress = false
             completion?()
             
             return
@@ -171,6 +138,31 @@ public final class OverlayLoadingView: UIView {
             self.isAnimationInProgress = false
             completion?()
         })
+    }
+    
+    // Suspending
+    
+    private func suspendAnimationIfNeeded() {
+        guard isAnimationInProgress
+        else {
+            return
+        }
+        
+        stopAnimation(completion: nil)
+        isAnimationSuspended = true
+    }
+    
+    private func unsuspendAnimationIfNeeded() {
+        guard isAnimationSuspended
+        else {
+            return
+        }
+        
+        startAnimation(
+            delay: 0.42,
+            fade: backgroundColor != .clear,
+            width: gradientMaskView.lineWidth
+        )
     }
 }
 
