@@ -57,6 +57,7 @@ open class ContainerViewController: UIViewController {
     
     private func removeChildViewControllerIfNeeded(_ viewController: UIViewController?) {
         guard let viewController = viewController,
+              viewController != child,
               children.contains(viewController)
         else {
             return
