@@ -80,6 +80,7 @@
 
 /* START - PermissionError */
 "PermissionErrorCameraAccessQRCode" = "We can't scan QR code without access to camera. Please allow camera usage in settings";
+"PermissionErrorNotificationsNotEnabled" = "Notifications not enabled";
 /* END - PermissionError */
 
 
