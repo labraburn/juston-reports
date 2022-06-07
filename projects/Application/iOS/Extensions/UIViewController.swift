@@ -79,7 +79,10 @@ extension UIViewController {
         case web3
     }
     
-    func hide(animated: Bool, popIfAvailable: Bool = true) {
+    func hide(
+        animated: Bool,
+        popIfAvailable: Bool = true
+    ) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.first == self || !popIfAvailable {
                 navigationController.dismiss(animated: animated)

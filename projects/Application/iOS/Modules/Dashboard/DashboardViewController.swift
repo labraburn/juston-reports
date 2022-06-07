@@ -121,6 +121,35 @@ class DashboardViewController: UIViewController {
         accountsView.perfromApperingAnimation()
     }
     
+    // MARK: API
+    
+    func showTransferViewControllerIfAvailable(
+        destination: Address,
+        amount: Currency?,
+        message: String?
+    ) {
+        guard let account = cardsStackViewController.selectedCard?.account,
+              let key = account.keyIfAvailable
+        else {
+            return
+        }
+        
+        let viewController = TransferNavigationController(
+            initialConfiguration: .init(
+                fromAccount: account,
+                toAddress: destination,
+                key: key,
+                amount: amount,
+                message: message
+            )
+        )
+        
+        topmostPresentedViewController.hui_present(
+            viewController,
+            animated: true
+        )
+    }
+    
     // MARK: Private
     
     fileprivate func showOnboardingViewControllerIfNeeded() {
@@ -411,7 +440,7 @@ extension DashboardViewController: CameraViewControllerDelegate {
         
         switch convenienceURL {
         case let .transfer(destination, amount, text):
-            guard let account = self.cardsStackViewController.selectedCard?.account,
+            guard let account = cardsStackViewController.selectedCard?.account,
                   let key = account.keyIfAvailable
             else {
                 return

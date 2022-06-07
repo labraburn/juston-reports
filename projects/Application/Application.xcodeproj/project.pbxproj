@@ -38,6 +38,7 @@
 		F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */; };
 		F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */; };
 		F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */; };
+		F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8770284FCE10007476B8 /* DeeplinkURL.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
@@ -146,6 +147,7 @@
 		F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42SettingsButtonCell.swift; sourceTree = "<group>"; };
 		F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountImportViewController.swift; sourceTree = "<group>"; };
 		F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F02C8770284FCE10007476B8 /* DeeplinkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkURL.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				F0118DB5281085EC00B518A9 /* PushIdentificator.swift */,
+				F02C8770284FCE10007476B8 /* DeeplinkURL.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -933,6 +936,7 @@
 				F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */,
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
+				F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
 				F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */,
