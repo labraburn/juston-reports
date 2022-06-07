@@ -24,7 +24,7 @@ class TransferDetailsViewController: UIViewController {
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
-    private lazy var destinationAddressView = BorderedTextView(caption: "Address").with({
+    private lazy var destinationAddressView = BorderedTextView(caption: "CommonAddress".asLocalizedKey).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textView.delegate = self
         $0.textView.keyboardType = .asciiCapable
@@ -35,7 +35,7 @@ class TransferDetailsViewController: UIViewController {
         $0.textView.maximumContentSizeHeight = 42
     })
     
-    private lazy var amountTextView = BorderedTextView(caption: "Amount").with({
+    private lazy var amountTextView = BorderedTextView(caption: "CommonAmount".asLocalizedKey).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textView.delegate = self
         $0.textView.keyboardType = .decimalPad
@@ -46,7 +46,7 @@ class TransferDetailsViewController: UIViewController {
         $0.textView.maximumContentSizeHeight = 42
     })
     
-    private lazy var messageTextView = BorderedTextView(caption: "Message (optional)").with({
+    private lazy var messageTextView = BorderedTextView(caption: "TransferDetailsMessageDescription".asLocalizedKey).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textView.delegate = self
         $0.textView.keyboardType = .default
@@ -55,12 +55,12 @@ class TransferDetailsViewController: UIViewController {
         $0.textView.maximumContentSizeHeight = 128
     })
     
-    private lazy var processButton = PrimaryButton(title: "NEXT").with({
+    private lazy var processButton = PrimaryButton(title: "CommonNext".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(nextButtonDidClick(_:)), for: .touchUpInside)
     })
     
-    private lazy var cancelButton = TeritaryButton(title: "CANCEL").with({
+    private lazy var cancelButton = TeritaryButton(title: "CommonCancel".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(cancelButtonDidClick(_:)), for: .touchUpInside)
     })
@@ -94,7 +94,7 @@ class TransferDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Transfer details"
+        title = "TransferDetailsTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
@@ -186,9 +186,9 @@ class TransferDetailsViewController: UIViewController {
         if let navigationController = navigationController,
            navigationController.viewControllers.first == self
         {
-            cancelButton.title = "CANCEL"
+            cancelButton.title = "CommonCancel".asLocalizedKey.uppercased()
         } else {
-            cancelButton.title = "BACK"
+            cancelButton.title = "CommonBack".asLocalizedKey.uppercased()
         }
         
         if !destinationAddressView.textView.hasText {

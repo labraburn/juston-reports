@@ -9,6 +9,11 @@
 "CommonAttention" = "Attention!";
 "CommonSettings" = "Open settings";
 "CommonOK" = "OK";
+"CommonBack" = "Back";
+"CommonSend" = "Send";
+"CommonAddress" = "Address";
+"CommonAmount" = "Amount";
+"CommonNext" = "Next";
 "CommonUndoneAction" = "Are you sure? This action cannot being undone!";
 /* END - Common */
 
@@ -78,6 +83,13 @@
 
 
 
+/* START - ShareQR */
+"ShareQRMainButton" = "Share QR";
+"ShareQRShareAddressButton" = "Share address";
+/* END - ShareQR */
+
+
+
 /* START - PermissionError */
 "PermissionErrorCameraAccessQRCode" = "We can't scan QR code without access to camera. Please allow camera usage in settings";
 "PermissionErrorNotificationsNotEnabled" = "Notifications not enabled";
@@ -141,6 +153,8 @@
 "SettingsTwitterButton" = "Twitter";
 /* END - Settings */
 
+
+
 /* START - Developer */
 "DeveloperTitle" = "Developer";
 "DeveloperDescription" = "This is page only for developers. Some action can be dangerius!";
@@ -149,7 +163,22 @@
 "DeveloperClearAllDataButton" = "Clear all data";
 /* END - Developer */
 
+
+
 /* START - DashboardTransactions */
 "DashboardTransactionsEmptyTitle" = "There are no transactions yet";
 "DashboardTransactionsEmptyButton" = "RECEIVE";
 /* END - DashboardTransactions */
+
+
+
+/* START - Transfer */
+"TransferConformationTitle" = "Confirm transfer";
+
+"TransferDetailsTitle" = "Transfer details";
+"TransferDetailsMessageDescription" = "Message (optional)";
+
+"TransferDestinationAddress" = "Destination address";
+"TransferDestinationAmount" = "Amount";
+"TransferDestinationEstimatedFees" = "Estimated fees";
+/* END - Transfer */

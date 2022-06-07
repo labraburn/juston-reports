@@ -47,7 +47,7 @@ class CameraViewController: UIViewController {
         $0.backgroundColor = .hui_backgroundSecondary
     })
     
-    private lazy var cancelButton = TeritaryButton(title: "CANCEL").with({
+    private lazy var cancelButton = TeritaryButton(title: "CommonCancel".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(cancelButtonDidClick(_:)), for: .touchUpInside)
     })

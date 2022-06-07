@@ -39,17 +39,17 @@ class QRSharingViewController: UIViewController {
         $0.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
     })
     
-    private lazy var shareImageButton = PrimaryButton(title: "SHARE QR").with({
+    private lazy var shareImageButton = PrimaryButton(title: "ShareQRMainButton".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(shareImageButtonDidClick(_:)), for: .touchUpInside)
     })
     
-    private lazy var shareAddressButton = PrimaryButton(title: "SHARE ADDRESS").with({
+    private lazy var shareAddressButton = PrimaryButton(title: "ShareQRShareAddressButton".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(shareAddressButtonDidClick(_:)), for: .touchUpInside)
     })
     
-    private lazy var doneButton = TeritaryButton(title: "DONE").with({
+    private lazy var doneButton = TeritaryButton(title: "CommonDone".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
     })

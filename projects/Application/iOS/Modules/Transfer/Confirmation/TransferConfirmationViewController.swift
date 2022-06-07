@@ -30,12 +30,12 @@ class TransferConfirmationViewController: UIViewController {
         $0.numberOfLines = 0
     })
     
-    private lazy var processButton = PrimaryButton(title: "SEND").with({
+    private lazy var processButton = PrimaryButton(title: "CommonSend".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(processButtonDidClick(_:)), for: .touchUpInside)
     })
     
-    private lazy var cancelButton = TeritaryButton(title: "BACK").with({
+    private lazy var cancelButton = TeritaryButton(title: "CommonBack".asLocalizedKey.uppercased()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(cancelButtonDidClick(_:)), for: .touchUpInside)
     })
@@ -55,7 +55,7 @@ class TransferConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Confirm transfer"
+        title = "TransferConformationTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
@@ -82,15 +82,15 @@ class TransferConfirmationViewController: UIViewController {
         
         let spacing = NSAttributedString(" \n", with: .body, lineHeight: 6)
         textLabel.attributedText = NSMutableAttributedString({
-            NSAttributedString("Destination address:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationAddress".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.toAddress)\n\n", with: .body)
             
-            NSAttributedString("Amount:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationAmount".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.amount.string(with: .maximum9))\n\n", with: .body)
             
-            NSAttributedString("Estimated fees:", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationEstimatedFees".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.estimatedFees.string(with: .maximum9))\n\n", with: .body)
         })
