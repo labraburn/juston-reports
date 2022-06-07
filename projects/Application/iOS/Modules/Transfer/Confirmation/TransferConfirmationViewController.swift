@@ -18,7 +18,7 @@ class TransferConfirmationViewController: UIViewController {
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
         $0.textColor = .hui_textPrimary
-        $0.text = "Please, review transfer details and then press send if it's correct"
+        $0.text = "TransferConformationDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })

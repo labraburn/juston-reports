@@ -77,6 +77,12 @@
 
 
 
+/* START - TransactionError */
+"TransactionErrorIsPending" = "Transaction are pending now";
+/* END - TransactionError */
+
+
+
 /* START - AccountError */
 "AccountErrorAccountExists" = "Account already exists with name '%@'";
 /* END - AccountError */
@@ -174,11 +180,20 @@
 
 /* START - Transfer */
 "TransferConformationTitle" = "Confirm transfer";
+"TransferConformationDescription" = "Please, review transfer details and then press send if it's correct";
 
 "TransferDetailsTitle" = "Transfer details";
+"TransferDetailsDescription" = "Fill up destination address of transfer and amount and then press next";
 "TransferDetailsMessageDescription" = "Message (optional)";
 
 "TransferDestinationAddress" = "Destination address";
 "TransferDestinationAmount" = "Amount";
 "TransferDestinationEstimatedFees" = "Estimated fees";
 /* END - Transfer */
+
+
+
+/* START - TransactionDetails */
+"TransactionDetailsTitle" = "Transaction details";
+"TransactionDetailsOpenScanButton" = "Open in browser";
+/* END - TransactionDetails */

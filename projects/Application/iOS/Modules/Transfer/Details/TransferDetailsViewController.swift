@@ -19,7 +19,7 @@ class TransferDetailsViewController: UIViewController {
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
         $0.textColor = .hui_textPrimary
-        $0.text = "Fill up destination address of transfer and amount and then press next"
+        $0.text = "TransferDetailsDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
