@@ -219,7 +219,7 @@ class TransferDetailsViewController: UIViewController {
 
                 guard let wallet = try await Wallet3(rawAddress: fromAccount.selectedAddress.rawValue)
                 else {
-                    throw SwiftyTON.ContractError.unknownContractType
+                    throw ContractError.unknownContractType
                 }
 
                 let message = try await wallet.transfer(
