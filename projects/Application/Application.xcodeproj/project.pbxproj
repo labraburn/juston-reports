@@ -26,6 +26,8 @@
 		F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */; };
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
+		F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F016607D284B5A5F00E4BE3F /* DefaultMOON */; };
+		F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */; };
 		F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABD2846BE2700AA108F /* AccountError.swift */; };
 		F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */; };
 		F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AC22846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift */; };
@@ -135,6 +137,9 @@
 		F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3NavigationView.swift; sourceTree = "<group>"; };
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
+		F016607A284B56F300E4BE3F /* HuetonMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonMOON; path = ../../../packages/HuetonMOON; sourceTree = "<group>"; };
+		F016607C284B57E700E4BE3F /* DefaultMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DefaultMOON; path = ../../../packages/DefaultMOON; sourceTree = "<group>"; };
+		F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationIdentifier.swift; sourceTree = "<group>"; };
 		F01E2ABD2846BE2700AA108F /* AccountError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountError.swift; sourceTree = "<group>"; };
 		F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAccountAppearenceViewController.swift; sourceTree = "<group>"; };
 		F01E2AC22846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAppearenceViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
@@ -240,6 +245,7 @@
 				F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */,
 				F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */,
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
+				F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */,
 				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
 			);
@@ -312,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				F0118DB5281085EC00B518A9 /* PushIdentificator.swift */,
+				F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */,
 				F02C8770284FCE10007476B8 /* DeeplinkURL.swift */,
 			);
 			path = Models;
@@ -578,6 +585,8 @@
 			children = (
 				F02FECE827F3143600CC306C /* HuetonUI */,
 				F02FECE927F3145800CC306C /* HuetonCORE */,
+				F016607A284B56F300E4BE3F /* HuetonMOON */,
+				F016607C284B57E700E4BE3F /* DefaultMOON */,
 				F0DBFA5527F7C4C600956DC9 /* Objective42 */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
 				F041A57927F5D0A700213489 /* SwiftyTON */,
@@ -805,6 +814,7 @@
 				F02FECEC27F3153F00CC306C /* HuetonUI */,
 				F0118DA42810699100B518A9 /* Nuke */,
 				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
+				F016607D284B5A5F00E4BE3F /* DefaultMOON */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
@@ -867,6 +877,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */,
 				F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */,
 				F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* C42LabelCell.swift in Sources */,
@@ -1214,6 +1225,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		F016607D284B5A5F00E4BE3F /* DefaultMOON */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DefaultMOON;
 		};
 		F02FECEA27F3153F00CC306C /* HuetonCORE */ = {
 			isa = XCSwiftPackageProductDependency;

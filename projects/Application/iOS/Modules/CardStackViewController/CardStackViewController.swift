@@ -7,7 +7,13 @@
 
 import UIKit
 import HuetonCORE
+import DefaultMOON
 import CoreData
+
+extension DefaultMOON {
+    
+    static let shared = DefaultMOON()
+}
 
 protocol CardStackViewControllerDelegate: AnyObject {
     
@@ -199,11 +205,25 @@ extension CardStackViewController: CardStackViewDelegate {
 
         let id = model.account.objectID
         let flags = model.account.flags
-        
+        let address = model.account.selectedAddress
+
         Task { @PersistenceWritableActor in
+            let installationID = await InstallationIdentifier.shared.value
+            let request = AccountSettings.subscribeWalletTransactions(
+                installation_id: installationID.uuidString,
+                address: address.rawValue.rawValue
+            )
+            
+            do {
+                let _ = try await DefaultMOON.shared.do(request)
+            } catch {
+                print(error)
+                return
+            }
+            
             var mflags = flags
             mflags.insert(.isNotificationsEnabled)
-            
+
             let object = PersistenceAccount.writeableObject(id: id)
             object.flags = mflags
             try? object.save()
@@ -216,8 +236,22 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         let id = model.account.objectID
         let flags = model.account.flags
+        let address = model.account.selectedAddress
         
         Task { @PersistenceWritableActor in
+            let installationID = await InstallationIdentifier.shared.value
+            let request = AccountSettings.unsubscribeWalletTransactions(
+                installation_id: installationID.uuidString,
+                address: address.rawValue.rawValue
+            )
+            
+            do {
+                let _ = try await DefaultMOON.shared.do(request)
+            } catch {
+                print(error)
+                return
+            }
+            
             var mflags = flags
             mflags.remove(.isNotificationsEnabled)
             

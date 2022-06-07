@@ -48,7 +48,7 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        PushIdentificator.shared.update(withData: deviceToken)
+        PushIdentificator.shared.update(deviceToken)
     }
 }
 

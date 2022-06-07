@@ -27,3 +27,22 @@ extension CameraPermissionError: PermissionError {
         }
     }
 }
+
+//
+// NotificationsPermissionError
+//
+
+enum NotificationsPermissionError {
+    
+    case notEnabledDeveloper
+}
+
+extension NotificationsPermissionError: PermissionError {
+    
+    var errorDescription: String? {
+        switch self {
+        case .notEnabledDeveloper:
+            return "PermissionErrorNotificationsNotEnabled".asLocalizedKey
+        }
+    }
+}

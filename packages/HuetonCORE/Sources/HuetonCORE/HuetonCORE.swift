@@ -12,17 +12,23 @@ private extension Configuration {
     
     static let test = Configuration(
         network: .test,
-        configurationFileURL: URL(string: "https://ton-blockchain.github.io/testnet-global.config.json")!,
-        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
-        logging: .debug
+        logging: Configuration.defaultLogging,
+        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore)
     )
     
     static let main = Configuration(
         network: .main,
-        configurationFileURL: URL(string: "https://ton.org/global-config.json")!,
-        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore),
-        logging: .debug
+        logging: Configuration.defaultLogging,
+        keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore)
     )
+    
+    private static var defaultLogging: Logging {
+        #if DEBUG
+        return .debug
+        #else
+        return .never
+        #endif
+    }
 }
 
 public struct HuetonCORE {

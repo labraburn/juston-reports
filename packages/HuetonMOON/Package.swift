@@ -1,25 +1,20 @@
-// swift-tools-version:5.6
+// swift-tools-version: 5.6
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "HuetonCORE",
+    name: "HuetonMOON",
     platforms: [
         .iOS(.v13),
-        .macOS(.v12)
     ],
     products: [
         .library(
-            name: "HuetonCORE",
-            targets: ["HuetonCORE"]
+            name: "HuetonMOON",
+            targets: ["HuetonMOON"]
         ),
     ],
     dependencies: [
-        .package(
-            url: "https://github.com/hueton/SwiftyTON",
-            branch: "main"
-        ),
         .package(
             name: "Objective42",
             path: "../Objective42"
@@ -27,15 +22,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "HuetonCORE",
+            name: "HuetonMOON",
             dependencies: [
-                "SwiftyTON",
                 "Objective42",
             ],
-            path: "Sources/HuetonCORE",
-            resources: [
-                .process("Resources/Model.xcdatamodeld"),
-            ],
+            path: "Sources/HuetonMOON",
             swiftSettings: [
                 .define("DEBUG", .when(configuration: .debug)),
             ]

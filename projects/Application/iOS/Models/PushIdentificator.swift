@@ -7,36 +7,36 @@
 
 import Foundation
 import HuetonCORE
+import DefaultMOON
 
 @MainActor
 final class PushIdentificator {
     
     static let shared = PushIdentificator()
-    
     private let storage = CodableStorage.target
-    private(set) var APNSToken: String?
     
-    private init() {
-        restore()
-    }
-    
-    func update(withData data: Data) {
-        let parts = data.map { data in String(format: "%02.2hhx", data) }
-        let token = parts.joined()
-        
-        APNSToken = token
-        save()
-    }
-    
-    private func restore() {
-        Task {
-            APNSToken = try? await storage.value(of: String.self, forKey: .pushIdentificatorAPNSToken)
+    var value: String? {
+        get async {
+            return try? await storage.value(of: String.self, forKey: .pushIdentificatorAPNSToken)
         }
     }
     
-    private func save() {
+    func update(_ value: Data) {
+        update(value.toHexString())
+    }
+    
+    func update(_ value: String) {
         Task {
-            try? await storage.save(value: APNSToken, forKey: .pushIdentificatorAPNSToken)
+            let installationID = await InstallationIdentifier.shared.value
+            let request = AccountSettings.updateDeviceToken(installation_id: installationID.uuidString, token: value)
+            
+            do {
+                let _ = try await DefaultMOON.shared.do(request)
+            } catch {
+                print(error)
+            }
+            
+            try? await storage.save(value: value, forKey: .pushIdentificatorAPNSToken)
         }
     }
 }
