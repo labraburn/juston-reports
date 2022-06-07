@@ -39,11 +39,21 @@ class DeveloperViewController: C42CollectionViewController {
                         header: .none
                     ),
                     items: [
-                        .synchronousButton(
+                        .asynchronousButton(
                             title: "DeveloperCopyAPNs".asLocalizedKey,
                             kind: .secondary,
                             action: { viewController in
-                                UIPasteboard.general.string = PushIdentificator.shared.APNSToken
+                                InAppAnnouncementCenter.shared.post(
+                                    announcement: InAppAnnouncementInfo.self,
+                                    with: .init(text: "Token copied", icon: .copying, tintColor: .hui_letter_blue)
+                                )
+                                
+                                guard let token = await PushIdentificator.shared.value
+                                else {
+                                    throw NotificationsPermissionError.notEnabledDeveloper
+                                }
+                                
+                                UIPasteboard.general.string = token
                             }
                         ),
                         .synchronousButton(
