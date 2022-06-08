@@ -78,12 +78,12 @@ class TransactionDetailsViewController: UIViewController {
         view.addSubview(copyLinkButton)
         view.addSubview(doneButton)
         
-        let (textColor, valuePrefix, recipientsOrSender) = { () -> (UIColor, String, [Address]) in
+        let (textColor, valuePrefix, recipientsOrSender) = { () -> (UIColor, String, Set<Address>) in
             switch transaction.kind {
             case .pending:
-                return (.hui_textPrimary, "-", transaction.to)
+                return (.hui_textPrimary, "-", Set(transaction.to))
             case .out:
-                return (.hui_letter_red, "-", transaction.to)
+                return (.hui_letter_red, "-", Set(transaction.to))
             case .in:
                 return (.hui_letter_green, "+", [transaction.from ?? account.selectedAddress])
             }
