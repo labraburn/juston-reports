@@ -17,6 +17,7 @@ protocol TransactionDetailsViewable {
     var date: Date { get }
     var to: [Address] { get }
     var from: Address? { get }
+    var message: String? { get }
 }
 
 enum TransactionViewableKind {
@@ -71,6 +72,25 @@ extension PersistenceProcessedTransaction: TransactionDetailsViewable {
             return account.selectedAddress
         }
     }
+    
+    var message: String? {
+        let body: Data?
+        if !out.isEmpty {
+            body = out.first?.body
+        } else if let action = self.in {
+            body = action.body
+        } else {
+            body = nil
+        }
+        
+        guard let body = body,
+              let string = String(data: body, encoding: .utf8)
+        else {
+            return nil
+        }
+        
+        return string
+    }
 }
 
 extension PersistencePendingTransaction: TransactionDetailsViewable {
@@ -81,4 +101,5 @@ extension PersistencePendingTransaction: TransactionDetailsViewable {
     var date: Date { dateCreated }
     var to: [Address] { [destinationAddress] }
     var from: Address? { nil }
+    var message: String? { nil }
 }

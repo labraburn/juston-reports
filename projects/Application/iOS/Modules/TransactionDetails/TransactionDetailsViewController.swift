@@ -21,11 +21,12 @@ class TransactionDetailsViewController: UIViewController {
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
-    private let textLabel = UILabel().with({
+    private let textLabel = UITextView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setContentHuggingPriority(.required, for: .vertical)
-        $0.setContentCompressionResistancePriority(.required, for: .vertical)
-        $0.numberOfLines = 0
+        $0.isEditable = false
+        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
+        $0.backgroundColor = .clear
     })
     
     private lazy var copyLinkButton = PrimaryButton(title: "TransactionDetailsCopyLink".asLocalizedKey.uppercased()).with({
@@ -136,6 +137,12 @@ class TransactionDetailsViewController: UIViewController {
             NSAttributedString("\("TransactionDetailsFees".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
             NSAttributedString("\(transaction.fees.string(with: .maximum9))\n\n", with: .body)
+            
+            if let message = transaction.message {
+                NSAttributedString("\("TransactionDetailsMessage".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+                spacing
+                NSAttributedString("\(message)\n\n", with: .body)
+            }
         })
         
         NSLayoutConstraint.activate({
@@ -146,7 +153,7 @@ class TransactionDetailsViewController: UIViewController {
             textLabel.topAnchor.pin(to: valueLabel.bottomAnchor, constant: 12)
             textLabel.pin(horizontally: view, left: 16, right: 16)
             
-            copyLinkButton.topAnchor.pin(greaterThan: textLabel.bottomAnchor, constant: 16)
+            copyLinkButton.topAnchor.pin(to: textLabel.bottomAnchor, constant: 16)
             copyLinkButton.pin(horizontally: view, left: 16, right: 16)
             
             openWEBButton.topAnchor.pin(to: copyLinkButton.bottomAnchor, constant: 16)

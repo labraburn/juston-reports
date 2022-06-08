@@ -200,6 +200,7 @@
 "TransactionDetailsRecipients" = "Recipients";
 "TransactionDetailsDate" = "Date";
 "TransactionDetailsFees" = "Fees";
+"TransactionDetailsMessage" = "Message";
 "TransactionDetailsCopyLink" = "Copy link";
 "TransactionDetailsOpenScanButton" = "Open in browser";
 /* END - TransactionDetails */
