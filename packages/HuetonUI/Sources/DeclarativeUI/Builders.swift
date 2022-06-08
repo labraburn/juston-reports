@@ -46,39 +46,49 @@ public enum SubviewsBuilder {
 ///
 /// AttributedStringBuilder
 ///
+///
+///public protocol ConstraintsGroup {
+public protocol AttributedStringGroup {
+    var strings: [NSAttributedString] { get }
+}
+
+extension NSAttributedString: AttributedStringGroup {
+    public var strings: [NSAttributedString] { [self] }
+}
+
+extension Array: AttributedStringGroup where Element == NSAttributedString {
+    public var strings: [NSAttributedString] { self }
+}
 
 @resultBuilder
 public enum AttributedStringBuilder {
+    
     public static func buildBlock() -> [NSAttributedString] {
         []
     }
 
-    public static func buildBlock(_ components: NSAttributedString...) -> [NSAttributedString] {
-        components
+    public static func buildBlock(_ components: AttributedStringGroup...) -> [NSAttributedString] {
+        components.flatMap(\.strings)
     }
 
-    public static func buildBlock(_ components: [NSAttributedString]...) -> [NSAttributedString] {
-        components.flatMap { $0 }
+    public static func buildArray(_ components: [AttributedStringGroup]) -> [NSAttributedString] {
+        components.flatMap(\.strings)
     }
 
-    public static func buildArray(_ components: [[NSAttributedString]]) -> [NSAttributedString] {
-        components.flatMap { $0 }
+    public static func buildIf(_ content: AttributedStringGroup?) -> [NSAttributedString] {
+        content?.strings ?? []
     }
 
-    public static func buildIf(_ content: NSAttributedString?) -> [NSAttributedString] {
-        guard let content = content else {
-            return []
-        }
-
-        return [content]
+    public static func buildOptional(_ components: [AttributedStringGroup]?) -> [NSAttributedString] {
+        components?.flatMap(\.strings) ?? []
     }
 
-    public static func buildEither(first: NSAttributedString) -> [NSAttributedString] {
-        [first]
+    public static func buildEither(first: AttributedStringGroup) -> [NSAttributedString] {
+        first.strings
     }
 
-    public static func buildEither(second: NSAttributedString) -> [NSAttributedString] {
-        [second]
+    public static func buildEither(second: AttributedStringGroup) -> [NSAttributedString] {
+        second.strings
     }
 }
 

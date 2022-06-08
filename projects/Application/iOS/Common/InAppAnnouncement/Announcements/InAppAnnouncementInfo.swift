@@ -51,4 +51,10 @@ extension InAppAnnouncementInfo.Content {
         icon: .copying,
         tintColor: .hui_letter_blue
     )
+    
+    static let transactionLinkCopied = InAppAnnouncementInfo.Content(
+        text: "AnnouncementTransactionLinkCopied".asLocalizedKey,
+        icon: .copying,
+        tintColor: .hui_letter_blue
+    )
 }

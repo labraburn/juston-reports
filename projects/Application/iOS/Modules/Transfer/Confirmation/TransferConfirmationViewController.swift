@@ -80,7 +80,7 @@ class TransferConfirmationViewController: UIViewController {
             view.safeAreaLayoutGuide.bottomAnchor.pin(to: cancelButton.bottomAnchor, constant: 8)
         })
         
-        let spacing = NSAttributedString(" \n", with: .body, lineHeight: 6)
+        let spacing = NSAttributedString("\n\u{200A}\n", with: .body, lineHeight: 2)
         textLabel.attributedText = NSMutableAttributedString({
             NSAttributedString("\("TransferDestinationAddress".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing

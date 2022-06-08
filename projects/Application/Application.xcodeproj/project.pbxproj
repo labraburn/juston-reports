@@ -41,6 +41,9 @@
 		F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */; };
 		F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */; };
 		F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8770284FCE10007476B8 /* DeeplinkURL.swift */; };
+		F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */; };
+		F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8778284FDFC7007476B8 /* TransactionError.swift */; };
+		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
@@ -153,6 +156,9 @@
 		F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountImportViewController.swift; sourceTree = "<group>"; };
 		F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F02C8770284FCE10007476B8 /* DeeplinkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkURL.swift; sourceTree = "<group>"; };
+		F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		F02C8778284FDFC7007476B8 /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
+		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
@@ -398,6 +404,15 @@
 			path = Developer;
 			sourceTree = "<group>";
 		};
+		F02C8772284FD88F007476B8 /* TransactionDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */,
+				F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */,
+			);
+			path = TransactionDetails;
+			sourceTree = "<group>";
+		};
 		F02FECEE27F315F700CC306C /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
@@ -554,6 +569,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F02C8772284FD88F007476B8 /* TransactionDetails */,
 				F01E2ADA2848F06B00AA108F /* Developer */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
 				F09E2A25283E924600D7BC55 /* QR */,
@@ -646,6 +662,7 @@
 				F0A1514E280268F000EF9F83 /* ApplicationError.swift */,
 				F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */,
 				F01E2ABD2846BE2700AA108F /* AccountError.swift */,
+				F02C8778284FDFC7007476B8 /* TransactionError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -896,6 +913,7 @@
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
 				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
+				F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */,
 				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
 				F0A15145280253C500EF9F83 /* C42CollectionViewDataSource.swift in Sources */,
 				F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */,
@@ -938,6 +956,7 @@
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
 				F01E2AC62846CB5B00AA108F /* AccountAppearenceViewController.swift in Sources */,
 				F0118D872810343A00B518A9 /* C42ListGroupDecorationView.swift in Sources */,
+				F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */,
 				F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */,
 				F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */,
 				F01E2ACA2846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift in Sources */,
@@ -973,6 +992,7 @@
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
+				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,
 				F0118D892810362000B518A9 /* C42TitleHeaderView.swift in Sources */,
 				F0A1515128026CFA00EF9F83 /* NSObject.swift in Sources */,
 			);

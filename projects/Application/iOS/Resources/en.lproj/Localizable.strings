@@ -132,6 +132,7 @@
 /* START - Announcements */
 "AnnouncementAddressCopied" = "Account address copied to pasteboard";
 "AnnouncementWordsCopied" = "Account secret passphrase copied to pasteboard";
+"AnnouncementTransactionLinkCopied" = "Transaction link copied to pasteboard";
 /* END - Announcements */
 
 
@@ -195,5 +196,10 @@
 
 /* START - TransactionDetails */
 "TransactionDetailsTitle" = "Transaction details";
+"TransactionDetailsSender" = "Sender";
+"TransactionDetailsRecipients" = "Recipients";
+"TransactionDetailsDate" = "Date";
+"TransactionDetailsFees" = "Fees";
+"TransactionDetailsCopyLink" = "Copy link";
 "TransactionDetailsOpenScanButton" = "Open in browser";
 /* END - TransactionDetails */

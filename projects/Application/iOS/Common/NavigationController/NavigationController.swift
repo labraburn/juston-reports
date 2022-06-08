@@ -13,6 +13,26 @@ import SystemUI
 
 class NavigationController: SUINavigationController {
     
+    /// Experimental feature
+    var isPageSheetFittedIntoContentSize: Bool = false
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        transitioningDelegate = self
+        modalPresentationStyle = .custom
+    }
+    
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+        transitioningDelegate = self
+        modalPresentationStyle = .custom
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +50,54 @@ class NavigationController: SUINavigationController {
         for operation: UINavigationController.Operation
     ) -> SUINavigationControllerAnimatedTransitioning? {
         .defaultNavigationTransitioning(with: operation)
+    }
+}
+
+extension NavigationController: UIViewControllerTransitioningDelegate {
+    
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
+        let presentationController = SheetPresentationController.withPresentedViewController(
+            presented,
+            presenting: presenting
+        )
+        presentationController.detents = [
+            .init(
+                identifier: .detentIdentifierLarge,
+                resolutionBlock: { [weak self] containerView, maximumRect in
+                    guard let self = self,
+                          self.isPageSheetFittedIntoContentSize,
+                          let viewControllerView = self.topViewController?.view // force load view
+                    else {
+                        return maximumRect.height
+                    }
+                    
+                    self.view?.layoutIfNeeded()
+                    viewControllerView.layoutIfNeeded()
+                    
+                    var height = viewControllerView.systemLayoutSizeFitting(
+                        CGSize(
+                            width: maximumRect.size.width,
+                            height: UIView.layoutFittingExpandedSize.height
+                        ),
+                        withHorizontalFittingPriority: .required,
+                        verticalFittingPriority: .defaultLow
+                    ).height
+                    
+                    if viewControllerView.safeAreaInsets == .zero {
+                        let safeAreaInsets = containerView.safeAreaInsets
+                        height += safeAreaInsets.bottom
+                        height += 56 // TODO: Fixme
+                    }
+                    
+                    return min(maximumRect.size.height, height)
+                }
+            )
+        ]
+        return presentationController
     }
 }
 

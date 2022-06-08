@@ -8,10 +8,9 @@
 import UIKit
 import SafariServices
 
-class SafariViewController: UIViewController {
+class SafariViewController: UINavigationController {
     
     override var modalPresentationStyle: UIModalPresentationStyle { get { .pageSheet } set { let _ = newValue } }
-    override var isModalInPresentation: Bool {  get { false } set { let _ = newValue }  }
     
     private let viewController: SFSafariViewController
     
@@ -28,13 +27,11 @@ class SafariViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addChild(viewController)
-        view.addSubview(viewController.view)
-        viewController.didMove(toParent: self)
+        setNavigationBarHidden(true, animated: false)
+        pushViewController(viewController, animated: false)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        viewController.view.frame = view.bounds
     }
 }

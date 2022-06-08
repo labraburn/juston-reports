@@ -172,6 +172,35 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UICollectionViewDelegate {
     
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard let account = cardsStackViewController.selectedCard?.account,
+              let item = dataSource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+        
+        let transaction: TransactionDetailsViewable
+        switch item {
+        case let .pendingTransaction(id):
+            transaction = PersistencePendingTransaction.readableObject(id: id)
+        case let .processedTransaction(id):
+            transaction = PersistenceProcessedTransaction.readableObject(id: id)
+        }
+        
+        let viewController = TransactionDetailsViewController(
+            account: account,
+            transaction: transaction
+        )
+        
+        let navigationController = NavigationController(rootViewController: viewController)
+        hui_present(
+            navigationController,
+            animated: true
+        )
+    }
 }
 
 // MARK: - UIScrollViewDelegate
