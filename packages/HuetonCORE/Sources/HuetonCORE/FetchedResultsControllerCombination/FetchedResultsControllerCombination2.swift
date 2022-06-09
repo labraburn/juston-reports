@@ -64,3 +64,5 @@ where S1: Hashable, I1: NSFetchRequestResult & Hashable, S2: Hashable, I2: NSFet
         }
     }
 }
+
+extension NSDiffableDataSourceSnapshotReference: @unchecked Sendable {}
