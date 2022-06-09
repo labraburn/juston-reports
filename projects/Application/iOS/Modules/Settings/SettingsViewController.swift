@@ -108,8 +108,7 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsPrivacyPolicyButton".asLocalizedKey,
                             titleColor: .hui_letter_violet,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
-                                let url = URL(string: "https://hueton.com/policy")
+                                let url = URL(string: "https://hueton.com/privacy")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
                         ),
@@ -117,7 +116,6 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsTermsOfUseButton".asLocalizedKey,
                             titleColor: .hui_letter_violet,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://hueton.com/terms")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
@@ -146,7 +144,6 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsCommunityChatButton".asLocalizedKey,
                             titleColor: .hui_letter_yellow,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://t.me/hueton_ru_chat")
                                 viewController.open(url: url)
                             }
@@ -168,7 +165,6 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsTelegramButton".asLocalizedKey,
                             titleColor: .hui_letter_green,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
                                 let url = URL(string: "https://t.me/hueton_ru")
                                 viewController.open(url: url)
                             }
@@ -177,8 +173,7 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsTwitterButton".asLocalizedKey,
                             titleColor: .hui_letter_green,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
-                                let url = URL(string: "https://twitter.com/hueton3000")
+                                let url = URL(string: "https://twitter.com/thehueton")
                                 viewController.open(url: url, options: .internalBrowser)
                             }
                         ),
