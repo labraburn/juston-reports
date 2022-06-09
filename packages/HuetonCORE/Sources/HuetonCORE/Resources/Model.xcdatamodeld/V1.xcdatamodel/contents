@@ -14,8 +14,8 @@
         <attribute name="raw_unique_identifier" attributeType="String"/>
         <attribute name="sortingLastUsageValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortingUserValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="raw_pending_transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PendingTransaction" inverseName="account" inverseEntity="PendingTransaction"/>
-        <relationship name="raw_processed_transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProcessedTransaction" inverseName="account" inverseEntity="ProcessedTransaction"/>
+        <relationship name="raw_pending_transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PendingTransaction" inverseName="account" inverseEntity="PendingTransaction"/>
+        <relationship name="raw_processed_transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProcessedTransaction" inverseName="account" inverseEntity="ProcessedTransaction"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_unique_identifier"/>
