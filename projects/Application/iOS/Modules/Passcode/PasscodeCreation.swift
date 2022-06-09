@@ -32,7 +32,7 @@ actor PasscodeCreation {
             let viewController = PasscodeViewController(mode: .create)
             viewController.delegate = self
             viewController.isModalInPresentation = true
-            containerViewController.present(viewController, animated: true)
+            containerViewController.hui_present(viewController, animated: true)
         })
         
         try await task.value

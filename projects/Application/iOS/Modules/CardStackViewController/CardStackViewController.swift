@@ -194,7 +194,7 @@ extension CardStackViewController: CardStackViewDelegate {
                 .cancel
             ]
         )
-        present(viewController, animated: true)
+        hui_present(viewController, animated: true)
     }
     
     func cardStackView(

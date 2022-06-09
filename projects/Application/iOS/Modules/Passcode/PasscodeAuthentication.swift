@@ -59,7 +59,7 @@ actor PasscodeAuthentication {
             let viewController = PasscodeViewController(mode: .get)
             viewController.delegate = self
             viewController.isModalInPresentation = true
-            containerViewController.present(viewController, animated: true)
+            containerViewController.hui_present(viewController, animated: true)
         })
         
         return try await task.value

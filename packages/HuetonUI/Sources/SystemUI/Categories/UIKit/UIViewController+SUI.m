@@ -4,6 +4,7 @@
 
 #import "UIViewController+SUI.h"
 #import "UIView+SUI.h"
+#import "UIResponder+SUI.h"
 #import "UIEdgeInsets+SUI.h"
 
 @import Objective42;
@@ -21,8 +22,6 @@
     return [className containsString:SUIReversedStringWithParts(@"extMenu", @"_UICont", nil)];
 }
 
-// sui_contentScrollView
-
 - (UIScrollView *)sui_contentScrollView {
     // _recordedContentScrollView
     UIScrollView *recordedContentScrollView = [self valueForKey:SUIReversedStringWithParts(@"dContentScrollView", @"_recorde", nil)];
@@ -31,6 +30,11 @@
         return [self o42_performSelector:SUISelectorFromReversedStringParts(@"entScrollView", @"_cont", nil)];
     }
     return recordedContentScrollView;
+}
+
+- (UIView * _Nullable)sui_transitionView {
+    Class klass = SUIClassFromReversedStringParts(@"sitionView", @"UITran", nil);
+    return (UIView *)[self sui_traverseResponderChainForSubclassOfClass:klass];
 }
 
 @end

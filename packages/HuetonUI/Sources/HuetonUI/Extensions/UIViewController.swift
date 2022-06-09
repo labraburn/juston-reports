@@ -20,10 +20,11 @@ extension UIViewController {
     }
     
     public func hui_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        viewControllerToPresent.loadViewIfNeeded()
-        viewControllerToPresent.view.layer.speed = 1.6
+        let window = view.window
+        window?.layer.speed = 1.3
+        
         present(viewControllerToPresent, animated: flag, completion: {
-            viewControllerToPresent.view.layer.speed = 1
+            window?.layer.speed = 1
             completion?()
         })
     }

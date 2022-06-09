@@ -11,6 +11,7 @@
 #import <../SUINavigationController/SUINavigationControllerAnimatedTransitioning/SUINavigationControllerAnimatedTransitioning.h>
 
 #import <../Categories/UIKit/UIView+SUI.h>
+#import <../Categories/UIKit/UIResponder+SUI.h>
 #import <../Categories/UIKit/UIScrollView+SUI.h>
 #import <../Categories/UIKit/UICollectionView+SUI.h>
 #import <../Categories/UIKit/UIViewController+SUI.h>

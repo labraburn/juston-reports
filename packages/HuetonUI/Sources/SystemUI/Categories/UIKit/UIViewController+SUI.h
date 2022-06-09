@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// For example for `UITableViewController` it's will be `tableView`
 - (UIScrollView * _Nullable)sui_contentScrollView;
 
+/// Returns container of view controller view `UITransitionView`
+- (UIView * _Nullable)sui_transitionView;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -310,7 +310,7 @@ extension SafariViewController: SafariViewBottomViewDelegate {
                 activityItems: [url],
                 applicationActivities: nil
             )
-            present(activityController, animated: true)
+            hui_present(activityController, animated: true)
         case .safari:
             guard let url = webView.url
             else {
