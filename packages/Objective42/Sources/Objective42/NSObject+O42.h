@@ -2,23 +2,23 @@
 //  Created by Anton Spivak
 //
 
-#import "../../SystemUI.h"
+#import "Objective42.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (SUI)
 
 /// Checks class reponds instance methid and perfroms selector
-- (id _Nullable)sui_performSelector:(SEL)aSelector;
+- (id _Nullable)o42_performSelector:(SEL)aSelector;
 
 /// Checks class reponds instance methid and perfroms selector with object
-- (id _Nullable)sui_performSelector:(SEL)aSelector withObject:(id _Nullable)object;
+- (id _Nullable)o42_performSelector:(SEL)aSelector withObject:(id _Nullable)object;
 
 /// Checks class reponds instance methid and perfroms selector with two objects
-- (id _Nullable)sui_performSelector:(SEL)aSelector withObject:(id _Nullable)object1 withObject:(id _Nullable)object2;
+- (id _Nullable)o42_performSelector:(SEL)aSelector withObject:(id _Nullable)object1 withObject:(id _Nullable)object2;
 
 /// Returns `YES` if class name starts with `_`
-- (BOOL)sui_isKindOfSystemClass;
+- (BOOL)o42_isKindOfSystemClass;
 
 @end
 

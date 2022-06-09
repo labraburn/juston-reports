@@ -1,5 +1,5 @@
 //
-//  NSException+NSError.h
+//  NSException+O42.h
 //  
 //
 //  Created by Anton Spivak on 02.04.2022.
@@ -9,12 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-O42_EXPORT NSErrorDomain const NSExceptionErrorDomain;
+O42_EXPORT NSErrorDomain const O42ExceptionErrorDomain;
 
 @interface NSException (O42NSError)
 
 /// Converts NSException to NSError object with `NSExceptionErrorDomain`
-- (NSError *)error;
+- (NSError *)o42_error;
 
 @end
 

@@ -15,7 +15,7 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
     });
 }
 
-- (void)sui_removeContentOffsetRestorationAnchor {
+- (void)removeContentOffsetRestorationAnchor {
     [self setValue:nil forKey:kSUICollectionViewRestorationAnchorKey];
 }
 
@@ -47,10 +47,10 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
     // Handle glithes when system calls
     // _adjustContentOffsetIfNeccessaryIfNeeded and etc
     // while perfroming updates and resets contentOffset
-    BOOL previousIsContentOffsetUpdatesLocked = [self sui_isContentOffsetUpdatesLocked];
-    [self sui_setContentOffsetUpdatesLocked:YES];
+    BOOL previousIsContentOffsetUpdatesLocked = [self isContentOffsetUpdatesLocked];
+    [self setContentOffsetUpdatesLocked:YES];
     supercall();
-    [self sui_setContentOffsetUpdatesLocked:previousIsContentOffsetUpdatesLocked];
+    [self setContentOffsetUpdatesLocked:previousIsContentOffsetUpdatesLocked];
     
     NSArray<NSIndexPath *> *visibleIndexPaths = [[self indexPathsForVisibleItems] sortedArrayUsingSelector:@selector(compare:)];
     NSIndexPath *anchorIndexPath = [visibleIndexPaths firstObject];
@@ -128,7 +128,7 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
 
 - (void)setBounds:(CGRect)bounds {
     CGRect _bounds = bounds;
-    if (self.sui_isContentOffsetUpdatesLocked && !CGPointEqualToPoint(self.bounds.origin, _bounds.origin)) {
+    if (self.isContentOffsetUpdatesLocked && !CGPointEqualToPoint(self.bounds.origin, _bounds.origin)) {
         _bounds.origin = self.bounds.origin;
     }
     
@@ -137,7 +137,7 @@ static NSString * kSUICollectionViewRestorationAnchorKey = nil;
 
 - (void)setContentOffset:(CGPoint)contentOffset {
     CGPoint _contentOffset = contentOffset;
-    if (self.sui_isContentOffsetUpdatesLocked && !CGPointEqualToPoint(self.contentOffset, _contentOffset)) {
+    if (self.isContentOffsetUpdatesLocked && !CGPointEqualToPoint(self.contentOffset, _contentOffset)) {
         _contentOffset = self.contentOffset;
     }
     

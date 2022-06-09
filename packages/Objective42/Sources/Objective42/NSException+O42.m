@@ -1,17 +1,17 @@
 //
-//  NSException+NSError.m
+//  NSException+O42.m
 //  
 //
 //  Created by Anton Spivak on 02.04.2022.
 //
 
-#import "NSException+NSError.h"
+#import "NSException+O42.h"
 
-NSErrorDomain const NSExceptionErrorDomain = @"NSExceptionErrorDomain";
+NSErrorDomain const O42ExceptionErrorDomain = @"O42ExceptionErrorDomain";
 
 @implementation NSException (NSError)
 
-- (NSError *)error {
+- (NSError *)o42_error {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setValue:self.name forKey:@"NSExceptionName"];
     [userInfo setValue:(self.reason ?: @"") forKey:@"NSExceptionReason"];
@@ -19,7 +19,7 @@ NSErrorDomain const NSExceptionErrorDomain = @"NSExceptionErrorDomain";
     [userInfo setValue:self.callStackSymbols forKey:@"NSExceptionCallStackSymbols"];
     [userInfo setValue:(self.userInfo ?: @{}) forKey:@"NSExceptionUserInfo"];
     
-    return [NSError errorWithDomain:NSExceptionErrorDomain code:0 userInfo:@{
+    return [NSError errorWithDomain:O42ExceptionErrorDomain code:0 userInfo:@{
         NSUnderlyingErrorKey : self,
         NSDebugDescriptionErrorKey : [userInfo copy],
         NSLocalizedFailureReasonErrorKey : self.reason ?: @""

@@ -5,10 +5,10 @@
 #import "SUISVGDecoder.h"
 
 @import Objective42;
+@import ObjectiveC.runtime;
+@import ObjectiveC.message;
 
 #import <dlfcn.h>
-#import <objc/runtime.h>
-#import <objc/message.h>
 
 NSErrorDomain const SUISVGDecoderErrorDomain = @"SUISVGDecoderErrorDomain;";
 
@@ -101,7 +101,7 @@ static inline NSString *SDBase64DecodedString(NSString *base64String) {
                           options:NSDataSearchBackwards
                             range:NSMakeRange(data.length - MIN(90, data.length), MIN(90, data.length))];
     } @catch (NSException *exception) {
-        *error = [exception error];
+        *error = [exception o42_error];
         return NO;
     }
     

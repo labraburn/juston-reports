@@ -6,10 +6,10 @@
 //
 
 #import "O42NSExceptionHandler.h"
-#import "NSException+NSError.h"
+#import "NSException+O42.h"
 
 void throwable_execution(void (^NS_NOESCAPE executionBlock)(void), void (^NS_NOESCAPE  _Nullable errorHandler)(NSError * _Nonnull)) {
-    NSError *_error = [NSError errorWithDomain:NSExceptionErrorDomain code:0 userInfo:@{}];
+    NSError *_error = [NSError errorWithDomain:O42ExceptionErrorDomain code:0 userInfo:@{}];
     @try {
         executionBlock();
     } @catch (NSException *exception) {
@@ -17,7 +17,7 @@ void throwable_execution(void (^NS_NOESCAPE executionBlock)(void), void (^NS_NOE
             if (exception == nil) {
                 errorHandler(_error);
             } else {
-                errorHandler([exception error]);
+                errorHandler([exception o42_error]);
             }
         }
     } @finally {}
@@ -30,9 +30,9 @@ void throwable_execution(void (^NS_NOESCAPE executionBlock)(void), void (^NS_NOE
         block();
     } @catch (NSException *exception) {
         if (error != NULL) {
-            *error = [NSError errorWithDomain:NSExceptionErrorDomain code:0 userInfo:@{}];
+            *error = [NSError errorWithDomain:O42ExceptionErrorDomain code:0 userInfo:@{}];
             if (exception != nil) {
-                *error = [exception error];
+                *error = [exception o42_error];
             }
         }
     } @finally {}
