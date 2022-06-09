@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21223.11" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName="PersistenceAccount" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateLastSynchronization" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -14,6 +14,8 @@
         <attribute name="raw_unique_identifier" attributeType="String"/>
         <attribute name="sortingLastUsageValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortingUserValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="raw_pending_transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PendingTransaction" inverseName="account" inverseEntity="PendingTransaction"/>
+        <relationship name="raw_processed_transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProcessedTransaction" inverseName="account" inverseEntity="ProcessedTransaction"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_unique_identifier"/>
@@ -27,7 +29,7 @@
         <attribute name="raw_destination_address" attributeType="String" valueTransformerName="StringArrayTransformer"/>
         <attribute name="raw_estimated_fees" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="raw_value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="account" maxCount="1" deletionRule="No Action" destinationEntity="Account"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="raw_pending_transactions" inverseEntity="Account"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_body_hash"/>
@@ -41,6 +43,8 @@
         <attribute name="raw_fees" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="raw_source_address" optional="YES" attributeType="String"/>
         <attribute name="raw_value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="raw_transaction_in" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProcessedTransaction" inverseName="in" inverseEntity="ProcessedTransaction"/>
+        <relationship name="raw_transaction_out" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProcessedTransaction" inverseName="out" inverseEntity="ProcessedTransaction"/>
     </entity>
     <entity name="ProcessedTransaction" representedClassName="PersistenceProcessedTransaction" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
@@ -48,9 +52,9 @@
         <attribute name="raw_fees" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="raw_hash" attributeType="String"/>
         <attribute name="raw_logical_time" attributeType="Integer 64" usesScalarValueType="YES"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account"/>
-        <relationship name="in" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ProcessedAction"/>
-        <relationship name="out" toMany="YES" deletionRule="Cascade" destinationEntity="ProcessedAction"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="raw_processed_transactions" inverseEntity="Account"/>
+        <relationship name="in" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ProcessedAction" inverseName="raw_transaction_in" inverseEntity="ProcessedAction"/>
+        <relationship name="out" toMany="YES" deletionRule="Cascade" destinationEntity="ProcessedAction" inverseName="raw_transaction_out" inverseEntity="ProcessedAction"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="raw_logical_time"/>
@@ -59,9 +63,9 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-9" width="128" height="224"/>
-        <element name="PendingTransaction" positionX="-125.953125" positionY="400.44140625" width="128" height="148"/>
-        <element name="ProcessedAction" positionX="468.75390625" positionY="697.4296875" width="128" height="133"/>
-        <element name="ProcessedTransaction" positionX="212.5859375" positionY="349.9296875" width="128" height="163"/>
+        <element name="Account" positionX="-63" positionY="-9" width="128" height="254"/>
+        <element name="PendingTransaction" positionX="-125.953125" positionY="400.44140625" width="128" height="134"/>
+        <element name="ProcessedAction" positionX="468.75390625" positionY="697.4296875" width="128" height="149"/>
+        <element name="ProcessedTransaction" positionX="212.5859375" positionY="349.9296875" width="128" height="149"/>
     </elements>
 </model>

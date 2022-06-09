@@ -35,6 +35,13 @@ public class PersistencePendingTransaction: PersistenceObject {
         self.dateCreated = Date()
     }
     
+    public override func willSave() {
+        super.willSave()
+        
+        // Check optional CoreData property, but not optional Swift property
+        let _ = self.account
+    }
+    
     @PersistenceWritableActor
     public static func removeAll(
         for account: PersistenceAccount
