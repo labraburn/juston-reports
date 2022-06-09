@@ -104,7 +104,7 @@ extension C42CollectionViewController: UICollectionViewDelegate {
             })
         } else {
             switch itemIdentifier {
-            case let .synchronousButton(_, _, action):
+            case let .synchronousButton(_, _, action), let .settingsButton(_, _, action):
                 do {
                     try action(self)
                 } catch {
