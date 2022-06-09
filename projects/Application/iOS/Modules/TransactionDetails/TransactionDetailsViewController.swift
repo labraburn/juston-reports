@@ -205,12 +205,7 @@ class TransactionDetailsViewController: UIViewController {
     private func openWEBButtonDidClick(_ sender: UIButton) {
         do {
             let url = try transactionURL()
-            
-            let configuration = SFSafariViewController.Configuration()
-            configuration.entersReaderIfAvailable = false
-            
-            let viewController = SafariViewController(url: url, configuation: configuration)
-            hui_present(viewController, animated: true)
+            open(url: url, options: .internalBrowser)
         } catch {
             present(error)
         }

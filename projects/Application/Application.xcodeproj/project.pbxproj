@@ -16,14 +16,11 @@
 		F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */; };
 		F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */; };
 		F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */; };
-		F0118D9B2810614600B518A9 /* SafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9A2810614600B518A9 /* SafariViewController.swift */; };
 		F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */; };
 		F0118DA22810690400B518A9 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA12810690400B518A9 /* URL.swift */; };
 		F0118DA52810699100B518A9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = F0118DA42810699100B518A9 /* Nuke */; };
 		F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA728106A0100B518A9 /* RemoteImageView.swift */; };
 		F0118DAB281075EB00B518A9 /* Web3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAA281075EB00B518A9 /* Web3ViewController.swift */; };
-		F0118DAD2810764C00B518A9 /* Web3WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAC2810764C00B518A9 /* Web3WebView.swift */; };
-		F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */; };
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
 		F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F016607D284B5A5F00E4BE3F /* DefaultMOON */; };
@@ -131,13 +128,10 @@
 		F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42LogoHeaderView.swift; sourceTree = "<group>"; };
 		F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42CollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ApplicationVersionHeaderView.swift; sourceTree = "<group>"; };
-		F0118D9A2810614600B518A9 /* SafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariViewController.swift; sourceTree = "<group>"; };
 		F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0118DA12810690400B518A9 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		F0118DA728106A0100B518A9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		F0118DAA281075EB00B518A9 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
-		F0118DAC2810764C00B518A9 /* Web3WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3WebView.swift; sourceTree = "<group>"; };
-		F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3NavigationView.swift; sourceTree = "<group>"; };
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
 		F016607A284B56F300E4BE3F /* HuetonMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonMOON; path = ../../../packages/HuetonMOON; sourceTree = "<group>"; };
@@ -312,14 +306,6 @@
 			path = ReusableViews;
 			sourceTree = "<group>";
 		};
-		F0118D992810612000B518A9 /* SafariViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F0118D9A2810614600B518A9 /* SafariViewController.swift */,
-			);
-			path = SafariViewController;
-			sourceTree = "<group>";
-		};
 		F0118D9E2810670C00B518A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,8 +328,6 @@
 			isa = PBXGroup;
 			children = (
 				F0118DAA281075EB00B518A9 /* Web3ViewController.swift */,
-				F0118DAC2810764C00B518A9 /* Web3WebView.swift */,
-				F0118DAE281077CD00B518A9 /* Web3NavigationView.swift */,
 			);
 			path = Web3ViewController;
 			sourceTree = "<group>";
@@ -576,7 +560,6 @@
 				F0A4579A283C47AD0039F6CA /* Camera */,
 				F07C7F9628329A4C00A10B41 /* Transfer */,
 				F0118DA9281075D500B518A9 /* Web3ViewController */,
-				F0118D992810612000B518A9 /* SafariViewController */,
 				F0118D7B28102DC000B518A9 /* Settings */,
 				F0A151522802726000EF9F83 /* Passcode */,
 				F0A1513A2802527B00EF9F83 /* Onboarding */,
@@ -969,7 +952,6 @@
 				F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
-				F0118DAF281077CD00B518A9 /* Web3NavigationView.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
 				F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */,
@@ -981,12 +963,10 @@
 				F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
-				F0118D9B2810614600B518A9 /* SafariViewController.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,
-				F0118DAD2810764C00B518A9 /* Web3WebView.swift in Sources */,
 				F01E2ACC2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift in Sources */,
 				F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
