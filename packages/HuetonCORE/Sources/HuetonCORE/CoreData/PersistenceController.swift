@@ -32,12 +32,18 @@ internal class PersistenceController {
         }
         
         container = PersistentContainer(name: nameName, managedObjectModel: model)
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            guard let error = error
+            else {
+                return
+            }
+            
+            fatalError("[CoreData]: Unresolved error \(error), \(error.localizedDescription)")
+        })
         
         let persistentStoreDescription = container.persistentStoreDescriptions.first
         persistentStoreDescription?.shouldMigrateStoreAutomatically = true
         persistentStoreDescription?.shouldInferMappingModelAutomatically = true
-        
-        load(removePersistentStoresIfNeeded: true)
     }
     
     internal func managedObjectContext(
@@ -56,29 +62,6 @@ internal class PersistenceController {
             context.persistentStoreCoordinator = container.persistentStoreCoordinator
             return context
         }
-    }
-    
-    private func load(
-        removePersistentStoresIfNeeded: Bool
-    ) {
-        let container = container
-        container.loadPersistentStores(completionHandler: { [weak self] (storeDescription, error) in
-            guard let error = error
-            else {
-                return
-            }
-
-            let nserror = error as NSError
-            if removePersistentStoresIfNeeded && (nserror.code == 134140 || nserror.code == 134110) {
-                #warning("TODO: Remove this code.")
-                if let url = container.persistentStoreDescriptions.first?.url {
-                    try? FileManager.default.removeItem(at: url)
-                    self?.load(removePersistentStoresIfNeeded: false)
-                }
-            } else {
-                fatalError("[CoreData]: Unresolved error \(error), \(error.localizedDescription)")
-            }
-        })
     }
 }
 
