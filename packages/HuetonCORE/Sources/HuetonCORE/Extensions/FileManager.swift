@@ -103,3 +103,5 @@ extension FileManager {
         return nil
     }
 }
+
+extension FileManager: @unchecked Sendable {}
