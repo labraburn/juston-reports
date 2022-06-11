@@ -4,12 +4,12 @@
 
 CODE_SIGN_IDENTITY = Apple Development
 CODE_SIGN_STYLE = Automatic
-DEVELOPMENT_TEAM = 76AEM4P5DW
+DEVELOPMENT_TEAM = RC58426QBN
 CODE_SIGN_IDENTITY = Apple Development
 PROVISIONING_PROFILE_SPECIFIER =
 
 CODE_SIGN_ENTITLEMENTS = iOS/Supporting/Entitlements/iOSDebug.entitlements
-PRODUCT_BUNDLE_IDENTIFIER = com.hueton.debug.application.ios
+PRODUCT_BUNDLE_IDENTIFIER = com.hueton.debug.application.wallet
 PRODUCT_NAME = H3000
 
 VERSIONING_SYSTEM = apple-generic

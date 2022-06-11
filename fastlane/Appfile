@@ -1,5 +1,5 @@
-app_identifier("com.hueton.application.ios")
-apple_id("oboupo@gmail.com")
+app_identifier("com.hueton.application.wallet")
+apple_id("anton@hueton.com")
 
-itc_team_id("120268635")
-team_id("76AEM4P5DW")
+itc_team_id("1629214799")
+team_id("RC58426QBN")

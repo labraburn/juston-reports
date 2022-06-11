@@ -7,9 +7,9 @@ import Foundation
 public struct FileManagerAccessGroup: AccessGroup {
     
     #if DEBUG
-    public static let shared: FileManagerAccessGroup = FileManagerAccessGroup("group.com.hueton.debug")
+    public static let shared: FileManagerAccessGroup = FileManagerAccessGroup("group.com.hueton.debug.family")
     #else
-    public static let shared: FileManagerAccessGroup = FileManagerAccessGroup("group.com.hueton")
+    public static let shared: FileManagerAccessGroup = FileManagerAccessGroup("group.com.hueton.family")
     #endif
     
     public let label: String

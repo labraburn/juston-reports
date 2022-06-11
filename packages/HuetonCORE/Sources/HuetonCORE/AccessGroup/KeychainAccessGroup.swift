@@ -7,9 +7,9 @@ import Foundation
 public struct KeychainAccessGroup: AccessGroup {
     
     #if DEBUG
-    public static let shared: KeychainAccessGroup = KeychainAccessGroup("76AEM4P5DW.group.com.hueton.debug")
+    public static let shared: KeychainAccessGroup = KeychainAccessGroup("RC58426QBN.group.com.hueton.debug.family")
     #else
-    public static let shared: KeychainAccessGroup = KeychainAccessGroup("76AEM4P5DW.group.com.hueton")
+    public static let shared: KeychainAccessGroup = KeychainAccessGroup("RC58426QBN.group.com.hueton.family")
     #endif
     
     public let label: String
