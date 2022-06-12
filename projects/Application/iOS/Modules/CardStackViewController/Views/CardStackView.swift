@@ -19,47 +19,37 @@ protocol CardStackViewDelegate: AnyObject {
     
     func cardStackView(
         _ view: CardStackView,
-        didClickRemoveButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickAppearanceButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickBackupButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickSubscribeButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickUnsubscrabeButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickResynchronizeButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickSendButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
-        didClickReceiveButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackView(
-        _ view: CardStackView,
         didClickWhileModel model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickSendControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickReceiveControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickMoreControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickReadonlyControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickVersionControl control: UIControl,
+        model: CardStackCard
     )
 }
 
@@ -550,35 +540,63 @@ private extension CardStackView.Presentation {
 
 extension CardStackView: CardStackCardViewDelegate {
     
-    func cardStackCardView(_ view: UIView, didClickRemoveButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickRemoveButtonWithModel: model)
+    func cardStackCardView(
+        _ view: UIView,
+        didClickSendControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickSendControl: control,
+            model: model
+        )
     }
     
-    func cardStackCardView(_ view: UIView, didClickSendButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickSendButtonWithModel: model)
+    func cardStackCardView(
+        _ view: UIView,
+        didClickReceiveControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickReceiveControl: control,
+            model: model
+        )
     }
     
-    func cardStackCardView(_ view: UIView, didClickReceiveButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickReceiveButtonWithModel: model)
+    func cardStackCardView(
+        _ view: UIView,
+        didClickMoreControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickMoreControl: control,
+            model: model
+        )
     }
     
-    func cardStackCardView(_ view: UIView, didClickAppearanceButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickAppearanceButtonWithModel: model)
+    func cardStackCardView(
+        _ view: UIView,
+        didClickReadonlyControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickReadonlyControl: control,
+            model: model
+        )
     }
     
-    func cardStackCardView(_ view: UIView, didClickBackupButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickBackupButtonWithModel: model)
-    }
-    
-    func cardStackCardView(_ view: UIView, didClickSubscribeButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickSubscribeButtonWithModel: model)
-    }
-    
-    func cardStackCardView(_ view: UIView, didClickUnsubscrabeButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickUnsubscrabeButtonWithModel: model)
-    }
-    
-    func cardStackCardView(_ view: UIView, didClickResynchronizeButtonWithModel model: CardStackCard) {
-        delegate?.cardStackView(self, didClickResynchronizeButtonWithModel: model)
+    func cardStackCardView(
+        _ view: UIView,
+        didClickVersionControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickVersionControl: control,
+            model: model
+        )
     }
 }

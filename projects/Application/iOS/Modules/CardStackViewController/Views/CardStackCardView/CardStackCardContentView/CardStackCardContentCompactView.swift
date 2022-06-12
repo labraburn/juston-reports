@@ -42,8 +42,7 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         addSubview(accountCurrentAddressLabel)
         addSubview(moreButton)
         
-        moreButton.showsMenuAsPrimaryAction = true
-        moreButton.menu = more()
+        moreButton.addTarget(self, action: #selector(moreButtonDidClick(_:)), for: .touchUpInside)
         
         NSLayoutConstraint.activate({
             accountNameLabel.topAnchor.pin(to: topAnchor, constant: 18)
@@ -77,7 +76,5 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
         
         moreButton.tintColor = tintColor
-        moreButton.menu = nil
-        moreButton.menu = more()
     }
 }

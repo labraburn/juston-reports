@@ -120,6 +120,15 @@
 
 
 /* START - AccountCard */
+"AccountCardReadonlyLabel" = "READONLY";
+"AccountCardSynchronizationInProgress" = "Syncing..";
+"AccountCardSynchronizationDone" = "Updated %@ ago";
+"AccountCardSynchronizationNow" = "Updated just now";
+/* END - AccountCard */
+
+
+
+/* START - AccountCard */
 "AccountCardSubscribeButton" = "Enable notifications";
 "AccountCardUnsubscribeButton" = "Disable notifications";
 "AccountCardResynchronizeButton" = "Re-synchronize";
@@ -204,3 +213,10 @@
 "TransactionDetailsCopyLink" = "Copy link";
 "TransactionDetailsOpenScanButton" = "Open in browser";
 /* END - TransactionDetails */
+
+
+
+/* START - ReadonlyAccount */
+"ReadonlyAccountTitle" = "Readonly account";
+"ReadonlyAccountMessage" = "This account added by address and doesn't have private keys. You can follow it but can't control it";
+/* END - ReadonlyAccount */

@@ -8,6 +8,7 @@
 
 @import Objective42;
 @import ObjectiveC.runtime;
+@import ObjectiveC.message;
 
 @implementation UIView (SUI)
 
@@ -22,6 +23,22 @@
 + (BOOL)sui_isInAnimationBlock {
     // _currentViewAnimationState
     return [self o42_performSelector:SUISelectorFromReversedStringParts(@"wAnimationState", @"_currentVie", nil)] != nil;
+}
+
+- (void)sui_triggerFirstInteractionIfPossible {
+    // _presentMenuAtLocation:
+    SEL sel = SUISelectorFromReversedStringParts(@"nuAtLocation:", @"_presentMe", nil);
+    
+    id<UIInteraction> interaction = [self.interactions firstObject];
+    if (interaction == nil || ![interaction respondsToSelector:sel]) {
+        return;
+    }
+    
+    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    
+    typedef void (*function)(id, SEL, CGPoint);
+    function block = (function)objc_msgSend;
+    block(interaction, sel, center);
 }
 
 #pragma mark - Swizzled

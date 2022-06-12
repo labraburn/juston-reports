@@ -34,6 +34,14 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.numberOfLines = 1
     })
     
+    private let topButtonsHStackView = UIStackView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.spacing = 10
+        $0.clipsToBounds = false
+    })
+    
     private let accountCurrentAddressLabel = VerticalLabelContainerView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
@@ -66,6 +74,9 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.layer.cornerCurve = .circular
     })
     
+    private let versionButton = CardStackCardLabel.createTopButton("V3R2")
+    private let readonlyButton = CardStackCardLabel.createTopButton("AccountCardReadonlyLabel".asLocalizedKey)
+    
     private let sendButton = CardStackCardButton.createBottomButton(.hui_send24)
     private let receiveButton = CardStackCardButton.createBottomButton(.hui_receive24)
     private let moreButton = CardStackCardButton.createBottomButton(.hui_more24)
@@ -83,14 +94,18 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         
         addSubview(accountNameLabel)
         addSubview(synchronizationLabel)
+        addSubview(topButtonsHStackView)
         addSubview(moreButton)
         addSubview(accountCurrentAddressLabel)
         addSubview(balanceLabel)
         addSubview(bottomButtonsHStackView)
         addSubview(loadingIndicatorView)
         
+        topButtonsHStackView.addArrangedSubview(versionButton)
         bottomButtonsHStackView.addArrangedSubview(receiveButton)
-        if !model.account.isReadonly {
+        if model.account.isReadonly {
+            topButtonsHStackView.addArrangedSubview(readonlyButton)
+        } else {
             bottomButtonsHStackView.addArrangedSubview(sendButton)
         }
         bottomButtonsHStackView.addArrangedSubview(moreButton)
@@ -99,10 +114,16 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         accountCurrentAddressLabel.insertHighlightingScaleAnimation(0.99)
         accountCurrentAddressLabel.insertFeedbackGenerator(style: .light)
         
+        topButtonsHStackView.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, bottom: -24, right: -24)
+        versionButton.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, bottom: -24, right: -4)
+        readonlyButton.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -4, bottom: -24, right: -24)
+        
+        versionButton.addTarget(self, action: #selector(versionButtonDidClick(_:)), for: .touchUpInside)
+        readonlyButton.addTarget(self, action: #selector(readonlyButtonDidClick(_:)), for: .touchUpInside)
         accountCurrentAddressLabel.addTarget(self, action: #selector(copyAddressButtonDidClick(_:)), for: .touchUpInside)
         sendButton.addTarget(self, action: #selector(sendButtonDidClick(_:)), for: .touchUpInside)
         receiveButton.addTarget(self, action: #selector(receiveButtonDidClick(_:)), for: .touchUpInside)
-        moreButton.showsMenuAsPrimaryAction = true
+        moreButton.addTarget(self, action: #selector(moreButtonDidClick(_:)), for: .touchUpInside)
         
         synchronizationObserver = AnnouncementCenter.shared.observe(
             of: AnnouncementSynchronization.self,
@@ -129,8 +150,13 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             accountNameLabel.heightAnchor.pin(to: 33)
             
             synchronizationLabel.topAnchor.pin(to: accountNameLabel.bottomAnchor, constant: 12)
-            synchronizationLabel.leftAnchor.pin(to: leftAnchor, constant: 27)
+            synchronizationLabel.leftAnchor.pin(to: leftAnchor, constant: 26)
             accountCurrentAddressLabel.leftAnchor.pin(to: synchronizationLabel.rightAnchor, constant: 12)
+            
+            topButtonsHStackView.topAnchor.pin(to: synchronizationLabel.bottomAnchor, constant: 14)
+            topButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 24)
+            topButtonsHStackView.heightAnchor.pin(to: 24)
+            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: topButtonsHStackView.rightAnchor, constant: 12)
             
             accountCurrentAddressLabel.topAnchor.pin(to: topAnchor, constant: 30)
             accountCurrentAddressLabel.widthAnchor.pin(to: 16)
@@ -142,17 +168,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             
             bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 18)
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 26)
-            bottomButtonsHStackView.heightAnchor.pin(to: 52)
-            bottomButtonsHStackView.widthAnchor.pin(greaterThan: 128)
-            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .required - 1)
+            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
-            
-            if !model.account.isReadonly {
-                sendButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
-            }
-            
-            receiveButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
-            moreButton.widthAnchor.pin(to: bottomButtonsHStackView.heightAnchor)
             
             loadingIndicatorView.centerXAnchor.pin(to: centerXAnchor)
             loadingIndicatorView.topAnchor.pin(to: bottomAnchor, constant: 42)
@@ -173,6 +190,11 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         let controlsForegroundColor = UIColor(rgba: model.account.appearance.controlsForegroundColor)
         let controlsBackgroundColor = UIColor(rgba: model.account.appearance.controlsBackgroundColor)
         
+        versionButton.tintColor = controlsForegroundColor.withAlphaComponent(0.7)
+        versionButton.backgroundColor = controlsBackgroundColor
+        readonlyButton.tintColor = controlsForegroundColor.withAlphaComponent(0.7)
+        readonlyButton.backgroundColor = controlsBackgroundColor
+        
         sendButton.tintColor = controlsForegroundColor
         sendButton.backgroundColor = controlsBackgroundColor
         receiveButton.tintColor = controlsForegroundColor
@@ -189,7 +211,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         accountCurrentAddressLabel.label.textColor = tintColor.withAlphaComponent(0.64)
         accountCurrentAddressLabel.label.attributedText = .string(address, with: .callout)
         
-        synchronizationLabel.textColor = tintColor.withAlphaComponent(0.1)
+        synchronizationLabel.textColor = tintColor.withAlphaComponent(0.7)
         
         let balance = CurrencyFormatter.string(from: model.account.balance, options: .maximum9minimum9)
         let balances = balance.components(separatedBy: ".")
@@ -205,11 +227,6 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             ]))
             $0.append(.string("\n." + balances[1], with: .body, kern: .four, lineHeight: 17))
         })
-        
-        if !moreButton.isHighlighted {
-            moreButton.menu = nil
-            moreButton.menu = more()
-        }
         
         if model.account.isSynchronizing {
             loadingIndicatorView.startLoadingAnimation(delay: 2.1)
@@ -232,16 +249,16 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
     private func updateSynchronizationLabel() {
         switch synchronizationPresentation {
         case let .loading(progress):
-            synchronizationLabel.text = "Syncing.. \(Int(progress * 100))%"
+            synchronizationLabel.text = "\("AccountCardSynchronizationInProgress".asLocalizedKey) \(Int(progress * 100))%"
         case .calm:
             if let date = model.account.dateLastSynchronization,
                 Date().timeIntervalSince1970 - date.timeIntervalSince1970 > 60
             {
                 let formatter = RelativeDateTimeFormatter.shared
                 let timeAgo = formatter.localizedString(for: Date(), relativeTo: date)
-                synchronizationLabel.text = "Updated \(timeAgo) ago"
+                synchronizationLabel.text = String(format: "AccountCardSynchronizationDone".asLocalizedKey, timeAgo)
             } else {
-                synchronizationLabel.text = "Updated just now"
+                synchronizationLabel.text = "AccountCardSynchronizationNow".asLocalizedKey
             }
         }
     }

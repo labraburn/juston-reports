@@ -30,107 +30,51 @@ class CardStackCardContentView: UIView {
     
     func reload() {}
     
-    func more() -> UIMenu {
-        var children: [UIMenuElement] = []
-        
-        children.append(UIAction(
-            title: "CommonRemove".asLocalizedKey,
-            image: UIImage(systemName: "trash"),
-            attributes: .destructive,
-            handler: { [weak self] _ in
-                self?.removeButtonDidClick(nil)
-            }
-        ))
-        
-        children.append(UIAction(
-            title: "AccountCardResynchronizeButton".asLocalizedKey,
-            image: UIImage(systemName: "arrow.clockwise"),
-            handler: { [weak self] _ in
-                self?.resynchronizeButtonDidClick(nil)
-            }
-        ))
-        
-        if model.account.flags.contains(.isNotificationsEnabled) {
-            children.append(UIAction(
-                title: "AccountCardUnsubscribeButton".asLocalizedKey,
-                image: UIImage(systemName: "bell.slash"),
-                handler: { [weak self] _ in
-                    self?.unsubscribeButtonDidClick(nil)
-                }
-            ))
-        } else {
-            children.append(UIAction(
-                title: "AccountCardSubscribeButton".asLocalizedKey,
-                image: UIImage(systemName: "bell"),
-                handler: { [weak self] _ in
-                    self?.subscribeButtonDidClick(nil)
-                }
-            ))
-        }
-        
-        children.append(UIAction(
-            title: "AccountCardChangeApperanceButton".asLocalizedKey,
-            image: UIImage(systemName: "paintbrush"),
-            handler: { [weak self] _ in
-                self?.appearanceButtonDidClick(nil)
-            }
-        ))
-        
-        if !model.account.isReadonly {
-            children.append(UIAction(
-                title: "AccountCardBackupButton".asLocalizedKey,
-                image: UIImage(systemName: "key"),
-                handler: { [weak self] _ in
-                    self?.backupButtonDidClick(nil)
-                }
-            ))
-        }
-        
-        return UIMenu(
-            children: children
-        )
-    }
-    
     // MARK: Actions
     
     @objc
     func sendButtonDidClick(_ sender: UIControl) {
-        delegate?.cardStackCardView(self, didClickSendButtonWithModel: model)
+        delegate?.cardStackCardView(
+            self,
+            didClickSendControl: sender,
+            model: model
+        )
     }
     
     @objc
     func receiveButtonDidClick(_ sender: UIControl) {
-        delegate?.cardStackCardView(self, didClickReceiveButtonWithModel: model)
+        delegate?.cardStackCardView(
+            self,
+            didClickReceiveControl: sender,
+            model: model
+        )
     }
     
     @objc
-    func removeButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickRemoveButtonWithModel: model)
+    func moreButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(
+            self,
+            didClickMoreControl: sender,
+            model: model
+        )
     }
     
     @objc
-    func appearanceButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickAppearanceButtonWithModel: model)
+    func versionButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(
+            self,
+            didClickVersionControl: sender,
+            model: model
+        )
     }
     
     @objc
-    func backupButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickBackupButtonWithModel: model)
-    }
-    
-    @objc
-    func subscribeButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickSubscribeButtonWithModel: model)
-    }
-    
-    @objc
-    func unsubscribeButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickUnsubscrabeButtonWithModel: model)
-    }
-    
-    @objc
-    func resynchronizeButtonDidClick(_ sender: UIControl?) {
-        delegate?.cardStackCardView(self, didClickResynchronizeButtonWithModel: model)
+    func readonlyButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(
+            self,
+            didClickReadonlyControl: sender,
+            model: model
+        )
     }
     
     @objc

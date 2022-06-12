@@ -14,42 +14,32 @@ protocol CardStackCardViewDelegate: AnyObject {
     
     func cardStackCardView(
         _ view: UIView,
-        didClickRemoveButtonWithModel model: CardStackCard
+        didClickSendControl control: UIControl,
+        model: CardStackCard
     )
     
     func cardStackCardView(
         _ view: UIView,
-        didClickAppearanceButtonWithModel model: CardStackCard
+        didClickReceiveControl control: UIControl,
+        model: CardStackCard
     )
     
     func cardStackCardView(
         _ view: UIView,
-        didClickBackupButtonWithModel model: CardStackCard
+        didClickMoreControl control: UIControl,
+        model: CardStackCard
     )
     
     func cardStackCardView(
         _ view: UIView,
-        didClickSubscribeButtonWithModel model: CardStackCard
+        didClickReadonlyControl control: UIControl,
+        model: CardStackCard
     )
     
     func cardStackCardView(
         _ view: UIView,
-        didClickUnsubscrabeButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackCardView(
-        _ view: UIView,
-        didClickResynchronizeButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackCardView(
-        _ view: UIView,
-        didClickSendButtonWithModel model: CardStackCard
-    )
-    
-    func cardStackCardView(
-        _ view: UIView,
-        didClickReceiveButtonWithModel model: CardStackCard
+        didClickVersionControl control: UIControl,
+        model: CardStackCard
     )
 }
 

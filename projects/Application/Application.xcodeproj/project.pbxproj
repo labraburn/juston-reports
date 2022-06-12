@@ -61,6 +61,7 @@
 		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
 		F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */; };
 		F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */; };
+		F085969B285633D300CF9D3D /* CardStackCardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085969A285633D300CF9D3D /* CardStackCardLabel.swift */; };
 		F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */; };
 		F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4E27E88D5900FC8404 /* C42ImageViewCell.swift */; };
 		F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B5027E88D8200FC8404 /* C42ButtonCell.swift */; };
@@ -172,6 +173,7 @@
 		F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementView.swift; sourceTree = "<group>"; };
 		F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDateReusableView.swift; sourceTree = "<group>"; };
 		F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferNavigationController.swift; sourceTree = "<group>"; };
+		F085969A285633D300CF9D3D /* CardStackCardLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardLabel.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
 		F0909B4E27E88D5900FC8404 /* C42ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ImageViewCell.swift; sourceTree = "<group>"; };
 		F0909B5027E88D8200FC8404 /* C42ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ButtonCell.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			children = (
 				F067813D281AA43E00EB05F4 /* CardStackCardView */,
 				F0678145281AA4E700EB05F4 /* CardStackCardButton.swift */,
+				F085969A285633D300CF9D3D /* CardStackCardLabel.swift */,
 				F00BE9F127DCC20B0084FF1C /* CardStackView.swift */,
 			);
 			path = Views;
@@ -878,6 +881,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */,
+				F085969B285633D300CF9D3D /* CardStackCardLabel.swift in Sources */,
 				F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */,
 				F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* C42LabelCell.swift in Sources */,

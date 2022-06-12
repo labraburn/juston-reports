@@ -1,15 +1,15 @@
 //
-//  CardStackCardButton.swift
+//  CardStackCardLabel.swift
 //  iOS
 //
-//  Created by Anton Spivak on 28.04.2022.
+//  Created by Anton Spivak on 12.06.2022.
 //
 
 import UIKit
 import HuetonUI
 
-final class CardStackCardButton: UIButton {
-    
+final class CardStackCardLabel: UIButton {
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -24,15 +24,15 @@ final class CardStackCardButton: UIButton {
         )
     }
     
-    static func createBottomButton(_ image: UIImage) -> UIButton {
-        let button = CardStackCardButton(type: .system)
+    static func createTopButton(_ text: String) -> UIButton {
+        let button = CardStackCardLabel(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.insertHighlightingScaleAnimation()
         button.insertFeedbackGenerator(style: .medium)
-        button.widthAnchor.pin(to: 52).isActive = true
-        button.heightAnchor.pin(to: 52).isActive = true
-        button.setImage(image, for: .normal)
-        button.layer.cornerRadius = 26
+        button.setTitle(text, for: .normal)
+        button.titleLabel?.font = .font(for: .caption2)
+        button.contentEdgeInsets = .init(top: 4, left: 8, bottom: 4, right: 8)
+        button.layer.cornerRadius = 12
         button.layer.cornerCurve = .continuous
         return button
     }
