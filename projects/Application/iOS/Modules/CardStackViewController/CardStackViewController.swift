@@ -433,11 +433,9 @@ extension CardStackViewController: CardStackViewDelegate {
             ))
         }
         
-        button.menu = UIMenu(
-            children: children
+        button.sui_presentMenuIfPossible(
+            UIMenu(children: children)
         )
-        
-        button.sui_triggerFirstInteractionIfPossible()
     }
     
     func cardStackView(
@@ -473,7 +471,8 @@ extension CardStackViewController: CardStackViewDelegate {
             return
         }
         
-        button.menu = UIMenu(children: [UIAction(title: "Test", handler: { _ in })])
-        button.sui_triggerFirstInteractionIfPossible()
+        button.sui_presentMenuIfPossible(
+            UIMenu(children: [UIAction(title: "Test", handler: { _ in })])
+        )
     }
 }
