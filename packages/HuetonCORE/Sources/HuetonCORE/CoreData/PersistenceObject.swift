@@ -8,6 +8,8 @@ import Objective42
 
 public class PersistenceObject: NSManagedObject {
     
+    static let encoder = JSONEncoder()
+    static let decoder = JSONDecoder()
     
     // This methods/properties hidden from public usage to make write/read operations consistent
     // MARK: - Unavailable
@@ -55,6 +57,33 @@ public class PersistenceObject: NSManagedObject {
         }
         
         super.setValue(value, forUndefinedKey: key)
+    }
+    
+    // Codable
+    
+    internal func encode<T, V>(
+        keyPath: KeyPath<T, V>,
+        value: V?
+    ) where T: PersistenceObject, V: Encodable {
+        var _value: Any? = nil
+        if let value = value {
+            _value = try? Self.encoder.encode(value)
+        }
+        
+        let _keyPath = NSExpression(forKeyPath: keyPath).keyPath
+        setValue(_value, forKeyPath: _keyPath)
+    }
+    
+    internal func decode<T, V>(
+        keyPath: KeyPath<T, V>
+    ) -> V? where T: PersistenceObject, V: Decodable {
+        let _keyPath = NSExpression(forKeyPath: keyPath).keyPath
+        guard let data = value(forKeyPath: _keyPath) as? Data,
+              let value = try? Self.decoder.decode(V.self, from: data)
+        else {
+            return nil
+        }
+        return value
     }
     
     // This methods/properties available in PersistenceWritableActor to add ability to perfrom write operations in CoreData

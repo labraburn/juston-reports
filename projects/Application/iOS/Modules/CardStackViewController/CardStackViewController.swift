@@ -60,6 +60,54 @@ class CardStackViewController: UIViewController {
     
     // MARK: Actions
     
+    func showIsReadonlyViewController() {
+        let viewController = AlertViewController(
+            image: .image(
+                .hui_info42,
+                tintColor: .hui_letter_blue
+            ),
+            title: "ReadonlyAccountTitle".asLocalizedKey,
+            message: "ReadonlyAccountMessage".asLocalizedKey,
+            actions: [
+                .done
+            ]
+        )
+        
+        hui_present(viewController, animated: true)
+    }
+    
+    func showIsUnknownContractViewController() {
+        let viewController = AlertViewController(
+            image: .image(
+                .hui_error42,
+                tintColor: .hui_letter_red
+            ),
+            title: "UnknownContractTitle".asLocalizedKey,
+            message: "UnknownContractMessage".asLocalizedKey,
+            actions: [
+                .done
+            ]
+        )
+        
+        hui_present(viewController, animated: true)
+    }
+    
+    func showIsUnitializedContractViewController() {
+        let viewController = AlertViewController(
+            image: .image(
+                .hui_info42,
+                tintColor: .hui_letter_blue
+            ),
+            title: "UninitializedContractTitle".asLocalizedKey,
+            message: "UninitializedContractMessage".asLocalizedKey,
+            actions: [
+                .done
+            ]
+        )
+        
+        hui_present(viewController, animated: true)
+    }
+    
     func removeAccount(_ model: CardStackCard) {
         let prompt: String
         if model.account.isReadonly {
@@ -110,7 +158,7 @@ class CardStackViewController: UIViewController {
 
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = model.account.selectedAddress
+        let address = model.account.selectedContractAddress
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -138,7 +186,7 @@ class CardStackViewController: UIViewController {
     func unsubscribePushNotifications(_ model: CardStackCard) {
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = model.account.selectedAddress
+        let address = model.account.selectedContractAddress
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -305,7 +353,7 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: model.account.selectedAddress
+                address: model.account.selectedContractAddress
             )
         )
         
@@ -397,19 +445,7 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickReadonlyControl control: UIControl,
         model: CardStackCard
     ) {
-        let viewController = AlertViewController(
-            image: .image(
-                .hui_info42,
-                tintColor: .hui_letter_blue
-            ),
-            title: "ReadonlyAccountTitle".asLocalizedKey,
-            message: "ReadonlyAccountMessage".asLocalizedKey,
-            actions: [
-                .done
-            ]
-        )
-        
-        hui_present(viewController, animated: true)
+        showIsReadonlyViewController()
     }
     
     func cardStackView(
@@ -419,6 +455,21 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         guard let button = control as? UIButton
         else {
+            return
+        }
+        
+        switch model.account.selectedContract.kind {
+        case .none:
+            showIsUnknownContractViewController()
+        case .uninitialized:
+            showIsUnitializedContractViewController()
+        default:
+            break
+        }
+        
+        guard !model.account.isReadonly && model.account.keyPublic == nil
+        else {
+            showIsReadonlyViewController()
             return
         }
         

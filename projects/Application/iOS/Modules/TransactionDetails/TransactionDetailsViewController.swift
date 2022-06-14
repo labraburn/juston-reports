@@ -85,7 +85,7 @@ class TransactionDetailsViewController: UIViewController {
             case .out:
                 return (.hui_letter_red, "-", Set(transaction.to))
             case .in:
-                return (.hui_letter_green, "+", [transaction.from ?? account.selectedAddress])
+                return (.hui_letter_green, "+", [transaction.from ?? account.selectedContractAddress])
             }
         }()
         
@@ -172,7 +172,7 @@ class TransactionDetailsViewController: UIViewController {
             throw TransactionError.isPending
         }
         
-        let address = account.selectedAddress.convert(to: .base64url(flags: []))
+        let address = account.selectedContractAddress.convert(to: .base64url(flags: []))
         let hash = id.hash.base64EncodedString()
         
         guard let url = URL(string: "https://ton.cx/tx/\(id.logicalTime):\(hash):\(address)")

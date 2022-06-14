@@ -74,7 +74,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.layer.cornerCurve = .circular
     })
     
-    private let versionButton = CardStackCardLabel.createTopButton("V3R2")
+    private let versionButton = CardStackCardLabel.createTopButton(Optional<Contract.Kind>(nil).name)
     private let readonlyButton = CardStackCardLabel.createTopButton("AccountCardReadonlyLabel".asLocalizedKey)
     
     private let sendButton = CardStackCardButton.createBottomButton(.hui_send24)
@@ -190,9 +190,15 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         let controlsForegroundColor = UIColor(rgba: model.account.appearance.controlsForegroundColor)
         let controlsBackgroundColor = UIColor(rgba: model.account.appearance.controlsBackgroundColor)
         
-        versionButton.tintColor = controlsForegroundColor.withAlphaComponent(0.7)
+        UIView.performWithoutAnimation({
+            versionButton.setTitle(model.account.selectedContract.kind.name, for: .normal)
+            versionButton.layoutIfNeeded()
+        })
+        
+        versionButton.tintColor = controlsForegroundColor.withAlphaComponent(0.8)
         versionButton.backgroundColor = controlsBackgroundColor
-        readonlyButton.tintColor = controlsForegroundColor.withAlphaComponent(0.7)
+        
+        readonlyButton.tintColor = controlsForegroundColor.withAlphaComponent(0.8)
         readonlyButton.backgroundColor = controlsBackgroundColor
         
         sendButton.tintColor = controlsForegroundColor
@@ -203,7 +209,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
-        let address = model.account.selectedAddress.convert(to: .base64url(flags: []))
+        let address = model.account.selectedContractAddress.convert(to: .base64url(flags: []))
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
@@ -287,5 +293,35 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
     private func stopUpdates() {
         synchronizationTimer?.invalidate()
         synchronizationTimer = nil
+    }
+}
+
+private extension Optional where Wrapped == Contract.Kind {
+    
+    var name: String {
+        switch self {
+        case .none:
+            return "AccountContracrtNameUnknown".asLocalizedKey
+        case .uninitialized:
+            return "AccountContracrtNameUninitialized".asLocalizedKey
+        case .walletV1R1:
+            return "V1R1"
+        case .walletV1R2:
+            return "V1R2"
+        case .walletV1R3:
+            return "V1R3"
+        case .walletV2R1:
+            return "V2R1"
+        case .walletV2R2:
+            return "V2R2"
+        case .walletV3R1:
+            return "V3R1"
+        case .walletV3R2:
+            return "V3R2"
+        case .walletV4R1:
+            return "V4R1"
+        case .walletV4R2:
+            return "V4R2"
+        }
     }
 }

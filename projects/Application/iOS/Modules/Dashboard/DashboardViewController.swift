@@ -269,7 +269,7 @@ extension DashboardViewController: DashboardDiffableDataSourceDelegate {
         
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: account.selectedAddress
+                address: account.selectedContractAddress
             )
         )
         
@@ -419,7 +419,7 @@ extension DashboardViewController: CardStackViewControllerDelegate {
         )
 
         try? fetchResultsController?.performFetch()
-        synchronizationLoop.use(address: account.selectedAddress)
+        synchronizationLoop.use(address: account.selectedContractAddress)
     }
     
     func cardStackViewController(

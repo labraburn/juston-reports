@@ -220,3 +220,24 @@
 "ReadonlyAccountTitle" = "Readonly account";
 "ReadonlyAccountMessage" = "This account added by address and doesn't have private keys. You can follow it but can't control it";
 /* END - ReadonlyAccount */
+
+
+
+/* START - UnknownContract */
+"UnknownContractTitle" = "Unknown account type";
+"UnknownContractMessage" = "We can't determine account kind for selected address";
+/* END - UnknownContract */
+
+
+
+/* START - UninitializedContract */
+"UninitializedContractTitle" = "Uninitialized account";
+"UninitializedContractMessage" = "To make this account initialized owner should send first transaction to any";
+/* END - UninitializedContract */
+
+
+
+/* START - AccountContracrtName */
+"AccountContracrtNameUnknown" = "UNKNOWN";
+"AccountContracrtNameUninitialized" = "UNINITIALIZED";
+/* END - AccountContracrtName */

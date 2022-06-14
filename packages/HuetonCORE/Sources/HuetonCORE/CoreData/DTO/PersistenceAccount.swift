@@ -9,11 +9,19 @@ import SwiftyTON
 @objc(PersistenceAccount)
 public class PersistenceAccount: PersistenceObject {
     
+    public var selectedContractAddress: Address {
+        selectedContract.address
+    }
+    
+    public var selectedContractKind: Contract.Kind? {
+        selectedContract.kind
+    }
+    
     @PersistenceWritableActor
     public init(
         keyPublic: String?,
         keySecretEncrypted: String?,
-        selectedAddress: Address,
+        selectedContract: AccountContract,
         name: String,
         appearance: AccountAppearance,
         flags: Flags = []
@@ -24,13 +32,13 @@ public class PersistenceAccount: PersistenceObject {
         if let keyPublic = keyPublic {
             self.raw_unique_identifier = "0a" + keyPublic
         } else {
-            self.raw_unique_identifier = "0b" + selectedAddress.rawValue.rawValue
+            self.raw_unique_identifier = "0b" + selectedContract.address.rawValue.rawValue
         }
         
         self.keyPublic = keyPublic
         self.keySecretEncrypted = keySecretEncrypted
         
-        self.selectedAddress = selectedAddress
+        self.selectedContract = selectedContract
         self.name = name
         self.appearance = appearance
         self.flags = flags
@@ -120,14 +128,27 @@ public extension PersistenceAccount {
         }
     }
     
-    var selectedAddress: Address {
-        set { raw_selected_address = newValue.rawValue.rawValue }
+    var selectedContract: AccountContract {
+        set {
+            raw_selected_address = newValue.address.rawValue.rawValue
+            raw_selected_contract_kind = newValue.kind?.rawValue.rawValue
+        }
         get {
             guard let address = Address(string: raw_selected_address)
             else {
                 fatalError("Looks like data is fault.")
             }
-            return address
+            
+            var kind: Contract.Kind? = nil
+            if let raw_selected_contract_kind = raw_selected_contract_kind {
+                let boc = BOC(rawValue: raw_selected_contract_kind)
+                kind = Contract.Kind(rawValue: boc)
+            }
+            
+            return AccountContract(
+                address: address,
+                kind: kind
+            )
         }
     }
     
@@ -193,6 +214,10 @@ public extension PersistenceAccount {
     /// raw address (`workchain:hex`)
     @NSManaged
     private var raw_selected_address: String
+    
+    /// BOC hex string
+    @NSManaged
+    private var raw_selected_contract_kind: String?
     
     /// `0a` + public key (hex, 32 bytes) _or_ `0b` + raw address (`workchain:hex`)
     @NSManaged

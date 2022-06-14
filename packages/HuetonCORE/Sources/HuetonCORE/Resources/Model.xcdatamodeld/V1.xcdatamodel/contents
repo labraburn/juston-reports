@@ -11,6 +11,7 @@
         <attribute name="raw_balance" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="raw_flags" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="raw_selected_address" attributeType="String" valueTransformerName="UInt8ArrayTransformer" customClassName="NSArray"/>
+        <attribute name="raw_selected_contract_kind" optional="YES" attributeType="String"/>
         <attribute name="raw_unique_identifier" attributeType="String"/>
         <attribute name="sortingLastUsageValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortingUserValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -63,7 +64,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Account" positionX="-63" positionY="-9" width="128" height="254"/>
+        <element name="Account" positionX="-63" positionY="-9" width="128" height="269"/>
         <element name="PendingTransaction" positionX="-125.953125" positionY="400.44140625" width="128" height="134"/>
         <element name="ProcessedAction" positionX="468.75390625" positionY="697.4296875" width="128" height="149"/>
         <element name="ProcessedTransaction" positionX="212.5859375" positionY="349.9296875" width="128" height="149"/>
