@@ -35,12 +35,15 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         $0.setImage(.hui_more24, for: .normal)
     })
     
+    private let loadingIndicatorView = CardStackCardLoadingView()
+    
     override init(model: CardStackCard) {
         super.init(model: model)
         
         addSubview(accountNameLabel)
         addSubview(accountCurrentAddressLabel)
         addSubview(moreButton)
+        addSubview(loadingIndicatorView)
         
         moreButton.addTarget(self, action: #selector(moreButtonDidClick(_:)), for: .touchUpInside)
         
@@ -52,6 +55,9 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
             moreButton.leftAnchor.pin(to: accountNameLabel.rightAnchor, constant: 8)
             moreButton.topAnchor.pin(to: topAnchor, constant: 21)
             rightAnchor.pin(to: moreButton.rightAnchor, constant: 16)
+            
+            loadingIndicatorView.centerYAnchor.pin(to: moreButton.centerYAnchor)
+            moreButton.leftAnchor.pin(to: loadingIndicatorView.rightAnchor, constant: 4)
             
             accountCurrentAddressLabel.leftAnchor.pin(to: leftAnchor, constant: 20)
             accountCurrentAddressLabel.heightAnchor.pin(to: 29)
@@ -76,5 +82,7 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
         
         moreButton.tintColor = tintColor
+        
+        loadingIndicatorView.setLoading(model.account.isSynchronizing)
     }
 }
