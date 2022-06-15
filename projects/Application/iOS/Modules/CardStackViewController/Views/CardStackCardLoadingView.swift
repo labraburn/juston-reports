@@ -24,7 +24,12 @@ final class CardStackCardLoadingView: UIView {
         layer.cornerCurve = .circular
     }
     
-    func setLoading(_ flag: Bool, delay: TimeInterval = 1.2) {
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setLoading(_ flag: Bool, delay: TimeInterval = 0) {
         isLoading = flag
         
         if flag {
@@ -56,16 +61,10 @@ final class CardStackCardLoadingView: UIView {
         layer.removeAnimation(forKey: "rotation")
     }
     
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func didMoveToSuperview() {
-        if superview != nil && isLoading {
-            startRotationAnimation()
-        } else {
-            stopRotationAnimation()
-        }
+    override func didMoveToWindow() {
+        setLoading(
+            isLoading && window != nil,
+            delay: 0.42
+        )
     }
 }

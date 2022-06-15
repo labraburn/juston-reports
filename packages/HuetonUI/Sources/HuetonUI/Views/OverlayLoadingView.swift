@@ -89,6 +89,11 @@ public final class OverlayLoadingView: UIView {
             return
         }
         
+        guard window != nil
+        else {
+            return
+        }
+        
         alpha = 0
         isUserInteractionEnabled = true
         
@@ -96,12 +101,12 @@ public final class OverlayLoadingView: UIView {
         isAnimationSuspended = false
         
         gradientMaskView.lineWidth = width
+        gradientMaskView.animate(with: 1.2)
         
         layer.removeAllAnimations()
         UIView.animate(withDuration: 0.3, delay: delay, options: .beginFromCurrentState, animations: {
             self.alpha = 1
             self.backgroundColor = fade ? .black.withAlphaComponent(0.8) : .clear
-            self.gradientMaskView.animate(with: 1.2)
         }, completion: nil)
     }
     
@@ -190,6 +195,7 @@ fileprivate class OverlayLoadingViewMaskView: UIView {
             ),
             cornerRadius: cornerRadius
         ).cgPath
+        
         shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.white.cgColor
