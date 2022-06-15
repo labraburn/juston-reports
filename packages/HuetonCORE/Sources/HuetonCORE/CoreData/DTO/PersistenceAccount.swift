@@ -9,19 +9,11 @@ import SwiftyTON
 @objc(PersistenceAccount)
 public class PersistenceAccount: PersistenceObject {
     
-    public var selectedContractAddress: Address {
-        selectedContract.address
-    }
-    
-    public var selectedContractKind: Contract.Kind? {
-        selectedContract.kind
-    }
-    
     @PersistenceWritableActor
     public init(
         keyPublic: String?,
         keySecretEncrypted: String?,
-        selectedContract: AccountContract,
+        selectedAddress: Address.RawAddress,
         name: String,
         appearance: AccountAppearance,
         flags: Flags = []
@@ -32,13 +24,14 @@ public class PersistenceAccount: PersistenceObject {
         if let keyPublic = keyPublic {
             self.raw_unique_identifier = "0a" + keyPublic
         } else {
-            self.raw_unique_identifier = "0b" + selectedContract.address.rawValue.rawValue
+            self.raw_unique_identifier = "0b" + selectedAddress.rawValue
         }
         
         self.keyPublic = keyPublic
         self.keySecretEncrypted = keySecretEncrypted
         
-        self.selectedContract = selectedContract
+        self.selectedAddress = selectedAddress
+        self.contractKind = nil
         self.name = name
         self.appearance = appearance
         self.flags = flags
@@ -128,27 +121,30 @@ public extension PersistenceAccount {
         }
     }
     
-    var selectedContract: AccountContract {
+    var selectedAddress: Address.RawAddress {
         set {
-            raw_selected_address = newValue.address.rawValue.rawValue
-            raw_selected_contract_kind = newValue.kind?.rawValue.rawValue
+            raw_selected_address = newValue.rawValue
         }
         get {
-            guard let address = Address(string: raw_selected_address)
+            guard let address = Address.RawAddress(rawValue: raw_selected_address)
             else {
                 fatalError("Looks like data is fault.")
             }
-            
+            return address
+        }
+    }
+    
+    var contractKind: Contract.Kind? {
+        set {
+            raw_selected_contract_kind = newValue?.rawValue.rawValue
+        }
+        get {
             var kind: Contract.Kind? = nil
             if let raw_selected_contract_kind = raw_selected_contract_kind {
                 let boc = BOC(rawValue: raw_selected_contract_kind)
                 kind = Contract.Kind(rawValue: boc)
             }
-            
-            return AccountContract(
-                address: address,
-                kind: kind
-            )
+            return kind
         }
     }
     

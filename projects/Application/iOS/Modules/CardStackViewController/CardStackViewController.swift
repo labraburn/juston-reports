@@ -60,6 +60,82 @@ class CardStackViewController: UIViewController {
     
     // MARK: Actions
     
+    func showSwitchAccount(to kind: Contract.Kind, model: CardStackCard) {
+        guard model.account.contractKind != kind
+        else {
+            return
+        }
+        
+        guard let publicKey = model.account.keyPublic
+        else {
+            let error = ContractError.unknownContractType
+            present(error)
+            return
+        }
+        
+        let id = model.account.objectID
+        let deserializedPublicKey = Data(hex: publicKey)
+        let flags = model.account.flags
+        let previousAddress = model.account.selectedAddress
+        
+        Task { @PersistenceWritableActor [weak self] in
+            do {
+                let initialCondition: Contract.InitialCondition
+                switch kind {
+                case .walletV1R1, .walletV1R2, .walletV1R3, .uninitialized:
+                    throw ContractError.unknownContractType
+                case .walletV2R1:
+                    initialCondition = try await Wallet2.initial(revision: .r1, deserializedPublicKey: deserializedPublicKey)
+                case .walletV2R2:
+                    initialCondition = try await Wallet2.initial(revision: .r2, deserializedPublicKey: deserializedPublicKey)
+                case .walletV3R1:
+                    initialCondition = try await Wallet3.initial(revision: .r1, deserializedPublicKey: deserializedPublicKey)
+                case .walletV3R2:
+                    initialCondition = try await Wallet3.initial(revision: .r2, deserializedPublicKey: deserializedPublicKey)
+                case .walletV4R1:
+                    initialCondition = try await Wallet4.initial(revision: .r1, deserializedPublicKey: deserializedPublicKey)
+                case .walletV4R2:
+                    initialCondition = try await Wallet4.initial(revision: .r2, deserializedPublicKey: deserializedPublicKey)
+                }
+                
+                let address = try await Address(initial: initialCondition)
+                
+                if flags.contains(.isNotificationsEnabled) {
+                    let installationID = await InstallationIdentifier.shared.value
+                    let unsubsribeRequest = AccountSettings.unsubscribeWalletTransactions(
+                        installation_id: installationID.uuidString,
+                        address: previousAddress.rawValue
+                    )
+                    let subscribeRequest = AccountSettings.subscribeWalletTransactions(
+                        installation_id: installationID.uuidString,
+                        address: previousAddress.rawValue
+                    )
+                    
+                    let _ = try? await DefaultMOON.shared.do(unsubsribeRequest)
+                    let _ = try? await DefaultMOON.shared.do(subscribeRequest)
+                }
+                
+                let account = PersistenceAccount.writeableObject(id: id)
+                
+                try PersistencePendingTransaction.removeAll(for: account)
+                try PersistenceProcessedTransaction.removeAll(for: account)
+                
+                account.selectedAddress = address.rawValue
+                account.contractKind = kind
+                account.balance = 0
+                
+                try account.save()
+            } catch {
+                await self?.present(error)
+            }
+            
+            // Unwrap only when needed
+            if let self = self {
+                await self.delegate?.cardStackViewController(self, didChangeSelectedModel: model)
+            }
+        }
+    }
+    
     func showIsReadonlyViewController() {
         let viewController = AlertViewController(
             image: .image(
@@ -158,7 +234,7 @@ class CardStackViewController: UIViewController {
 
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = model.account.selectedContractAddress
+        let address = Address(rawValue: model.account.selectedAddress)
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -186,7 +262,7 @@ class CardStackViewController: UIViewController {
     func unsubscribePushNotifications(_ model: CardStackCard) {
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = model.account.selectedContractAddress
+        let address = Address(rawValue: model.account.selectedAddress)
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -353,7 +429,7 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: model.account.selectedContractAddress
+                address: Address(rawValue: model.account.selectedAddress)
             )
         )
         
@@ -456,23 +532,46 @@ extension CardStackViewController: CardStackViewDelegate {
             return
         }
         
-        switch model.account.selectedContract.kind {
-        case .none:
-            showIsUnknownContractViewController()
-        case .uninitialized:
-            showIsUnitializedContractViewController()
-        default:
-            break
-        }
+//        switch model.account.contractKind {
+//        case .none:
+//            showIsUnknownContractViewController()
+//        case .uninitialized:
+//            showIsUnitializedContractViewController()
+//        default:
+//            break
+//        }
         
-        guard !model.account.isReadonly && model.account.keyPublic == nil
+        guard !model.account.isReadonly || model.account.keyPublic != nil
         else {
             showIsReadonlyViewController()
             return
         }
         
+        var children: [UIMenuElement] = []
+        let kinds: [Contract.Kind] = [
+            .walletV2R1,
+            .walletV2R2,
+            .walletV3R1,
+            .walletV3R2,
+            .walletV4R1,
+            .walletV4R2
+        ]
+        
+        kinds.forEach({ kind in
+            children.append(UIAction(
+                title: kind.name,
+                image: UIImage(systemName: "wallet.pass"),
+                handler: { [weak self] _ in
+                    self?.showSwitchAccount(
+                        to: kind,
+                        model: model
+                    )
+                }
+            ))
+        })
+
         button.sui_presentMenuIfPossible(
-            UIMenu(children: [UIAction(title: "Test", handler: { _ in })])
+            UIMenu(children: children)
         )
     }
 }

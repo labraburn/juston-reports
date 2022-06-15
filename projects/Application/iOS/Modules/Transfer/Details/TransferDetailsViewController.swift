@@ -216,8 +216,20 @@ class TransferDetailsViewController: UIViewController {
             do {
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
+                
+                let wallet: Wallet?
+                switch fromAccount.contractKind {
+                case .none, .walletV1R1, .walletV1R2, .walletV1R3:
+                    throw ContractError.unknownContractType
+                case .walletV2R1, .walletV2R2:
+                    wallet = try await Wallet2(rawAddress: fromAccount.selectedAddress)
+                case .walletV3R1, .walletV3R2, .uninitialized:
+                    wallet = try await Wallet3(rawAddress: fromAccount.selectedAddress)
+                case .walletV4R1, .walletV4R2:
+                    wallet = try await Wallet3(rawAddress: fromAccount.selectedAddress)
+                }
 
-                guard let wallet = try await Wallet3(rawAddress: fromAccount.selectedContractAddress.rawValue)
+                guard let wallet = wallet
                 else {
                     throw ContractError.unknownContractType
                 }
@@ -362,7 +374,7 @@ extension TransferDetailsViewController: UITextViewDelegate {
         switch textView {
         case destinationAddressView.textView:
             guard let address = Address(string: textView.text),
-                  address != initialConfiguration.fromAccount.selectedContractAddress
+                  address != Address(rawValue: initialConfiguration.fromAccount.selectedAddress)
             else {
                 markTextViewAsError(textView)
                 return

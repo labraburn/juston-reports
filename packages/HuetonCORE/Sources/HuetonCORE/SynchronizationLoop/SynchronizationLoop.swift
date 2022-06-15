@@ -60,11 +60,18 @@ public final class SynchronizationLoop {
         
         persistenceAccount.isSynchronizing = true
         try context.save()
+        
+        defer {
+            persistenceAccount.isSynchronizing = false
+            try? context.save()
+        }
 
         let contract = try await Contract(rawAddress: address.rawValue)
         try Task.checkCancellation()
         
         persistenceAccount.balance = contract.info.balance
+        persistenceAccount.contractKind = contract.kind
+        
         try context.save()
         
         let lastProcessedTransaction = try lastPersistanceProcessedTransaction(for: persistenceAccount, in: context)

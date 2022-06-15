@@ -79,7 +79,7 @@ class CardStackCardContentView: UIView {
     
     @objc
     func copyAddressButtonDidClick(_ sender: UIControl?) {
-        let address = model.account.selectedContractAddress
+        let address = Address(rawValue: model.account.selectedAddress)
         UIPasteboard.general.string = address.convert(to: .base64url(flags: []))
         
         InAppAnnouncementCenter.shared.post(

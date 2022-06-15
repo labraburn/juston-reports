@@ -74,7 +74,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.layer.cornerCurve = .circular
     })
     
-    private let versionButton = CardStackCardLabel.createTopButton(Optional<Contract.Kind>(nil).name)
+    private let versionButton = CardStackCardLabel.createTopButton("")
     private let readonlyButton = CardStackCardLabel.createTopButton("AccountCardReadonlyLabel".asLocalizedKey)
     
     private let sendButton = CardStackCardButton.createBottomButton(.hui_send24)
@@ -101,7 +101,6 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         addSubview(bottomButtonsHStackView)
         addSubview(loadingIndicatorView)
         
-        topButtonsHStackView.addArrangedSubview(versionButton)
         bottomButtonsHStackView.addArrangedSubview(receiveButton)
         if model.account.isReadonly {
             topButtonsHStackView.addArrangedSubview(readonlyButton)
@@ -191,8 +190,16 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         let controlsBackgroundColor = UIColor(rgba: model.account.appearance.controlsBackgroundColor)
         
         UIView.performWithoutAnimation({
-            versionButton.setTitle(model.account.selectedContract.kind.name, for: .normal)
-            versionButton.layoutIfNeeded()
+            if let kind = model.account.contractKind {
+                if !topButtonsHStackView.arrangedSubviews.contains(versionButton) {
+                    topButtonsHStackView.insertArrangedSubview(versionButton, at: 0)
+                }
+                
+                versionButton.setTitle(kind.name, for: .normal)
+                versionButton.layoutIfNeeded()
+            } else {
+                versionButton.removeFromSuperview()
+            }
         })
         
         versionButton.tintColor = controlsForegroundColor.withAlphaComponent(0.8)
@@ -209,7 +216,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
-        let address = model.account.selectedContractAddress.convert(to: .base64url(flags: []))
+        let address = Address(rawValue: model.account.selectedAddress).convert(to: .base64url(flags: []))
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
@@ -296,12 +303,10 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
     }
 }
 
-private extension Optional where Wrapped == Contract.Kind {
+extension Contract.Kind {
     
     var name: String {
         switch self {
-        case .none:
-            return "AccountContracrtNameUnknown".asLocalizedKey
         case .uninitialized:
             return "AccountContracrtNameUninitialized".asLocalizedKey
         case .walletV1R1:
