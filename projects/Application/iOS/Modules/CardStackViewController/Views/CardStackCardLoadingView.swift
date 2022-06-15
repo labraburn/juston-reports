@@ -29,7 +29,7 @@ final class CardStackCardLoadingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLoading(_ flag: Bool, delay: TimeInterval = 0) {
+    func setLoading(_ flag: Bool, delay: TimeInterval = 1.42) {
         isLoading = flag
         
         if flag {
