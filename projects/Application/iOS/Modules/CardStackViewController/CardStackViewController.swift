@@ -152,38 +152,6 @@ class CardStackViewController: UIViewController {
         hui_present(viewController, animated: true)
     }
     
-    func showIsUnknownContractViewController() {
-        let viewController = AlertViewController(
-            image: .image(
-                .hui_error42,
-                tintColor: .hui_letter_red
-            ),
-            title: "UnknownContractTitle".asLocalizedKey,
-            message: "UnknownContractMessage".asLocalizedKey,
-            actions: [
-                .done
-            ]
-        )
-        
-        hui_present(viewController, animated: true)
-    }
-    
-    func showIsUnitializedContractViewController() {
-        let viewController = AlertViewController(
-            image: .image(
-                .hui_info42,
-                tintColor: .hui_letter_blue
-            ),
-            title: "UninitializedContractTitle".asLocalizedKey,
-            message: "UninitializedContractMessage".asLocalizedKey,
-            actions: [
-                .done
-            ]
-        )
-        
-        hui_present(viewController, animated: true)
-    }
-    
     func removeAccount(_ model: CardStackCard) {
         let prompt: String
         if model.account.isReadonly {
@@ -531,15 +499,6 @@ extension CardStackViewController: CardStackViewDelegate {
         else {
             return
         }
-        
-//        switch model.account.contractKind {
-//        case .none:
-//            showIsUnknownContractViewController()
-//        case .uninitialized:
-//            showIsUnitializedContractViewController()
-//        default:
-//            break
-//        }
         
         guard !model.account.isReadonly || model.account.keyPublic != nil
         else {
