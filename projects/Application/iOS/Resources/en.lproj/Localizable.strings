@@ -241,3 +241,10 @@
 "AccountContracrtNameUnknown" = "UNKNOWN";
 "AccountContracrtNameUninitialized" = "UNINITIALIZED";
 /* END - AccountContracrtName */
+
+
+
+/* START - Camera */
+"CameraTitle" = "Camera";
+"CameraDescription" = "Please, position camera to any QR code and we will try to detect TON address";
+/* END - AccountContracrtName */

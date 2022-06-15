@@ -37,7 +37,7 @@ class CameraViewController: UIViewController {
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
         $0.textColor = .hui_textPrimary
-        $0.text = "Please, position camera to any QR code and we will try to detect TON address"
+        $0.text = "CameraDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
@@ -62,7 +62,7 @@ class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Camera"
+        title = "CameraTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
         view.backgroundColor = .hui_backgroundPrimary
         
