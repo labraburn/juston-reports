@@ -153,10 +153,10 @@ class DashboardViewController: UIViewController {
     // MARK: Private
     
     fileprivate func showOnboardingViewControllerIfNeeded() {
-        guard cardsStackViewController.cards.isEmpty || !UDS.isAgreementsAccepted || !UDS.isWelcomeScreenViewed
-        else {
-            return
-        }
+//        guard cardsStackViewController.cards.isEmpty || !UDS.isAgreementsAccepted || !UDS.isWelcomeScreenViewed
+//        else {
+//            return
+//        }
         
         Task {
             let navigationController = OnboardingNavigationController(

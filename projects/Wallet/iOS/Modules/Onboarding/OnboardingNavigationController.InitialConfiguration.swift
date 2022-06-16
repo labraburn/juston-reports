@@ -33,9 +33,9 @@ extension OnboardingNavigationController.InitialConfiguration {
             set.insert(.welcome)
         }
         
-        if !UDS.isAgreementsAccepted {
+//        if !UDS.isAgreementsAccepted {
             set.insert(.agreements)
-        }
+//        }
         
         let parole = SecureParole()
         let isKeyGenerated = await parole.isKeyGenerated

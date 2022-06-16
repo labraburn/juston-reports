@@ -17,7 +17,7 @@
                BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
                BuildableName = "HUETON.app"
                BlueprintName = "iOS"
-               ReferencedContainer = "container:Application.xcodeproj">
+               ReferencedContainer = "container:Wallet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
             BuildableName = "HUETON.app"
             BlueprintName = "iOS"
-            ReferencedContainer = "container:Application.xcodeproj">
+            ReferencedContainer = "container:Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
             BuildableName = "HUETON.app"
             BlueprintName = "iOS"
-            ReferencedContainer = "container:Application.xcodeproj">
+            ReferencedContainer = "container:Wallet.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
