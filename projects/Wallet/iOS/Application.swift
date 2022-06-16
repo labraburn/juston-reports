@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HuetonUI
 
 class Application: UIApplication {
 
@@ -33,5 +34,26 @@ class Application: UIApplication {
     
     var foregroundActiveApplicationWindowScene: ApplicationWindowScene? {
         foregroundActiveApplicationWindowScenes.first
+    }
+    
+    /// Handle UITextView URLs
+    @objc(_openURL:originatingView:completionHandler:)
+    func _openURL(
+        _ url: URL,
+        originatingView: UIView?,
+        completionHandler completion: ((Bool) -> ())?
+    ) {
+        let window = originatingView?.applicationWindow ?? foregroundActiveApplicationWindowScene?.window
+        switch url.host {
+        case "hueton.com":
+            window?
+                .windowRootViewController
+                .topmostPresentedViewController
+                .open(url: url, options: .internalBrowser)
+        default:
+            open(url)
+        }
+        
+        completion?(true)
     }
 }

@@ -148,45 +148,6 @@ extension C42CollectionViewController {
         )
     }
     
-    static func onboardingAgreements() -> C42CollectionViewController {
-        C42CollectionViewController(
-            title: "OnboardingAgreementsTitle".asLocalizedKey,
-            sections: [
-                .init(
-                    section: .init(
-                        kind: .simple
-                    ),
-                    items: [
-                        .image(
-                            image: .hui_placeholderV3512
-                        ),
-                        .label(
-                            text: "OnboardingAgreementsDescription".asLocalizedKey,
-                            kind: .body
-                        ),
-                    ]
-                ),
-                .init(
-                    section: .init(
-                        kind: .simple
-                    ),
-                    items: [
-                        .synchronousButton(
-                            title: "OnboardingAgreementsActionButton".asLocalizedKey,
-                            kind: .primary,
-                            action: { viewController in
-                                UDS.isAgreementsAccepted = true
-                                viewController.onboardingNavigationController?.nextCreatePasscodeIfNeeded()
-                            }
-                        ),
-                    ]
-                )
-            ],
-            isModalInPresentation: true,
-            isBackActionAvailable: false
-        )
-    }
-    
     static func onboardingPasscode() -> C42CollectionViewController {
         C42CollectionViewController(
             title: "OnboardingPasscodeTitle".asLocalizedKey,
@@ -430,6 +391,15 @@ extension C42ConcreteViewController {
             },
             isModalInPresentation: false,
             isBackActionAvailable: true
+        )
+    }
+    
+    static func onboardingAgreements(
+    ) -> C42ConcreteViewController {
+        AgreementsViewController(
+            completionBlock: { viewController in
+                viewController.onboardingNavigationController?.nextCreatePasscodeIfNeeded()
+            }
         )
     }
     

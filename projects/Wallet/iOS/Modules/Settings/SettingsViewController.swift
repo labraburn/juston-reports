@@ -56,7 +56,7 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsShareButton".asLocalizedKey,
                             titleColor: .hui_letter_blue,
                             action: { viewController in
-                                let items = [URL(string: "https://hueton.com")!]
+                                let items = [URL.hueton]
                                 let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
                                 viewController.hui_present(activityViewController, animated: true)
                             }
@@ -65,9 +65,7 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsRateButton".asLocalizedKey,
                             titleColor: .hui_letter_blue,
                             action: { viewController in
-                                #warning("TODO: Replace URL")
-                                let url = URL(string: "itms-apps://apple.com/app/id1601121482")!
-                                viewController.open(url: url)
+                                viewController.open(url: .appStore)
                             }
                         ),
                     ]
@@ -108,16 +106,20 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsPrivacyPolicyButton".asLocalizedKey,
                             titleColor: .hui_letter_violet,
                             action: { viewController in
-                                let url = URL(string: "https://hueton.com/privacy")
-                                viewController.open(url: url, options: .internalBrowser)
+                                viewController.open(
+                                    url: .privacyPolicy,
+                                    options: .internalBrowser
+                                )
                             }
                         ),
                         .settingsButton(
                             title: "SettingsTermsOfUseButton".asLocalizedKey,
                             titleColor: .hui_letter_violet,
                             action: { viewController in
-                                let url = URL(string: "https://hueton.com/terms")
-                                viewController.open(url: url, options: .internalBrowser)
+                                viewController.open(
+                                    url: .termsOfUse,
+                                    options: .internalBrowser
+                                )
                             }
                         ),
                     ]
@@ -144,8 +146,7 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsCommunityChatButton".asLocalizedKey,
                             titleColor: .hui_letter_yellow,
                             action: { viewController in
-                                let url = URL(string: "https://t.me/hueton_ru_chat")
-                                viewController.open(url: url)
+                                viewController.open(url: .telegramChat)
                             }
                         ),
                     ]
@@ -165,16 +166,17 @@ class SettingsViewController: C42CollectionViewController {
                             title: "SettingsTelegramButton".asLocalizedKey,
                             titleColor: .hui_letter_green,
                             action: { viewController in
-                                let url = URL(string: "https://t.me/hueton_ru")
-                                viewController.open(url: url)
+                                viewController.open(url: .telegramChannel)
                             }
                         ),
                         .settingsButton(
                             title: "SettingsTwitterButton".asLocalizedKey,
                             titleColor: .hui_letter_green,
                             action: { viewController in
-                                let url = URL(string: "https://twitter.com/thehueton")
-                                viewController.open(url: url, options: .internalBrowser)
+                                viewController.open(
+                                    url: .twitter,
+                                    options: .internalBrowser
+                                )
                             }
                         ),
                     ]

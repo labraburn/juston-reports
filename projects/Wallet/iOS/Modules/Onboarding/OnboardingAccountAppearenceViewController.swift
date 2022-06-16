@@ -81,7 +81,7 @@ class OnboardingAccountAppearenceViewController: C42ConcreteViewController {
         }
         
         let style = appearanceViewController.style
-        view.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = false
         
         task?.cancel()
         task = Task {

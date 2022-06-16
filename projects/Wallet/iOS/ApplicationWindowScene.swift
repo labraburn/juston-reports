@@ -31,4 +31,8 @@ class ApplicationWindowScene: UIWindowScene {
     }
     
     var windowViewController: ApplicationWindowViewController { window.windowRootViewController }
+    
+    override func open(_ url: URL, options: UIScene.OpenExternalURLOptions?, completionHandler completion: ((Bool) -> Void)? = nil) {
+        completion?(true)
+    }
 }

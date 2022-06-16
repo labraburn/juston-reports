@@ -23,6 +23,7 @@
 		F0118DAB281075EB00B518A9 /* Web3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DAA281075EB00B518A9 /* Web3ViewController.swift */; };
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
+		F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014F19C285B84D100D82273 /* AgreementsViewController.swift */; };
 		F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F016607D284B5A5F00E4BE3F /* DefaultMOON */; };
 		F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */; };
 		F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABD2846BE2700AA108F /* AccountError.swift */; };
@@ -110,6 +111,7 @@
 		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
 		F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */; };
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
+		F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
@@ -136,6 +138,7 @@
 		F0118DAA281075EB00B518A9 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
+		F014F19C285B84D100D82273 /* AgreementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementsViewController.swift; sourceTree = "<group>"; };
 		F016607A284B56F300E4BE3F /* HuetonMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonMOON; path = ../../../packages/HuetonMOON; sourceTree = "<group>"; };
 		F016607C284B57E700E4BE3F /* DefaultMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DefaultMOON; path = ../../../packages/DefaultMOON; sourceTree = "<group>"; };
 		F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationIdentifier.swift; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
+		F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURL.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
@@ -316,6 +320,7 @@
 				F0118DB5281085EC00B518A9 /* PushIdentificator.swift */,
 				F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */,
 				F02C8770284FCE10007476B8 /* DeeplinkURL.swift */,
+				F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -334,6 +339,14 @@
 				F0118DAA281075EB00B518A9 /* Web3ViewController.swift */,
 			);
 			path = Web3ViewController;
+			sourceTree = "<group>";
+		};
+		F014F19B285B84BD00D82273 /* Agreements */ = {
+			isa = PBXGroup;
+			children = (
+				F014F19C285B84D100D82273 /* AgreementsViewController.swift */,
+			);
+			path = Agreements;
 			sourceTree = "<group>";
 		};
 		F01E2ABF2846C43E00AA108F /* AccountAppearence */ = {
@@ -559,6 +572,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F014F19B285B84BD00D82273 /* Agreements */,
 				F02C8772284FD88F007476B8 /* TransactionDetails */,
 				F01E2ADA2848F06B00AA108F /* Developer */,
 				F0678137281AA19400EB05F4 /* CardStackViewController */,
@@ -898,6 +912,7 @@
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
+				F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
@@ -923,6 +938,7 @@
 				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */,
+				F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */,
 				F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */,
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
 				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,

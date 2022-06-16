@@ -153,14 +153,18 @@ class DashboardViewController: UIViewController {
     // MARK: Private
     
     fileprivate func showOnboardingViewControllerIfNeeded() {
-//        guard cardsStackViewController.cards.isEmpty || !UDS.isAgreementsAccepted || !UDS.isWelcomeScreenViewed
-//        else {
-//            return
-//        }
-        
+        let isCardsEmpty = cardsStackViewController.cards.isEmpty
         Task {
+            let initialConfiguration = await OnboardingNavigationController.InitialConfiguration.dependsUserDefaults()
+            
+            /// cards > 1 means not only `[.account]`
+            guard initialConfiguration.screens.count > 1 || isCardsEmpty
+            else {
+                return
+            }
+            
             let navigationController = OnboardingNavigationController(
-                initialConfiguration: await .dependsUserDefaults()
+                initialConfiguration: initialConfiguration
             )
             
             hui_present(navigationController, animated: true, completion: nil)
