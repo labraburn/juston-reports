@@ -20,11 +20,11 @@ extension UIViewController {
     }
     
     public func hui_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        let window = view.window
-        window?.layer.speed = 1.3
+//        let window = view.window
+//        window?.layer.speed = 1.3 // this code make broken UIViewPropertyAnimator
         
         present(viewControllerToPresent, animated: flag, completion: {
-            window?.layer.speed = 1
+//            window?.layer.speed = 1
             completion?()
         })
     }
