@@ -2,12 +2,12 @@ default_platform(:ios)
 
 platform :ios do
 
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
+  desc "Push a new Wallet.xcodeproj beta build to TestFlight"
+  lane :wallet_beta do
     increment_build_number_release
 
     build_app(
-      project: "./projects/Application/Application.xcodeproj",
+      project: "./projects/Wallet/Wallet.xcodeproj",
       configuration: "Release",
       scheme: "iOS",
       clean: true
@@ -17,7 +17,7 @@ platform :ios do
   end
 
   lane :increment_build_number_release do
-    xcconfig_path = './projects/Application/iOS/Supporting/Configurations/iOSRelease.xcconfig'
+    xcconfig_path = './projects/Wallet/iOS/Supporting/Configurations/iOSRelease.xcconfig'
     project_version = get_xcconfig_value(
       path: xcconfig_path,
       name: 'CURRENT_PROJECT_VERSION'
