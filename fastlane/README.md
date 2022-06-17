@@ -15,13 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios beta
+### ios wallet_beta
 
 ```sh
-[bundle exec] fastlane ios beta
+[bundle exec] fastlane ios wallet_beta
 ```
 
-Push a new beta build to TestFlight
+Push a new Wallet.xcodeproj beta build to TestFlight
 
 ### ios increment_build_number_release
 
