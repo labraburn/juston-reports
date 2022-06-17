@@ -21,12 +21,6 @@ public class PersistenceAccount: PersistenceObject {
         let context = PersistenceWritableActor.shared.managedObjectContext
         super.init(context: context)
         
-        if let keyPublic = keyPublic {
-            self.raw_unique_identifier = "0a" + keyPublic
-        } else {
-            self.raw_unique_identifier = "0b" + selectedAddress.rawValue
-        }
-        
         self.keyPublic = keyPublic
         self.keySecretEncrypted = keySecretEncrypted
         
@@ -214,10 +208,6 @@ public extension PersistenceAccount {
     /// BOC hex string
     @NSManaged
     private var raw_selected_contract_kind: String?
-    
-    /// `0a` + public key (hex, 32 bytes) _or_ `0b` + raw address (`workchain:hex`)
-    @NSManaged
-    private var raw_unique_identifier: String
     
     /// AccountAppearanceTransformer
     @NSManaged
