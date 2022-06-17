@@ -75,13 +75,13 @@ class OnboardingNavigationController: C42NavigationController {
     
     fileprivate func nextAccountCreate(
         key: Key,
-        selectedAddress: Address,
+        selectedContract: AccountContract,
         words: [String]
     ) {
         next(
             C42CollectionViewController.onboardingPassphrase(
                 for: key,
-                selectedAddress: selectedAddress,
+                selectedContract: selectedContract,
                 words: words
             )
         )
@@ -90,13 +90,13 @@ class OnboardingNavigationController: C42NavigationController {
     fileprivate func nextAccountAppearance(
         keyPublic: String?,
         keySecretEncrypted: String?,
-        selectedAddress: Address
+        selectedContract: AccountContract
     ) {
         next(
             C42ConcreteViewController.appearance(
                 keyPublic: keyPublic,
                 keySecretEncrypted: keySecretEncrypted,
-                selectedAddress: selectedAddress
+                selectedContract: selectedContract
             )
         )
     }
@@ -237,7 +237,10 @@ extension C42CollectionViewController {
                                 
                                 viewController.onboardingNavigationController?.nextAccountCreate(
                                     key: key,
-                                    selectedAddress: address,
+                                    selectedContract: AccountContract(
+                                        address: address.rawValue,
+                                        kind: .walletV3R2
+                                    ),
                                     words: words
                                 )
                             }
@@ -252,7 +255,7 @@ extension C42CollectionViewController {
     
     static func onboardingPassphrase(
         `for` key: Key,
-        selectedAddress: Address,
+        selectedContract: AccountContract,
         words: [String]
     ) -> C42CollectionViewController {
         C42CollectionViewController(
@@ -319,7 +322,7 @@ extension C42CollectionViewController {
                                 viewController.onboardingNavigationController?.nextAccountAppearance(
                                     keyPublic: try key.deserializedPublicKey().toHexString(),
                                     keySecretEncrypted: key.encryptedSecretKey.toHexString(),
-                                    selectedAddress: selectedAddress
+                                    selectedContract: selectedContract
                                 )
                             }
                         ),
@@ -340,19 +343,22 @@ extension C42ConcreteViewController {
             completionBlock: { @MainActor viewController, result in
                 var keyPublic: String? = nil
                 var keySecretEncrypted: String? = nil
-                let selectedAddress: Address
+                let selectedContract: AccountContract
                 
                 let context = PersistenceReadableActor.shared.managedObjectContext
                 
                 switch result {
                 case let .address(value):
                     let contract = try await Contract(rawAddress: value.rawValue)
-                    if contract.kind != .uninitialized {
-                        let data = (try? await contract.execute(methodNamed: "get_public_key").asBigUInt())?.serialize()
-                        keyPublic = data?.toHexString()
+                    
+                    if let wallet = AnyWallet(contract: contract) {
+                        keyPublic = try await wallet.publicKey
                     }
                     
-                    selectedAddress = value
+                    selectedContract = AccountContract(
+                        address: value.rawValue,
+                        kind: contract.kind
+                    )
                 case let .words(value):
                     let authentication = PasscodeAuthentication(inside: viewController)
                     let passcode = try await authentication.key()
@@ -368,14 +374,23 @@ extension C42ConcreteViewController {
                     
                     let address = try await Address(initial: initial)
                     
-                    selectedAddress = address
+                    selectedContract = AccountContract(
+                        address: address.rawValue,
+                        kind: .walletV3R2
+                    )
                 }
                 
                 let request: NSFetchRequest<PersistenceAccount>
                 if let keyPublic = keyPublic {
-                    request = PersistenceAccount.fetchRequest(keyPublic: keyPublic)
+                    request = PersistenceAccount.fetchRequest(
+                        keyPublic: keyPublic
+                    )
                 } else {
-                    request = PersistenceAccount.fetchRequest(selectedAddress: selectedAddress)
+                    request = PersistenceAccount.fetchRequest(
+                        selectedAddress: Address(
+                            rawValue: selectedContract.address
+                        )
+                    )
                 }
                 
                 let result = (try? context.fetch(request))?.first
@@ -386,7 +401,7 @@ extension C42ConcreteViewController {
                 viewController.onboardingNavigationController?.nextAccountAppearance(
                     keyPublic: keyPublic,
                     keySecretEncrypted: keySecretEncrypted,
-                    selectedAddress: selectedAddress
+                    selectedContract: selectedContract
                 )
             },
             isModalInPresentation: false,
@@ -406,7 +421,7 @@ extension C42ConcreteViewController {
     static func appearance(
         keyPublic: String?,
         keySecretEncrypted: String?,
-        selectedAddress: Address
+        selectedContract: AccountContract
     ) -> C42ConcreteViewController {
         OnboardingAccountAppearenceViewController(
             title: "OnboardingAppearanceTitle".asLocalizedKey,
@@ -414,7 +429,7 @@ extension C42ConcreteViewController {
                 let account = await PersistenceAccount(
                     keyPublic: keyPublic,
                     keySecretEncrypted: keySecretEncrypted,
-                    selectedAddress: selectedAddress.rawValue,
+                    selectedContract: selectedContract,
                     name: name,
                     appearance: appearence
                 )

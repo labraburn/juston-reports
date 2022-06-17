@@ -221,7 +221,7 @@ extension DashboardDiffableDataSource.Section: Hashable {
 extension DashboardTransactionCollectionViewCell.Model {
     
     init(transaction: PersistencePendingTransaction) {
-        from = Address(rawValue: transaction.account.selectedAddress)
+        from = Address(rawValue: transaction.account.selectedContract.address)
         to = [transaction.destinationAddress]
         
         kind = .pending
@@ -230,21 +230,21 @@ extension DashboardTransactionCollectionViewCell.Model {
     
     init(transaction: PersistenceProcessedTransaction) {
         if !transaction.out.isEmpty {
-            from = Address(rawValue: transaction.account.selectedAddress)
+            from = Address(rawValue: transaction.account.selectedContract.address)
             to = transaction.out.compactMap({ $0.destinationAddress })
             
             kind = .out
             value = transaction.out.reduce(into: Currency(value: 0), { $0 += $1.value })
         } else if let action = transaction.in {
-            from = Address(rawValue: transaction.account.selectedAddress)
+            from = Address(rawValue: transaction.account.selectedContract.address)
             to = [action].compactMap({ $0.destinationAddress })
             
             kind = .in
             value = action.value
         } else {
             // Possible just deploying or SMC run
-            from = Address(rawValue: transaction.account.selectedAddress)
-            to = [Address(rawValue: transaction.account.selectedAddress)]
+            from = Address(rawValue: transaction.account.selectedContract.address)
+            to = [Address(rawValue: transaction.account.selectedContract.address)]
             
             kind = .out
             value = Currency(value: 0)

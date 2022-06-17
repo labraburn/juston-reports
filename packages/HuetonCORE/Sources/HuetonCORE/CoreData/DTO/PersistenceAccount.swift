@@ -13,7 +13,7 @@ public class PersistenceAccount: PersistenceObject {
     public init(
         keyPublic: String?,
         keySecretEncrypted: String?,
-        selectedAddress: Address.RawAddress,
+        selectedContract: AccountContract,
         name: String,
         appearance: AccountAppearance,
         flags: Flags = []
@@ -24,7 +24,7 @@ public class PersistenceAccount: PersistenceObject {
         self.keyPublic = keyPublic
         self.keySecretEncrypted = keySecretEncrypted
         
-        self.selectedAddress = selectedAddress
+        self.selectedContract = selectedContract
         self.contractKind = nil
         self.name = name
         self.appearance = appearance
@@ -115,27 +115,38 @@ public extension PersistenceAccount {
         }
     }
     
-    var selectedAddress: Address.RawAddress {
+    var selectedContract: AccountContract {
         set {
-            raw_selected_address = newValue.rawValue
+            raw_selected_address = newValue.address.rawValue
+            raw_selected_contract_kind = newValue.kind?.rawValue.rawValue
         }
         get {
             guard let address = Address.RawAddress(rawValue: raw_selected_address)
             else {
                 fatalError("Looks like data is fault.")
             }
-            return address
-        }
-    }
-    
-    var contractKind: Contract.Kind? {
-        set {
-            raw_selected_contract_kind = newValue?.rawValue.rawValue
-        }
-        get {
+            
             var kind: Contract.Kind? = nil
             if let raw_selected_contract_kind = raw_selected_contract_kind {
                 let boc = BOC(rawValue: raw_selected_contract_kind)
+                kind = Contract.Kind(rawValue: boc)
+            }
+            
+            return AccountContract(
+                address: address,
+                kind: kind
+            )
+        }
+    }
+    
+    internal(set) var contractKind: Contract.Kind? {
+        set {
+            raw_contract_kind = newValue?.rawValue.rawValue
+        }
+        get {
+            var kind: Contract.Kind? = nil
+            if let raw_contract_kind = raw_contract_kind {
+                let boc = BOC(rawValue: raw_contract_kind)
                 kind = Contract.Kind(rawValue: boc)
             }
             return kind
@@ -205,9 +216,13 @@ public extension PersistenceAccount {
     @NSManaged
     private var raw_selected_address: String
     
-    /// BOC hex string
+    /// BOC hex string, used for usee choice
     @NSManaged
     private var raw_selected_contract_kind: String?
+    
+    /// BOC hex string, used for network info
+    @NSManaged
+    private var raw_contract_kind: String?
     
     /// AccountAppearanceTransformer
     @NSManaged

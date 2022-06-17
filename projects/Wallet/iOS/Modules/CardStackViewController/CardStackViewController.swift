@@ -76,7 +76,7 @@ class CardStackViewController: UIViewController {
         let id = model.account.objectID
         let deserializedPublicKey = Data(hex: publicKey)
         let flags = model.account.flags
-        let previousAddress = model.account.selectedAddress
+        let previousContract = model.account.selectedContract
         
         Task { @PersistenceWritableActor [weak self] in
             do {
@@ -104,11 +104,11 @@ class CardStackViewController: UIViewController {
                     let installationID = await InstallationIdentifier.shared.value
                     let unsubsribeRequest = AccountSettings.unsubscribeWalletTransactions(
                         installation_id: installationID.uuidString,
-                        address: previousAddress.rawValue
+                        address: previousContract.address.rawValue
                     )
                     let subscribeRequest = AccountSettings.subscribeWalletTransactions(
                         installation_id: installationID.uuidString,
-                        address: previousAddress.rawValue
+                        address: previousContract.address.rawValue
                     )
                     
                     let _ = try? await DefaultMOON.shared.do(unsubsribeRequest)
@@ -120,9 +120,11 @@ class CardStackViewController: UIViewController {
                 try PersistencePendingTransaction.removeAll(for: account)
                 try PersistenceProcessedTransaction.removeAll(for: account)
                 
-                account.selectedAddress = address.rawValue
-                account.contractKind = kind
                 account.balance = 0
+                account.selectedContract = AccountContract(
+                    address: address.rawValue,
+                    kind: kind
+                )
                 
                 try account.save()
             } catch {
@@ -202,7 +204,7 @@ class CardStackViewController: UIViewController {
 
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = Address(rawValue: model.account.selectedAddress)
+        let address = Address(rawValue: model.account.selectedContract.address)
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -230,7 +232,7 @@ class CardStackViewController: UIViewController {
     func unsubscribePushNotifications(_ model: CardStackCard) {
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = Address(rawValue: model.account.selectedAddress)
+        let address = Address(rawValue: model.account.selectedContract.address)
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
@@ -397,7 +399,7 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: Address(rawValue: model.account.selectedAddress)
+                address: Address(rawValue: model.account.selectedContract.address)
             )
         )
         

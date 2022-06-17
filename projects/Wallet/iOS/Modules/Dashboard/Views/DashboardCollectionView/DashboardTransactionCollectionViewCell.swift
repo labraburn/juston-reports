@@ -152,6 +152,13 @@ class DashboardTransactionCollectionViewCell: UICollectionViewCell {
         startLoadingAnimationIfNeeded(model: model)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        loadingView.removeFromSuperview()
+        loadingView.stopAnimation(completion: nil)
+    }
+    
     private func startLoadingAnimationIfNeeded(model: Model) {
         switch model.kind {
         case .pending:

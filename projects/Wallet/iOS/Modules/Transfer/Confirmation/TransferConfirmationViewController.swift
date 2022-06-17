@@ -117,12 +117,12 @@ class TransferConfirmationViewController: UIViewController {
                     body: initialConfiguration.message.body.data,
                     bodyHash: initialConfiguration.message.bodyHash
                 ).save()
+                
+                await self?.hide(animated: true, popIfAvailable: false)
             } catch is CancellationError {
             } catch {
                 await self?.present(error)
             }
-            
-            await self?.hide(animated: true, popIfAvailable: false)
         })
     }
     
