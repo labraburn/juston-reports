@@ -131,6 +131,8 @@ class AgreementsViewController: C42ConcreteViewController {
             
             view.safeAreaLayoutGuide.bottomAnchor.pin(greaterThan: doneButton.bottomAnchor, constant: 8)
         })
+        
+        doneButton.addTarget(self, action: #selector(doneButtonDidClick(_:)), for: .touchUpInside)
     }
     
     // MARK: Actions
@@ -142,7 +144,6 @@ class AgreementsViewController: C42ConcreteViewController {
             return
         }
         
-        UDS.isAgreementsAccepted = true
         view.isUserInteractionEnabled = false
         
         task?.cancel()

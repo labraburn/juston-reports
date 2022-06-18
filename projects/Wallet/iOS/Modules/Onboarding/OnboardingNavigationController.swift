@@ -413,6 +413,7 @@ extension C42ConcreteViewController {
     ) -> C42ConcreteViewController {
         AgreementsViewController(
             completionBlock: { viewController in
+                UDS.isAgreementsAccepted = true
                 viewController.onboardingNavigationController?.nextCreatePasscodeIfNeeded()
             }
         )
