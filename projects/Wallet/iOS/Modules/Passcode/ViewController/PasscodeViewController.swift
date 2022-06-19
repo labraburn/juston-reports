@@ -135,7 +135,11 @@ class PasscodeViewController: UIViewController {
         case .get:
             break
         case .create1Step, .create2Step:
+            self.cancelButton.isHidden = true
+            
+            // Settings alpha because superview of this button is UIStackView
             self.faceIDButton.alpha = 0
+            self.faceIDButton.isUserInteractionEnabled = false
         }
         
         var index = 0
