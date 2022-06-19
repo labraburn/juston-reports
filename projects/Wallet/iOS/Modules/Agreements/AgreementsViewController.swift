@@ -61,7 +61,7 @@ class AgreementsViewController: C42ConcreteViewController {
             [ .link : URL.privacyPolicy.absoluteString],
             range: NSRange(
                 pattern.range(of: privacy)!,
-                in: privacy
+                in: pattern
             )
         )
         
@@ -69,7 +69,7 @@ class AgreementsViewController: C42ConcreteViewController {
             [ .link : URL.termsOfUse.absoluteString],
             range: NSRange(
                 pattern.range(of: terms)!,
-                in: terms
+                in: pattern
             )
         )
         
@@ -91,8 +91,8 @@ class AgreementsViewController: C42ConcreteViewController {
     
     init(
         completionBlock: @escaping CompletionBlock,
-        isModalInPresentation: Bool = false,
-        isBackActionAvailable: Bool = true,
+        isModalInPresentation: Bool = true,
+        isBackActionAvailable: Bool = false,
         isNavigationBarHidden: Bool = false
     ) {
         self.completionBlock = completionBlock
