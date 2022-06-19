@@ -89,20 +89,6 @@ class DashboardViewController: UIViewController {
             collectionViewHeaderLayoutKind == .large,
             animated: animated
         )
-        
-        if accountsView.superview == nil,
-           dataSource.snapshot().itemIdentifiers.isEmpty
-        {
-            // Force appearing of empty state
-            UIView.performWithoutAnimation({
-                dataSource.apply(
-                    pendingTransactions: .init(),
-                    processedTransactions: .init(),
-                    animated: true
-                )
-                collectionView.layoutIfNeeded()
-            })
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
