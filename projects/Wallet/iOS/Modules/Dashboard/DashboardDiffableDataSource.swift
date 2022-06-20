@@ -32,6 +32,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
 
     enum Section {
         
+        case initial
         case empty
         case pendingTransactions
         case processedTransactions(dateString: String)
@@ -125,7 +126,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                 for: indexPath
             )
             switch sectionIdentifier {
-            case .empty:
+            case .empty, .initial:
                 view.model = ""
             case .pendingTransactions:
                 view.model = "Pending"
@@ -136,6 +137,10 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         default:
             return nil
         }
+    }
+    
+    func applyInitial() {
+        _applyInitial()
     }
     
     func apply(
@@ -164,7 +169,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         apply(snapshot, animatingDifferences: animated)
     }
     
-    func _apply(
+    private func _apply(
         pendingTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
         processedTransactions: NSDiffableDataSourceSnapshot<String, NSManagedObjectID>,
         animated: Bool
@@ -188,6 +193,12 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         }
         apply(snapshot, animatingDifferences: animated)
     }
+    
+    private func _applyInitial() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.initial])
+        apply(snapshot, animatingDifferences: false)
+    }
 }
 
 extension DashboardDiffableDataSource: DashboardCollectionHeaderViewDelegate {
@@ -208,6 +219,8 @@ extension DashboardDiffableDataSource.Section: Hashable {
     
     func hash(into hasher: inout Hasher) {
         switch self {
+        case .initial:
+            hasher.combine("initial")
         case .empty:
             hasher.combine("empty")
         case .pendingTransactions:

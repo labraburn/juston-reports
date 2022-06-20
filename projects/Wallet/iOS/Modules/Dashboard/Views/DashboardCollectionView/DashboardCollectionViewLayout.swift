@@ -35,6 +35,8 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         }
 
         switch section {
+        case .initial:
+            return .zero
         case .empty:
             let placeholderItem = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(DashboardPlaceholderCollectionReusableView.estimatedHeight)),

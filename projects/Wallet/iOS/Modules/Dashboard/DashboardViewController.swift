@@ -89,6 +89,8 @@ class DashboardViewController: UIViewController {
             collectionViewHeaderLayoutKind == .large,
             animated: animated
         )
+        
+        dataSource.applyInitial()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
