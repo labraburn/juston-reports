@@ -43,24 +43,27 @@ extension PasscodeCreation: PasscodeViewControllerDelegate {
 
     @MainActor
     func passcodeViewController(_ viewController: PasscodeViewController, didFinishWithPasscode passcode: String) {
-        Task {
-            viewController.dismiss(animated: true)
-            
-            do {
-                try await parole.generateKeyWithUserPassword(passcode)
-                await passcodeContinuation?.resume(returning: ())
-            } catch {
-                await passcodeContinuation?.resume(throwing: error)
+        viewController.dismiss(animated: true, completion: {
+            Task {
+                do {
+                    try await self.parole.generateKeyWithUserPassword(passcode)
+                    await self.passcodeContinuation?.resume(returning: ())
+                } catch SecureParoleError.applicationIsSet {
+                    await self.passcodeContinuation?.resume(returning: ())
+                } catch {
+                    await self.passcodeContinuation?.resume(throwing: error)
+                }
             }
-        }
+        })
     }
     
     @MainActor
     func passcodeViewControllerDidCancel(_ viewController: PasscodeViewController) {
-        Task {
-            viewController.dismiss(animated: true)
-            await passcodeContinuation?.resume(throwing: ApplicationError.userCancelled)
-        }
+        viewController.dismiss(animated: true, completion: {
+            Task {
+                await self.passcodeContinuation?.resume(throwing: ApplicationError.userCancelled)
+            }
+        })
     }
     
     @MainActor
