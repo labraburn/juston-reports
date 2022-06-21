@@ -28,7 +28,8 @@ public struct SecureParole {
         let isPasswordExists = exists(with: .password(value: Data()))
         let isBiometryExists = exists(with: .biometry)
         
-        return isKeyPairExists && isPasswordExists && isBiometryExists
+        // Key can be generated, but not with biometry because user has not scanned face or finger
+        return isKeyPairExists && (isPasswordExists || isBiometryExists)
     }
     
     nonisolated public init() {}
@@ -89,7 +90,7 @@ public struct SecureParole {
     }
     
     private func retrieve(with accessControl: SecureParoleAccessControl) async throws -> Data? {
-        let secAccessControl = try accessControl.secAccessControl(with: [.secureEnclaveIfAvailable])
+        let secAccessControl = try accessControl.secAccessControl
         
         let context = accessControl.context
         try await context.evaluate(
@@ -137,13 +138,22 @@ public struct SecureParole {
     private func save(key: Data, with accessControl: SecureParoleAccessControl) throws {
         try remove(with: accessControl)
         
+        let context = accessControl.context
+        let isUserHasBiometry = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        
         let query = keychainQuery()
         query[kSecValueData] = key
         query[kSecAttrAccount] = accessControl.secAttrAccount
-        query[kSecUseAuthenticationContext] = accessControl.context
-        query[kSecAttrAccessControl] = try accessControl.secAccessControl(with: [])
+        query[kSecUseAuthenticationContext] = context
+        query[kSecAttrAccessControl] = try accessControl.secAccessControl
         
-        let status = SecItemAdd(query, nil)
+        var status = SecItemAdd(query, nil)
+        
+        // Key can't being saved because user has not scanned face or finger
+        if status == errSecAuthFailed && !isUserHasBiometry {
+            status = errSecSuccess
+        }
+        
         guard status == errSecSuccess
         else {
             throw SecureParoleError.underlyingKeychainError(status: status)

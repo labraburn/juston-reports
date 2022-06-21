@@ -9,11 +9,6 @@ import CryptoKit
 @SecureParoleActor
 internal enum SecureParoleAccessControl {
     
-    enum Options {
-        
-        case secureEnclaveIfAvailable
-    }
-    
     case password(value: Data)
     case biometry
     
@@ -41,12 +36,10 @@ internal enum SecureParoleAccessControl {
         return context
     }
     
-    func secAccessControl(with options: [Options]) throws -> SecAccessControl {
-        var flags = secAccessControlCreateFlags
-        if options.contains(.secureEnclaveIfAvailable) && SecureEnclave.isDeviceAvailable {
-            flags.insert(.privateKeyUsage)
+    var secAccessControl: SecAccessControl {
+        get throws {
+            try _accessControlWithFlags(secAccessControlCreateFlags)
         }
-        return try _accessControlWithFlags(secAccessControlCreateFlags)
     }
     
     private var secAccessControlCreateFlags: SecAccessControlCreateFlags {
