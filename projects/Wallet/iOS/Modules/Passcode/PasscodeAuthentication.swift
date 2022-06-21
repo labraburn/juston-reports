@@ -77,23 +77,47 @@ extension PasscodeAuthentication: PasscodeViewControllerDelegate {
                     throw ApplicationError.noApplicationPassword
                 }
                 
-                viewController.dismiss(animated: true)
-                await passcodeContinuation?.resume(returning: key)
+                viewController.dismiss(
+                    animated: true,
+                    completion: {
+                        Task {
+                            await self.passcodeContinuation?.resume(
+                                returning: key
+                            )
+                        }
+                    }
+                )
             } catch SecureParoleError.wrongApplicationPassword {
-                viewController.restart(throwingError: true)
+                viewController.restart(
+                    throwingError: true
+                )
             } catch {
-                viewController.dismiss(animated: true)
-                await passcodeContinuation?.resume(throwing: error)
+                viewController.dismiss(
+                    animated: true,
+                    completion: {
+                        Task {
+                            await self.passcodeContinuation?.resume(
+                                throwing: error
+                            )
+                        }
+                    }
+                )
             }
         }
     }
     
     @MainActor
     func passcodeViewControllerDidCancel(_ viewController: PasscodeViewController) {
-        Task {
-            viewController.dismiss(animated: true)
-            await passcodeContinuation?.resume(throwing: ApplicationError.userCancelled)
-        }
+        viewController.dismiss(
+            animated: true,
+            completion: {
+                Task {
+                    await self.passcodeContinuation?.resume(
+                        throwing: ApplicationError.userCancelled
+                    )
+                }
+            }
+        )
     }
     
     @MainActor
@@ -105,9 +129,19 @@ extension PasscodeAuthentication: PasscodeViewControllerDelegate {
                     throw ApplicationError.noApplicationPassword
                 }
                 
-                viewController.dismiss(animated: true)
-                await passcodeContinuation?.resume(returning: key)
-            } catch {}
+                viewController.dismiss(
+                    animated: true,
+                    completion: {
+                        Task {
+                            await self.passcodeContinuation?.resume(
+                                returning: key
+                            )
+                        }
+                    }
+                )
+            } catch {
+                viewController.present(error)
+            }
         }
     }
 }
