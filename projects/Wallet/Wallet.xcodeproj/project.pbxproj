@@ -204,10 +204,10 @@
 		F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.swift; sourceTree = "<group>"; };
 		F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F09E2A2D283FDF7100D7BC55 /* PermissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionError.swift; sourceTree = "<group>"; };
-		F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSDebug.xcconfig; sourceTree = "<group>"; };
-		F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = iOSRelease.xcconfig; sourceTree = "<group>"; };
-		F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSDebug.entitlements; sourceTree = "<group>"; };
-		F0A151382800EFD800EF9F83 /* iOSRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = iOSRelease.entitlements; sourceTree = "<group>"; };
+		F0A151332800E05000EF9F83 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		F0A151342800E05000EF9F83 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		F0A151372800EFD800EF9F83 /* Debug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
+		F0A151382800EFD800EF9F83 /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		F0A1513E280252DB00EF9F83 /* C42NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42NavigationController.swift; sourceTree = "<group>"; };
 		F0A151402802532B00EF9F83 /* C42CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42CollectionViewController.swift; sourceTree = "<group>"; };
 		F0A15144280253C500EF9F83 /* C42CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42CollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -417,8 +417,8 @@
 		F02FECEE27F315F700CC306C /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
-				F0A151372800EFD800EF9F83 /* iOSDebug.entitlements */,
-				F0A151382800EFD800EF9F83 /* iOSRelease.entitlements */,
+				F0A151372800EFD800EF9F83 /* Debug.entitlements */,
+				F0A151382800EFD800EF9F83 /* Release.entitlements */,
 			);
 			path = Entitlements;
 			sourceTree = "<group>";
@@ -642,8 +642,8 @@
 		F0A151322800E01C00EF9F83 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */,
-				F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */,
+				F0A151332800E05000EF9F83 /* Debug.xcconfig */,
+				F0A151342800E05000EF9F83 /* Release.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1142,7 +1142,7 @@
 		};
 		F0995F8A27A0B7CB003A090C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0A151332800E05000EF9F83 /* iOSDebug.xcconfig */;
+			baseConfigurationReference = F0A151332800E05000EF9F83 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
@@ -1172,7 +1172,7 @@
 		};
 		F0995F8B27A0B7CB003A090C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F0A151342800E05000EF9F83 /* iOSRelease.xcconfig */;
+			baseConfigurationReference = F0A151342800E05000EF9F83 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AppColor;
