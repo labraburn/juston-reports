@@ -16,7 +16,7 @@ class ExploreViewController: TripleViewController {
     
     private var account: PersistenceAccount? = nil {
         didSet {
-            dashboardViewController.account = account
+            transactionsViewController.account = account
             if let account = account {
                 let address = Address(rawValue: account.selectedContract.address)
                 synchronizationLoop.use(address: address)
@@ -30,15 +30,15 @@ class ExploreViewController: TripleViewController {
         viewControlles.1 as! AccountStackViewController
     }
     
-    private var dashboardViewController: DashboardViewController {
-        viewControlles.2 as! DashboardViewController
+    private var transactionsViewController: TransactionsViewController {
+        viewControlles.2 as! TransactionsViewController
     }
 
     init() {
         super.init((
             UIViewController().with({ $0.view.backgroundColor = .green }),
             AccountStackViewController(),
-            DashboardViewController()
+            TransactionsViewController()
         ))
         
         delegate = self

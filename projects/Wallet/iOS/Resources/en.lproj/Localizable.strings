@@ -183,10 +183,10 @@
 
 
 
-/* START - DashboardTransactions */
-"DashboardTransactionsEmptyTitle" = "There are no transactions yet";
-"DashboardTransactionsEmptyButton" = "RECEIVE";
-/* END - DashboardTransactions */
+/* START - Transactions */
+"TransactionsEmptyTitle" = "There are no transactions yet";
+"TransactionsEmptyButton" = "RECEIVE";
+/* END - Transactions */
 
 
 

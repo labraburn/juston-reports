@@ -1,5 +1,5 @@
 //
-//  DashboardViewController.swift
+//  TransactionsViewController.swift
 //  iOS
 //
 //  Created by Anton Spivak on 26.01.2022.
@@ -10,13 +10,13 @@ import HuetonUI
 import HuetonCORE
 import CoreData
 
-class DashboardViewController: UIViewController {
+class TransactionsViewController: UIViewController {
     
     private var isInitialNavigationBarHidden = false
     private var fetchResultsController: FetchedResultsControllerCombination2<String, PersistencePendingTransaction, String, PersistenceProcessedTransaction>?
     
-    private lazy var collectionViewLayout: DashboardCollectionViewLayout = {
-        let layout = DashboardCollectionViewLayout()
+    private lazy var collectionViewLayout: TransactionsCollectionViewLayout = {
+        let layout = TransactionsCollectionViewLayout()
         layout.delegate = self
         return layout
     }()
@@ -27,13 +27,13 @@ class DashboardViewController: UIViewController {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
+        collectionView.register(reusableCellClass: TransactionsTransactionCollectionViewCell.self)
         collectionView.backgroundColor = .hui_backgroundPrimary
         return collectionView
     }()
     
-    private lazy var dataSource: DashboardDiffableDataSource = {
-        let dataSource = DashboardDiffableDataSource(collectionView: collectionView)
+    private lazy var dataSource: TransactionsDiffableDataSource = {
+        let dataSource = TransactionsDiffableDataSource(collectionView: collectionView)
         dataSource.delegate = self
         return dataSource
     }()
@@ -132,9 +132,7 @@ class DashboardViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-
-extension DashboardViewController: UICollectionViewDelegate {
+extension TransactionsViewController: UICollectionViewDelegate {
     
     func collectionView(
         _ collectionView: UICollectionView,
@@ -167,11 +165,11 @@ extension DashboardViewController: UICollectionViewDelegate {
     }
 }
 
-extension DashboardViewController: DashboardDiffableDataSourceDelegate {
+extension TransactionsViewController: TransactionsDiffableDataSourceDelegate {
     
-    func dashboardDiffableDataSource(
-        _ dataSource: DashboardDiffableDataSource,
-        emptyStateButtonDidClick view: DashboardPlaceholderCollectionReusableView
+    func transactionsDiffableDataSource(
+        _ dataSource: TransactionsDiffableDataSource,
+        emptyStateButtonDidClick view: TransactionsPlaceholderCollectionReusableView
     ) {
         guard let account = account
         else {
@@ -189,16 +187,16 @@ extension DashboardViewController: DashboardDiffableDataSourceDelegate {
     }
 }
 
-extension DashboardViewController: DashboardCollectionViewLayoutDelegate {
+extension TransactionsViewController: TransactionsCollectionViewLayoutDelegate {
     
-    func dashboardCollectionViewLayoutSectionForIndex(
+    func transactionsCollectionViewLayoutSectionForIndex(
         index: Int
-    ) -> DashboardDiffableDataSource.Section? {
+    ) -> TransactionsDiffableDataSource.Section? {
         dataSource.sectionIdentifier(forSectionIndex: index)
     }
 }
 
-extension DashboardViewController: ScrollToTopContainerController {
+extension TransactionsViewController: ScrollToTopContainerController {
     
     var isScrolledToTop: Bool {
         collectionView.isScrolledToTop

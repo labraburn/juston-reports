@@ -1,5 +1,5 @@
 //
-//  DashboardDateReusableView.swift
+//  TransactionsDateReusableView.swift
 //  iOS
 //
 //  Created by Anton Spivak on 29.04.2022.
@@ -10,7 +10,7 @@ import HuetonUI
 import HuetonCORE
 import DeclarativeUI
 
-class DashboardDateReusableView: UICollectionReusableView {
+class TransactionsDateReusableView: UICollectionReusableView {
     
     typealias Model = String
     

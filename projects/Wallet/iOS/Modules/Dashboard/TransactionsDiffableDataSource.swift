@@ -1,5 +1,5 @@
 //
-//  DashboardDiffableDataSource.swift
+//  TransactionsDiffableDataSource.swift
 //  iOS
 //
 //  Created by Anton Spivak on 08.02.2022.
@@ -10,15 +10,15 @@ import HuetonUI
 import HuetonCORE
 import CoreData
 
-protocol DashboardDiffableDataSourceDelegate: AnyObject {
+protocol TransactionsDiffableDataSourceDelegate: AnyObject {
     
-    func dashboardDiffableDataSource(
-        _ dataSource: DashboardDiffableDataSource,
-        emptyStateButtonDidClick view: DashboardPlaceholderCollectionReusableView
+    func transactionsDiffableDataSource(
+        _ dataSource: TransactionsDiffableDataSource,
+        emptyStateButtonDidClick view: TransactionsPlaceholderCollectionReusableView
     )
 }
 
-class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDiffableDataSource.Section, DashboardDiffableDataSource.Item> {
+class TransactionsDiffableDataSource: CollectionViewDiffableDataSource<TransactionsDiffableDataSource.Section, TransactionsDiffableDataSource.Item> {
 
     enum Section {
         
@@ -34,13 +34,13 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         case processedTransaction(id: NSManagedObjectID)
     }
     
-    weak var delegate: DashboardDiffableDataSourceDelegate?
+    weak var delegate: TransactionsDiffableDataSourceDelegate?
     
     override init(collectionView: UICollectionView) {
         super.init(collectionView: collectionView)
-        collectionView.register(reusableSupplementaryViewClass: DashboardDateReusableView.self)
-        collectionView.register(reusableSupplementaryViewClass: DashboardPlaceholderCollectionReusableView.self)
-        collectionView.register(reusableCellClass: DashboardTransactionCollectionViewCell.self)
+        collectionView.register(reusableSupplementaryViewClass: TransactionsDateReusableView.self)
+        collectionView.register(reusableSupplementaryViewClass: TransactionsPlaceholderCollectionReusableView.self)
+        collectionView.register(reusableCellClass: TransactionsTransactionCollectionViewCell.self)
     }
     
     override func cell(
@@ -51,14 +51,14 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         switch item {
         case let .pendingTransaction(id):
             let cell = collectionView.dequeue(
-                reusableCellClass: DashboardTransactionCollectionViewCell.self,
+                reusableCellClass: TransactionsTransactionCollectionViewCell.self,
                 for: indexPath
             )
             cell.model = .init(transaction: PersistencePendingTransaction.readableObject(id: id))
             return cell
         case let .processedTransaction(id):
             let cell = collectionView.dequeue(
-                reusableCellClass: DashboardTransactionCollectionViewCell.self,
+                reusableCellClass: TransactionsTransactionCollectionViewCell.self,
                 for: indexPath
             )
             cell.model = .init(transaction: PersistenceProcessedTransaction.readableObject(id: id))
@@ -72,9 +72,9 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         indexPath: IndexPath
     ) -> UICollectionReusableView? {
         switch elementKind {
-        case String(describing: DashboardPlaceholderCollectionReusableView.self):
+        case String(describing: TransactionsPlaceholderCollectionReusableView.self):
             let view = collectionView.dequeue(
-                reusableSupplementaryViewClass: DashboardPlaceholderCollectionReusableView.self,
+                reusableSupplementaryViewClass: TransactionsPlaceholderCollectionReusableView.self,
                 elementKind: elementKind,
                 for: indexPath
             )
@@ -85,19 +85,19 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                     return
                 }
                 
-                self.delegate?.dashboardDiffableDataSource(
+                self.delegate?.transactionsDiffableDataSource(
                     self,
                     emptyStateButtonDidClick: view
                 )
             }
             return view
-        case String(describing: DashboardDateReusableView.self):
+        case String(describing: TransactionsDateReusableView.self):
             guard let sectionIdentifier = sectionIdentifier(forSectionIndex: indexPath.section)
             else {
-                fatalError("[DashboardDiffableDataSource] - Can't idetify section for \(indexPath)")
+                fatalError("[TransactionsDiffableDataSource] - Can't idetify section for \(indexPath)")
             }
             let view = collectionView.dequeue(
-                reusableSupplementaryViewClass: DashboardDateReusableView.self,
+                reusableSupplementaryViewClass: TransactionsDateReusableView.self,
                 elementKind: elementKind,
                 for: indexPath
             )
@@ -177,7 +177,7 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
     }
 }
 
-extension DashboardDiffableDataSource.Section: Hashable {
+extension TransactionsDiffableDataSource.Section: Hashable {
     
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -193,7 +193,7 @@ extension DashboardDiffableDataSource.Section: Hashable {
     }
 }
 
-extension DashboardTransactionCollectionViewCell.Model {
+extension TransactionsTransactionCollectionViewCell.Model {
     
     init(transaction: PersistencePendingTransaction) {
         from = Address(rawValue: transaction.account.selectedContract.address)

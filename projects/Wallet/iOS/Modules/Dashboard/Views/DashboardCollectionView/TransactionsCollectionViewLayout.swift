@@ -1,5 +1,5 @@
 //
-//  DashboardCollectionViewLayout.swift
+//  TransactionsCollectionViewLayout.swift
 //  iOS
 //
 //  Created by Anton Spivak on 08.02.2022.
@@ -8,16 +8,16 @@
 import UIKit
 import HuetonUI
 
-protocol DashboardCollectionViewLayoutDelegate: AnyObject {
+protocol TransactionsCollectionViewLayoutDelegate: AnyObject {
     
-    func dashboardCollectionViewLayoutSectionForIndex(
+    func transactionsCollectionViewLayoutSectionForIndex(
         index: Int
-    ) -> DashboardDiffableDataSource.Section?
+    ) -> TransactionsDiffableDataSource.Section?
 }
 
-class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
+class TransactionsCollectionViewLayout: CollectionViewCompositionalLayout {
     
-    weak var delegate: DashboardCollectionViewLayoutDelegate?
+    weak var delegate: TransactionsCollectionViewLayoutDelegate?
     
     override init() {
         super.init()
@@ -29,9 +29,9 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         withEnvironmant: NSCollectionLayoutEnvironment
     ) -> NSCollectionLayoutSection? {
         
-        guard let section = delegate?.dashboardCollectionViewLayoutSectionForIndex(index: index)
+        guard let section = delegate?.transactionsCollectionViewLayoutSectionForIndex(index: index)
         else {
-            fatalError("Can't identifiy DashboardCollectionViewLayout with index: \(index)")
+            fatalError("Can't identifiy TransactionsCollectionViewLayout with index: \(index)")
         }
 
         switch section {
@@ -39,8 +39,8 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
             return .zero
         case .empty:
             let placeholderItem = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(DashboardPlaceholderCollectionReusableView.estimatedHeight)),
-                elementKind: String(describing: DashboardPlaceholderCollectionReusableView.self),
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(TransactionsPlaceholderCollectionReusableView.estimatedHeight)),
+                elementKind: String(describing: TransactionsPlaceholderCollectionReusableView.self),
                 alignment: .top
             )
             placeholderItem.zIndex = -1
@@ -53,15 +53,15 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
         case .pendingTransactions, .processedTransactions:
             let size = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(DashboardTransactionCollectionViewCell.absoluteHeight)
+                heightDimension: .absolute(TransactionsTransactionCollectionViewCell.absoluteHeight)
             )
 
             let item = NSCollectionLayoutItem(layoutSize: size)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
 
             let dateItem = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(DashboardDateReusableView.estimatedHeight)),
-                elementKind: String(describing: DashboardDateReusableView.self),
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(TransactionsDateReusableView.estimatedHeight)),
+                elementKind: String(describing: TransactionsDateReusableView.self),
                 alignment: .top
             )
             dateItem.zIndex = -1

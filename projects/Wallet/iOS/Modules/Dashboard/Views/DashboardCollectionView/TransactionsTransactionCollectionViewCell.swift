@@ -1,5 +1,5 @@
 //
-//  DashboardTransactionCollectionViewCell.swift
+//  TransactionsTransactionCollectionViewCell.swift
 //  iOS
 //
 //  Created by Anton Spivak on 08.02.2022.
@@ -10,7 +10,7 @@ import HuetonUI
 import HuetonCORE
 import DeclarativeUI
 
-class DashboardTransactionCollectionViewCell: UICollectionViewCell {
+class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
     
     struct Model: Hashable {
         

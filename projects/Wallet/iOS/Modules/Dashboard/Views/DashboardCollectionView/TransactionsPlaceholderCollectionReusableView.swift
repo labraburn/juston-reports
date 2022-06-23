@@ -1,5 +1,5 @@
 //
-//  DashboardPlaceholderCollectionReusableView.swift
+//  TransactionsPlaceholderCollectionReusableView.swift
 //  iOS
 //
 //  Created by Anton Spivak on 02.06.2022.
@@ -8,21 +8,21 @@
 import UIKit
 import HuetonUI
 
-class DashboardPlaceholderCollectionReusableView: UICollectionReusableView {
+class TransactionsPlaceholderCollectionReusableView: UICollectionReusableView {
         
     static let estimatedHeight: CGFloat = 256
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .body)
-        $0.text = "DashboardTransactionsEmptyTitle".asLocalizedKey
+        $0.text = "TransactionsEmptyTitle".asLocalizedKey
         $0.textColor = .hui_textPrimary
         $0.textAlignment = .center
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
-    private let button = SecondaryButton(title: "DashboardTransactionsEmptyButton".asLocalizedKey).with({
+    private let button = SecondaryButton(title: "TransactionsEmptyButton".asLocalizedKey).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     

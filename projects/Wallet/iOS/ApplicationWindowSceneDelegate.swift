@@ -18,7 +18,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        let viewController = ExploreViewController()//DashboardViewController()
+        let viewController = ExploreViewController()
         
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
