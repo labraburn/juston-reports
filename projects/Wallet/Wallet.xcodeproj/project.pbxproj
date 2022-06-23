@@ -44,8 +44,6 @@
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
-		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
-		F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
 		F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678138281AA1C100EB05F4 /* CardStackViewController.swift */; };
@@ -102,6 +100,9 @@
 		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
 		F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4579B283C47BD0039F6CA /* CameraViewController.swift */; };
 		F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A457A2283D79910039F6CA /* NavigationController.swift */; };
+		F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */; };
+		F0AAC1292864079000F25C26 /* AccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1282864079000F25C26 /* AccountStackView.swift */; };
+		F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
@@ -116,6 +117,7 @@
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
+		F0E7D3192863A7760037DE46 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E7D3182863A7760037DE46 /* ExploreViewController.swift */; };
 		F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */; };
 		F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */; };
 		F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */; };
@@ -160,9 +162,7 @@
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
-		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
 		F041A57927F5D0A700213489 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
-		F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionHeaderView.swift; sourceTree = "<group>"; };
 		F0678138281AA1C100EB05F4 /* CardStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewController.swift; sourceTree = "<group>"; };
 		F067813B281AA2EC00EB05F4 /* CardStackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCard.swift; sourceTree = "<group>"; };
 		F067813F281AA45A00EB05F4 /* CardStackCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardContentView.swift; sourceTree = "<group>"; };
@@ -223,6 +223,9 @@
 		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
 		F0A4579B283C47BD0039F6CA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F0A457A2283D79910039F6CA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackViewController.swift; sourceTree = "<group>"; };
+		F0AAC1282864079000F25C26 /* AccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackView.swift; sourceTree = "<group>"; };
+		F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeView.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
@@ -238,6 +241,7 @@
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
 		F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerImage.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F0E7D3182863A7760037DE46 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.swift; sourceTree = "<group>"; };
 		F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
@@ -427,7 +431,6 @@
 			isa = PBXGroup;
 			children = (
 				F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */,
-				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F0E7D3172863A7590037DE46 /* ExploreViewController */,
 				F014F19B285B84BD00D82273 /* Agreements */,
 				F02C8772284FD88F007476B8 /* TransactionDetails */,
 				F01E2ADA2848F06B00AA108F /* Developer */,
@@ -584,6 +588,7 @@
 				F0A151522802726000EF9F83 /* Passcode */,
 				F0A1513A2802527B00EF9F83 /* Onboarding */,
 				F0DBFA4F27F607FB00956DC9 /* Alert */,
+				F0AAC1252864072900F25C26 /* AccountStack */,
 				F01E2ABF2846C43E00AA108F /* AccountAppearence */,
 				F0995FA627A0BC67003A090C /* Dashboard */,
 				F0995F9527A0B878003A090C /* Launch */,
@@ -696,12 +701,21 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
+		F0AAC1252864072900F25C26 /* AccountStack */ = {
+			isa = PBXGroup;
+			children = (
+				F0AAC1282864079000F25C26 /* AccountStackView.swift */,
+				F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */,
+				F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */,
+			);
+			path = AccountStack;
+			sourceTree = "<group>";
+		};
 		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
 			isa = PBXGroup;
 			children = (
 				F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */,
 				F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */,
-				F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */,
 				F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */,
 				F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */,
 			);
@@ -777,6 +791,14 @@
 				F01E2AD82847BF2C00AA108F /* UDS.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F0E7D3172863A7590037DE46 /* ExploreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F0E7D3182863A7760037DE46 /* ExploreViewController.swift */,
+			);
+			path = ExploreViewController;
 			sourceTree = "<group>";
 		};
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
@@ -904,6 +926,7 @@
 				F0909B5327E88D9000FC8404 /* C42LabelCell.swift in Sources */,
 				F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */,
 				F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */,
+				F0AAC1292864079000F25C26 /* AccountStackView.swift in Sources */,
 				F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */,
 				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* C42WordCell.swift in Sources */,
@@ -929,13 +952,13 @@
 				F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */,
+				F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */,
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
-				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */,
 				F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */,
@@ -959,6 +982,7 @@
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
+				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
 				F01E2AC62846CB5B00AA108F /* AccountAppearenceViewController.swift in Sources */,
 				F0118D872810343A00B518A9 /* C42ListGroupDecorationView.swift in Sources */,
@@ -982,7 +1006,6 @@
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
-				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
 				F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
@@ -999,6 +1022,7 @@
 				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,
 				F0118D892810362000B518A9 /* C42TitleHeaderView.swift in Sources */,
 				F0A1515128026CFA00EF9F83 /* NSObject.swift in Sources */,
+				F0E7D3192863A7760037DE46 /* ExploreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

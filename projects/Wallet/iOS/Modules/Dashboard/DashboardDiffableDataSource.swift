@@ -14,16 +14,6 @@ protocol DashboardDiffableDataSourceDelegate: AnyObject {
     
     func dashboardDiffableDataSource(
         _ dataSource: DashboardDiffableDataSource,
-        layoutTypeForCollectionHeaderView view: DashboardCollectionHeaderView
-    ) -> DashboardCollectionHeaderView.LayoutType
-    
-    func dashboardDiffableDataSource(
-        _ dataSource: DashboardDiffableDataSource,
-        subviewForCollectionHeaderView view: DashboardCollectionHeaderView
-    ) -> DashboardCollectionHeaderSubview
-    
-    func dashboardDiffableDataSource(
-        _ dataSource: DashboardDiffableDataSource,
         emptyStateButtonDidClick view: DashboardPlaceholderCollectionReusableView
     )
 }
@@ -100,20 +90,6 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
                     emptyStateButtonDidClick: view
                 )
             }
-            return view
-        case String(describing: DashboardCollectionHeaderView.self):
-            let view = collectionView.dequeue(
-                reusableSupplementaryViewClass: DashboardCollectionHeaderView.self,
-                elementKind: elementKind,
-                for: indexPath
-            )
-            
-            view.delegate = self
-            view.subview = delegate?.dashboardDiffableDataSource(
-                self,
-                subviewForCollectionHeaderView: view
-            )
-            
             return view
         case String(describing: DashboardDateReusableView.self):
             guard let sectionIdentifier = sectionIdentifier(forSectionIndex: indexPath.section)
@@ -198,20 +174,6 @@ class DashboardDiffableDataSource: CollectionViewDiffableDataSource<DashboardDif
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.initial])
         apply(snapshot, animatingDifferences: false)
-    }
-}
-
-extension DashboardDiffableDataSource: DashboardCollectionHeaderViewDelegate {
-    
-    func dashboardCollectionHeaderViewLayoutType(
-        for view: DashboardCollectionHeaderView
-    ) -> DashboardCollectionHeaderView.LayoutType {
-        guard let delegate = delegate
-        else {
-            return .init(bounds: .zero, safeAreaInsets: .zero, kind: .compact)
-        }
-        
-        return delegate.dashboardDiffableDataSource(self, layoutTypeForCollectionHeaderView: view)
     }
 }
 

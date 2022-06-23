@@ -84,19 +84,8 @@ class DashboardCollectionViewLayout: CollectionViewCompositionalLayout {
     }
     
     func refreshLayoutConfiguration(pinToVisibleBounds: Bool) {
-        let item = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)),
-            elementKind: String(describing: DashboardCollectionHeaderView.self),
-            alignment: .top
-        )
-        
-        item.pinToVisibleBounds = pinToVisibleBounds
-        item.zIndex = .max
-        
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.scrollDirection = .vertical
-        configuration.boundarySupplementaryItems = [item]
-        
         self.configuration = configuration
     }
 }
