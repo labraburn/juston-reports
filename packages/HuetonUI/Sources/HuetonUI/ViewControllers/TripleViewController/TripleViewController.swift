@@ -17,6 +17,13 @@ public protocol TripleViewControllerDelegate: AnyObject {
     )
 }
 
+public protocol TripleMiddleViewController: UIViewController {
+    
+    func compactHeight(
+        for positioning: TripleCompactPositioning
+    ) -> CGFloat
+}
+
 open class TripleViewController: UIViewController {
     
     private let feedbackGenerator = UIImpactFeedbackGenerator(
@@ -31,17 +38,14 @@ open class TripleViewController: UIViewController {
         tripleView.presentation
     }
     
-    public let viewControlles: (UIViewController, UIViewController, UIViewController)
-    public let compactHeight: CGFloat
+    public let viewControlles: (UIViewController, TripleMiddleViewController, UIViewController)
     
     public weak var delegate: TripleViewControllerDelegate?
     
     public init(
-        _ viewControllers: (UIViewController, UIViewController, UIViewController),
-        compactHeight: CGFloat = 128
+        _ viewControllers: (UIViewController, TripleMiddleViewController, UIViewController)
     ) {
         self.viewControlles = viewControllers
-        self.compactHeight = compactHeight
         
         super.init(
             nibName: nil,
@@ -62,7 +66,6 @@ open class TripleViewController: UIViewController {
         addChild(viewControlles.2)
         
         let tripleView = TripleView(
-            centerViewCompactHeight: compactHeight,
             views: (
                 viewControlles.0.view,
                 viewControlles.1.view,
@@ -110,5 +113,12 @@ extension TripleViewController: TripleViewDelegate {
             self,
             didChangeOffset: bounds.origin
         )
+    }
+    
+    func tripleView(
+        _view: TripleView,
+        heightForCompactMiddleViewWithPositioning positioning: TripleCompactPositioning
+    ) -> CGFloat {
+        viewControlles.1.compactHeight(for: positioning)
     }
 }

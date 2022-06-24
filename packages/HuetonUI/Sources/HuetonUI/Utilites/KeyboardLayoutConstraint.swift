@@ -24,6 +24,7 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
     
     private var originalConstant: CGFloat = 0
     private var keyboardHeight: CGFloat = 0
+    private var animator: UIViewPropertyAnimator?
     
     public var bottomAnchor: BottomAnchor = .none {
         didSet {
@@ -34,7 +35,7 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
             
             animateChanges(
                 duration: 0.42,
-                options: [.curveEaseInOut]
+                curve: .easeInOut
             )
         }
     }
@@ -115,30 +116,34 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
     private func animateChanges(
         notification: Notification
     ) {
-        let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: Double(0.24))
-        let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber ?? NSNumber(value: UInt(0))
+        let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0
+        let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int ?? 0
         
         animateChanges(
-            duration: TimeInterval(duration.doubleValue > 0 ? duration.doubleValue : 0.24) * 1.5,
-            options: UIView.AnimationOptions(rawValue: curve.uintValue)
+            duration: TimeInterval(duration > 0 ? duration : 0.24) * 1.5,
+            curve: UIView.AnimationCurve(rawValue: curve) ?? .easeInOut
         )
     }
     
     private func animateChanges(
         duration: TimeInterval,
-        options: UIView.AnimationOptions
+        curve: UIView.AnimationCurve
     ) {
-        UIView.animate(
-            withDuration: duration,
-            delay: 0,
-            usingSpringWithDamping: 0.9,
-            initialSpringVelocity: 0.0,
-            options: options,
-            animations: {
-                (self.firstItem as? UIView)?.superview?.layoutIfNeeded()
-                (self.secondItem as? UIView)?.superview?.layoutIfNeeded()
-            }, completion: { finished in }
+        animator?.stopAnimation(true)
+        animator?.finishAnimation(at: .current)
+        
+        animator = nil
+        animator = UIViewPropertyAnimator(
+            duration: duration,
+            curve: curve
         )
+        
+        animator?.addAnimations({
+            (self.firstItem as? UIView)?.superview?.layoutIfNeeded()
+            (self.secondItem as? UIView)?.superview?.layoutIfNeeded()
+        })
+        
+        animator?.startAnimation()
     }
     
     // MARK: Observing

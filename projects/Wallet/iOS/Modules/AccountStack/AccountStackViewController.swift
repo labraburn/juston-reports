@@ -25,8 +25,17 @@ class AccountStackViewController: UIViewController {
         set { cardStackViewController.delegate = newValue }
     }
     
-    var selectedCard: CardStackCard? { cardStackViewController.selectedCard }
-    var cards: [CardStackCard] { cardStackViewController.cards }
+    var selectedCard: CardStackCard? {
+        cardStackViewController.selectedCard
+    }
+    
+    var cards: [CardStackCard] {
+        cardStackViewController.cards
+    }
+    
+    var browserNavigationView: AccountStackBrowserNavigationView {
+        accountStackView.browserNavigationView
+    }
     
     var layoutKind: AccountStackView.LayoutKind {
         get { accountStackView.layoutKind }
@@ -40,7 +49,6 @@ class AccountStackViewController: UIViewController {
             
             endLayoutKindAnimations()
             startLayoutKindAnimations({
-                self.accountStackView.setNeedsLayout()
                 self.accountStackView.layoutIfNeeded()
             })
         }
@@ -55,7 +63,7 @@ class AccountStackViewController: UIViewController {
         super.viewDidLoad()
         
         addChild(cardStackViewController)
-        accountStackView.cardStackContainerView.enclosingView = cardStackViewController.cardStackView
+        accountStackView.cardStackView = cardStackViewController.cardStackView
         cardStackViewController.didMove(toParent: self)
         
         accountStackView.scanQRButton.addTarget(self, action: #selector(scanQRButtonDidClick(_:)), for: .touchUpInside)
@@ -74,10 +82,10 @@ class AccountStackViewController: UIViewController {
         _ block: @escaping () -> ()
     ) {
         animator = UIViewPropertyAnimator(
-            duration: 0.26,
+            duration: 0.21,
             timingParameters: UISpringTimingParameters(
-                damping: 0.84,
-                response: 0.48
+                damping: 1,
+                response: 0.36
             )
         )
         
@@ -160,6 +168,20 @@ extension AccountStackViewController: CameraViewControllerDelegate {
                 viewController,
                 animated: true
             )
+        }
+    }
+}
+
+extension AccountStackViewController: TripleMiddleViewController {
+    
+    func compactHeight(
+        for positioning: TripleCompactPositioning
+    ) -> CGFloat {
+        switch positioning {
+        case .top:
+            return AccountStackView.compactTopHeight
+        case .bottom:
+            return AccountStackView.compactBottomHeight
         }
     }
 }

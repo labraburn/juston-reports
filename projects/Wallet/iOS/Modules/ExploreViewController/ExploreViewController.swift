@@ -26,6 +26,10 @@ class ExploreViewController: TripleViewController {
         }
     }
     
+    private var safari3ViewController: Safari3ViewController {
+        viewControlles.0 as! Safari3ViewController
+    }
+    
     private var accountStackViewController: AccountStackViewController {
         viewControlles.1 as! AccountStackViewController
     }
@@ -36,7 +40,7 @@ class ExploreViewController: TripleViewController {
 
     init() {
         super.init((
-            UIViewController().with({ $0.view.backgroundColor = .green }),
+            Safari3ViewController(),
             AccountStackViewController(),
             TransactionsViewController()
         ))
@@ -48,6 +52,8 @@ class ExploreViewController: TripleViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .hui_backgroundPrimary
+        
+        safari3ViewController.attach(accountStackViewController.browserNavigationView)
         
         accountStackViewController.delegate = self
         account = accountStackViewController.selectedCard?.account
@@ -161,14 +167,12 @@ extension ExploreViewController: TripleViewControllerDelegate {
         switch presentation {
         case .top:
             accountStackViewController.layoutKind = .compact(
-                height: compactHeight,
                 pin: .top
             )
         case .middle:
             accountStackViewController.layoutKind = .large
         case .bottom:
             accountStackViewController.layoutKind = .compact(
-                height: compactHeight,
                 pin: .bottom
             )
         }

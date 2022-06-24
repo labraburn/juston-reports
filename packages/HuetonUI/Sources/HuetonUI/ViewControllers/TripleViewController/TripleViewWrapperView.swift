@@ -25,6 +25,7 @@ internal final class TripleViewWrapperView: UIView {
         
         case top(size: CGSize)
         case bottom(size: CGSize)
+        case fill(insets: UIEdgeInsets)
     }
     
     let subview: UIView
@@ -44,7 +45,6 @@ internal final class TripleViewWrapperView: UIView {
             frame: .zero
         )
         
-        clipsToBounds = true
         addSubview(subview)
     }
     
@@ -68,6 +68,10 @@ internal final class TripleViewWrapperView: UIView {
                     y: bounds.height - size.height
                 ),
                 size: size
+            )
+        case let .fill(insets):
+            subview.frame = bounds.inset(
+                by: insets
             )
         }
     }

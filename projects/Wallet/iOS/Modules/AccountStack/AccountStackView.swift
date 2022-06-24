@@ -10,6 +10,9 @@ import HuetonUI
 
 final class AccountStackView: UIView {
     
+    static let compactTopHeight = CGFloat(224)
+    static let compactBottomHeight = CGFloat(112)
+    
     enum LayoutPin: Equatable {
         
         case top
@@ -19,23 +22,34 @@ final class AccountStackView: UIView {
     enum LayoutKind: Equatable {
         
         case large
-        case compact(height: CGFloat, pin: LayoutPin)
+        case compact(pin: LayoutPin)
     }
     
     private var topLineView = UIView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor(rgb: 0x353535)
     })
     
     private var bottomLineView = UIView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor(rgb: 0x353535)
     })
     
-    private let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
-        $0.translatesAutoresizingMaskIntoConstraints = true
+    private let cardStackContainerView = ContainerView<CardStackView>().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    })
+    
+    let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .horizontal
         $0.alignment = .top
         $0.distribution = .equalCentering
         $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -24)
+        $0.backgroundColor = .hui_backgroundPrimary
+    })
+    
+    let browserNavigationView = AccountStackBrowserNavigationView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .hui_backgroundPrimary
     })
 
@@ -61,8 +75,43 @@ final class AccountStackView: UIView {
         $0.tintColor = .hui_textPrimary
     })
     
-    var layoutKind: LayoutKind = .large
-    let cardStackContainerView = ContainerView<CardStackView>()
+    private var compactTopConstraints: [NSLayoutConstraint] = []
+    private var largeConstraints: [NSLayoutConstraint] = []
+    private var compactBottomConstraints: [NSLayoutConstraint] = []
+    
+    var layoutKind: LayoutKind = .large {
+        didSet {
+            guard layoutKind != oldValue
+            else {
+                return
+            }
+            
+            NSLayoutConstraint.deactivate(compactTopConstraints)
+            NSLayoutConstraint.deactivate(largeConstraints)
+            NSLayoutConstraint.deactivate(compactBottomConstraints)
+            
+            switch layoutKind {
+            case .large:
+                cardStackView?.presentation = .large
+                NSLayoutConstraint.activate(largeConstraints)
+            case let .compact(pin):
+                cardStackView?.presentation = .compact
+                switch pin {
+                case .top:
+                    NSLayoutConstraint.activate(compactTopConstraints)
+                case .bottom:
+                    NSLayoutConstraint.activate(compactBottomConstraints)
+                }
+            }
+            
+            setNeedsLayout()
+        }
+    }
+    
+    var cardStackView: CardStackView? {
+        get { cardStackContainerView.enclosingView }
+        set { cardStackContainerView.enclosingView = newValue }
+    }
     
     init() {
         super.init(frame: .zero)
@@ -86,8 +135,60 @@ final class AccountStackView: UIView {
         }())
         navigationStackView.addArrangedSubview(addAccountButton)
         
+        addSubview(browserNavigationView)
         addSubview(navigationStackView)
         addSubview(cardStackContainerView)
+        
+        compactTopConstraints = Array({
+            browserNavigationView.topAnchor.pin(to: topAnchor, constant: 8)
+            browserNavigationView.pin(horizontally: self, left: 0, right: 0)
+            
+            navigationStackView.centerYAnchor.pin(to: centerYAnchor)
+            navigationStackView.pin(horizontally: self, left: 24, right: 24)
+            navigationStackView.heightAnchor.pin(to: 52)
+            
+            cardStackContainerView.topAnchor.pin(to: browserNavigationView.bottomAnchor, constant: 12)
+            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactTopHeight - 118) // 106 - browserNavigationView
+            cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
+        })
+        
+        largeConstraints = Array({
+            browserNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            browserNavigationView.pin(horizontally: self, left: 0, right: 0)
+            
+            navigationStackView.topAnchor.pin(to: safeAreaLayoutGuide.topAnchor, constant: 16)
+            navigationStackView.pin(horizontally: self, left: 24, right: 24)
+            navigationStackView.heightAnchor.pin(to: 52)
+            
+            cardStackContainerView.topAnchor.pin(to: navigationStackView.bottomAnchor, constant: 0)
+            cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
+            
+            safeAreaLayoutGuide.bottomAnchor.pin(to: cardStackContainerView.bottomAnchor, constant: 42)
+        })
+        
+        compactBottomConstraints = Array({
+            browserNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            browserNavigationView.pin(horizontally: self, left: 0, right: 0)
+            
+            navigationStackView.centerYAnchor.pin(to: centerYAnchor)
+            navigationStackView.pin(horizontally: self, left: 24, right: 24)
+            navigationStackView.heightAnchor.pin(to: 52)
+            
+            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactBottomHeight - 12)
+            cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
+            bottomAnchor.pin(to: cardStackContainerView.bottomAnchor, constant: 12)
+        })
+        
+        NSLayoutConstraint.activate(largeConstraints)
+        NSLayoutConstraint.activate({
+            topLineView.topAnchor.pin(to: topAnchor)
+            topLineView.pin(horizontally: self)
+            topLineView.heightAnchor.pin(to: 1)
+            
+            bottomLineView.pin(horizontally: self)
+            bottomLineView.heightAnchor.pin(to: 1)
+            bottomAnchor.pin(to: bottomLineView.bottomAnchor)
+        })
     }
     
     @available(*, unavailable)
@@ -98,111 +199,34 @@ final class AccountStackView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        topLineView.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: bounds.width,
-            height: 1
-        )
-        
-        bottomLineView.frame = CGRect(
-            x: 0,
-            y: bounds.height - 1,
-            width: bounds.width,
-            height: 1
-        )
-        
+        cardStackView?.cornerRadius = 16
         switch layoutKind {
         case .large:
-            updateLargeLayoutType()
-        case let .compact(height, pin):
-            updateCompactLayoutType(
-                height: height,
-                pin: pin
-            )
+            topLineView.alpha = 0
+            bottomLineView.alpha = 0
+            
+            navigationStackView.alpha = 1
+            browserNavigationView.alpha = 0
+        case let .compact(pin):
+            switch pin {
+            case .top:
+                topLineView.alpha = 1
+                bottomLineView.alpha = 0
+                
+                browserNavigationView.alpha = 1
+            case .bottom:
+                topLineView.alpha = 0
+                bottomLineView.alpha = 1
+                
+                browserNavigationView.alpha = 0
+            }
+            
+            navigationStackView.alpha = 0
         }
     }
     
     func perfromApperingAnimation() {
         logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
-    }
-    
-    // MARK: Private
-    
-    private func updateLargeLayoutType() {
-        topLineView.alpha = 0
-        bottomLineView.alpha = 0
-        
-        navigationStackView.alpha = 1
-        navigationStackView.frame = CGRect(
-            x: 24,
-            y: safeAreaInsets.top + 16,
-            width: max(bounds.width - 48, 300), // max - to hide autolayout warnings
-            height: 52
-        )
-        
-        let creditCardParameters = creditCardFrameWithCornerRadius()
-        
-        cardStackContainerView.frame = creditCardParameters.0
-        cardStackContainerView.enclosingView?.cornerRadius = creditCardParameters.1
-        cardStackContainerView.enclosingView?.presentation = .large
-    }
-    
-    private func updateCompactLayoutType(
-        height: CGFloat,
-        pin: LayoutPin
-    ) {
-        navigationStackView.alpha = 0
-        navigationStackView.frame = CGRect(
-            x: 24,
-            y: (bounds.size.height / 2) - 26,
-            width: max(bounds.width - 48, 300), // max - to hide autolayout warnings
-            height: 52
-        )
-        
-        cardStackContainerView.enclosingView?.presentation = .compact
-        cardStackContainerView.enclosingView?.cornerRadius = 16
-        
-        switch pin {
-        case .top:
-            topLineView.alpha = 1
-            bottomLineView.alpha = 0
-            cardStackContainerView.frame = CGRect(
-                x: 12,
-                y: 8,
-                width: bounds.width - 24,
-                height: height - 16
-            )
-        case .bottom:
-            topLineView.alpha = 0
-            bottomLineView.alpha = 1
-            cardStackContainerView.frame = CGRect(
-                x: 12,
-                y: bounds.height - height,
-                width: bounds.width - 24,
-                height: height - 16
-            )
-        }
-    }
-    
-    private func creditCardFrameWithCornerRadius() -> (CGRect, CGFloat) {
-        let insets = UIEdgeInsets(top: navigationStackView.frame.maxY, left: 12, right: 12, bottom: 42)
-        
-        let maximumWidth = bounds.width - insets.left - insets.right
-        let maximumHeight = bounds.height - insets.top - insets.bottom
-        
-        let ISOHeight = maximumWidth * 1.585772
-        let targetHeight = min(maximumHeight, ISOHeight)
-        let cornerRadius = targetHeight * 0.0399
-        
-        let frame = CGRect(
-            x: insets.left,
-            y: insets.top,
-            width: maximumWidth,
-            height: targetHeight
-        )
-        
-        return (frame, cornerRadius)
     }
 }
 

@@ -15,6 +15,11 @@ internal protocol TripleViewDelegate: AnyObject {
         _ view: TripleView,
         didChangePresentation presentation: TriplePresentation
     )
+    
+    func tripleView(
+        _view: TripleView,
+        heightForCompactMiddleViewWithPositioning positioning: TripleCompactPositioning
+    ) -> CGFloat
 }
 
 internal final class TripleView: UIView {
@@ -32,7 +37,6 @@ internal final class TripleView: UIView {
     
     private var userInteractionSession: UserInteractionSession? = nil
     private var animator: UIViewPropertyAnimator? = nil
-    private let centerViewCompactHeight: CGFloat
     private let views: (TripleViewWrapperView, TripleViewWrapperView, TripleViewWrapperView)
     
     private var contentSize: CGSize {
@@ -47,22 +51,6 @@ internal final class TripleView: UIView {
         $0.minimumNumberOfTouches = 1
         $0.delegate = self
     })
-    
-    weak var delegate: TripleViewDelegate?
-    
-    var presentation: TriplePresentation = .top {
-        didSet {
-            guard presentation != oldValue
-            else {
-                return
-            }
-            
-            delegate?.tripleView(
-                self,
-                didChangePresentation: presentation
-            )
-        }
-    }
     
     override var bounds: CGRect {
         get { super.bounds }
@@ -85,11 +73,25 @@ internal final class TripleView: UIView {
         }
     }
     
+    var presentation: TriplePresentation = .top {
+        didSet {
+            guard presentation != oldValue
+            else {
+                return
+            }
+            
+            delegate?.tripleView(
+                self,
+                didChangePresentation: presentation
+            )
+        }
+    }
+    
+    weak var delegate: TripleViewDelegate?
+    
     init(
-        centerViewCompactHeight: CGFloat,
         views: (UIView, UIView, UIView)
     ) {
-        self.centerViewCompactHeight = centerViewCompactHeight
         self.views = (
             TripleViewWrapperView(views.0),
             TripleViewWrapperView(views.1),
@@ -161,6 +163,8 @@ internal final class TripleView: UIView {
             else {
                 return
             }
+            
+            gestureRecognizer.view?.endEditing(true)
 
             var translation = gestureRecognizer.translation(in: gestureRecognizer.view)
             translation.x = 0
@@ -232,14 +236,10 @@ internal final class TripleView: UIView {
         velocity: CGPoint
     ) {
         animator = UIViewPropertyAnimator(
-            duration: 0.16,
+            duration: 0.21,
             timingParameters: UISpringTimingParameters(
-                damping: 0.81,
-                response: 0.46,
-                initialVelocity: CGVector(
-                    dx: 0,
-                    dy: abs(velocity.y) / 1000
-                )
+                damping: 0.98,
+                response: 0.32
             )
         )
         
@@ -328,8 +328,15 @@ internal final class TripleView: UIView {
         
         let centerViewPinnedPosition: TripleViewWrapperView.PinnedPosition
         
-        let compactViewHeightIfTop = centerViewCompactHeight + safeAreaInsets.bottom
-        let compactViewHeightIfBottom = centerViewCompactHeight + safeAreaInsets.top
+        let compactViewHeightIfTop: CGFloat = {
+            let height = delegate?.tripleView(_view: self, heightForCompactMiddleViewWithPositioning: .top)
+            return (height ?? 0) + safeAreaInsets.bottom
+        }()
+        
+        let compactViewHeightIfBottom: CGFloat = {
+            let height = delegate?.tripleView(_view: self, heightForCompactMiddleViewWithPositioning: .bottom)
+            return (height ?? 0) + safeAreaInsets.top
+        }()
         
         if progress < 0.5 {
             centerViewPinnedPosition = .top(

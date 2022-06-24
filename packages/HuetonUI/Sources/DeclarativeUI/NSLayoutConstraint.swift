@@ -24,3 +24,14 @@ public extension NSLayoutConstraint {
         return constraints
     }
 }
+
+public extension Array where Element == NSLayoutConstraint {
+    
+    @discardableResult
+    init(
+        @ConstraintsBuilder _ builder: () -> [NSLayoutConstraint]
+    ) {
+        let constraints = builder()
+        self.init(constraints)
+    }
+}

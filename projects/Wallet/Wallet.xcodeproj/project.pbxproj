@@ -103,6 +103,11 @@
 		F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */; };
 		F0AAC1292864079000F25C26 /* AccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1282864079000F25C26 /* AccountStackView.swift */; };
 		F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */; };
+		F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */; };
+		F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */; };
+		F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */; };
+		F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */; };
+		F0AAC1372865549400F25C26 /* Safari3BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
@@ -226,6 +231,11 @@
 		F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackViewController.swift; sourceTree = "<group>"; };
 		F0AAC1282864079000F25C26 /* AccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackView.swift; sourceTree = "<group>"; };
 		F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeView.swift; sourceTree = "<group>"; };
+		F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackBrowserNavigationView.swift; sourceTree = "<group>"; };
+		F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackBrowserSearchField.swift; sourceTree = "<group>"; };
+		F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3ViewController.swift; sourceTree = "<group>"; };
+		F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserViewController.swift; sourceTree = "<group>"; };
+		F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BookmarksViewController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
@@ -575,6 +585,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F0AAC13128654F8000F25C26 /* Safari3ViewController */,
 				F0E7D3172863A7590037DE46 /* ExploreViewController */,
 				F014F19B285B84BD00D82273 /* Agreements */,
 				F02C8772284FD88F007476B8 /* TransactionDetails */,
@@ -704,11 +715,23 @@
 		F0AAC1252864072900F25C26 /* AccountStack */ = {
 			isa = PBXGroup;
 			children = (
+				F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */,
+				F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */,
 				F0AAC1282864079000F25C26 /* AccountStackView.swift */,
 				F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */,
 				F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */,
 			);
 			path = AccountStack;
+			sourceTree = "<group>";
+		};
+		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
+				F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */,
+				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
+			);
+			path = Safari3ViewController;
 			sourceTree = "<group>";
 		};
 		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
@@ -932,9 +955,11 @@
 				F0909B5727E8B2D000FC8404 /* C42WordCell.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */,
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
+				F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */,
+				F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */,
 				F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
@@ -981,6 +1006,7 @@
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
+				F0AAC1372865549400F25C26 /* Safari3BookmarksViewController.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
 				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
@@ -997,6 +1023,7 @@
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift in Sources */,
 				F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */,
+				F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
@@ -1004,6 +1031,7 @@
 				F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* C42NavigationController.swift in Sources */,
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
+				F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
 				F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */,
