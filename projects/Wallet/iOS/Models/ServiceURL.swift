@@ -20,4 +20,17 @@ extension URL {
     static let telegramChannel = URL(string: "https://t.me/hueton_ru")!
     
     static let twitter = URL(string: "https://twitter.com/thehueton")!
+    
+    static func searchURL(withQuery text: String) -> URL? {
+        guard var components = URLComponents(string: "https://www.google.com/search")
+        else {
+            return nil
+        }
+        
+        components.queryItems = [
+            URLQueryItem(name: "q", value: text)
+        ]
+        
+        return components.url
+    }
 }

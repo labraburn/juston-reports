@@ -22,11 +22,31 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
         case view(view: WeakView)
     }
     
+    public enum ResponderChecker {
+        
+        case none
+        case view(view: WeakView)
+    }
+    
     private var originalConstant: CGFloat = 0
     private var keyboardHeight: CGFloat = 0
     private var animator: UIViewPropertyAnimator?
     
     public var bottomAnchor: BottomAnchor = .none {
+        didSet {
+            guard propagateConstantIfNeeded()
+            else {
+                return
+            }
+            
+            animateChanges(
+                duration: 0.42,
+                curve: .easeInOut
+            )
+        }
+    }
+    
+    public var responderChecker: ResponderChecker = .none {
         didSet {
             guard propagateConstantIfNeeded()
             else {
@@ -47,6 +67,8 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
             propagateConstantIfNeeded()
         }
     }
+    
+    public var keyboardOffset = CGFloat(16)
     
     public override init() {
         super.init()
@@ -79,25 +101,36 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
     
     @discardableResult
     private func propagateConstantIfNeeded() -> Bool {
-        let spacing = CGFloat(16)
+        let canUpdateConstant: Bool
+        switch responderChecker {
+        case .none:
+            canUpdateConstant = true
+        case let .view(view):
+            if let view = view.view, view.isFirstResponder{
+                canUpdateConstant = true
+            } else {
+                canUpdateConstant = false
+            }
+        }
+        
         let constant: CGFloat
-        if keyboardHeight > 0 {
+        if keyboardHeight > 0 && canUpdateConstant {
             switch bottomAnchor {
             case .none:
                 constant = originalConstant
             case .screen:
-                constant = keyboardHeight + spacing
+                constant = keyboardHeight + keyboardOffset
             case let .view(wview):
                 if let view = wview.view,
                    let superview = view.superview,
                    let window = view.window
                 { 
                     let frame = superview.convert(view.frame, to: nil)
-                    let target = keyboardHeight - (window.bounds.height - frame.minY) + spacing
+                    let target = keyboardHeight - (window.bounds.height - frame.minY) + keyboardOffset
                     constant = target > 0 ? target : originalConstant
                 }
                 else {
-                    constant = keyboardHeight + spacing
+                    constant = keyboardHeight + keyboardOffset
                 }
             }
         } else {

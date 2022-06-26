@@ -28,11 +28,25 @@ class InAppAnnouncementWindow: UIWindow {
     private var subscriptions: [NSObjectProtocol] = []
     private var inAppAnnouncementView: CurrentInAppAnnouncement? = nil
     
+    override var canBecomeKey: Bool { false }
+    override var canBecomeFirstResponder: Bool { false }
+    
+    @objc(_canAffectStatusBarAppearance)
+    func _canAffectStatusBarAppearance() -> Bool {
+        false
+    }
+    
+    @objc(isInternalWindow)
+    func isInternalWindow() -> Bool {
+        true
+    }
+    
     override init(windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
         
         isHidden = false
         backgroundColor = .clear
+        windowLevel = .statusBar
         
         rootViewController = UIViewController()
         rootViewController?.view.isUserInteractionEnabled = false

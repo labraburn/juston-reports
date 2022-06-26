@@ -9,25 +9,95 @@ import UIKit
 import WebKit
 import HuetonUI
 
+protocol Safari3BrowserViewControllerDelegate: AnyObject {
+    
+    func safari3Browser(
+        _ viewController: Safari3BrowserViewController,
+        didChangeURL url: URL?
+    )
+    
+    func safari3Browser(
+        _ viewController: Safari3BrowserViewController,
+        titleDidChange title: String?
+    )
+    
+    func safari3Browser(
+        _ viewController: Safari3BrowserViewController,
+        didChangeLoading loading: Bool
+    )
+}
+
 class Safari3BrowserViewController: UIViewController {
     
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark)).with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    })
+    private enum PresentationState {
+        
+        case error(error: Error)
+        case browsing
+    }
     
-    private let webView = WKWebView().with({
+    private lazy var webView = Safari3WebView(frame: .zero, configuration: configuration()).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.allowsBackForwardNavigationGestures = true
     })
     
+    private let errorLabel = UILabel().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.isUserInteractionEnabled = false
+        $0.textColor = .hui_textPrimary
+        $0.font = .font(for: .body)
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+    })
+    
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark)).with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    })
+
+    private var presentationState: PresentationState = .browsing
     private var urlKeyValueObservation: NSKeyValueObservation?
     private var loadingKeyValueObservation: NSKeyValueObservation?
+    private var _url: URL?
+    
+    override var title: String? {
+        get { super.title }
+        set {
+            super.title = newValue
+            delegate?.safari3Browser(
+                self,
+                titleDidChange: title
+            )
+        }
+    }
+    
+    weak var delegate: Safari3BrowserViewControllerDelegate?
+    
+    var url: URL? {
+        get { _url }
+        set {
+            reload(
+                using: newValue
+            )
+        }
+    }
+    
+    var canGoBack: Bool {
+        webView.canGoBack
+    }
+    
+    var canGoForward: Bool {
+        webView.canGoForward
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .hui_backgroundPrimary
+        
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
         
         view.addSubview(webView)
+        view.addSubview(errorLabel)
         view.addSubview(blurView)
         
         NSLayoutConstraint.activate({
@@ -36,13 +106,23 @@ class Safari3BrowserViewController: UIViewController {
             blurView.bottomAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor)
             
             webView.pin(edges: view)
+            errorLabel.pin(
+                edges: view.safeAreaLayoutGuide,
+                insets: UIEdgeInsets(
+                    top: 42,
+                    left: 16,
+                    bottom: 32,
+                    right: 16)
+            )
         })
         
         urlKeyValueObservation = webView.observe(
             \.url,
              options: [.new],
-             changeHandler: { [weak self] _, _ in
-//                 self?.updateBarViews()
+             changeHandler: { [weak self] _, change in
+                 self?.updateCurrentURL(
+                    change.newValue ?? nil
+                 )
              }
         )
 
@@ -50,9 +130,207 @@ class Safari3BrowserViewController: UIViewController {
             \.isLoading,
              options: [.new],
              changeHandler: { [weak self] _, change in
-//                 self?.navigationView.isLoading = change.newValue ?? false
-//                 self?.updateBarViews()
+                 guard let self = self
+                 else {
+                     return
+                 }
+                 
+                 self.delegate?.safari3Browser(
+                    self,
+                    didChangeLoading: change.newValue ?? false
+                 )
              }
+        )
+        
+        update(presentationState: presentationState, animated: false)
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        webView.customSafeAreaInsets = view.safeAreaInsets
+    }
+    
+    func goBack() {
+        webView.goBack()
+    }
+    
+    func goForward() {
+        webView.goForward()
+    }
+    
+    func reload() {
+        webView.reload()
+    }
+    
+    private func determinateTitle() {
+        let defaultTitle = webView.url?.host
+        webView.evaluateJavaScript(
+            "document.title",
+            completionHandler: { [weak self] object, _ in
+                if let text = object as? String, !text.isEmpty {
+                    self?.title = text
+                } else {
+                    self?.title = defaultTitle
+                }
+            }
+        )
+    }
+    
+    private func reload(
+        using url: URL?
+    ) {
+        guard _url != url
+        else {
+            return
+        }
+        
+        _url = url
+        determinateTitle()
+        
+        guard let url = url
+        else {
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+    
+    private func updateCurrentURL(
+        _ url: URL?
+    ) {
+        _url = url
+        delegate?.safari3Browser(
+            self,
+            didChangeURL: url
+        )
+    }
+    
+    private func configuration() -> WKWebViewConfiguration {
+        let configuration = WKWebViewConfiguration()
+        configuration.processPool = WKProcessPool()
+        return configuration
+    }
+    
+    private func update(
+        presentationState: PresentationState,
+        animated: Bool
+    ) {
+        switch self.presentationState {
+        case .browsing:
+            self.errorLabel.alpha = 0
+        case .error:
+            self.webView.alpha = 0
+        }
+        
+        self.errorLabel.isHidden = false
+        self.webView.isHidden = false
+        
+        let animations = {
+            switch presentationState {
+            case .browsing:
+                self.errorLabel.alpha = 0
+                self.webView.alpha = 1
+            case .error:
+                self.errorLabel.alpha = 1
+                self.webView.alpha = 0
+            }
+        }
+        
+        let completion = { (_ finished: Bool) in
+            switch presentationState {
+            case .browsing:
+                self.errorLabel.isHidden = true
+            case .error:
+                self.webView.isHidden = true
+            }
+        }
+        
+        if animated {
+            UIView.animate(
+                withDuration: 0.42,
+                delay: 0,
+                animations: animations,
+                completion: completion
+            )
+        } else {
+            animations()
+            completion(true)
+        }
+        
+        switch presentationState {
+        case let .error(error):
+            webView.isHidden = true
+            errorLabel.isHidden = false
+            errorLabel.text = error.localizedDescription
+        case .browsing:
+            webView.isHidden = false
+            errorLabel.isHidden = true
+        }
+    }
+}
+
+extension Safari3BrowserViewController: WKUIDelegate {
+    
+    public func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        if let targetFrame = navigationAction.targetFrame, !targetFrame.isMainFrame {
+            webView.load(navigationAction.request)
+        } else if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        
+        return nil
+    }
+}
+
+extension Safari3BrowserViewController: WKNavigationDelegate {
+    
+    public func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction
+    ) async -> WKNavigationActionPolicy {
+        .allow
+    }
+    
+    public func webView(
+        _ webView: WKWebView,
+        didStartProvisionalNavigation navigation: WKNavigation!
+    ) {
+        determinateTitle()
+        update(
+            presentationState: .browsing,
+            animated: true
+        )
+    }
+    
+    func webView(
+        _ webView: WKWebView,
+        didFinish navigation: WKNavigation!
+    ) {
+        determinateTitle()
+    }
+
+    public func webView(
+        _ webView: WKWebView,
+        didFailProvisionalNavigation navigation: WKNavigation!,
+        withError error: Error
+    ) {
+        var _error = error
+        if _error.localizedDescription.isEmpty {
+            _error = URLError(.unknown)
+        }
+        
+        determinateTitle()
+        update(
+            presentationState: .error(
+                error: _error
+            ),
+            animated: true
         )
     }
 }

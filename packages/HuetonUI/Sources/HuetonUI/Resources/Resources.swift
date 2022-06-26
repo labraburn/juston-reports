@@ -78,6 +78,8 @@ public extension UIImage {
     static let hui_tabBarGear44: UIImage = .named("TabBar/Gear44")
     static let hui_tabBarPlanet44: UIImage = .named("TabBar/Planet44")
     
+    static let hui_searchFieldGradient: UIImage = .named("SearchFiledGradient")
+    
     private static func named(_ name: String) -> UIImage {
         guard let color = UIImage(named: name, in: .module, with: nil)
         else {

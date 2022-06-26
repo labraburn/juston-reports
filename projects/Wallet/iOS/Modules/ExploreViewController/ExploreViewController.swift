@@ -16,7 +16,9 @@ class ExploreViewController: TripleViewController {
     
     private var account: PersistenceAccount? = nil {
         didSet {
+            safari3ViewController.account = account
             transactionsViewController.account = account
+            
             if let account = account {
                 let address = Address(rawValue: account.selectedContract.address)
                 synchronizationLoop.use(address: address)
@@ -40,7 +42,7 @@ class ExploreViewController: TripleViewController {
 
     init() {
         super.init((
-            Safari3ViewController(),
+            ExploreSafari3ViewController(),
             AccountStackViewController(),
             TransactionsViewController()
         ))
@@ -164,17 +166,6 @@ extension ExploreViewController: TripleViewControllerDelegate {
         _ viewController: TripleViewController,
         didChangePresentation presentation: TriplePresentation
     ) {
-        switch presentation {
-        case .top:
-            accountStackViewController.layoutKind = .compact(
-                pin: .top
-            )
-        case .middle:
-            accountStackViewController.layoutKind = .large
-        case .bottom:
-            accountStackViewController.layoutKind = .compact(
-                pin: .bottom
-            )
-        }
+        accountStackViewController.triplePresentation = presentation
     }
 }

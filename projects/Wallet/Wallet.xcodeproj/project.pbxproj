@@ -108,6 +108,7 @@
 		F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */; };
 		F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */; };
 		F0AAC1372865549400F25C26 /* Safari3BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */; };
+		F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
@@ -117,6 +118,8 @@
 		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
 		F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */; };
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
+		F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */; };
+		F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */; };
 		F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
@@ -236,6 +239,7 @@
 		F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3ViewController.swift; sourceTree = "<group>"; };
 		F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserViewController.swift; sourceTree = "<group>"; };
 		F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BookmarksViewController.swift; sourceTree = "<group>"; };
+		F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSafari3ViewController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
@@ -245,6 +249,8 @@
 		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
+		F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeViewController.swift; sourceTree = "<group>"; };
+		F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WebView.swift; sourceTree = "<group>"; };
 		F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURL.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -729,7 +735,9 @@
 			children = (
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
 				F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */,
+				F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */,
 				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
+				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 			);
 			path = Safari3ViewController;
 			sourceTree = "<group>";
@@ -820,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				F0E7D3182863A7760037DE46 /* ExploreViewController.swift */,
+				F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */,
 			);
 			path = ExploreViewController;
 			sourceTree = "<group>";
@@ -959,6 +968,7 @@
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */,
+				F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */,
 				F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */,
 				F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
@@ -1018,6 +1028,7 @@
 				F01E2ACA2846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift in Sources */,
 				F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */,
 				F0909B5A27E8B6F000FC8404 /* C42WordsDecorationView.swift in Sources */,
+				F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */,
 				F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */,
 				F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */,
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
@@ -1028,6 +1039,7 @@
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
+				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,
 				F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* C42NavigationController.swift in Sources */,
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,

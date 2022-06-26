@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import HuetonUI
 
 class Safari3BookmarksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .hui_letter_blue
     }
 }

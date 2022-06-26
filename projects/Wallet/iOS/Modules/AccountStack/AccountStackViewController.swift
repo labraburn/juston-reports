@@ -37,18 +37,18 @@ class AccountStackViewController: UIViewController {
         accountStackView.browserNavigationView
     }
     
-    var layoutKind: AccountStackView.LayoutKind {
-        get { accountStackView.layoutKind }
+    var triplePresentation: TriplePresentation {
+        get { accountStackView.triplePresentation }
         set {
-            guard accountStackView.layoutKind != newValue
+            guard accountStackView.triplePresentation != newValue
             else {
                 return
             }
             
-            accountStackView.layoutKind = newValue
+            accountStackView.triplePresentation = newValue
             
-            endLayoutKindAnimations()
-            startLayoutKindAnimations({
+            endTriplePresentationAnimations()
+            startTriplePresentationAnimations({
                 self.accountStackView.layoutIfNeeded()
             })
         }
@@ -78,7 +78,7 @@ class AccountStackViewController: UIViewController {
     
     // MARK: Private
     
-    private func startLayoutKindAnimations(
+    private func startTriplePresentationAnimations(
         _ block: @escaping () -> ()
     ) {
         animator = UIViewPropertyAnimator(
@@ -93,7 +93,7 @@ class AccountStackViewController: UIViewController {
         animator?.startAnimation()
     }
     
-    private func endLayoutKindAnimations() {
+    private func endTriplePresentationAnimations() {
         animator?.stopAnimation(true)
         animator?.finishAnimation(at: .current)
         animator = nil

@@ -250,3 +250,14 @@
 "CameraTitle" = "Camera";
 "CameraDescription" = "Please, position camera to any QR code and we will try to detect TON address";
 /* END - AccountContracrtName */
+
+
+
+/* START - Safari3 */
+"Safari3NavigationActionReload" = "Reload";
+"Safari3NavigationActionBack" = "Go back";
+"Safari3NavigationActionForward" = "Go forward";
+"Safari3NavigationActionAddFavoirite" = "Add to bookmarks";
+"Safari3NavigationActionRemoveFavoirite" = "Remove from bookmars";
+"Safari3NavigationActionShare" = "Share";
+/* END - Safari3 */

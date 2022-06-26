@@ -10,20 +10,9 @@ import HuetonUI
 
 final class AccountStackView: UIView {
     
-    static let compactTopHeight = CGFloat(224)
+    static let compactCardStackViewHeight = CGFloat(96)
+    static let compactTopHeight = CGFloat(112)
     static let compactBottomHeight = CGFloat(112)
-    
-    enum LayoutPin: Equatable {
-        
-        case top
-        case bottom
-    }
-    
-    enum LayoutKind: Equatable {
-        
-        case large
-        case compact(pin: LayoutPin)
-    }
     
     private var topLineView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -79,9 +68,9 @@ final class AccountStackView: UIView {
     private var largeConstraints: [NSLayoutConstraint] = []
     private var compactBottomConstraints: [NSLayoutConstraint] = []
     
-    var layoutKind: LayoutKind = .large {
+    var triplePresentation: TriplePresentation = .middle {
         didSet {
-            guard layoutKind != oldValue
+            guard triplePresentation != oldValue
             else {
                 return
             }
@@ -90,18 +79,16 @@ final class AccountStackView: UIView {
             NSLayoutConstraint.deactivate(largeConstraints)
             NSLayoutConstraint.deactivate(compactBottomConstraints)
             
-            switch layoutKind {
-            case .large:
+            switch triplePresentation {
+            case .top:
+                cardStackView?.presentation = .compact
+                NSLayoutConstraint.activate(compactTopConstraints)
+            case .middle:
                 cardStackView?.presentation = .large
                 NSLayoutConstraint.activate(largeConstraints)
-            case let .compact(pin):
+            case .bottom:
                 cardStackView?.presentation = .compact
-                switch pin {
-                case .top:
-                    NSLayoutConstraint.activate(compactTopConstraints)
-                case .bottom:
-                    NSLayoutConstraint.activate(compactBottomConstraints)
-                }
+                NSLayoutConstraint.activate(compactBottomConstraints)
             }
             
             setNeedsLayout()
@@ -148,7 +135,7 @@ final class AccountStackView: UIView {
             navigationStackView.heightAnchor.pin(to: 52)
             
             cardStackContainerView.topAnchor.pin(to: browserNavigationView.bottomAnchor, constant: 12)
-            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactTopHeight - 118) // 106 - browserNavigationView
+            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactCardStackViewHeight)
             cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
         })
         
@@ -174,7 +161,7 @@ final class AccountStackView: UIView {
             navigationStackView.pin(horizontally: self, left: 24, right: 24)
             navigationStackView.heightAnchor.pin(to: 52)
             
-            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactBottomHeight - 12)
+            cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactCardStackViewHeight)
             cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
             bottomAnchor.pin(to: cardStackContainerView.bottomAnchor, constant: 12)
         })
@@ -189,6 +176,31 @@ final class AccountStackView: UIView {
             bottomLineView.heightAnchor.pin(to: 1)
             bottomAnchor.pin(to: bottomLineView.bottomAnchor)
         })
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShowNotification(_:)),
+            name: UIWindow.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardDidChangeFrameNotification(_:)),
+            name: UIWindow.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHideNotification(_:)),
+            name: UIWindow.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @available(*, unavailable)
@@ -196,37 +208,74 @@ final class AccountStackView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let s = super.point(inside: point, with: event)
+        return s
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         cardStackView?.cornerRadius = 16
-        switch layoutKind {
-        case .large:
+        switch triplePresentation {
+        case .top:
+            topLineView.alpha = 1
+            bottomLineView.alpha = 0
+            
+            navigationStackView.alpha = 0
+            browserNavigationView.alpha = 1
+        case .middle:
             topLineView.alpha = 0
             bottomLineView.alpha = 0
             
             navigationStackView.alpha = 1
             browserNavigationView.alpha = 0
-        case let .compact(pin):
-            switch pin {
-            case .top:
-                topLineView.alpha = 1
-                bottomLineView.alpha = 0
-                
-                browserNavigationView.alpha = 1
-            case .bottom:
-                topLineView.alpha = 0
-                bottomLineView.alpha = 1
-                
-                browserNavigationView.alpha = 0
-            }
+        case .bottom:
+            topLineView.alpha = 0
+            bottomLineView.alpha = 1
             
             navigationStackView.alpha = 0
+            browserNavigationView.alpha = 0
         }
     }
     
     func perfromApperingAnimation() {
         logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
+    }
+    
+    // MARK: Actions
+    
+    // Hack for textField
+    @objc
+    private func keyboardWillShowNotification(_ notification: Notification) {
+        keyboardDidChangeFrameNotification(notification)
+    }
+    
+    // Hack for textField
+    @objc
+    private func keyboardDidChangeFrameNotification(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let frameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        else {
+            return
+        }
+        
+        let frame = frameValue.cgRectValue
+        let maximumTouchInset = UIEdgeInsets(top: -frame.height)
+        let minimumTouchInset = UIEdgeInsets(top: -frame.height + Self.compactCardStackViewHeight)
+        
+        sui_touchAreaInsets = minimumTouchInset
+        superview?.sui_touchAreaInsets = minimumTouchInset
+        
+        browserNavigationView.setKeyboardTouchSafeAreaInsets(maximumTouchInset)
+    }
+    
+    // Hack for textField
+    @objc
+    private func keyboardWillHideNotification(_ notification: Notification) {
+        sui_touchAreaInsets = UIEdgeInsets(top: 0)
+        superview?.sui_touchAreaInsets = sui_touchAreaInsets
+        browserNavigationView.setKeyboardTouchSafeAreaInsets(sui_touchAreaInsets)
     }
 }
 

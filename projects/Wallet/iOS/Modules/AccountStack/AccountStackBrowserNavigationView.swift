@@ -16,53 +16,57 @@ protocol AccountStackBrowserNavigationViewDelegate: AnyObject {
     
     func navigationView(
         _ view: AccountStackBrowserNavigationView,
+        didChangeValue textField: UITextField
+    )
+    
+    func navigationView(
+        _ view: AccountStackBrowserNavigationView,
         didEndEditing textField: UITextField
+    )
+    
+    func navigationView(
+        _ view: AccountStackBrowserNavigationView,
+        didClickActionsButton button: UIButton
     )
 }
 
-final class AccountStackBrowserNavigationView: UIStackView {
-    
-    private let actionsStackView = UIStackView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .horizontal
-        $0.distribution = .fillEqually
-        $0.alignment = .center
-    })
+final class AccountStackBrowserNavigationView: UIView {
     
     private let searchField = AccountStackBrowserSearchField().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    let backButton = AccountStackBrowserNavigationView.actionButtonWithImageNamed("chevron.backward")
-    let forwardButton = AccountStackBrowserNavigationView.actionButtonWithImageNamed("chevron.forward")
-    let favouriteButton = AccountStackBrowserNavigationView.actionButtonWithImageNamed("star")
-    let shareButton = AccountStackBrowserNavigationView.actionButtonWithImageNamed("square.and.arrow.up")
-    
-    var textField: UITextField {
-        searchField.textField
+    var title: String? {
+        get { searchField.title }
+        set { searchField.title = newValue }
     }
     
     weak var delegate: AccountStackBrowserNavigationViewDelegate?
     
     init() {
         super.init(frame: .zero)
+
+        searchField.actionsButton.addTarget(
+            self,
+            action: #selector(actionsButtonDidClick(_:)),
+            for: .touchUpInside
+        )
         
-        axis = .vertical
-        alignment = .fill
-        distribution = .fill
+        searchField.textField.delegate = self
+        searchField.textField.addTarget(
+            self,
+            action: #selector(handleTextFieldDidChange(_:)),
+            for: .valueChanged
+        )
         
-        textField.delegate = self
+        addSubview(searchField)
         
-        searchField.heightAnchor.pin(to: 62).isActive = true
-        actionsStackView.heightAnchor.pin(to: 44).isActive = true
-        
-        actionsStackView.addArrangedSubview(backButton)
-        actionsStackView.addArrangedSubview(forwardButton)
-        actionsStackView.addArrangedSubview(favouriteButton)
-        actionsStackView.addArrangedSubview(shareButton)
-        
-        addArrangedSubview(searchField)
-        addArrangedSubview(actionsStackView)
+        NSLayoutConstraint.activate({
+            heightAnchor.pin(to: 64)
+            
+            searchField.pin(vertically: self, top: 8, bottom: 8)
+            searchField.pin(horizontally: self, left: 12, right: 12)
+        })
     }
     
     @available(*, unavailable)
@@ -70,24 +74,42 @@ final class AccountStackBrowserNavigationView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private static func actionButtonWithImageNamed(
-        _ systemName: String
-    ) -> UIButton {
-        let configuration = UIImage.SymbolConfiguration(
-            pointSize: 22,
-            weight: .medium
-        )
+    func setLoading(
+        _ loading: Bool
+    ) {
+        searchField.setLoading(loading)
+    }
+    
+    func setKeyboardTouchSafeAreaInsets(
+        _ insets: UIEdgeInsets
+    ) {
+        sui_touchAreaInsets = insets
+        searchField.setKeyboardTouchSafeAreaInsets(sui_touchAreaInsets)
+    }
+    
+    func setActiveURL(
+        _ url: URL?
+    ) {
+        searchField.actionsButton.isEnabled = url != nil
         
-        return UIButton().with({
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setImage(
-                UIImage(
-                    systemName: systemName,
-                    withConfiguration: configuration
-                ),
-                for: .normal
-            )
-        })
+        guard let url = url
+        else {
+            return
+        }
+        
+        searchField.textField.text = url.absoluteString
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    private func handleTextFieldDidChange(_ sender: UITextField) {
+        delegate?.navigationView(self, didChangeValue: sender)
+    }
+    
+    @objc
+    private func actionsButtonDidClick(_ sender: UIButton) {
+        delegate?.navigationView(self, didClickActionsButton: sender)
     }
 }
 

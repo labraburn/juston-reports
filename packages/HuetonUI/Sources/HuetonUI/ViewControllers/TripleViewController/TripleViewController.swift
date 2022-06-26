@@ -26,12 +26,29 @@ public protocol TripleMiddleViewController: UIViewController {
 
 open class TripleViewController: UIViewController {
     
+    open override var childForStatusBarStyle: UIViewController? { selectedViewController }
+    open override var childForHomeIndicatorAutoHidden: UIViewController? { selectedViewController }
+    open override var childForStatusBarHidden: UIViewController? { selectedViewController }
+    open override var childViewControllerForPointerLock: UIViewController? { selectedViewController }
+    open override var childForScreenEdgesDeferringSystemGestures: UIViewController? { selectedViewController }
+    
     private let feedbackGenerator = UIImpactFeedbackGenerator(
         style: .medium
     )
     
     private var tripleView: TripleView {
         view as! TripleView
+    }
+    
+    private var selectedViewController: UIViewController {
+        switch presentation {
+        case .top:
+            return viewControlles.0
+        case .middle:
+            return viewControlles.1
+        case .bottom:
+            return viewControlles.2
+        }
     }
     
     public var presentation: TriplePresentation {
@@ -90,6 +107,26 @@ open class TripleViewController: UIViewController {
             animated: animated
         )
     }
+    
+    private func updateAppearance(
+        animated: Bool,
+        duration: TimeInterval = 0.21
+    ) {
+        let animations = {
+            self.setNeedsStatusBarAppearanceUpdate()
+            self.setNeedsUpdateOfHomeIndicatorAutoHidden()
+            self.setNeedsUpdateOfScreenEdgesDeferringSystemGestures()
+            if #available(iOS 14.0, *) {
+                self.setNeedsUpdateOfPrefersPointerLocked()
+            }
+        }
+        
+        if animated {
+            UIView.animate(withDuration: duration, animations: animations)
+        } else {
+            animations()
+        }
+    }
 }
 
 extension TripleViewController: TripleViewDelegate {
@@ -99,6 +136,7 @@ extension TripleViewController: TripleViewDelegate {
         didChangePresentation presentation: TriplePresentation
     ) {
         feedbackGenerator.impactOccurred()
+        updateAppearance(animated: true, duration: 0.16)
         delegate?.tripleViewController(
             self,
             didChangePresentation: presentation
