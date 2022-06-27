@@ -88,6 +88,35 @@ public extension PersistenceBrowserFavourite {
     
     @nonobjc
     class func fetchRequest(
+        account: PersistenceAccount,
+        query: String
+    ) -> NSFetchRequest<PersistenceBrowserFavourite> {
+        let fetchRequest = fetchRequest()
+        fetchRequest.predicate = NSCompoundPredicate(
+            andPredicateWithSubpredicates: [
+                NSPredicate(
+                    format: "account == %@", account.objectID
+                ),
+                NSCompoundPredicate(
+                    orPredicateWithSubpredicates: [
+                        NSPredicate(
+                            format: "title CONTAINS[cd] %@", query
+                        ),
+                        NSPredicate(
+                            format: "subtitle CONTAINS[cd] %@", query
+                        ),
+                        NSPredicate(
+                            format: "raw_url CONTAINS[cd] %@", query
+                        ),
+                    ]
+                ),
+            ]
+        )
+        return fetchRequest
+    }
+    
+    @nonobjc
+    class func fetchRequest(
         url: URL
     ) -> NSFetchRequest<PersistenceBrowserFavourite> {
         let fetchRequest = fetchRequest()

@@ -190,6 +190,10 @@ final class AccountStackBrowserSearchField: UIControl {
         return textField.becomeFirstResponder()
     }
     
+    override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
+    }
+    
     func setLoading(
         _ loading: Bool
     ) {

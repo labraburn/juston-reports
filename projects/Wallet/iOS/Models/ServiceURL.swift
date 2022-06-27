@@ -21,6 +21,8 @@ extension URL {
     
     static let twitter = URL(string: "https://twitter.com/thehueton")!
     
+    static let blank = URL(string:"about:blank")!
+    
     static func searchURL(withQuery text: String) -> URL? {
         guard var components = URLComponents(string: "https://www.google.com/search")
         else {

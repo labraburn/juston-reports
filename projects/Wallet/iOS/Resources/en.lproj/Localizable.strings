@@ -264,6 +264,8 @@
 "Safari3NavigationActionSearch" = "Search";
 "Safari3FavouritesEmptyTitle" = "If any of site uses TON — you can authenticate yourself using selected account.\n\nAlso bookmarks will be here";
 "Safari3FavouritesEmptyButton" = "Let's go";
+"Safari3SearchPlaceholder" = "Start typing to find favourites or just search";
+"Safari3SearchEmpty" = "Nothing found";
 /* END - Safari3 */
 
 

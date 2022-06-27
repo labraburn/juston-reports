@@ -120,9 +120,13 @@ class Safari3BrowserViewController: UIViewController {
             \.url,
              options: [.new],
              changeHandler: { [weak self] _, change in
-                 self?.updateCurrentURL(
-                    change.newValue ?? nil
-                 )
+                 let url = change.newValue ?? nil
+                 guard url != .blank
+                 else {
+                     return
+                 }
+                 
+                 self?.updateCurrentURL(url)
              }
         )
 
@@ -193,6 +197,8 @@ class Safari3BrowserViewController: UIViewController {
         }
         
         let request = URLRequest(url: url)
+        
+        webView.clear()
         webView.load(request)
     }
     

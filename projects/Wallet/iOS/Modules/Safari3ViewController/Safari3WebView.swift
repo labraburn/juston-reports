@@ -41,6 +41,11 @@ class Safari3WebView: WKWebView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func clear() {
+        let request = URLRequest(url: .blank)
+        load(request)
+    }
+    
     @objc(_computedContentInset) // css.env(safe-area-insets)
     func _computedContentInset() -> UIEdgeInsets {
         customSafeAreaInsets

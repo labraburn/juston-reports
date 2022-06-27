@@ -32,7 +32,7 @@ class Safari3ViewController: UIViewController {
     override var childForScreenEdgesDeferringSystemGestures: UIViewController? { currentViewController }
     
     private let browserViewController = Safari3BrowserViewController()
-    private let bookmarksViewController = Safari3BookmarksViewController()
+    private let searchViewController = Safari3SearchViewController()
     private let welcomeViewController = Safari3WelcomeViewController()
     
     private var currentViewController: UIViewController? {
@@ -43,6 +43,7 @@ class Safari3ViewController: UIViewController {
     
     var account: PersistenceAccount? = nil {
         didSet {
+            searchViewController.account = account
             welcomeViewController.account = account
         }
     }
@@ -52,6 +53,7 @@ class Safari3ViewController: UIViewController {
         
         welcomeViewController.delegate = self
         browserViewController.delegate = self
+        searchViewController.delegate = self
         
         showBrowserElseWelcome(
             animated: false
@@ -203,7 +205,7 @@ class Safari3ViewController: UIViewController {
     }
 }
 
-extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
+extension Safari3ViewController: Safari3WelcomeViewControllerDelegate, Safari3SearchViewControllerDelegate {
     
     func safari3WelcomeViewController(
         _ viewController: Safari3WelcomeViewController,
@@ -236,6 +238,14 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
         case let .url(value):
             _open(value)
         }
+    }
+    
+    func safari3SearchViewController(
+        _ viewController: Safari3SearchViewController,
+        didSelectBrowserFavourite favourite: PersistenceBrowserFavourite
+    ) {
+        let _ = navigationView?.resignFirstResponder()
+        _open(favourite.url)
     }
     
     private func _open(_ url: URL) {
@@ -287,8 +297,9 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         _ view: AccountStackBrowserNavigationView,
         didStartEditing textField: UITextField
     ) {
+        searchViewController.query = textField.text
         show(
-            bookmarksViewController,
+            searchViewController,
             animated: true
         )
     }
@@ -297,12 +308,21 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         _ view: AccountStackBrowserNavigationView,
         didChangeValue textField: UITextField
     ) {
-        
+        searchViewController.query = textField.text
     }
     
     func navigationView(
         _ view: AccountStackBrowserNavigationView,
         didEndEditing textField: UITextField
+    ) {
+        showBrowserElseWelcome(
+            animated: true
+        )
+    }
+    
+    func navigationView(
+        _ view: AccountStackBrowserNavigationView,
+        didClickGo textField: UITextField
     ) {
         guard let text = textField.text,
               !text.isEmpty

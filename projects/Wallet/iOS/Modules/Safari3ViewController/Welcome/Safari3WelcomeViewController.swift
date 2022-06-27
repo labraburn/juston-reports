@@ -43,7 +43,6 @@ class Safari3WelcomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(reusableCellClass: TransactionsTransactionCollectionViewCell.self)
         collectionView.backgroundColor = .hui_backgroundPrimary
         return collectionView
     }()

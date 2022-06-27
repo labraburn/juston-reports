@@ -28,6 +28,11 @@ protocol AccountStackBrowserNavigationViewDelegate: AnyObject {
         _ view: AccountStackBrowserNavigationView,
         didClickActionsButton button: UIButton
     )
+    
+    func navigationView(
+        _ view: AccountStackBrowserNavigationView,
+        didClickGo textField: UITextField
+    )
 }
 
 final class AccountStackBrowserNavigationView: UIView {
@@ -56,7 +61,7 @@ final class AccountStackBrowserNavigationView: UIView {
         searchField.textField.addTarget(
             self,
             action: #selector(handleTextFieldDidChange(_:)),
-            for: .valueChanged
+            for: .editingChanged
         )
         
         addSubview(searchField)
@@ -76,6 +81,10 @@ final class AccountStackBrowserNavigationView: UIView {
     
     override func becomeFirstResponder() -> Bool {
         searchField.becomeFirstResponder()
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        searchField.resignFirstResponder()
     }
     
     func setLoading(
@@ -125,12 +134,13 @@ extension AccountStackBrowserNavigationView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         searchField.setFocused(false)
-        textField.isUserInteractionEnabled = false
         delegate?.navigationView(self, didEndEditing: textField)
+        textField.isUserInteractionEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        delegate?.navigationView(self, didClickGo: textField)
         return true
     }
     

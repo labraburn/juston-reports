@@ -11,6 +11,10 @@
 		F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F003FEF52869441A00623AC0 /* GithubMOON */; };
 		F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */; };
 		F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFA2869513900623AC0 /* PromoViewController.swift */; };
+		F003FEFE2869FA3C00623AC0 /* Safari3SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */; };
+		F003FF002869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */; };
+		F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */; };
+		F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */; };
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
 		F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D7C28102DD100B518A9 /* SettingsViewController.swift */; };
@@ -110,7 +114,7 @@
 		F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */; };
 		F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */; };
 		F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */; };
-		F0AAC1372865549400F25C26 /* Safari3BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */; };
+		F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */; };
 		F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
@@ -145,6 +149,10 @@
 		F003FEF4286940F700623AC0 /* GithubMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubMOON; path = ../../../packages/GithubMOON; sourceTree = "<group>"; };
 		F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBannerAction.InApp.swift; sourceTree = "<group>"; };
 		F003FEFA2869513900623AC0 /* PromoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewController.swift; sourceTree = "<group>"; };
+		F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchDataSource.swift; sourceTree = "<group>"; };
+		F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
 		F0118D7C28102DD100B518A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -249,7 +257,7 @@
 		F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackBrowserSearchField.swift; sourceTree = "<group>"; };
 		F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3ViewController.swift; sourceTree = "<group>"; };
 		F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserViewController.swift; sourceTree = "<group>"; };
-		F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BookmarksViewController.swift; sourceTree = "<group>"; };
+		F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchViewController.swift; sourceTree = "<group>"; };
 		F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSafari3ViewController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
@@ -313,6 +321,34 @@
 				F003FEFA2869513900623AC0 /* PromoViewController.swift */,
 			);
 			path = PromoViewController;
+			sourceTree = "<group>";
+		};
+		F003FEFC2869F97D00623AC0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF012869FE5600623AC0 /* ReusableViews */,
+				F003FF042869FED100623AC0 /* Cells */,
+				F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */,
+				F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */,
+				F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		F003FF012869FE5600623AC0 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
+		F003FF042869FED100623AC0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		F0118D7B28102DC000B518A9 /* Settings */ = {
@@ -767,9 +803,9 @@
 		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F003FEFC2869F97D00623AC0 /* Search */,
 				F0C23D992868BB170052B2C5 /* Welcome */,
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
-				F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */,
 				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
 				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 			);
@@ -1042,6 +1078,7 @@
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
 				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
 				F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */,
+				F003FEFE2869FA3C00623AC0 /* Safari3SearchDataSource.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
 				F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */,
 				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
@@ -1065,6 +1102,7 @@
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */,
+				F003FF002869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift in Sources */,
 				F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */,
 				F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */,
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
@@ -1080,6 +1118,7 @@
 				F0A151412802532B00EF9F83 /* C42CollectionViewController.swift in Sources */,
 				F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */,
 				F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */,
+				F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */,
 				F0BC3C45280AAD320036F53A /* GlassGradientAngleMotionEffect.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift in Sources */,
 				F0A15156280272A800EF9F83 /* PasscodeAuthentication.swift in Sources */,
@@ -1087,7 +1126,7 @@
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
-				F0AAC1372865549400F25C26 /* Safari3BookmarksViewController.swift in Sources */,
+				F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
 				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
@@ -1120,6 +1159,7 @@
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
 				F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
+				F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
 				F09D962D285A153300650047 /* CardStackCardLoadingView.swift in Sources */,
