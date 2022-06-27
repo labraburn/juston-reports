@@ -216,11 +216,27 @@ class Safari3BrowserViewController: UIViewController {
         presentationState: PresentationState,
         animated: Bool
     ) {
+        let webViewOpacity = webView.layer.presentation()?.opacity ?? webView.layer.opacity
+        webView.layer.removeAllAnimations()
+        webView.layer.opacity = webViewOpacity
+        
+        let errorLabelPpacity = errorLabel.layer.presentation()?.opacity ?? errorLabel.layer.opacity
+        errorLabel.layer.removeAllAnimations()
+        errorLabel.layer.opacity = errorLabelPpacity
+        
         switch self.presentationState {
         case .browsing:
-            self.errorLabel.alpha = 0
-        case .error:
-            self.webView.alpha = 0
+            errorLabel.alpha = 0
+        case let .error(error):
+            webView.alpha = 0
+            errorLabel.text = error.localizedDescription
+        }
+        
+        switch presentationState {
+        case .browsing:
+            break
+        case let .error(error):
+            errorLabel.text = error.localizedDescription
         }
         
         self.errorLabel.isHidden = false
@@ -241,8 +257,10 @@ class Safari3BrowserViewController: UIViewController {
             switch presentationState {
             case .browsing:
                 self.errorLabel.isHidden = true
+                self.webView.isHidden = false
             case .error:
                 self.webView.isHidden = true
+                self.errorLabel.isHidden = false
             }
         }
         
@@ -258,15 +276,7 @@ class Safari3BrowserViewController: UIViewController {
             completion(true)
         }
         
-        switch presentationState {
-        case let .error(error):
-            webView.isHidden = true
-            errorLabel.isHidden = false
-            errorLabel.text = error.localizedDescription
-        case .browsing:
-            webView.isHidden = false
-            errorLabel.isHidden = true
-        }
+        self.presentationState = presentationState
     }
 }
 
@@ -294,7 +304,16 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction
     ) async -> WKNavigationActionPolicy {
-        .allow
+        if let url = navigationAction.request.url,
+            !url.absoluteString.hasPrefix("http://"),
+            !url.absoluteString.hasPrefix("https://"),
+            UIApplication.shared.canOpenURL(url)
+        {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            return .cancel
+        } else {
+            return .allow
+        }
     }
     
     public func webView(

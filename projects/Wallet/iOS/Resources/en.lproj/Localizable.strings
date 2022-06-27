@@ -257,7 +257,18 @@
 "Safari3NavigationActionReload" = "Reload";
 "Safari3NavigationActionBack" = "Go back";
 "Safari3NavigationActionForward" = "Go forward";
-"Safari3NavigationActionAddFavoirite" = "Add to bookmarks";
-"Safari3NavigationActionRemoveFavoirite" = "Remove from bookmars";
+"Safari3NavigationActionAddFavoirite" = "Add to favorites";
+"Safari3NavigationActionRemoveFavoirite" = "Remove from favorites";
 "Safari3NavigationActionShare" = "Share";
+"Safari3NavigationActionExplore" = "Return to home";
+"Safari3NavigationActionSearch" = "Search";
+"Safari3FavouritesEmptyTitle" = "If any of site uses TON — you can authenticate yourself using selected account.\n\nAlso bookmarks will be here";
+"Safari3FavouritesEmptyButton" = "Let's go";
 /* END - Safari3 */
+
+
+
+/* START - Web3Promo */
+"Web3PromoTitle" = "Welcome, WEB3";
+"Web3PromoDescription" = "WEB3 — a future in our opinion, so we added a powerful browser directly to HUTON wallet application.\n\nYou can explore web and authenticate yourself through account that showing on main screen.\n\nEnjoy!";
+/* END - Web3Promo */

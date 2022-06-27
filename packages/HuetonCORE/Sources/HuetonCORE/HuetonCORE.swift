@@ -36,6 +36,8 @@ public struct HuetonCORE {
     /// Initialize HuetonCORE and it's dependencies
     public static func initialize() {
         AccountAppearanceTransformer.register()
+        BrowserBannerActionTransformer.register()
+        
         SwiftyTON.configurate(with: .main)
         ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
     }

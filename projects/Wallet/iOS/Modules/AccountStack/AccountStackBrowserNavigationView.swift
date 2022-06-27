@@ -74,6 +74,10 @@ final class AccountStackBrowserNavigationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func becomeFirstResponder() -> Bool {
+        searchField.becomeFirstResponder()
+    }
+    
     func setLoading(
         _ loading: Bool
     ) {
@@ -90,8 +94,6 @@ final class AccountStackBrowserNavigationView: UIView {
     func setActiveURL(
         _ url: URL?
     ) {
-        searchField.actionsButton.isEnabled = url != nil
-        
         guard let url = url
         else {
             return

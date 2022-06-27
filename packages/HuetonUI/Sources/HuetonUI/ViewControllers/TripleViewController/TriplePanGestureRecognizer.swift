@@ -17,7 +17,7 @@ internal final class TriplePanGestureRecognizer: UIPanGestureRecognizer {
         {
             let velocity = panGestureRecognizer.velocity(in: scrollView)
             if velocity.y > 0 {
-                return scrollView.contentOffset.y > 0
+                return scrollView.contentOffset.y + scrollView.adjustedContentInset.top > 0
             } else if velocity.y < 0 {
                 return scrollView.contentOffset.y < scrollView.contentSize.height - scrollView.bounds.height
             } else {

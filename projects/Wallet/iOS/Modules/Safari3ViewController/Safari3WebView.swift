@@ -23,6 +23,24 @@ class Safari3WebView: WKWebView {
         }
     }
     
+    override init(
+        frame: CGRect,
+        configuration: WKWebViewConfiguration
+    ) {
+        super.init(
+            frame: frame,
+            configuration: configuration
+        )
+        
+        isOpaque = false
+        backgroundColor = .clear
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc(_computedContentInset) // css.env(safe-area-insets)
     func _computedContentInset() -> UIEdgeInsets {
         customSafeAreaInsets

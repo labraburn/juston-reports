@@ -185,6 +185,11 @@ final class AccountStackBrowserSearchField: UIControl {
         substrateBottomConstraint?.keyboardOffset = bounds.height + 16
     }
     
+    override func becomeFirstResponder() -> Bool {
+        textField.isUserInteractionEnabled = true
+        return textField.becomeFirstResponder()
+    }
+    
     func setLoading(
         _ loading: Bool
     ) {

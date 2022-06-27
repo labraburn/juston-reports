@@ -87,7 +87,6 @@ class C42CollectionViewDataSource: CollectionViewDiffableDataSource<C42Section, 
         collectionView.register(reusableCellClass: C42WordCell.self)
         collectionView.register(reusableCellClass: C42TextFieldCell.self)
         collectionView.register(reusableCellClass: C42AccessoryCollectionViewCell.self)
-        collectionView.register(reusableCellClass: C42BookmarkCollectionViewCell.self)
         
         collectionView.register(reusableCellClass: C42ButtonCell.self)
         collectionView.register(reusableCellClass: C42SettingsButtonCell.self)

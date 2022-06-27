@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import HuetonUI
 import HuetonCORE
+import CoreData
 
 class Safari3ViewController: UIViewController {
     
@@ -16,10 +17,12 @@ class Safari3ViewController: UIViewController {
         
         case back
         case forward
-        case addFavourite
-        case removeFavourite
+        case addFavourite(url: URL, title: String)
+        case removeFavourite(id: NSManagedObjectID)
         case share
         case reload
+        case explore
+        case search
     }
     
     override var childForStatusBarStyle: UIViewController? { currentViewController }
@@ -40,13 +43,14 @@ class Safari3ViewController: UIViewController {
     
     var account: PersistenceAccount? = nil {
         didSet {
-            return
+            welcomeViewController.account = account
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        welcomeViewController.delegate = self
         browserViewController.delegate = self
         
         showBrowserElseWelcome(
@@ -148,10 +152,38 @@ class Safari3ViewController: UIViewController {
             browserViewController.goBack()
         case .forward:
             browserViewController.goForward()
-        case .addFavourite:
-            break
-        case .removeFavourite:
-            break
+        case .search:
+            let _ = navigationView?.becomeFirstResponder()
+        case let .addFavourite(url, title):
+            guard let accountID = account?.objectID
+            else {
+                break
+            }
+
+            Task { @PersistenceWritableActor in
+                let account = PersistenceAccount.writeableObject(id: accountID)
+                let object = PersistenceBrowserFavourite(
+                    title: title,
+                    subtitle: nil,
+                    url: url,
+                    account: account
+                )
+                
+                try? object.save()
+            }
+        case .explore:
+            navigationView?.setActiveURL(nil)
+            browserViewController.url = nil
+            
+            show(
+                welcomeViewController,
+                animated: true
+            )
+        case let .removeFavourite(id):
+            Task { @PersistenceWritableActor in
+                let object = PersistenceBrowserFavourite.writeableObject(id: id)
+                try? object.delete()
+            }
         case .share:
             guard let url = browserViewController.url
             else {
@@ -168,6 +200,51 @@ class Safari3ViewController: UIViewController {
         case .reload:
             browserViewController.reload()
         }
+    }
+}
+
+extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
+    
+    func safari3WelcomeViewController(
+        _ viewController: Safari3WelcomeViewController,
+        didClickFavouritesEmptyView view: Safari3WelcomePlaceholderCollectionReusableView
+    ) {
+        let _ = navigationView?.becomeFirstResponder()
+    }
+    
+    func safari3WelcomeViewController(
+        _ viewController: Safari3WelcomeViewController,
+        didClickBrowserFavourite favourite: PersistenceBrowserFavourite
+    ) {
+        _open(favourite.url)
+    }
+    
+    func safari3WelcomeViewController(
+        _ viewController: Safari3WelcomeViewController,
+        didClickBrowserBanner banner: PersistenceBrowserBanner
+    ) {
+        switch banner.action {
+        case .unknown:
+            break
+        case let .inapp(value):
+            guard let account = account,
+                  let viewController = value.viewController(viewer: account)
+            else {
+                break
+            }
+            topmostPresentedViewController.hui_present(viewController, animated: true)
+        case let .url(value):
+            _open(value)
+        }
+    }
+    
+    private func _open(_ url: URL) {
+        navigationView?.setActiveURL(url)
+        browserViewController.url = url
+        
+        showBrowserElseWelcome(
+            animated: true
+        )
     }
 }
 
@@ -272,20 +349,52 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         
         var children: [UIAction] = []
         
-        if browserViewController.canGoBack {
-            children.append(action(.back))
+        switch currentViewController {
+        case browserViewController:
+            if browserViewController.canGoBack {
+                children.append(action(.back))
+            }
+            
+            if browserViewController.canGoForward {
+                children.append(action(.forward))
+            }
+            
+            if let _ = browserViewController.url {
+                children.append(action(.reload))
+                children.append(action(.share))
+            }
+            
+            if let url = browserViewController.url,
+               let favouriteURL = url.favouriteURL
+            {
+                let fetchRequest = PersistenceBrowserFavourite.fetchRequest(url: favouriteURL)
+                let result = (try? PersistenceBrowserFavourite.readableExecute(fetchRequest)) ?? []
+                
+                if let first = result.first {
+                    children.append(action(.removeFavourite(id: first.objectID)))
+                } else {
+                    children.append(
+                        action(
+                            .addFavourite(
+                                url: favouriteURL,
+                                title: browserViewController.title ?? favouriteURL.absoluteString
+                            )
+                        )
+                    )
+                }
+            }
+            
+            children.append(action(.explore))
+        case welcomeViewController:
+            children.append(action(.search))
+        default:
+            break
         }
         
-        if browserViewController.canGoForward {
-            children.append(action(.forward))
+        guard !children.isEmpty
+        else {
+            return
         }
-        
-        if let _ = browserViewController.url {
-            children.append(action(.reload))
-        }
-        
-        children.append(action(.share))
-        children.append(action(.addFavourite))
         
         button.sui_presentMenuIfPossible(
             UIMenu(
@@ -311,6 +420,10 @@ extension Safari3ViewController.NavigationAction {
             return "Safari3NavigationActionShare".asLocalizedKey
         case .reload:
             return "Safari3NavigationActionReload".asLocalizedKey
+        case .explore:
+            return "Safari3NavigationActionExplore".asLocalizedKey
+        case .search:
+            return "Safari3NavigationActionSearch".asLocalizedKey
         }
     }
     
@@ -328,6 +441,22 @@ extension Safari3ViewController.NavigationAction {
             return "square.and.arrow.up"
         case .reload:
             return "arrow.clockwise"
+        case .explore:
+            return "escape"
+        case .search:
+            return "magnifyingglass"
         }
+    }
+}
+
+private extension URL {
+    
+    var favouriteURL: URL? {
+        guard let host = host,
+              let scheme = scheme
+        else {
+            return nil
+        }
+        return URL(string: "\(scheme)://\(host)")
     }
 }

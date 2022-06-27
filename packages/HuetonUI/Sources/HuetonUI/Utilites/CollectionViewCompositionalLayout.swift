@@ -19,7 +19,7 @@ open class CollectionViewCompositionalLayout: UICollectionViewCompositionalLayou
     
     open func section(
         forIndex index: Int,
-        withEnvironmant: NSCollectionLayoutEnvironment
+        withEnvironmant environmnet: NSCollectionLayoutEnvironment
     ) -> NSCollectionLayoutSection? {
         nil
     }

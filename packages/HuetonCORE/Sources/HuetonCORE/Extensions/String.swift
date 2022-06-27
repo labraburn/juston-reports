@@ -27,7 +27,11 @@ public extension String {
         if let match = match,
            match.range == range
         {
-            return URL(string: string)
+            if string.hasPrefix("http://") || string.hasPrefix("https://") {
+                return URL(string: string)
+            } else {
+                return URL(string: "https://\(string)")
+            }
         }
         
         return nil

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */; };
+		F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F003FEF52869441A00623AC0 /* GithubMOON */; };
+		F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */; };
+		F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFA2869513900623AC0 /* PromoViewController.swift */; };
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
 		F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D7C28102DD100B518A9 /* SettingsViewController.swift */; };
@@ -16,7 +20,6 @@
 		F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */; };
 		F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */; };
 		F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */; };
-		F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */; };
 		F0118DA22810690400B518A9 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA12810690400B518A9 /* URL.swift */; };
 		F0118DA52810699100B518A9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = F0118DA42810699100B518A9 /* Nuke */; };
 		F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA728106A0100B518A9 /* RemoteImageView.swift */; };
@@ -120,6 +123,11 @@
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
 		F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */; };
 		F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */; };
+		F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */; };
+		F0C23D9E2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */; };
+		F0C23DA02868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */; };
+		F0C23DA22868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */; };
+		F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */; };
 		F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
@@ -133,6 +141,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewPreviewCell.swift; sourceTree = "<group>"; };
+		F003FEF4286940F700623AC0 /* GithubMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubMOON; path = ../../../packages/GithubMOON; sourceTree = "<group>"; };
+		F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBannerAction.InApp.swift; sourceTree = "<group>"; };
+		F003FEFA2869513900623AC0 /* PromoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewController.swift; sourceTree = "<group>"; };
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
 		F0118D7C28102DD100B518A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +154,6 @@
 		F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42LogoHeaderView.swift; sourceTree = "<group>"; };
 		F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42CollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ApplicationVersionHeaderView.swift; sourceTree = "<group>"; };
-		F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0118DA12810690400B518A9 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		F0118DA728106A0100B518A9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		F0118DAA281075EB00B518A9 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +262,11 @@
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
 		F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeViewController.swift; sourceTree = "<group>"; };
 		F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WebView.swift; sourceTree = "<group>"; };
+		F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeDataSource.swift; sourceTree = "<group>"; };
+		F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3FavouriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomePlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURL.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -275,6 +291,7 @@
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
 				F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */,
 				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
+				F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +299,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */,
+			);
+			path = UICollectionViewPreviewCell;
+			sourceTree = "<group>";
+		};
+		F003FEF92869512400623AC0 /* PromoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F003FEFA2869513900623AC0 /* PromoViewController.swift */,
+			);
+			path = PromoViewController;
+			sourceTree = "<group>";
+		};
 		F0118D7B28102DC000B518A9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,7 +332,6 @@
 				F0909B5627E8B2D000FC8404 /* C42WordCell.swift */,
 				F0909B6227E8DB1900FC8404 /* C42TextFieldCell.swift */,
 				F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */,
-				F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */,
 				F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */,
 			);
 			path = Cells;
@@ -591,6 +623,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F003FEF92869512400623AC0 /* PromoViewController */,
 				F0AAC13128654F8000F25C26 /* Safari3ViewController */,
 				F0E7D3172863A7590037DE46 /* ExploreViewController */,
 				F014F19B285B84BD00D82273 /* Agreements */,
@@ -607,7 +640,7 @@
 				F0DBFA4F27F607FB00956DC9 /* Alert */,
 				F0AAC1252864072900F25C26 /* AccountStack */,
 				F01E2ABF2846C43E00AA108F /* AccountAppearence */,
-				F0995FA627A0BC67003A090C /* Dashboard */,
+				F0995FA627A0BC67003A090C /* Transactions */,
 				F0995F9527A0B878003A090C /* Launch */,
 			);
 			path = Modules;
@@ -627,6 +660,7 @@
 				F02FECE827F3143600CC306C /* HuetonUI */,
 				F02FECE927F3145800CC306C /* HuetonCORE */,
 				F016607A284B56F300E4BE3F /* HuetonMOON */,
+				F003FEF4286940F700623AC0 /* GithubMOON */,
 				F016607C284B57E700E4BE3F /* DefaultMOON */,
 				F0DBFA5527F7C4C600956DC9 /* Objective42 */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
@@ -642,14 +676,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F0995FA627A0BC67003A090C /* Dashboard */ = {
+		F0995FA627A0BC67003A090C /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
 				F032A94827DC9F3200DACFC5 /* Views */,
 				F0A3845E27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift */,
 				F0995FA927A0BE1A003A090C /* TransactionsViewController.swift */,
 			);
-			path = Dashboard;
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 		F09E2A25283E924600D7BC55 /* QR */ = {
@@ -733,9 +767,9 @@
 		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F0C23D992868BB170052B2C5 /* Welcome */,
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
 				F0AAC1362865549400F25C26 /* Safari3BookmarksViewController.swift */,
-				F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */,
 				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
 				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 			);
@@ -801,6 +835,35 @@
 			path = CardStackCardBackgroundView;
 			sourceTree = "<group>";
 		};
+		F0C23D992868BB170052B2C5 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23DA32868BE060052B2C5 /* ReusableViews */,
+				F0C23D9C2868BCE50052B2C5 /* Cells */,
+				F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */,
+				F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */,
+				F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		F0C23D9C2868BCE50052B2C5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */,
+				F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0C23DA32868BE060052B2C5 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		F0DBFA4F27F607FB00956DC9 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,6 +883,7 @@
 				F0118DA12810690400B518A9 /* URL.swift */,
 				F0118DB3281084D300B518A9 /* UIApplication.swift */,
 				F01E2AD82847BF2C00AA108F /* UDS.swift */,
+				F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -836,6 +900,7 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0118D8C2810599500B518A9 /* C42 */,
 				F0678147281AA51200EB05F4 /* VerticalLabelContainerView */,
@@ -889,6 +954,7 @@
 				F0118DA42810699100B518A9 /* Nuke */,
 				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
 				F016607D284B5A5F00E4BE3F /* DefaultMOON */,
+				F003FEF52869441A00623AC0 /* GithubMOON */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
@@ -975,6 +1041,7 @@
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
 				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
+				F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
 				F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */,
 				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
@@ -988,9 +1055,11 @@
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */,
 				F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */,
+				F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
+				F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */,
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
@@ -1007,7 +1076,9 @@
 				F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */,
 				F0A1515A28032DCB00EF9F83 /* PasscodeNumberButton.swift in Sources */,
 				F0118DAB281075EB00B518A9 /* Web3ViewController.swift in Sources */,
+				F0C23DA22868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift in Sources */,
 				F0A151412802532B00EF9F83 /* C42CollectionViewController.swift in Sources */,
+				F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */,
 				F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */,
 				F0BC3C45280AAD320036F53A /* GlassGradientAngleMotionEffect.swift in Sources */,
 				F0A3845927B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift in Sources */,
@@ -1026,6 +1097,7 @@
 				F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */,
 				F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */,
 				F01E2ACA2846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift in Sources */,
+				F0C23DA02868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift in Sources */,
 				F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */,
 				F0909B5A27E8B6F000FC8404 /* C42WordsDecorationView.swift in Sources */,
 				F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */,
@@ -1040,7 +1112,7 @@
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
 				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,
-				F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */,
+				F0C23D9E2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* C42NavigationController.swift in Sources */,
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
 				F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */,
@@ -1057,6 +1129,7 @@
 				F01E2ACC2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift in Sources */,
 				F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
+				F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,
@@ -1315,6 +1388,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F003FEF52869441A00623AC0 /* GithubMOON */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GithubMOON;
+		};
 		F0118DA42810699100B518A9 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */;
