@@ -15,6 +15,14 @@
 		F003FF002869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */; };
 		F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */; };
 		F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */; };
+		F003FF09286A121800623AC0 /* WKWeb3Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */; };
+		F003FF0B286A136100623AC0 /* WKWeb3Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF0A286A136100623AC0 /* WKWeb3Event.swift */; };
+		F003FF12286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */; };
+		F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */; };
+		F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */; };
+		F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */; };
+		F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */ = {isa = PBXBuildFile; fileRef = F003FF1B286A2CEF00623AC0 /* hueton.js */; };
+		F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */; };
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
 		F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D7C28102DD100B518A9 /* SettingsViewController.swift */; };
@@ -153,6 +161,14 @@
 		F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewLayout.swift; sourceTree = "<group>"; };
 		F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Configuration.swift; sourceTree = "<group>"; };
+		F003FF0A286A136100623AC0 /* WKWeb3Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Event.swift; sourceTree = "<group>"; };
+		F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AuthenticateEvent.swift; sourceTree = "<group>"; };
+		F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SignEvent.swift; sourceTree = "<group>"; };
+		F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventBox.swift; sourceTree = "<group>"; };
+		F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventDispatcher.swift; sourceTree = "<group>"; };
+		F003FF1B286A2CEF00623AC0 /* hueton.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = hueton.js; sourceTree = "<group>"; };
+		F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Error.swift; sourceTree = "<group>"; };
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
 		F0118D7C28102DD100B518A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +365,28 @@
 				F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		F003FF07286A11A800623AC0 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF10286A17A200623AC0 /* Events */,
+				F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */,
+				F003FF0A286A136100623AC0 /* WKWeb3Event.swift */,
+				F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */,
+				F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */,
+				F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		F003FF10286A17A200623AC0 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */,
+				F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 		F0118D7B28102DC000B518A9 /* Settings */ = {
@@ -652,6 +690,7 @@
 			children = (
 				F0909B5F27E8CF5100FC8404 /* Localizable.strings */,
 				F0995F6B27A0B7CB003A090C /* Assets.xcassets */,
+				F003FF1B286A2CEF00623AC0 /* hueton.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -803,6 +842,7 @@
 		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F003FF07286A11A800623AC0 /* Configuration */,
 				F003FEFC2869F97D00623AC0 /* Search */,
 				F0C23D992868BB170052B2C5 /* Welcome */,
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
@@ -1039,6 +1079,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */,
 				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
@@ -1064,6 +1105,7 @@
 				F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */,
 				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* C42WordCell.swift in Sources */,
+				F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */,
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
 				F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */,
@@ -1072,7 +1114,9 @@
 				F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */,
 				F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */,
 				F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */,
+				F003FF09286A121800623AC0 /* WKWeb3Configuration.swift in Sources */,
 				F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */,
+				F003FF0B286A136100623AC0 /* WKWeb3Event.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
@@ -1093,6 +1137,7 @@
 				F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */,
 				F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */,
 				F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */,
+				F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
@@ -1127,6 +1172,7 @@
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
 				F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */,
+				F003FF12286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
 				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
@@ -1156,12 +1202,14 @@
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
 				F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
+				F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
 				F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
 				F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
+				F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */,
 				F09D962D285A153300650047 /* CardStackCardLoadingView.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */,

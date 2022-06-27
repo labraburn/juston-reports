@@ -35,7 +35,12 @@ class Safari3BrowserViewController: UIViewController {
         case browsing
     }
     
-    private lazy var webView = Safari3WebView(frame: .zero, configuration: configuration()).with({
+    private lazy var webView = Safari3WebView(
+        frame: .zero,
+        configuration: WKWeb3Configuration().with({
+            $0.dispatcher = self
+        })
+    ).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.allowsBackForwardNavigationGestures = true
     })
@@ -212,12 +217,6 @@ class Safari3BrowserViewController: UIViewController {
         )
     }
     
-    private func configuration() -> WKWebViewConfiguration {
-        let configuration = WKWebViewConfiguration()
-        configuration.processPool = WKProcessPool()
-        return configuration
-    }
-    
     private func update(
         presentationState: PresentationState,
         animated: Bool
@@ -356,6 +355,17 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
                 error: _error
             ),
             animated: true
+        )
+    }
+}
+
+extension Safari3BrowserViewController: WKWeb3EventDispatcher {
+    
+    func dispatch(
+        _ response: String
+    ) async throws {
+        try await webView.dispatch(
+            response
         )
     }
 }
