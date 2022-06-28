@@ -37,6 +37,8 @@ protocol AccountStackBrowserNavigationViewDelegate: AnyObject {
 
 final class AccountStackBrowserNavigationView: UIView {
     
+    private var bypassEndEditingEvent = false
+    
     private let searchField = AccountStackBrowserSearchField().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
@@ -44,6 +46,11 @@ final class AccountStackBrowserNavigationView: UIView {
     var title: String? {
         get { searchField.title }
         set { searchField.title = newValue }
+    }
+    
+    var text: String? {
+        get { searchField.textField.text }
+        set { searchField.textField.text = newValue }
     }
     
     weak var delegate: AccountStackBrowserNavigationViewDelegate?
@@ -79,10 +86,12 @@ final class AccountStackBrowserNavigationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         searchField.becomeFirstResponder()
     }
     
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         searchField.resignFirstResponder()
     }
@@ -98,17 +107,6 @@ final class AccountStackBrowserNavigationView: UIView {
     ) {
         sui_touchAreaInsets = insets
         searchField.setKeyboardTouchSafeAreaInsets(sui_touchAreaInsets)
-    }
-    
-    func setActiveURL(
-        _ url: URL?
-    ) {
-        guard let url = url
-        else {
-            return
-        }
-        
-        searchField.textField.text = url.absoluteString
     }
     
     // MARK: Actions
@@ -134,12 +132,21 @@ extension AccountStackBrowserNavigationView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         searchField.setFocused(false)
-        delegate?.navigationView(self, didEndEditing: textField)
         textField.isUserInteractionEnabled = false
+        
+        guard !bypassEndEditingEvent
+        else {
+            bypassEndEditingEvent = false
+            return
+        }
+        
+        delegate?.navigationView(self, didEndEditing: textField)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        bypassEndEditingEvent = true
         textField.resignFirstResponder()
+        
         delegate?.navigationView(self, didClickGo: textField)
         return true
     }

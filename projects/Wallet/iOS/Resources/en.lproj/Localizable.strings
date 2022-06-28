@@ -260,7 +260,8 @@
 "Safari3NavigationActionAddFavoirite" = "Add to favorites";
 "Safari3NavigationActionRemoveFavoirite" = "Remove from favorites";
 "Safari3NavigationActionShare" = "Share";
-"Safari3NavigationActionExplore" = "Return to home";
+"Safari3NavigationActionExplore" = "Home";
+"Safari3NavigationActionBackToBrowser" = "Back to browsing";
 "Safari3NavigationActionSearch" = "Search";
 "Safari3FavouritesEmptyTitle" = "If any of site uses TON — you can authenticate yourself using selected account.\n\nAlso bookmarks will be here";
 "Safari3FavouritesEmptyButton" = "Let's go";

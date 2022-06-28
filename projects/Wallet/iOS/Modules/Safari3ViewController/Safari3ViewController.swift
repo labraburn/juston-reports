@@ -22,7 +22,24 @@ class Safari3ViewController: UIViewController {
         case share
         case reload
         case explore
+        case backToBroser
         case search
+    }
+    
+    enum PresentationState {
+        
+        case welcome
+        case search(query: String?)
+        case browsing(url: URL, title: String?)
+        
+        var isBrowsing: Bool {
+            switch self {
+            case .browsing:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     override var childForStatusBarStyle: UIViewController? { currentViewController }
@@ -35,6 +52,7 @@ class Safari3ViewController: UIViewController {
     private let searchViewController = Safari3SearchViewController()
     private let welcomeViewController = Safari3WelcomeViewController()
     
+    private var presentationStates: [PresentationState] = []
     private var currentViewController: UIViewController? {
         children.first
     }
@@ -56,7 +74,8 @@ class Safari3ViewController: UIViewController {
         browserViewController.delegate = self
         searchViewController.delegate = self
         
-        showBrowserElseWelcome(
+        push(
+            presentationState: .welcome,
             animated: false
         )
     }
@@ -68,21 +87,165 @@ class Safari3ViewController: UIViewController {
     func attach(_ view: AccountStackBrowserNavigationView) {
         navigationView = view
         navigationView?.delegate = self
-        navigationView?.setActiveURL(nil)
+//        navigationView?.setActiveURL(nil)
     }
     
-    private func showBrowserElseWelcome(
+    private func handleNavigationAction(
+        _ action: NavigationAction
+    ) {
+        switch action {
+        case .back:
+            browserViewController.goBack()
+        case .forward:
+            browserViewController.goForward()
+        case .search:
+            exchangeLastPresentationState(
+                toPresentationState: .search(query: nil),
+                animated: true
+            )
+        case let .addFavourite(url, title):
+            guard let accountID = account?.objectID
+            else {
+                break
+            }
+
+            Task { @PersistenceWritableActor in
+                let account = PersistenceAccount.writeableObject(id: accountID)
+                let object = PersistenceBrowserFavourite(
+                    title: title,
+                    subtitle: nil,
+                    url: url,
+                    account: account
+                )
+
+                try? object.save()
+            }
+        case .explore:
+            switch presentationStates.last {
+            case .welcome:
+                break
+            default:
+                push(
+                    presentationState: .welcome,
+                    animated: true
+                )
+            }
+        case .backToBroser:
+            popPresentationState(
+                animated: true
+            )
+        case let .removeFavourite(id):
+            Task { @PersistenceWritableActor in
+                let object = PersistenceBrowserFavourite.writeableObject(id: id)
+                try? object.delete()
+            }
+        case .share:
+            guard let url = browserViewController.url
+            else {
+                break
+            }
+
+            hui_present(
+                UIActivityViewController(
+                    activityItems: [url],
+                    applicationActivities: nil
+                ),
+                animated: true
+            )
+        case .reload:
+            browserViewController.reload()
+        }
+    }
+}
+
+extension Safari3ViewController {
+    
+    private func push(
+        presentationState: PresentationState,
         animated: Bool
     ) {
-        switch browserViewController.url {
-        case .none:
-            show(welcomeViewController, animated: animated)
-        case .some:
-            show(browserViewController, animated: animated)
+        presentationStates.append(presentationState)
+        __show(
+            presentationState: presentationState,
+            animated: animated
+        )
+    }
+    
+    private func exchangeLastPresentationState(
+        toPresentationState: PresentationState,
+        animated: Bool
+    ) {
+        let _ = presentationStates.popLast()
+        push(
+            presentationState: toPresentationState,
+            animated: animated
+        )
+    }
+    
+    private func popPresentationState(
+        animated: Bool
+    ) {
+        guard let _ = presentationStates.popLast(),
+              let previous = presentationStates.last
+        else {
+            push(
+                presentationState: .welcome,
+                animated: animated
+            )
+            
+            return
+        }
+        
+        __show(
+            presentationState: previous,
+            animated: animated
+        )
+    }
+    
+    private func __show(
+        presentationState: PresentationState,
+        animated: Bool
+    ) {
+        switch presentationState {
+        case .welcome:
+            searchViewController.query = nil
+            
+//            Not called, for better UX
+//            browserViewController.url = nil
+            
+            __show(welcomeViewController, animated: animated)
+            
+            navigationView?.resignFirstResponder()
+            navigationView?.text = nil
+            navigationView?.title = nil
+            navigationView?.setLoading(false)
+        case let .browsing(url, title):
+            searchViewController.query = nil
+            browserViewController.url = url
+            
+            __show(browserViewController, animated: animated)
+            
+            navigationView?.resignFirstResponder()
+            navigationView?.text = url.absoluteString
+            navigationView?.title = title ?? url.host
+        case let .search(query):
+            searchViewController.query = query
+            
+//            Not called, for better UX
+//            browserViewController.url = nil
+            
+            __show(searchViewController, animated: animated)
+            
+            navigationView?.becomeFirstResponder()
+            navigationView?.setLoading(false)
+            
+//            Not called, for better UX
+//            navigationView?.text = nil
+//            navigationView?.title = nil
         }
     }
     
-    private func show(
+    private func __show(
         _ viewController: UIViewController,
         animated: Bool
     ) {
@@ -105,7 +268,7 @@ class Safari3ViewController: UIViewController {
             previousViewController?.view.alpha = 0
             viewController.view.alpha = 1
             
-            self.updateAppearance(animated: false)
+            self.__updateAppearance(animated: false)
         }
         
         let completion = { (finished: Bool) in
@@ -127,7 +290,7 @@ class Safari3ViewController: UIViewController {
         }
     }
     
-    private func updateAppearance(
+    private func __updateAppearance(
         animated: Bool,
         duration: TimeInterval = 0.21
     ) {
@@ -146,80 +309,31 @@ class Safari3ViewController: UIViewController {
             animations()
         }
     }
-    
-    private func handleNavigationAction(
-        _ action: NavigationAction
-    ) {
-        switch action {
-        case .back:
-            browserViewController.goBack()
-        case .forward:
-            browserViewController.goForward()
-        case .search:
-            let _ = navigationView?.becomeFirstResponder()
-        case let .addFavourite(url, title):
-            guard let accountID = account?.objectID
-            else {
-                break
-            }
-
-            Task { @PersistenceWritableActor in
-                let account = PersistenceAccount.writeableObject(id: accountID)
-                let object = PersistenceBrowserFavourite(
-                    title: title,
-                    subtitle: nil,
-                    url: url,
-                    account: account
-                )
-                
-                try? object.save()
-            }
-        case .explore:
-            navigationView?.setActiveURL(nil)
-            browserViewController.url = nil
-            
-            show(
-                welcomeViewController,
-                animated: true
-            )
-        case let .removeFavourite(id):
-            Task { @PersistenceWritableActor in
-                let object = PersistenceBrowserFavourite.writeableObject(id: id)
-                try? object.delete()
-            }
-        case .share:
-            guard let url = browserViewController.url
-            else {
-                break
-            }
-            
-            hui_present(
-                UIActivityViewController(
-                    activityItems: [url],
-                    applicationActivities: nil
-                ),
-                animated: true
-            )
-        case .reload:
-            browserViewController.reload()
-        }
-    }
 }
 
-extension Safari3ViewController: Safari3WelcomeViewControllerDelegate, Safari3SearchViewControllerDelegate {
+extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
     
     func safari3WelcomeViewController(
         _ viewController: Safari3WelcomeViewController,
         didClickFavouritesEmptyView view: Safari3WelcomePlaceholderCollectionReusableView
     ) {
-        let _ = navigationView?.becomeFirstResponder()
+        push(
+            presentationState: .search(query: nil),
+            animated: true
+        )
     }
     
     func safari3WelcomeViewController(
         _ viewController: Safari3WelcomeViewController,
         didClickBrowserFavourite favourite: PersistenceBrowserFavourite
     ) {
-        _open(favourite.url)
+        exchangeLastPresentationState(
+            toPresentationState: .browsing(
+                url: favourite.url,
+                title: favourite.title
+            ),
+            animated: true
+        )
     }
     
     func safari3WelcomeViewController(
@@ -237,23 +351,28 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate, Safari3Se
             }
             topmostPresentedViewController.hui_present(viewController, animated: true)
         case let .url(value):
-            _open(value)
+            exchangeLastPresentationState(
+                toPresentationState: .browsing(
+                    url: value,
+                    title: nil
+                ),
+                animated: true
+            )
         }
     }
+}
+
+extension Safari3ViewController: Safari3SearchViewControllerDelegate {
     
     func safari3SearchViewController(
         _ viewController: Safari3SearchViewController,
         didSelectBrowserFavourite favourite: PersistenceBrowserFavourite
     ) {
-        let _ = navigationView?.resignFirstResponder()
-        _open(favourite.url)
-    }
-    
-    private func _open(_ url: URL) {
-        navigationView?.setActiveURL(url)
-        browserViewController.url = url
-        
-        showBrowserElseWelcome(
+        exchangeLastPresentationState(
+            toPresentationState: .browsing(
+                url: favourite.url,
+                title: favourite.title
+            ),
             animated: true
         )
     }
@@ -265,14 +384,18 @@ extension Safari3ViewController: Safari3BrowserViewControllerDelegate {
         _ viewController: Safari3BrowserViewController,
         didChangeURL url: URL?
     ) {
-        navigationView?.setActiveURL(url)
-        
-        guard currentViewController == viewController
-        else {
-            return
+        let nextPresentationState: PresentationState
+        if let url = url {
+            nextPresentationState = .browsing(
+                url: url,
+                title: nil
+            )
+        } else {
+            nextPresentationState = .welcome
         }
         
-        showBrowserElseWelcome(
+        exchangeLastPresentationState(
+            toPresentationState: nextPresentationState,
             animated: true
         )
     }
@@ -281,14 +404,24 @@ extension Safari3ViewController: Safari3BrowserViewControllerDelegate {
         _ viewController: Safari3BrowserViewController,
         titleDidChange title: String?
     ) {
-        navigationView?.title = title
+        switch presentationStates.last {
+        case .browsing:
+            navigationView?.title = title
+        default:
+            break
+        }
     }
     
     func safari3Browser(
         _ viewController: Safari3BrowserViewController,
         didChangeLoading loading: Bool
     ) {
-        navigationView?.setLoading(loading)
+        switch presentationStates.last {
+        case .browsing:
+            navigationView?.setLoading(loading)
+        default:
+            navigationView?.setLoading(false)
+        }
     }
 }
 
@@ -298,9 +431,8 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         _ view: AccountStackBrowserNavigationView,
         didStartEditing textField: UITextField
     ) {
-        searchViewController.query = textField.text
-        show(
-            searchViewController,
+        push(
+            presentationState: .search(query: textField.text),
             animated: true
         )
     }
@@ -309,16 +441,24 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         _ view: AccountStackBrowserNavigationView,
         didChangeValue textField: UITextField
     ) {
-        searchViewController.query = textField.text
+        exchangeLastPresentationState(
+            toPresentationState: .search(query: textField.text),
+            animated: true
+        )
     }
     
     func navigationView(
         _ view: AccountStackBrowserNavigationView,
         didEndEditing textField: UITextField
     ) {
-        showBrowserElseWelcome(
-            animated: true
-        )
+        switch presentationStates.last {
+        case .search:
+            popPresentationState(
+                animated: true
+            )
+        default:
+            break
+        }
     }
     
     func navigationView(
@@ -328,12 +468,14 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         guard let text = textField.text,
               !text.isEmpty
         else {
-            browserViewController.url = nil
-            show(
-                welcomeViewController,
-                animated: true
-            )
-            
+            switch presentationStates.last {
+            case .search:
+                popPresentationState(
+                    animated: true
+                )
+            default:
+                break
+            }
             return
         }
         
@@ -346,10 +488,18 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
             _url = nil
         }
         
-        navigationView?.setActiveURL(_url)
-        browserViewController.url = _url
+        let nextPresentationState: PresentationState
+        if let _url = _url {
+            nextPresentationState = .browsing(
+                url: _url,
+                title: nil
+            )
+        } else {
+            nextPresentationState = .welcome
+        }
         
-        showBrowserElseWelcome(
+        exchangeLastPresentationState(
+            toPresentationState: nextPresentationState,
             animated: true
         )
     }
@@ -367,32 +517,42 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
                 }
             )
         }
-        
+
         var children: [UIAction] = []
         
-        switch currentViewController {
-        case browserViewController:
+        switch presentationStates.last {
+        case .none:
+            break
+        case .welcome:
+            children.append(action(.search))
+            let count = presentationStates.count
+            if count > 1, presentationStates[count - 2].isBrowsing {
+                children.append(action(.backToBroser))
+            }
+        case let .browsing(url, _):
             if browserViewController.canGoBack {
                 children.append(action(.back))
             }
-            
+
             if browserViewController.canGoForward {
                 children.append(action(.forward))
             }
             
-            if let _ = browserViewController.url {
-                children.append(action(.reload))
-                children.append(action(.share))
-            }
+            children.append(action(.reload))
+            children.append(action(.share))
             
-            if let url = browserViewController.url,
-               let favouriteURL = url.favouriteURL
-            {
+            if let favouriteURL = url.favouriteURL {
                 let fetchRequest = PersistenceBrowserFavourite.fetchRequest(url: favouriteURL)
                 let result = (try? PersistenceBrowserFavourite.readableExecute(fetchRequest)) ?? []
-                
+
                 if let first = result.first {
-                    children.append(action(.removeFavourite(id: first.objectID)))
+                    children.append(
+                        action(
+                            .removeFavourite(
+                                id: first.objectID
+                            )
+                        )
+                    )
                 } else {
                     children.append(
                         action(
@@ -406,17 +566,15 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
             }
             
             children.append(action(.explore))
-        case welcomeViewController:
-            children.append(action(.search))
-        default:
+        case .search:
             break
         }
-        
+
         guard !children.isEmpty
         else {
             return
         }
-        
+
         button.sui_presentMenuIfPossible(
             UIMenu(
                 children: children
@@ -443,6 +601,8 @@ extension Safari3ViewController.NavigationAction {
             return "Safari3NavigationActionReload".asLocalizedKey
         case .explore:
             return "Safari3NavigationActionExplore".asLocalizedKey
+        case .backToBroser:
+            return "Safari3NavigationActionBackToBrowser".asLocalizedKey
         case .search:
             return "Safari3NavigationActionSearch".asLocalizedKey
         }
@@ -463,6 +623,8 @@ extension Safari3ViewController.NavigationAction {
         case .reload:
             return "arrow.clockwise"
         case .explore:
+            return "escape"
+        case .backToBroser:
             return "escape"
         case .search:
             return "magnifyingglass"

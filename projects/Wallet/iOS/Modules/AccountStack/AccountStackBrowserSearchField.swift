@@ -101,12 +101,13 @@ final class AccountStackBrowserSearchField: UIControl {
     
     var title: String? {
         didSet {
+            titleLabel.text = title
+            
             guard !textField.isFirstResponder
             else {
                 return
             }
             
-            titleLabel.text = title
             showTitleElseTextFieldAnimated(
                 animated: true
             )
