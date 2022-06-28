@@ -154,6 +154,8 @@
 		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
 		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
 		F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */; };
+		F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */; };
+		F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -310,6 +312,8 @@
 		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SendTransactionEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Emit.swift; sourceTree = "<group>"; };
+		F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AccountsChangedEmit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,9 +382,11 @@
 		F003FF07286A11A800623AC0 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				F0FDEFD4286AB9CC00982A0A /* Emits */,
 				F003FF10286A17A200623AC0 /* Events */,
 				F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */,
 				F003FF0A286A136100623AC0 /* WKWeb3Event.swift */,
+				F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */,
 				F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */,
 				F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */,
 				F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */,
@@ -1034,6 +1040,14 @@
 			path = Confirmation;
 			sourceTree = "<group>";
 		};
+		F0FDEFD4286AB9CC00982A0A /* Emits */ = {
+			isa = PBXGroup;
+			children = (
+				F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */,
+			);
+			path = Emits;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1168,6 +1182,7 @@
 				F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */,
 				F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
+				F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
 				F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */,
@@ -1219,6 +1234,7 @@
 				F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */,
 				F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */,
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
+				F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */,
 				F0A3845D27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift in Sources */,
 				F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */,
 				F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */,

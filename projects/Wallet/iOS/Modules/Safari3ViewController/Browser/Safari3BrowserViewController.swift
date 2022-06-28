@@ -360,15 +360,17 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
 
 extension Safari3BrowserViewController: WKWeb3EventDispatcher {
     
-    var context: UIViewController? {
+    var presentationContext: UIViewController? {
         self
     }
     
     func dispatch(
-        _ response: String
+        name: String,
+        detail: String
     ) async throws {
         try await webView.dispatch(
-            response
+            name: name,
+            detail: detail
         )
     }
 }

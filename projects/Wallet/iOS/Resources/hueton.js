@@ -142,15 +142,32 @@ class Provider {
         }
 
         const promise = this.dispatcher.run(method, converted);
-        promise.then(response => {
-            console.log(response);
-        });
-
         return promise;
+    }
+
+    /* Internal */
+
+    _emit(event) {
+        const detail = event.detail;
+        if (!detail.name || !detail.body) {
+            return;
+        }
+
+        const decoded = JSON.parse(atob(detail.body));
+        if (!decoded) {
+            return;
+        }
+
+        this.emit(detail.name, ...decoded);
     }
 }
 
 window.ton = new Provider();
-window.addEventListener("HUETON3ER", function(event) {
+
+window.addEventListener("WKWeb3EventResponse", function(event) {
     window.ton.dispatcher.process(event);
+});
+
+window.addEventListener("WKWeb3EventEmit", function(event) {
+    window.ton._emit(event);
 });

@@ -22,7 +22,25 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
     })
     
     weak var dispatcher: WKWeb3EventDispatcher?
-    var account: PersistenceAccount?
+    
+    var account: PersistenceAccount? {
+        didSet {
+            let accounts: [PersistenceAccount]
+            if let account = account {
+                accounts = [account]
+            } else {
+                accounts = []
+            }
+            
+            Task {
+                await emit(
+                    value: WKWeb3AccountsChangedEmit(
+                        accounts: accounts
+                    )
+                )
+            }
+        }
+    }
     
     override init() {
         super.init()
@@ -61,10 +79,13 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
     }
 }
 
-extension WKWeb3Configuration: WKScriptMessageHandler {
-    
-    private static let decoder = JSONDecoder()
-    private static let encoder = JSONEncoder()
+extension WKWeb3Configuration {
+
+    private struct BodyEmit: Encodable {
+        
+        let name: String
+        let body: Data
+    }
     
     private struct BodyRequest: Decodable {
         
@@ -85,6 +106,102 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
         let error: WKWeb3Error
     }
     
+    private func emit<T>(
+        value: T
+    ) async where T: WKWeb3Emit {
+        for name in T.names {
+            let body = try? WKWeb3Configuration.encoder.encode(value)
+            guard let body = body
+            else {
+                fatalErrorIfNeeded()
+                return
+            }
+            
+            let _emit = BodyEmit(
+                name: name,
+                body: body
+            )
+            
+            let data = try? WKWeb3Configuration.encoder.encode(_emit)
+            guard let data = data,
+                  let message = String(data: data, encoding: .utf8)
+            else {
+                fatalErrorIfNeeded()
+                return
+            }
+            
+            await emit(
+                message: message
+            )
+        }
+    }
+    
+    private func respond(
+        with result: ResponseResult
+    ) async {
+        let data = try? WKWeb3Configuration.encoder.encode(result)
+        guard let data = data,
+              let message = String(data: data, encoding: .utf8)
+        else {
+            fatalErrorIfNeeded()
+            return
+        }
+        
+        await respond(
+            with: message
+        )
+    }
+    
+    private func respond(
+        with error: ResponseError
+    ) async {
+        let message: String
+        do {
+            let data = try WKWeb3Configuration.encoder.encode(error)
+            guard let string = String(data: data, encoding: .utf8)
+            else {
+                throw WKError(.unknown)
+            }
+            message = string
+        } catch {
+            message = "undefined"
+        }
+        
+        await respond(
+            with: message
+        )
+    }
+    
+    private func emit(
+        message: String
+    ) async {
+        try? await dispatcher?.dispatch(
+            name: "WKWeb3EventEmit",
+            detail: message
+        )
+    }
+    
+    private func respond(
+        with message: String
+    ) async {
+        try? await dispatcher?.dispatch(
+            name: "WKWeb3EventResponse",
+            detail: message
+        )
+    }
+    
+    private func fatalErrorIfNeeded() {
+        #if DEBUG
+        fatalError("Can't being happend.")
+        #endif
+    }
+}
+
+extension WKWeb3Configuration: WKScriptMessageHandler {
+    
+    private static let decoder = JSONDecoder()
+    private static let encoder = JSONEncoder()
+    
     func userContentController(
         _ userContentController: WKUserContentController,
         didReceive message: WKScriptMessage
@@ -101,46 +218,34 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
             guard let type = events[message.name]
             else {
                 await self?.respond(
-                    id: body.id,
                     with: ResponseError(id: body.id, error: WKWeb3Error(.unsupportedMethod))
                 )
                 return
             }
             
-            guard let context = self?.dispatcher?.context
+            guard let context = self?.dispatcher?.presentationContext
             else {
                 await self?.respond(
-                    id: body.id,
                     with: ResponseError(id: body.id, error: WKWeb3Error(.disconnected))
                 )
                 return
             }
             
             do {
-                let response = ResponseResult(
-                    id: body.id,
-                    result: try await type.process(
-                        self?.account,
-                        context,
-                        body.request,
-                        WKWeb3Configuration.decoder,
-                        WKWeb3Configuration.encoder
+                await self?.respond(
+                    with: ResponseResult(
+                        id: body.id,
+                        result: try await type.process(
+                            self?.account,
+                            context,
+                            body.request,
+                            WKWeb3Configuration.decoder,
+                            WKWeb3Configuration.encoder
+                        )
                     )
                 )
-                
-                let data = try WKWeb3Configuration.encoder.encode(response)
-                guard let string = String(data: data, encoding: .utf8)
-                else {
-                    throw WKError(.unknown)
-                }
-                
-                try await self?.dispatcher?.dispatch(
-                    string
-                )
-                
             } catch is CancellationError {
                 await self?.respond(
-                    id: body.id,
                     with: ResponseError(id: body.id, error: WKWeb3Error(.userRejectedRequest))
                 )
             } catch let error as WKWeb3Error {
@@ -155,37 +260,14 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
                 #endif
                 
                 await self?.respond(
-                    id: body.id,
                     with: ResponseError(id: body.id, error: error)
                 )
             } catch {
                 await self?.respond(
-                    id: body.id,
                     with: ResponseError(id: body.id, error: WKWeb3Error(.internal))
                 )
             }
         }
-    }
-    
-    private func respond(
-        id: String,
-        with error: ResponseError
-    ) async {
-        let message: String
-        do {
-            let data = try WKWeb3Configuration.encoder.encode(error)
-            guard let string = String(data: data, encoding: .utf8)
-            else {
-                throw WKError(.unknown)
-            }
-            message = string
-        } catch {
-            message = "undefined"
-        }
-        
-        try? await dispatcher?.dispatch(
-            message
-        )
     }
 }
 

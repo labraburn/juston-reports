@@ -10,24 +10,26 @@ import WebKit
 
 protocol WKWeb3EventDispatcher: AnyObject {
     
-    var context: UIViewController? { get }
+    var presentationContext: UIViewController? { get }
     
     func dispatch(
-        _ response: String
+        name: String,
+        detail: String
     ) async throws
 }
 
 extension WKWebView: WKWeb3EventDispatcher {
     
-    var context: UIViewController? {
+    var presentationContext: UIViewController? {
         nil
     }
     
     func dispatch(
-        _ response: String
+        name: String,
+        detail: String
     ) async throws {
         try await evaluateJavaScript(
-            "window.dispatchEvent(new CustomEvent(\"HUETON3ER\", { \"detail\": \(response) }));"
+            "window.dispatchEvent(new CustomEvent(\"\(name)\", { \"detail\": \(detail) }));"
         )
     }
 }
