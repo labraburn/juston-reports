@@ -32,8 +32,10 @@ class Safari3WebView: WKWebView {
             configuration: configuration
         )
         
-        isOpaque = false
-        backgroundColor = .clear
+        loadHTMLString(
+            "<html style=\"background-color:#10080E\"></html>",
+            baseURL: nil
+        )
     }
     
     @available(*, unavailable)

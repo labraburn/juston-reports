@@ -34,4 +34,24 @@ final class SafariWebView: WKWebView {
     func _scrollViewSystemContentInset() -> UIEdgeInsets {
         additionalSafeAreaInsets
     }
+    
+    override init(
+        frame: CGRect,
+        configuration: WKWebViewConfiguration
+    ) {
+        super.init(
+            frame: frame,
+            configuration: configuration
+        )
+        
+        loadHTMLString(
+            "<html style=\"background-color:#10080E\"></html>",
+            baseURL: nil
+        )
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
