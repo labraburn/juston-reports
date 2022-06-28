@@ -34,7 +34,7 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
     }
     
     var contextMenuPreviewView: UIView? {
-        imageView
+        imageViewWrapperView
     }
     
     private var imageDownloadTask: ImageTask?

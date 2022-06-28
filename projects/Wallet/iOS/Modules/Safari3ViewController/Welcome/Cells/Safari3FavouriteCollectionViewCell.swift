@@ -32,7 +32,7 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
     }
     
     var contextMenuPreviewView: UIView? {
-        imageView
+        imageViewWrapperView
     }
     
     private var imageDownloadTask: ImageTask?
