@@ -293,6 +293,22 @@ public extension PersistenceAccount {
     }
 }
 
+// MARK: - Convience Methods
+
+extension PersistenceAccount {
+    
+    /// returns bouncable if contract inititalized, else - nonbouncable
+    public var convienceSelectedAddress: String {
+        let address = Address(rawValue: selectedContract.address)
+        switch contractKind {
+        case .uninitialized:
+            return address.convert(to: .base64url(flags: []))
+        default:
+            return address.convert(to: .base64url(flags: [.bounceable]))
+        }
+    }
+}
+
 // MARK: - SwiftyTON Methods
 
 extension PersistenceAccount {
