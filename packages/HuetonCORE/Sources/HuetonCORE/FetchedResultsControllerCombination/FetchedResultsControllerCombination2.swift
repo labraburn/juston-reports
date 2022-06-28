@@ -43,7 +43,14 @@ where S1: Hashable, I1: NSFetchRequestResult & Hashable, S2: Hashable, I2: NSFet
     }
     
     private func trigger() {
-        results(c1 ?? .init(), c2 ?? .init())
+        // Trigger first only when two snapshots exists
+        guard let c1 = c1,
+              let c2 = c2
+        else {
+            return
+        }
+        
+        results(c1, c2)
     }
     
     // MARK: NSFetchedResultsControllerDelegate
