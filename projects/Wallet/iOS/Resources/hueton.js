@@ -87,6 +87,8 @@ class Provider {
         this.dispatcher = new Dispatcher();
         this.listeners = {};
 
+        this.type = "HUETON";
+
         this.isTonWallet = true;
         this.isHUETON = true;
     }
@@ -162,7 +164,10 @@ class Provider {
     }
 }
 
-window.ton = new Provider();
+const provider = new Provider();
+
+window.ton = provider;
+window.hueton = provider;
 
 window.addEventListener("WKWeb3EventResponse", function(event) {
     window.ton.dispatcher.process(event);
