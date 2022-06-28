@@ -11,6 +11,8 @@ import Nuke
 
 class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPreviewCell {
     
+    static let estimatedHeight = CGFloat(64)
+    
     struct Model: Hashable {
         
         let title: String
@@ -54,17 +56,17 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
         $0.numberOfLines = 1
         $0.font = .font(for: .headline)
         $0.textColor = .hui_textPrimary
-        $0.textAlignment = .center
+        $0.textAlignment = .left
     })
     
     private let subtitleLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
-        $0.setContentHuggingPriority(.defaultLow, for: .vertical)
+        $0.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         $0.numberOfLines = 1
         $0.font = .font(for: .footnote)
         $0.textColor = .hui_textPrimary
-        $0.textAlignment = .center
+        $0.textAlignment = .left
     })
     
     var model: Model? {
@@ -98,13 +100,13 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
             
             titleLabel.topAnchor.pin(to: contentView.topAnchor, constant: 10)
             titleLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
-            rightAnchor.pin(to: titleLabel.rightAnchor, constant: 12)
+            contentView.rightAnchor.pin(to: titleLabel.rightAnchor, constant: 12)
             
             subtitleLabel.topAnchor.pin(to: titleLabel.bottomAnchor, constant: 4)
             subtitleLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
-            rightAnchor.pin(to: subtitleLabel.rightAnchor, constant: 12)
+            contentView.rightAnchor.pin(to: subtitleLabel.rightAnchor, constant: 12)
             
-            contentView.bottomAnchor.pin(to: subtitleLabel.bottomAnchor, constant: 12)
+            contentView.bottomAnchor.pin(greaterThan: subtitleLabel.bottomAnchor, constant: 6)
         })
     }
     

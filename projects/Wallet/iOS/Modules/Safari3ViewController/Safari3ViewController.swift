@@ -208,9 +208,8 @@ extension Safari3ViewController {
     ) {
         switch presentationState {
         case .welcome:
-            searchViewController.query = nil
-            
 //            Not called, for better UX
+//            searchViewController.query = nil
 //            browserViewController.url = nil
             
             __show(welcomeViewController, animated: animated)
@@ -220,7 +219,8 @@ extension Safari3ViewController {
             navigationView?.title = nil
             navigationView?.setLoading(false)
         case let .browsing(url, title):
-            searchViewController.query = nil
+//            Not called, for better UX
+//            searchViewController.query = nil
             browserViewController.url = url
             
             __show(browserViewController, animated: animated)

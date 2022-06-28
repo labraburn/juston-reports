@@ -57,18 +57,17 @@ class Safari3SearchCollectionViewLayout: CollectionViewCompositionalLayout {
         case .favourites:
             let spacing = CGFloat(12)
             
+            let size = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .estimated(Safari3SearchCollectionViewCell.estimatedHeight)
+            )
+            
             let item = NSCollectionLayoutItem(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(1)
-                )
+                layoutSize: size
             )
             
             let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(1)
-                ),
+                layoutSize: size,
                 subitem: item,
                 count: 1
             )

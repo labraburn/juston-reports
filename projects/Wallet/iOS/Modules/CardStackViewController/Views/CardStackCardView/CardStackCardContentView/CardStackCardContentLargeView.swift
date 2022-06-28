@@ -159,7 +159,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             
             bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 18)
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 26)
-            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12)
+            bottomButtonsHStackView.heightAnchor.pin(to: 52)
+            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .defaultHigh)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
             
             loadingIndicatorView.centerXAnchor.pin(to: centerXAnchor)

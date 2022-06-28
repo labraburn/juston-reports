@@ -29,8 +29,12 @@ final class CardStackCardButton: UIButton {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.insertHighlightingScaleAnimation()
         button.insertFeedbackGenerator(style: .medium)
-        button.widthAnchor.pin(to: 52).isActive = true
-        button.heightAnchor.pin(to: 52).isActive = true
+        
+        // Inside UIStackView this helps tp avoid unnecessary errors
+        let constraint = button.widthAnchor.pin(to: button.heightAnchor)
+        constraint.priority = .defaultHigh
+        constraint.isActive = true
+        
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 26
         button.layer.cornerCurve = .continuous
