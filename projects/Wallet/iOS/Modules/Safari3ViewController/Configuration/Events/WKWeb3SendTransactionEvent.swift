@@ -82,7 +82,6 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         )
         
         try await message.send()
-        
-        throw WKWeb3Error(.unsupportedMethod)
+        return true
     }
 }
