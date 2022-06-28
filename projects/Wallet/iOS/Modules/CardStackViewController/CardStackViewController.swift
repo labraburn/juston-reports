@@ -434,24 +434,24 @@ extension CardStackViewController: CardStackViewDelegate {
             }
         ))
         
-        // Subscribe/Unsubscribe
-        if model.account.flags.contains(.isNotificationsEnabled) {
-            children.append(UIAction(
-                title: "AccountCardUnsubscribeButton".asLocalizedKey,
-                image: UIImage(systemName: "bell.slash"),
-                handler: { [weak self] _ in
-                    self?.unsubscribePushNotifications(model)
-                }
-            ))
-        } else {
-            children.append(UIAction(
-                title: "AccountCardSubscribeButton".asLocalizedKey,
-                image: UIImage(systemName: "bell"),
-                handler: { [weak self] _ in
-                    self?.subscribePushNotifications(model)
-                }
-            ))
-        }
+//        // Subscribe/Unsubscribe
+//        if model.account.flags.contains(.isNotificationsEnabled) {
+//            children.append(UIAction(
+//                title: "AccountCardUnsubscribeButton".asLocalizedKey,
+//                image: UIImage(systemName: "bell.slash"),
+//                handler: { [weak self] _ in
+//                    self?.unsubscribePushNotifications(model)
+//                }
+//            ))
+//        } else {
+//            children.append(UIAction(
+//                title: "AccountCardSubscribeButton".asLocalizedKey,
+//                image: UIImage(systemName: "bell"),
+//                handler: { [weak self] _ in
+//                    self?.subscribePushNotifications(model)
+//                }
+//            ))
+//        }
         
         // Appearance
         children.append(UIAction(
