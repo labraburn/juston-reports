@@ -59,6 +59,8 @@
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
+		F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */; };
+		F03DDB0A286B45D500927188 /* AccountCardStackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
 		F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678138281AA1C100EB05F4 /* CardStackViewController.swift */; };
@@ -213,6 +215,8 @@
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
+		F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeNavigationView.swift; sourceTree = "<group>"; };
+		F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardStackContainerView.swift; sourceTree = "<group>"; };
 		F041A57927F5D0A700213489 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
 		F0678138281AA1C100EB05F4 /* CardStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewController.swift; sourceTree = "<group>"; };
 		F067813B281AA2EC00EB05F4 /* CardStackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCard.swift; sourceTree = "<group>"; };
@@ -854,6 +858,8 @@
 			children = (
 				F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */,
 				F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */,
+				F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */,
+				F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */,
 				F0AAC1282864079000F25C26 /* AccountStackView.swift */,
 				F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */,
 				F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */,
@@ -1220,6 +1226,7 @@
 				F0A3845927B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift in Sources */,
 				F0A15156280272A800EF9F83 /* PasscodeAuthentication.swift in Sources */,
 				F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */,
+				F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
@@ -1270,6 +1277,7 @@
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */,
 				F0A3845F27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift in Sources */,
+				F03DDB0A286B45D500927188 /* AccountCardStackContainerView.swift in Sources */,
 				F01E2ACC2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift in Sources */,
 				F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,

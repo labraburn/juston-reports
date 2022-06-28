@@ -11,6 +11,7 @@ import HuetonUI
 final class AccountStackView: UIView {
     
     static let compactCardStackViewHeight = CGFloat(96)
+    static let navigationStackViewHeight = CGFloat(52)
     static let compactTopHeight = CGFloat(112)
     static let compactBottomHeight = CGFloat(112)
     
@@ -24,44 +25,22 @@ final class AccountStackView: UIView {
         $0.backgroundColor = UIColor(rgb: 0x353535)
     })
     
-    private let cardStackContainerView = ContainerView<CardStackView>().with({
+    private let cardStackContainerView = AccountCardStackContainerView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
     })
     
-    let navigationStackView = UIStackView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)).with({
+    let logotypeTopNavigationView = AccountStackLogotypeNavigationView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .horizontal
-        $0.alignment = .top
-        $0.distribution = .equalCentering
-        $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -24)
-        $0.backgroundColor = .hui_backgroundPrimary
+    })
+    
+    let logotypeBottomNavigationView = UIView().with({ view in
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
     })
     
     let browserNavigationView = AccountStackBrowserNavigationView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .hui_backgroundPrimary
-    })
-
-    let logotypeView = AccountStackLogotypeView().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    })
-    
-    let scanQRButton = UIButton().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.insertHighlightingScaleAnimation()
-        $0.insertFeedbackGenerator(style: .light)
-        $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
-        $0.setImage(.hui_scan20, for: .normal)
-        $0.tintColor = .hui_textPrimary
-    })
-    
-    let addAccountButton = UIButton().with({
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.insertHighlightingScaleAnimation()
-        $0.insertFeedbackGenerator(style: .light)
-        $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
-        $0.setImage(.hui_addCircle20, for: .normal)
-        $0.tintColor = .hui_textPrimary
     })
     
     private var compactTopConstraints: [NSLayoutConstraint] = []
@@ -95,6 +74,10 @@ final class AccountStackView: UIView {
         }
     }
     
+    var scanQRButton: UIButton { logotypeTopNavigationView.leftButton }
+    var topLogotypeView: UIControl { logotypeTopNavigationView.logotypeView }
+    var addAccountButton: UIButton { logotypeTopNavigationView.rightButton }
+    
     var cardStackView: CardStackView? {
         get { cardStackContainerView.enclosingView }
         set { cardStackContainerView.enclosingView = newValue }
@@ -104,35 +87,30 @@ final class AccountStackView: UIView {
         super.init(frame: .zero)
         backgroundColor = .clear
         
+        scanQRButton.setImage(.hui_scan20, for: .normal)
+        addAccountButton.setImage(.hui_addCircle20, for: .normal)
+        
         addSubview(topLineView)
         addSubview(bottomLineView)
         
-        navigationStackView.addArrangedSubview(scanQRButton)
-        navigationStackView.addArrangedSubview({
-            let touchAreaInsets = UIEdgeInsets(top: -24, left: 0, right: 0, bottom: -24)
-            let wrapperView = UIView()
-            wrapperView.addSubview(logotypeView)
-            wrapperView.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
-            logotypeView.pinned(edges: wrapperView)
-            
-            wrapperView.sui_touchAreaInsets = touchAreaInsets
-            logotypeView.sui_touchAreaInsets = touchAreaInsets
-            
-            return wrapperView
-        }())
-        navigationStackView.addArrangedSubview(addAccountButton)
-        
         addSubview(browserNavigationView)
-        addSubview(navigationStackView)
+        addSubview(logotypeTopNavigationView)
+        addSubview(logotypeBottomNavigationView)
         addSubview(cardStackContainerView)
+        
+        logotypeBottomNavigationView.transform = .identity.rotated(by: .pi)
         
         compactTopConstraints = Array({
             browserNavigationView.topAnchor.pin(to: topAnchor, constant: 8)
             browserNavigationView.pin(horizontally: self, left: 0, right: 0)
             
-            navigationStackView.centerYAnchor.pin(to: centerYAnchor)
-            navigationStackView.pin(horizontally: self, left: 24, right: 24)
-            navigationStackView.heightAnchor.pin(to: 52)
+            logotypeTopNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            logotypeTopNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeTopNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
+            
+            logotypeBottomNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            logotypeBottomNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeBottomNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
             
             cardStackContainerView.topAnchor.pin(to: browserNavigationView.bottomAnchor, constant: 12)
             cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactCardStackViewHeight)
@@ -143,23 +121,30 @@ final class AccountStackView: UIView {
             browserNavigationView.centerYAnchor.pin(to: centerYAnchor)
             browserNavigationView.pin(horizontally: self, left: 0, right: 0)
             
-            navigationStackView.topAnchor.pin(to: safeAreaLayoutGuide.topAnchor, constant: 16)
-            navigationStackView.pin(horizontally: self, left: 24, right: 24)
-            navigationStackView.heightAnchor.pin(to: 52)
+            logotypeTopNavigationView.topAnchor.pin(to: safeAreaLayoutGuide.topAnchor, constant: 16)
+            logotypeTopNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeTopNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
             
-            cardStackContainerView.topAnchor.pin(to: navigationStackView.bottomAnchor, constant: 0)
+            cardStackContainerView.topAnchor.pin(to: logotypeTopNavigationView.bottomAnchor, constant: 0)
             cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
             
-            safeAreaLayoutGuide.bottomAnchor.pin(to: cardStackContainerView.bottomAnchor, constant: 42)
+            logotypeBottomNavigationView.topAnchor.pin(to: cardStackContainerView.bottomAnchor, constant: 0)
+            logotypeBottomNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeBottomNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
+            safeAreaLayoutGuide.bottomAnchor.pin(to: logotypeBottomNavigationView.bottomAnchor, constant: 32)
         })
         
         compactBottomConstraints = Array({
             browserNavigationView.centerYAnchor.pin(to: centerYAnchor)
             browserNavigationView.pin(horizontally: self, left: 0, right: 0)
             
-            navigationStackView.centerYAnchor.pin(to: centerYAnchor)
-            navigationStackView.pin(horizontally: self, left: 24, right: 24)
-            navigationStackView.heightAnchor.pin(to: 52)
+            logotypeTopNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            logotypeTopNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeTopNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
+            
+            logotypeBottomNavigationView.centerYAnchor.pin(to: centerYAnchor)
+            logotypeBottomNavigationView.pin(horizontally: self, left: 24, right: 24)
+            logotypeBottomNavigationView.heightAnchor.pin(to: AccountStackView.navigationStackViewHeight)
             
             cardStackContainerView.heightAnchor.pin(to: AccountStackView.compactCardStackViewHeight)
             cardStackContainerView.pin(horizontally: self, left: 12, right: 12)
@@ -216,31 +201,34 @@ final class AccountStackView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        cardStackView?.cornerRadius = 16
+        cardStackContainerView.layoutCornerRadius()
         switch triplePresentation {
         case .top:
             topLineView.alpha = 1
             bottomLineView.alpha = 0
             
-            navigationStackView.alpha = 0
+            logotypeTopNavigationView.alpha = 0
+            logotypeBottomNavigationView.alpha = 0
             browserNavigationView.alpha = 1
         case .middle:
             topLineView.alpha = 0
             bottomLineView.alpha = 0
             
-            navigationStackView.alpha = 1
+            logotypeTopNavigationView.alpha = 1
+            logotypeBottomNavigationView.alpha = 1
             browserNavigationView.alpha = 0
         case .bottom:
             topLineView.alpha = 0
             bottomLineView.alpha = 1
             
-            navigationStackView.alpha = 0
+            logotypeTopNavigationView.alpha = 0
+            logotypeBottomNavigationView.alpha = 0
             browserNavigationView.alpha = 0
         }
     }
     
     func perfromApperingAnimation() {
-        logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
+        logotypeTopNavigationView.logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
     }
     
     // MARK: Actions

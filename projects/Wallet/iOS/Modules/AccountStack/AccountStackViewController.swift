@@ -67,7 +67,7 @@ class AccountStackViewController: UIViewController {
         cardStackViewController.didMove(toParent: self)
         
         accountStackView.scanQRButton.addTarget(self, action: #selector(scanQRButtonDidClick(_:)), for: .touchUpInside)
-        accountStackView.logotypeView.addTarget(self, action: #selector(logotypeControlDidClick(_:)), for: .touchUpInside)
+        accountStackView.topLogotypeView.addTarget(self, action: #selector(topLogotypeControlDidClick(_:)), for: .touchUpInside)
         accountStackView.addAccountButton.addTarget(self, action: #selector(addAccountButtonDidClick(_:)), for: .touchUpInside)
     }
     
@@ -116,7 +116,7 @@ class AccountStackViewController: UIViewController {
     }
 
     @objc
-    private func logotypeControlDidClick(
+    private func topLogotypeControlDidClick(
         _ sender: UIControl
     ) {
         let settingsNavigationController = C42NavigationController(
