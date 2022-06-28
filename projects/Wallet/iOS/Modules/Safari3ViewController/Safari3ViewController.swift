@@ -441,10 +441,18 @@ extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
         _ view: AccountStackBrowserNavigationView,
         didStartEditing textField: UITextField
     ) {
-        push(
-            presentationState: .search(query: textField.text),
-            animated: true
-        )
+        switch presentationStates.last {
+        case .search:
+            navigationView(
+                view,
+                didChangeValue: textField
+            )
+        default:
+            push(
+                presentationState: .search(query: textField.text),
+                animated: true
+            )
+        }
     }
     
     func navigationView(
