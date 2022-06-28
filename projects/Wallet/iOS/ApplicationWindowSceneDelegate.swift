@@ -18,7 +18,7 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        let viewController = DashboardViewController()
+        let viewController = ExploreViewController()
         
         let window = ApplicationWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
@@ -91,12 +91,12 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         amount: Currency?,
         message: String?
     ) {
-        guard let dashboardViewController = window?.windowRootViewController.child as? DashboardViewController
+        guard let exploreViewController = window?.windowRootViewController.child as? ExploreViewController
         else {
             return
         }
         
-        dashboardViewController.showTransferViewControllerIfAvailable(
+        exploreViewController.showTransferViewControllerIfAvailable(
             destination: destination,
             amount: amount,
             message: message

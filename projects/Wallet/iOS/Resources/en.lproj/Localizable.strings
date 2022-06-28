@@ -183,10 +183,10 @@
 
 
 
-/* START - DashboardTransactions */
-"DashboardTransactionsEmptyTitle" = "There are no transactions yet";
-"DashboardTransactionsEmptyButton" = "RECEIVE";
-/* END - DashboardTransactions */
+/* START - Transactions */
+"TransactionsEmptyTitle" = "There are no transactions yet";
+"TransactionsEmptyButton" = "RECEIVE";
+/* END - Transactions */
 
 
 
@@ -250,3 +250,33 @@
 "CameraTitle" = "Camera";
 "CameraDescription" = "Please, position camera to any QR code and we will try to detect TON address";
 /* END - AccountContracrtName */
+
+
+
+/* START - Safari3 */
+"Safari3NavigationActionReload" = "Reload";
+"Safari3NavigationActionBack" = "Go back";
+"Safari3NavigationActionForward" = "Go forward";
+"Safari3NavigationActionAddFavoirite" = "Add to favorites";
+"Safari3NavigationActionRemoveFavoirite" = "Remove from favorites";
+"Safari3NavigationActionShare" = "Share";
+"Safari3NavigationActionExplore" = "Home";
+"Safari3NavigationActionBackToBrowser" = "Back to browsing";
+"Safari3NavigationActionSearch" = "Search";
+"Safari3FavouritesEmptyTitle" = "If any of site uses TON — you can authenticate yourself using selected account.\n\nAlso bookmarks will be here";
+"Safari3FavouritesEmptyButton" = "Let's go";
+"Safari3SearchPlaceholder" = "Start typing to find favourites or just search";
+"Safari3ErrorButton" = "Go back";
+"Safari3SearchEmpty" = "Nothing found";
+"Safari3ConfirmationSignMessage" = "'%@' wants sign raw text.\nUsually it's just a check that you are owner of account, but be careful";
+"Safari3ConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nReview details carefully!\n";
+"Safari3ConfirmationTitle" = "Action requested";
+"Safari3ConfirmationConfirmButton" = "Confirm";
+/* END - Safari3 */
+
+
+
+/* START - Web3Promo */
+"Web3PromoTitle" = "Welcome, WEB3";
+"Web3PromoDescription" = "WEB3 — a future in our opinion, so we added a powerful browser directly to HUTON wallet application.\n\nYou can explore web and authenticate yourself through account that showing on main screen.\n\nEnjoy!";
+/* END - Web3Promo */

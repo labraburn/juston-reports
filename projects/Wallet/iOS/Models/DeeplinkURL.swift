@@ -20,7 +20,7 @@ enum DeeplinkURL {
         case let .tonURL(convenienceURL):
             return convenienceURL.url
         case let .address(value):
-            let path = value.convert(to: .base64url(flags: []))
+            let path = value.description
             guard let components = URLComponents(string: "https://hueton.com/action/address/\(path)")
             else {
                 fatalError("Can't create URL from \(self)")
@@ -33,7 +33,7 @@ enum DeeplinkURL {
             
             return url
         case let .transfer(destination, amount, text):
-            let path = destination.convert(to: .base64url(flags: []))
+            let path = destination.description
             guard var components = URLComponents(string: "https://hueton.com/action/transfer/\(path)")
             else {
                 fatalError("Can't create URL from \(self)")

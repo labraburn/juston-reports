@@ -14,9 +14,10 @@ public extension NSCollectionLayoutSize {
     }
 
     static var zero: NSCollectionLayoutSize {
+        // 0.0001 - prevent error messages
         NSCollectionLayoutSize(
-            widthDimension: .absolute(0),
-            heightDimension: .absolute(0)
+            widthDimension: .absolute(0.0001),
+            heightDimension: .absolute(0.0001)
         )
     }
 }

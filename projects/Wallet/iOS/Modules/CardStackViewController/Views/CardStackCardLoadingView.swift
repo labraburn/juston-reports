@@ -10,6 +10,19 @@ import HuetonUI
 
 final class CardStackCardLoadingView: UIView {
     
+    let imageView = UIImageView().with({ imageView in
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(
+            systemName: "arrow.up.and.down.circle",
+            withConfiguration: UIImage.SymbolConfiguration(
+                pointSize: 20,
+                weight: .regular
+            )
+        )
+        imageView.contentMode = .center
+        imageView.tintColor = .white.withAlphaComponent(0.5)
+    })
+    
     private var isLoading: Bool = false
 
     init() {
@@ -22,6 +35,10 @@ final class CardStackCardLoadingView: UIView {
         
         layer.cornerRadius = 12
         layer.cornerCurve = .circular
+        layer.masksToBounds = true
+        
+        addSubview(imageView)
+        imageView.pinned(edges: self)
     }
     
     @available(*, unavailable)
@@ -33,8 +50,8 @@ final class CardStackCardLoadingView: UIView {
         isLoading = flag
         
         if flag {
+            startLoadingAnimation(delay: delay, fade: false)
             startRotationAnimation()
-            startLoadingAnimation(delay: delay)
         } else {
             stopRotationAnimation()
             stopLoadingAnimation()
@@ -42,12 +59,13 @@ final class CardStackCardLoadingView: UIView {
     }
     
     private func startRotationAnimation() {
-        guard layer.animation(forKey: "rotation") == nil
+        // OverlayLoadingView
+        guard subviews.last?.layer.animation(forKey: "rotation") == nil
         else {
             return
         }
         
-        layer.add({
+        subviews.last?.layer.add({
             let animation = CABasicAnimation(keyPath: "transform.rotation")
             animation.fromValue = 0
             animation.toValue = Float.pi * 2
@@ -58,7 +76,7 @@ final class CardStackCardLoadingView: UIView {
     }
     
     private func stopRotationAnimation() {
-        layer.removeAnimation(forKey: "rotation")
+        subviews.last?.layer.removeAnimation(forKey: "rotation")
     }
     
     override func didMoveToWindow() {

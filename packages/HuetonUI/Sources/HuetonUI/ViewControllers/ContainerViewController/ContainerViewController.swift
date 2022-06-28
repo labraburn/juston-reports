@@ -52,7 +52,7 @@ open class ContainerViewController: UIViewController {
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)
         
-        updateAppearance(animated: false)
+        updateAppearance(animated: true)
     }
     
     private func removeChildViewControllerIfNeeded(_ viewController: UIViewController?) {
@@ -70,7 +70,10 @@ open class ContainerViewController: UIViewController {
         updateAppearance(animated: false)
     }
     
-    private func updateAppearance(animated: Bool, duration: TimeInterval = 0.21) {
+    private func updateAppearance(
+        animated: Bool,
+        duration: TimeInterval = 0.21
+    ) {
         let animations = {
             self.setNeedsStatusBarAppearanceUpdate()
             self.setNeedsUpdateOfHomeIndicatorAutoHidden()

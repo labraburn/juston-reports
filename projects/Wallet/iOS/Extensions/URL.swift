@@ -9,12 +9,22 @@ import Foundation
 
 extension URL {
     
-    var genericFaviconURL: URL? {
-        guard let host = host
-        else {
-            return nil
-        }
+    enum FaviconURLSize: Int {
         
-        return URL(string: "https://www.google.com/s2/favicons?sz=96&domain_url=\(host)")
+        case s = 16
+        case m = 32
+        case l = 64
+        case xl = 128
+        case xxl = 256
+        case xxxl = 512
+    }
+    
+    func genericFaviconURL(
+        with size: FaviconURLSize = .xl
+    ) -> URL? {
+        let host = self.host ?? self.absoluteString
+        return URL(
+            string: "https://www.google.com/s2/favicons?sz=\(size.rawValue)&domain_url=\(host)"
+        )
     }
 }

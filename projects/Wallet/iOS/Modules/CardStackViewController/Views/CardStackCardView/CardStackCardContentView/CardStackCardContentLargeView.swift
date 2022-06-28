@@ -159,7 +159,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             
             bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 18)
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 26)
-            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12)
+            bottomButtonsHStackView.heightAnchor.pin(to: 52)
+            accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .defaultHigh)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
             
             loadingIndicatorView.centerXAnchor.pin(to: centerXAnchor)
@@ -208,13 +209,12 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         moreButton.backgroundColor = controlsBackgroundColor
         
         let name = model.account.name
-        let address = Address(rawValue: model.account.selectedContract.address).convert(to: .base64url(flags: []))
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
         accountCurrentAddressLabel.label.textColor = tintColor.withAlphaComponent(0.64)
-        accountCurrentAddressLabel.label.attributedText = .string(address, with: .callout)
+        accountCurrentAddressLabel.label.attributedText = .string(model.account.convienceSelectedAddress.description, with: .callout)
         
         synchronizationLabel.textColor = tintColor.withAlphaComponent(0.7)
         
@@ -288,23 +288,23 @@ extension Contract.Kind {
         case .uninitialized:
             return "AccountContracrtNameUninitialized".asLocalizedKey
         case .walletV1R1:
-            return "V1R1"
+            return "v1R1"
         case .walletV1R2:
-            return "V1R2"
+            return "v1R2"
         case .walletV1R3:
-            return "V1R3"
+            return "v1R3"
         case .walletV2R1:
-            return "V2R1"
+            return "v2R1"
         case .walletV2R2:
-            return "V2R2"
+            return "v2R2"
         case .walletV3R1:
-            return "V3R1"
+            return "v3R1"
         case .walletV3R2:
-            return "V3R2"
+            return "v3R2"
         case .walletV4R1:
-            return "V4R1"
+            return "v4R1"
         case .walletV4R2:
-            return "V4R2"
+            return "v4R2"
         }
     }
 }

@@ -39,6 +39,8 @@ public extension UIImage {
     
     static let hui_addCircle20: UIImage = .named("AddCircle20")
     static let hui_scan20: UIImage = .named("Scan20")
+    static let hui_gear20: UIImage = .named("Gear20")
+    static let hui_sparkles20: UIImage = .named("Sparkles20")
     static let hui_radioButtonSelected20: UIImage = .named("RadioButtonSelected20")
     static let hui_radioButtonDeselected20: UIImage = .named("RadioButtonDeselected20")
     
@@ -77,6 +79,8 @@ public extension UIImage {
     static let hui_tabBarCards44: UIImage = .named("TabBar/Cards44")
     static let hui_tabBarGear44: UIImage = .named("TabBar/Gear44")
     static let hui_tabBarPlanet44: UIImage = .named("TabBar/Planet44")
+    
+    static let hui_searchFieldGradient: UIImage = .named("SearchFiledGradient")
     
     private static func named(_ name: String) -> UIImage {
         guard let color = UIImage(named: name, in: .module, with: nil)

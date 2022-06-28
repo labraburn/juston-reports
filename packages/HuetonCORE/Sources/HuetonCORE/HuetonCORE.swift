@@ -24,7 +24,7 @@ private extension Configuration {
     
     private static var defaultLogging: Logging {
         #if DEBUG
-        return .debug
+        return .info
         #else
         return .never
         #endif
@@ -36,6 +36,8 @@ public struct HuetonCORE {
     /// Initialize HuetonCORE and it's dependencies
     public static func initialize() {
         AccountAppearanceTransformer.register()
+        BrowserBannerActionTransformer.register()
+        
         SwiftyTON.configurate(with: .main)
         ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
     }

@@ -292,3 +292,89 @@ public extension PersistenceAccount {
         )
     }
 }
+
+// MARK: - Convience Methods
+
+extension PersistenceAccount {
+    
+    /// returns bouncable if contract inititalized, else - nonbouncable
+    public var convienceSelectedAddress: Address {
+        var address = Address(rawValue: selectedContract.address)
+        switch contractKind {
+        case .uninitialized:
+            address.flags = []
+        default:
+            address.flags = [.bounceable]
+        }
+        return address
+    }
+}
+
+// MARK: - SwiftyTON Methods
+
+extension PersistenceAccount {
+    
+    public func transfer(
+        to destination: Address,
+        amount: Currency,
+        message: String?,
+        passcode: Data
+    ) async throws -> Message {
+        try await transfer(
+            to: destination,
+            amount: amount,
+            payload: message?.data(using: .utf8),
+            passcode: passcode
+        )
+    }
+    
+    public func transfer(
+        to destination: Address,
+        amount: Currency,
+        payload: Data?,
+        passcode: Data
+    ) async throws -> Message {
+        guard let key = keyIfAvailable
+        else {
+            throw ContractError.unknownContractType
+        }
+        
+        let fromAddress = selectedContract.address
+        let selectedContractKind = selectedContract.kind
+        
+        var contract = try await Contract(rawAddress: fromAddress)
+        let selectedContractInfo = contract.info
+        
+        switch contract.kind {
+        case .none:
+            throw ContractError.unknownContractType
+        case .uninitialized:
+            switch selectedContractKind {
+            case .none, .uninitialized, .walletV1R1, .walletV1R2, .walletV1R3:
+                throw ContractError.unknownContractType
+            default:
+                contract = Contract(
+                    rawAddress: fromAddress,
+                    info: selectedContractInfo,
+                    kind: selectedContractKind,
+                    data: .zero
+                )
+            }
+        default:
+            break
+        }
+        
+        guard let wallet = AnyWallet(contract: contract)
+        else {
+            throw ContractError.unknownContractType
+        }
+        
+        return try await wallet.transfer(
+            to: destination,
+            amount: amount,
+            payload: payload,
+            key: key,
+            passcode: passcode
+        )
+    }
+}

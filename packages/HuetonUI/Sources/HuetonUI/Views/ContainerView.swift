@@ -4,18 +4,18 @@
 
 import UIKit
 
-public class ContainerView<T>: UIView where T: UIView {
+open class ContainerView<T>: UIView where T: UIView {
     
     private var size: CGSize = .zero
     
-    public var enclosingView: T? {
+    open var enclosingView: T? {
         didSet {
             oldValue?.removeFromSuperview()
             setNeedsLayout()
         }
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         guard let enclosingView = enclosingView

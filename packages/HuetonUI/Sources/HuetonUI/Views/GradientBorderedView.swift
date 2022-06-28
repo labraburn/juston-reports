@@ -68,8 +68,8 @@ public class GradientBorderedView: UIView {
         _maskingView.frame = CGRect(
             x: 0,
             y: 0,
-            width: bounds.width - borderWidth * 2,
-            height: bounds.height - borderWidth * 2
+            width: bounds.width,
+            height: bounds.height
         )
         
         _maskingView.layer.shadowPath = path()

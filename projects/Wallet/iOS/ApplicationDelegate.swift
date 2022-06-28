@@ -19,6 +19,8 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.cleanLaunchScreenCache()
         
         application.requestRegisterForRemoteNotificationsIfNeeded()
+        application.requestRemoteConfigurations()
+        
         UNUserNotificationCenter.current().delegate = self
         
         return true

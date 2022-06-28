@@ -162,4 +162,12 @@ public class PersistenceObject: NSManagedObject {
         }
         return object
     }
+    
+    @PersistenceReadableActor
+    public final class func readableExecute<T>(
+        _ request: NSFetchRequest<T>
+    ) throws -> [T] where T: NSManagedObject {
+        let context = PersistenceReadableActor.shared.managedObjectContext
+        return try context.fetch(request)
+    }
 }

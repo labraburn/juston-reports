@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */; };
+		F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F003FEF52869441A00623AC0 /* GithubMOON */; };
+		F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */; };
+		F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFA2869513900623AC0 /* PromoViewController.swift */; };
+		F003FEFE2869FA3C00623AC0 /* Safari3SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */; };
+		F003FF002869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */; };
+		F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */; };
+		F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */; };
+		F003FF09286A121800623AC0 /* WKWeb3Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */; };
+		F003FF0B286A136100623AC0 /* WKWeb3Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF0A286A136100623AC0 /* WKWeb3Event.swift */; };
+		F003FF12286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */; };
+		F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */; };
+		F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */; };
+		F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */; };
+		F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */ = {isa = PBXBuildFile; fileRef = F003FF1B286A2CEF00623AC0 /* hueton.js */; };
+		F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */; };
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
 		F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D7C28102DD100B518A9 /* SettingsViewController.swift */; };
@@ -16,7 +32,6 @@
 		F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */; };
 		F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */; };
 		F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */; };
-		F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */; };
 		F0118DA22810690400B518A9 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA12810690400B518A9 /* URL.swift */; };
 		F0118DA52810699100B518A9 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = F0118DA42810699100B518A9 /* Nuke */; };
 		F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DA728106A0100B518A9 /* RemoteImageView.swift */; };
@@ -37,15 +52,15 @@
 		F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */; };
 		F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */; };
 		F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */; };
-		F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */; };
+		F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AE128491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift */; };
 		F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8770284FCE10007476B8 /* DeeplinkURL.swift */; };
 		F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */; };
 		F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8778284FDFC7007476B8 /* TransactionError.swift */; };
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
-		F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */; };
-		F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */; };
+		F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */; };
+		F03DDB0A286B45D500927188 /* AccountCardStackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */; };
 		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
 		F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678138281AA1C100EB05F4 /* CardStackViewController.swift */; };
@@ -60,7 +75,7 @@
 		F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067814F281B378000EB05F4 /* InAppAnnouncement.swift */; };
 		F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */; };
 		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
-		F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */; };
+		F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* TransactionsDateReusableView.swift */; };
 		F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */; };
 		F085969B285633D300CF9D3D /* CardStackCardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085969A285633D300CF9D3D /* CardStackCardLabel.swift */; };
 		F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */; };
@@ -81,7 +96,7 @@
 		F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9A27A0B9C5003A090C /* ApplicationWindow.swift */; };
 		F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */; };
 		F0995F9F27A0BA21003A090C /* ApplicationWindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */; };
-		F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* DashboardViewController.swift */; };
+		F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0995FA927A0BE1A003A090C /* TransactionsViewController.swift */; };
 		F09D962D285A153300650047 /* CardStackCardLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D962C285A153300650047 /* CardStackCardLoadingView.swift */; };
 		F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */; };
 		F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */; };
@@ -97,11 +112,20 @@
 		F0A15156280272A800EF9F83 /* PasscodeAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A15155280272A800EF9F83 /* PasscodeAuthentication.swift */; };
 		F0A15158280329EE00EF9F83 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0A15157280329EE00EF9F83 /* PasscodeView.xib */; };
 		F0A1515A28032DCB00EF9F83 /* PasscodeNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1515928032DCB00EF9F83 /* PasscodeNumberButton.swift */; };
-		F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */; };
-		F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */; };
-		F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */; };
+		F0A3845927B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845827B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift */; };
+		F0A3845D27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845C27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift */; };
+		F0A3845F27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A3845E27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift */; };
 		F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4579B283C47BD0039F6CA /* CameraViewController.swift */; };
 		F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A457A2283D79910039F6CA /* NavigationController.swift */; };
+		F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */; };
+		F0AAC1292864079000F25C26 /* AccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1282864079000F25C26 /* AccountStackView.swift */; };
+		F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */; };
+		F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */; };
+		F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */; };
+		F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */; };
+		F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */; };
+		F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */; };
+		F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */; };
 		F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */; };
 		F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */; };
 		F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */; };
@@ -111,18 +135,50 @@
 		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
 		F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */; };
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
+		F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */; };
+		F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */; };
+		F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */; };
+		F0C23D9E2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */; };
+		F0C23DA02868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */; };
+		F0C23DA22868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */; };
+		F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */; };
 		F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
 		F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */; };
+		F0E7D3192863A7760037DE46 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E7D3182863A7760037DE46 /* ExploreViewController.swift */; };
 		F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */; };
 		F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */; };
 		F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */; };
 		F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */; };
+		F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */; };
+		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
+		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
+		F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */; };
+		F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */; };
+		F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */; };
+		F0FDEFDA286AC5E600982A0A /* Safari3BrowserErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */; };
+		F0FDEFDC286AD81000982A0A /* Safari3Confirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewPreviewCell.swift; sourceTree = "<group>"; };
+		F003FEF4286940F700623AC0 /* GithubMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubMOON; path = ../../../packages/GithubMOON; sourceTree = "<group>"; };
+		F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserBannerAction.InApp.swift; sourceTree = "<group>"; };
+		F003FEFA2869513900623AC0 /* PromoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewController.swift; sourceTree = "<group>"; };
+		F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchDataSource.swift; sourceTree = "<group>"; };
+		F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Configuration.swift; sourceTree = "<group>"; };
+		F003FF0A286A136100623AC0 /* WKWeb3Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Event.swift; sourceTree = "<group>"; };
+		F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestAccountsEvent.swift; sourceTree = "<group>"; };
+		F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SignEvent.swift; sourceTree = "<group>"; };
+		F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventBox.swift; sourceTree = "<group>"; };
+		F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventDispatcher.swift; sourceTree = "<group>"; };
+		F003FF1B286A2CEF00623AC0 /* hueton.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = hueton.js; sourceTree = "<group>"; };
+		F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Error.swift; sourceTree = "<group>"; };
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
 		F0118D7C28102DD100B518A9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +188,6 @@
 		F0118D8A28103AF800B518A9 /* C42LogoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42LogoHeaderView.swift; sourceTree = "<group>"; };
 		F0118D9128105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42CollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		F0118D9728105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42ApplicationVersionHeaderView.swift; sourceTree = "<group>"; };
-		F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0118DA12810690400B518A9 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		F0118DA728106A0100B518A9 /* RemoteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageView.swift; sourceTree = "<group>"; };
 		F0118DAA281075EB00B518A9 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
@@ -153,16 +208,16 @@
 		F01E2ADB2848F07900AA108F /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
 		F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42SettingsButtonCell.swift; sourceTree = "<group>"; };
 		F01E2ADF2849004100AA108F /* OnboardingAccountImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAccountImportViewController.swift; sourceTree = "<group>"; };
-		F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
+		F01E2AE128491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsPlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F02C8770284FCE10007476B8 /* DeeplinkURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkURL.swift; sourceTree = "<group>"; };
 		F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		F02C8778284FDFC7007476B8 /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
-		F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountsView.swift; sourceTree = "<group>"; };
+		F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeNavigationView.swift; sourceTree = "<group>"; };
+		F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardStackContainerView.swift; sourceTree = "<group>"; };
 		F041A57927F5D0A700213489 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
-		F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionHeaderView.swift; sourceTree = "<group>"; };
 		F0678138281AA1C100EB05F4 /* CardStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewController.swift; sourceTree = "<group>"; };
 		F067813B281AA2EC00EB05F4 /* CardStackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCard.swift; sourceTree = "<group>"; };
 		F067813F281AA45A00EB05F4 /* CardStackCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardContentView.swift; sourceTree = "<group>"; };
@@ -175,7 +230,7 @@
 		F067814F281B378000EB05F4 /* InAppAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncement.swift; sourceTree = "<group>"; };
 		F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementInfo.swift; sourceTree = "<group>"; };
 		F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppAnnouncementView.swift; sourceTree = "<group>"; };
-		F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDateReusableView.swift; sourceTree = "<group>"; };
+		F0678156281B526500EB05F4 /* TransactionsDateReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsDateReusableView.swift; sourceTree = "<group>"; };
 		F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferNavigationController.swift; sourceTree = "<group>"; };
 		F085969A285633D300CF9D3D /* CardStackCardLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardLabel.swift; sourceTree = "<group>"; };
 		F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
@@ -199,7 +254,7 @@
 		F0995F9C27A0B9E1003A090C /* ApplicationWindowScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowScene.swift; sourceTree = "<group>"; };
 		F0995F9E27A0BA21003A090C /* ApplicationWindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowViewController.swift; sourceTree = "<group>"; };
 		F0995FA227A0BAD6003A090C /* GIEL */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GIEL; path = ../../../packages/GIEL; sourceTree = "<group>"; };
-		F0995FA927A0BE1A003A090C /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		F0995FA927A0BE1A003A090C /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		F09D962C285A153300650047 /* CardStackCardLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardLoadingView.swift; sourceTree = "<group>"; };
 		F09E2A26283E925E00D7BC55 /* QRSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.swift; sourceTree = "<group>"; };
 		F09E2A28283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRSharingViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
@@ -218,11 +273,20 @@
 		F0A15155280272A800EF9F83 /* PasscodeAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeAuthentication.swift; sourceTree = "<group>"; };
 		F0A15157280329EE00EF9F83 /* PasscodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
 		F0A1515928032DCB00EF9F83 /* PasscodeNumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeNumberButton.swift; sourceTree = "<group>"; };
-		F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
-		F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
-		F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDiffableDataSource.swift; sourceTree = "<group>"; };
+		F0A3845827B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F0A3845C27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0A3845E27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsDiffableDataSource.swift; sourceTree = "<group>"; };
 		F0A4579B283C47BD0039F6CA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F0A457A2283D79910039F6CA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackViewController.swift; sourceTree = "<group>"; };
+		F0AAC1282864079000F25C26 /* AccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackView.swift; sourceTree = "<group>"; };
+		F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeView.swift; sourceTree = "<group>"; };
+		F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackBrowserNavigationView.swift; sourceTree = "<group>"; };
+		F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackBrowserSearchField.swift; sourceTree = "<group>"; };
+		F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3ViewController.swift; sourceTree = "<group>"; };
+		F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserViewController.swift; sourceTree = "<group>"; };
+		F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchViewController.swift; sourceTree = "<group>"; };
+		F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSafari3ViewController.swift; sourceTree = "<group>"; };
 		F0B0AA1D27B25831007B55F1 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		F0BC3C3A28038E0C0036F53A /* PasscodeDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeDotView.swift; sourceTree = "<group>"; };
 		F0BC3C3C280391D10036F53A /* PasscodeCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeCreation.swift; sourceTree = "<group>"; };
@@ -232,16 +296,32 @@
 		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
+		F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeViewController.swift; sourceTree = "<group>"; };
+		F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WebView.swift; sourceTree = "<group>"; };
+		F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeDataSource.swift; sourceTree = "<group>"; };
+		F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3FavouriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeCollectionViewLayout.swift; sourceTree = "<group>"; };
+		F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomePlaceholderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F0C5387C285BCEDD0002C1CF /* ServiceURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceURL.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
 		F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerImage.swift; sourceTree = "<group>"; };
 		F0E22C5527A9DEEA004E2E2A /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F0E7D3182863A7760037DE46 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		F0F0714128329D74009AA6F9 /* TransferDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.swift; sourceTree = "<group>"; };
 		F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.swift; sourceTree = "<group>"; };
 		F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3UndefinedEvent.swift; sourceTree = "<group>"; };
+		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SendTransactionEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Emit.swift; sourceTree = "<group>"; };
+		F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AccountsChangedEmit.swift; sourceTree = "<group>"; };
+		F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserErrorView.swift; sourceTree = "<group>"; };
+		F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3Confirmation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +335,7 @@
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
 				F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */,
 				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
+				F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +343,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				F003FEF22869325400623AC0 /* UICollectionViewPreviewCell.swift */,
+			);
+			path = UICollectionViewPreviewCell;
+			sourceTree = "<group>";
+		};
+		F003FEF92869512400623AC0 /* PromoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F003FEFA2869513900623AC0 /* PromoViewController.swift */,
+			);
+			path = PromoViewController;
+			sourceTree = "<group>";
+		};
+		F003FEFC2869F97D00623AC0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF012869FE5600623AC0 /* ReusableViews */,
+				F003FF042869FED100623AC0 /* Cells */,
+				F0AAC1362865549400F25C26 /* Safari3SearchViewController.swift */,
+				F003FEFD2869FA3C00623AC0 /* Safari3SearchDataSource.swift */,
+				F003FEFF2869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		F003FF012869FE5600623AC0 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF022869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
+		F003FF042869FED100623AC0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F003FF07286A11A800623AC0 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				F0FDEFD4286AB9CC00982A0A /* Emits */,
+				F003FF10286A17A200623AC0 /* Events */,
+				F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */,
+				F003FF0A286A136100623AC0 /* WKWeb3Event.swift */,
+				F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */,
+				F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */,
+				F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */,
+				F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		F003FF10286A17A200623AC0 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */,
+				F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */,
+				F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */,
+				F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */,
+				F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */,
+				F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		F0118D7B28102DC000B518A9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,7 +432,6 @@
 				F0909B5627E8B2D000FC8404 /* C42WordCell.swift */,
 				F0909B6227E8DB1900FC8404 /* C42TextFieldCell.swift */,
 				F0118D832810335300B518A9 /* C42AccessoryCollectionViewCell.swift */,
-				F0118D9C2810637700B518A9 /* C42BookmarkCollectionViewCell.swift */,
 				F01E2ADD2848F5CA00AA108F /* C42SettingsButtonCell.swift */,
 			);
 			path = Cells;
@@ -427,7 +579,6 @@
 			isa = PBXGroup;
 			children = (
 				F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */,
-				F032A94B27DCAEAB00DACFC5 /* DashboardAccountsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,6 +716,7 @@
 			children = (
 				F0909B5F27E8CF5100FC8404 /* Localizable.strings */,
 				F0995F6B27A0B7CB003A090C /* Assets.xcassets */,
+				F003FF1B286A2CEF00623AC0 /* hueton.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -572,6 +724,9 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F003FEF92869512400623AC0 /* PromoViewController */,
+				F0AAC13128654F8000F25C26 /* Safari3ViewController */,
+				F0E7D3172863A7590037DE46 /* ExploreViewController */,
 				F014F19B285B84BD00D82273 /* Agreements */,
 				F02C8772284FD88F007476B8 /* TransactionDetails */,
 				F01E2ADA2848F06B00AA108F /* Developer */,
@@ -584,8 +739,9 @@
 				F0A151522802726000EF9F83 /* Passcode */,
 				F0A1513A2802527B00EF9F83 /* Onboarding */,
 				F0DBFA4F27F607FB00956DC9 /* Alert */,
+				F0AAC1252864072900F25C26 /* AccountStack */,
 				F01E2ABF2846C43E00AA108F /* AccountAppearence */,
-				F0995FA627A0BC67003A090C /* Dashboard */,
+				F0995FA627A0BC67003A090C /* Transactions */,
 				F0995F9527A0B878003A090C /* Launch */,
 			);
 			path = Modules;
@@ -605,6 +761,7 @@
 				F02FECE827F3143600CC306C /* HuetonUI */,
 				F02FECE927F3145800CC306C /* HuetonCORE */,
 				F016607A284B56F300E4BE3F /* HuetonMOON */,
+				F003FEF4286940F700623AC0 /* GithubMOON */,
 				F016607C284B57E700E4BE3F /* DefaultMOON */,
 				F0DBFA5527F7C4C600956DC9 /* Objective42 */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
@@ -620,14 +777,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F0995FA627A0BC67003A090C /* Dashboard */ = {
+		F0995FA627A0BC67003A090C /* Transactions */ = {
 			isa = PBXGroup;
 			children = (
 				F032A94827DC9F3200DACFC5 /* Views */,
-				F0A3845E27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift */,
-				F0995FA927A0BE1A003A090C /* DashboardViewController.swift */,
+				F0A3845E27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift */,
+				F0995FA927A0BE1A003A090C /* TransactionsViewController.swift */,
 			);
-			path = Dashboard;
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 		F09E2A25283E924600D7BC55 /* QR */ = {
@@ -696,14 +853,40 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
+		F0AAC1252864072900F25C26 /* AccountStack */ = {
+			isa = PBXGroup;
+			children = (
+				F0AAC12D28653A2600F25C26 /* AccountStackBrowserNavigationView.swift */,
+				F0AAC12F28653ECC00F25C26 /* AccountStackBrowserSearchField.swift */,
+				F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */,
+				F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */,
+				F0AAC1282864079000F25C26 /* AccountStackView.swift */,
+				F0AAC12B2864095200F25C26 /* AccountStackLogotypeView.swift */,
+				F0AAC1262864074C00F25C26 /* AccountStackViewController.swift */,
+			);
+			path = AccountStack;
+			sourceTree = "<group>";
+		};
+		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F0FDEFCD286A936400982A0A /* Confirmation */,
+				F0FDEFCC286A935C00982A0A /* Browser */,
+				F003FF07286A11A800623AC0 /* Configuration */,
+				F003FEFC2869F97D00623AC0 /* Search */,
+				F0C23D992868BB170052B2C5 /* Welcome */,
+				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
+			);
+			path = Safari3ViewController;
+			sourceTree = "<group>";
+		};
 		F0AFCAB327DE5D3300676A2F /* DashboardCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				F01E2AE128491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift */,
-				F0A3845C27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift */,
-				F062B12927E637D900BB952F /* DashboardCollectionHeaderView.swift */,
-				F0A3845827B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift */,
-				F0678156281B526500EB05F4 /* DashboardDateReusableView.swift */,
+				F01E2AE128491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift */,
+				F0A3845C27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift */,
+				F0A3845827B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift */,
+				F0678156281B526500EB05F4 /* TransactionsDateReusableView.swift */,
 			);
 			path = DashboardCollectionView;
 			sourceTree = "<group>";
@@ -756,6 +939,35 @@
 			path = CardStackCardBackgroundView;
 			sourceTree = "<group>";
 		};
+		F0C23D992868BB170052B2C5 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23DA32868BE060052B2C5 /* ReusableViews */,
+				F0C23D9C2868BCE50052B2C5 /* Cells */,
+				F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */,
+				F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */,
+				F0C23DA12868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		F0C23D9C2868BCE50052B2C5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23D9D2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift */,
+				F0C23D9F2868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F0C23DA32868BE060052B2C5 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23DA42868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		F0DBFA4F27F607FB00956DC9 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -775,13 +987,24 @@
 				F0118DA12810690400B518A9 /* URL.swift */,
 				F0118DB3281084D300B518A9 /* UIApplication.swift */,
 				F01E2AD82847BF2C00AA108F /* UDS.swift */,
+				F003FEF7286950D900623AC0 /* BrowserBannerAction.InApp.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F0E7D3172863A7590037DE46 /* ExploreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F0E7D3182863A7760037DE46 /* ExploreViewController.swift */,
+				F0AAC13B28674B6B00F25C26 /* ExploreSafari3ViewController.swift */,
+			);
+			path = ExploreViewController;
 			sourceTree = "<group>";
 		};
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0118D8C2810599500B518A9 /* C42 */,
 				F0678147281AA51200EB05F4 /* VerticalLabelContainerView */,
@@ -811,6 +1034,32 @@
 			path = Confirmation;
 			sourceTree = "<group>";
 		};
+		F0FDEFCC286A935C00982A0A /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
+				F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */,
+				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		F0FDEFCD286A936400982A0A /* Confirmation */ = {
+			isa = PBXGroup;
+			children = (
+				F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */,
+			);
+			path = Confirmation;
+			sourceTree = "<group>";
+		};
+		F0FDEFD4286AB9CC00982A0A /* Emits */ = {
+			isa = PBXGroup;
+			children = (
+				F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */,
+			);
+			path = Emits;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -835,6 +1084,7 @@
 				F0118DA42810699100B518A9 /* Nuke */,
 				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
 				F016607D284B5A5F00E4BE3F /* DefaultMOON */,
+				F003FEF52869441A00623AC0 /* GithubMOON */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
@@ -883,6 +1133,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */,
 				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
@@ -904,19 +1155,29 @@
 				F0909B5327E88D9000FC8404 /* C42LabelCell.swift in Sources */,
 				F0BC3C412809DCDD0036F53A /* GlassBackgroundView.swift in Sources */,
 				F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */,
+				F0AAC1292864079000F25C26 /* AccountStackView.swift in Sources */,
 				F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */,
 				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* C42WordCell.swift in Sources */,
+				F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */,
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
+				F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */,
+				F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
-				F0995FAA27A0BE1A003A090C /* DashboardViewController.swift in Sources */,
+				F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */,
+				F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */,
+				F0AAC1352865548700F25C26 /* Safari3BrowserViewController.swift in Sources */,
+				F003FF09286A121800623AC0 /* WKWeb3Configuration.swift in Sources */,
 				F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */,
+				F003FF0B286A136100623AC0 /* WKWeb3Event.swift in Sources */,
 				F0B0AA1E27B25831007B55F1 /* RelativeDateTimeFormatter.swift in Sources */,
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
 				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
+				F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */,
+				F003FEFE2869FA3C00623AC0 /* Safari3SearchDataSource.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
 				F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */,
 				F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */,
@@ -929,36 +1190,50 @@
 				F0118DA828106A0100B518A9 /* RemoteImageView.swift in Sources */,
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */,
+				F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */,
+				F0FDEFDA286AC5E600982A0A /* Safari3BrowserErrorView.swift in Sources */,
+				F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */,
+				F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,
+				F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */,
 				F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */,
 				F0BC3C3B28038E0C0036F53A /* PasscodeDotView.swift in Sources */,
+				F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */,
 				F0995F6327A0B7CA003A090C /* ApplicationDelegate.swift in Sources */,
 				F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */,
 				F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */,
-				F062B12A27E637D900BB952F /* DashboardCollectionHeaderView.swift in Sources */,
 				F0118DA22810690400B518A9 /* URL.swift in Sources */,
 				F0118D9828105F3C00B518A9 /* C42ApplicationVersionHeaderView.swift in Sources */,
+				F003FF002869FA5200623AC0 /* Safari3SearchCollectionViewLayout.swift in Sources */,
 				F0C5387D285BCEDD0002C1CF /* ServiceURL.swift in Sources */,
 				F01E2AC32846C9BC00AA108F /* AccountAppearenceViewController.InitialConfiguration.swift in Sources */,
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
 				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* C42TextFieldCell.swift in Sources */,
+				F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */,
 				F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */,
 				F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */,
 				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
 				F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */,
 				F0A1515A28032DCB00EF9F83 /* PasscodeNumberButton.swift in Sources */,
 				F0118DAB281075EB00B518A9 /* Web3ViewController.swift in Sources */,
+				F0C23DA22868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift in Sources */,
 				F0A151412802532B00EF9F83 /* C42CollectionViewController.swift in Sources */,
+				F003FEF8286950D900623AC0 /* BrowserBannerAction.InApp.swift in Sources */,
 				F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */,
+				F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */,
 				F0BC3C45280AAD320036F53A /* GlassGradientAngleMotionEffect.swift in Sources */,
-				F0A3845927B2BEC40061C0F7 /* DashboardCollectionViewLayout.swift in Sources */,
+				F0A3845927B2BEC40061C0F7 /* TransactionsCollectionViewLayout.swift in Sources */,
 				F0A15156280272A800EF9F83 /* PasscodeAuthentication.swift in Sources */,
 				F0118D7D28102DD100B518A9 /* SettingsViewController.swift in Sources */,
+				F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */,
 				F0E22C5627A9DEEA004E2E2A /* UIViewController.swift in Sources */,
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
+				F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */,
+				F003FF12286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
+				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
 				F01E2AC62846CB5B00AA108F /* AccountAppearenceViewController.swift in Sources */,
 				F0118D872810343A00B518A9 /* C42ListGroupDecorationView.swift in Sources */,
@@ -966,39 +1241,53 @@
 				F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */,
 				F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */,
 				F01E2ACA2846CC2300AA108F /* OnboardingAccountAppearenceViewController.swift in Sources */,
+				F0C23DA02868BD0E0052B2C5 /* Safari3FavouriteCollectionViewCell.swift in Sources */,
 				F01E2ADE2848F5CA00AA108F /* C42SettingsButtonCell.swift in Sources */,
 				F0909B5A27E8B6F000FC8404 /* C42WordsDecorationView.swift in Sources */,
+				F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */,
 				F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */,
 				F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */,
 				F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */,
-				F0A3845D27B2BF760061C0F7 /* DashboardTransactionCollectionViewCell.swift in Sources */,
+				F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */,
+				F0A3845D27B2BF760061C0F7 /* TransactionsTransactionCollectionViewCell.swift in Sources */,
 				F02C8771284FCE10007476B8 /* DeeplinkURL.swift in Sources */,
+				F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
+				F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
-				F0118D9D2810637700B518A9 /* C42BookmarkCollectionViewCell.swift in Sources */,
+				F0FDEFDC286AD81000982A0A /* Safari3Confirmation.swift in Sources */,
+				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,
+				F0C23D9E2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* C42NavigationController.swift in Sources */,
 				F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */,
+				F0AAC13028653ECC00F25C26 /* AccountStackBrowserSearchField.swift in Sources */,
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
+				F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
-				F032A94C27DCAEAB00DACFC5 /* DashboardAccountsView.swift in Sources */,
-				F01E2AE228491A1600AA108F /* DashboardPlaceholderCollectionReusableView.swift in Sources */,
+				F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
+				F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
+				F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */,
+				F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */,
 				F09D962D285A153300650047 /* CardStackCardLoadingView.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,
 				F067814E281B372D00EB05F4 /* InAppAnnouncementCenter.swift in Sources */,
-				F0A3845F27B2C13D0061C0F7 /* DashboardDiffableDataSource.swift in Sources */,
+				F0A3845F27B2C13D0061C0F7 /* TransactionsDiffableDataSource.swift in Sources */,
+				F03DDB0A286B45D500927188 /* AccountCardStackContainerView.swift in Sources */,
 				F01E2ACC2846D2C700AA108F /* BaseAccountAppearenceViewController.StyleCell.swift in Sources */,
-				F0678157281B526500EB05F4 /* DashboardDateReusableView.swift in Sources */,
+				F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
+				F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,
 				F0118D892810362000B518A9 /* C42TitleHeaderView.swift in Sources */,
 				F0A1515128026CFA00EF9F83 /* NSObject.swift in Sources */,
+				F0E7D3192863A7760037DE46 /* ExploreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1251,6 +1540,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F003FEF52869441A00623AC0 /* GithubMOON */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GithubMOON;
+		};
 		F0118DA42810699100B518A9 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */;

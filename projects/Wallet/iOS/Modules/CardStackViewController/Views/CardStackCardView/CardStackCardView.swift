@@ -1,5 +1,5 @@
 //
-//  DashboardStackCardView.swift
+//  CardStackCardView.swift
 //  iOS
 //
 //  Created by Anton Spivak on 13.03.2022.
