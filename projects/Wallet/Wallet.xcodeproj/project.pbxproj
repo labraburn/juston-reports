@@ -868,7 +868,6 @@
 				F003FEFC2869F97D00623AC0 /* Search */,
 				F0C23D992868BB170052B2C5 /* Welcome */,
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
-				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 			);
 			path = Safari3ViewController;
 			sourceTree = "<group>";
@@ -1030,6 +1029,7 @@
 		F0FDEFCC286A935C00982A0A /* Browser */ = {
 			isa = PBXGroup;
 			children = (
+				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 				F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */,
 				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
 			);

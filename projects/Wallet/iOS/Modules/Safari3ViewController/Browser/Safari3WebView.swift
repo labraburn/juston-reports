@@ -34,6 +34,7 @@ class Safari3WebView: WKWebView {
         
         isOpaque = false
         backgroundColor = .clear
+        customUserAgent = "HUETON"
     }
     
     @available(*, unavailable)
