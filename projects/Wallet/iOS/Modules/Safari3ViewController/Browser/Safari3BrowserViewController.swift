@@ -316,7 +316,12 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return .cancel
         } else {
-            return .allow
+            // _WKNavigationActionPolicyAllowWithoutTryingAppLink
+            if let policy = WKNavigationActionPolicy(rawValue: WKNavigationActionPolicy.allow.rawValue + 2) {
+                return policy
+            } else {
+                return .allow
+            }
         }
     }
     
