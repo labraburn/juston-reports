@@ -54,6 +54,12 @@ extension BrowserBannerAction.InApp {
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
+                                title: "TON Market",
+                                subtitle: nil,
+                                url: URL(string: "https://tonmarket.org/#")!,
+                                account: account
+                            ),
+                            PersistenceBrowserFavourite(
                                 title: "Scaleton",
                                 subtitle: nil,
                                 url: URL(string: "https://scaleton.io")!,
