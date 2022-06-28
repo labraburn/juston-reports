@@ -42,15 +42,21 @@ extension BrowserBannerAction.InApp {
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
+                                title: "BITON",
+                                subtitle: nil,
+                                url: URL(string: "https://dex.biton.app")!,
+                                account: account
+                            ),
+                            PersistenceBrowserFavourite(
                                 title: "Getgems",
                                 subtitle: nil,
                                 url: URL(string: "https://getgems.io")!,
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
-                                title: "Ton.Place",
+                                title: "Scaleton",
                                 subtitle: nil,
-                                url: URL(string: "https://ton.place")!,
+                                url: URL(string: "https://scaleton.io")!,
                                 account: account
                             ),
                         ]
