@@ -54,9 +54,9 @@ extension BrowserBannerAction.InApp {
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
-                                title: "TON Market",
+                                title: "Jetton deployer",
                                 subtitle: nil,
-                                url: URL(string: "https://tonmarket.org/#")!,
+                                url: URL(string: "https://jetton.live")!,
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
