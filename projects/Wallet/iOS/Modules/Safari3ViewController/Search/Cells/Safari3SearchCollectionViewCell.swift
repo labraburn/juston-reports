@@ -39,14 +39,18 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
     
     private var imageDownloadTask: ImageTask?
     
-    private let imageView = UIImageView().with({
+    private var imageViewWrapperView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundPrimary.withAlphaComponent(0.8)
-        $0.contentMode = .center
+        $0.backgroundColor = .hui_backgroundPrimary.withAlphaComponent(0.7)
         
         $0.layer.cornerRadius = 12
         $0.layer.cornerCurve = .continuous
         $0.layer.masksToBounds = true
+    })
+    
+    private let imageView = UIImageView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.contentMode = .scaleAspectFill
     })
     
     private let titleLabel = UILabel().with({
@@ -88,22 +92,26 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
         contentView.layer.cornerCurve = .continuous
         contentView.layer.masksToBounds = true
         
-        contentView.addSubview(imageView)
+        contentView.addSubview(imageViewWrapperView)
+        imageViewWrapperView.addSubview(imageView)
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         
         NSLayoutConstraint.activate({
-            imageView.leftAnchor.pin(to: contentView.leftAnchor)
-            imageView.pin(vertically: contentView)
-            imageView.heightAnchor.pin(to: 64)
-            imageView.widthAnchor.pin(to: imageView.heightAnchor)
+            imageViewWrapperView.leftAnchor.pin(to: contentView.leftAnchor)
+            imageViewWrapperView.pin(vertically: contentView)
+            imageViewWrapperView.heightAnchor.pin(to: 64)
+            imageViewWrapperView.widthAnchor.pin(to: imageViewWrapperView.heightAnchor)
+            
+            imageView.pin(edges: imageViewWrapperView, insets: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
             
             titleLabel.topAnchor.pin(to: contentView.topAnchor, constant: 10)
-            titleLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
+            titleLabel.leftAnchor.pin(to: imageViewWrapperView.rightAnchor, constant: 10)
             contentView.rightAnchor.pin(to: titleLabel.rightAnchor, constant: 12)
             
             subtitleLabel.topAnchor.pin(to: titleLabel.bottomAnchor, constant: 4)
-            subtitleLabel.leftAnchor.pin(to: imageView.rightAnchor, constant: 10)
+            subtitleLabel.leftAnchor.pin(to: imageViewWrapperView.rightAnchor, constant: 10)
             contentView.rightAnchor.pin(to: subtitleLabel.rightAnchor, constant: 12)
             
             contentView.bottomAnchor.pin(greaterThan: subtitleLabel.bottomAnchor, constant: 6)

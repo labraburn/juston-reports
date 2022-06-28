@@ -37,14 +37,19 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
     
     private var imageDownloadTask: ImageTask?
     
-    private let imageView = UIImageView().with({
+    private var imageViewWrapperView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = .hui_backgroundSecondary
-        $0.contentMode = .center
         
         $0.layer.cornerRadius = 12
         $0.layer.cornerCurve = .continuous
         $0.layer.masksToBounds = true
+    })
+    
+    private let imageView = UIImageView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .hui_backgroundSecondary
+        $0.contentMode = .scaleAspectFill
     })
     
     private let titleLabel = UILabel().with({
@@ -71,15 +76,18 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
         insertFeedbackGenerator(style: .soft)
         insertHighlightingScaleAnimation()
         
-        contentView.addSubview(imageView)
+        contentView.addSubview(imageViewWrapperView)
+        imageViewWrapperView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate({
-            imageView.topAnchor.pin(to: contentView.topAnchor)
-            imageView.pin(horizontally: contentView)
-            imageView.heightAnchor.pin(to: imageView.widthAnchor)
+            imageViewWrapperView.topAnchor.pin(to: contentView.topAnchor)
+            imageViewWrapperView.pin(horizontally: contentView)
+            imageViewWrapperView.heightAnchor.pin(to: imageViewWrapperView.widthAnchor)
             
-            titleLabel.topAnchor.pin(to: imageView.bottomAnchor, constant: 6)
+            imageView.pin(edges: imageViewWrapperView, insets: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12))
+            
+            titleLabel.topAnchor.pin(to: imageViewWrapperView.bottomAnchor, constant: 6)
             titleLabel.pin(horizontally: contentView, left: 2, right: 2)
             contentView.bottomAnchor.pin(to: titleLabel.bottomAnchor)
         })
