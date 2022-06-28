@@ -55,7 +55,9 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
         })
         
         userContentController = controller
+        
         processPool = WKProcessPool()
+        websiteDataStore = WKWebsiteDataStore.default()
     }
 }
 
