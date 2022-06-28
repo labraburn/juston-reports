@@ -39,7 +39,10 @@ class TransactionsCollectionViewLayout: CollectionViewCompositionalLayout {
             return .zero
         case .empty:
             let placeholderItem = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(TransactionsPlaceholderCollectionReusableView.estimatedHeight)),
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .estimated(TransactionsPlaceholderCollectionReusableView.estimatedHeight)
+                ),
                 elementKind: String(describing: TransactionsPlaceholderCollectionReusableView.self),
                 alignment: .top
             )

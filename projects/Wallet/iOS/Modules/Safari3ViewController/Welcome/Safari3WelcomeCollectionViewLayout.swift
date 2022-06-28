@@ -81,19 +81,21 @@ class Safari3WelcomeCollectionViewLayout: CollectionViewCompositionalLayout {
             return section
         case .favourites:
             let spacing = CGFloat(12)
-            let width = environmnet.container.contentSize.width
+            
+            let contentWidth = environmnet.container.contentSize.width
+            let elementWidth = (contentWidth - spacing * 3) / 4
             
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute((width - spacing * 3) / 4),
-                    heightDimension: .estimated(1)
+                    widthDimension: .absolute(elementWidth),
+                    heightDimension: .estimated(elementWidth)
                 )
             )
             
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(1)
+                    heightDimension: .estimated(elementWidth)
                 ),
                 subitem: item,
                 count: 4
