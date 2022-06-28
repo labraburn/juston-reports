@@ -156,6 +156,7 @@
 		F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */; };
 		F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */; };
 		F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */; };
+		F0FDEFDA286AC5E600982A0A /* Safari3BrowserErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -314,6 +315,7 @@
 		F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SendTransactionEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Emit.swift; sourceTree = "<group>"; };
 		F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AccountsChangedEmit.swift; sourceTree = "<group>"; };
+		F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserErrorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1028,6 +1030,7 @@
 		F0FDEFCC286A935C00982A0A /* Browser */ = {
 			isa = PBXGroup;
 			children = (
+				F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */,
 				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
 			);
 			path = Browser;
@@ -1179,6 +1182,7 @@
 				F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */,
 				F0909B4F27E88D5900FC8404 /* C42ImageViewCell.swift in Sources */,
 				F0AAC1272864074C00F25C26 /* AccountStackViewController.swift in Sources */,
+				F0FDEFDA286AC5E600982A0A /* Safari3BrowserErrorView.swift in Sources */,
 				F003FEF32869325400623AC0 /* UICollectionViewPreviewCell.swift in Sources */,
 				F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */,
 				F0A4579C283C47BD0039F6CA /* CameraViewController.swift in Sources */,

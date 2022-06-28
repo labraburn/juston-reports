@@ -26,13 +26,18 @@ protocol Safari3BrowserViewControllerDelegate: AnyObject {
         _ viewController: Safari3BrowserViewController,
         didChangeLoading loading: Bool
     )
+    
+    func safari3Browser(
+        _ viewController: Safari3BrowserViewController,
+        wantsHomeWhileError error: Error?
+    )
 }
 
 class Safari3BrowserViewController: UIViewController {
     
     private enum PresentationState {
         
-        case error(error: Error)
+        case error(error: Error, action: (() -> ())?)
         case browsing
     }
     
@@ -45,13 +50,8 @@ class Safari3BrowserViewController: UIViewController {
         $0.allowsBackForwardNavigationGestures = true
     })
     
-    private let errorLabel = UILabel().with({
+    private let errorView = Safari3BrowserErrorView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.isUserInteractionEnabled = false
-        $0.textColor = .hui_textPrimary
-        $0.font = .font(for: .body)
-        $0.numberOfLines = 0
-        $0.textAlignment = .center
     })
     
     private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark)).with({
@@ -108,7 +108,7 @@ class Safari3BrowserViewController: UIViewController {
         webView.uiDelegate = self
         
         view.addSubview(webView)
-        view.addSubview(errorLabel)
+        view.addSubview(errorView)
         view.addSubview(blurView)
         
         NSLayoutConstraint.activate({
@@ -117,20 +117,18 @@ class Safari3BrowserViewController: UIViewController {
             blurView.bottomAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor)
             
             webView.pin(edges: view)
-            errorLabel.pin(
-                edges: view.safeAreaLayoutGuide,
-                insets: UIEdgeInsets(
-                    top: 42,
-                    left: 16,
-                    bottom: 32,
-                    right: 16)
-            )
+            errorView.pin(edges: view)
         })
         
         urlKeyValueObservation = webView.observe(
             \.url,
              options: [.new],
              changeHandler: { [weak self] _, change in
+                 guard change.oldValue != change.newValue
+                 else {
+                     return
+                 }
+                 
                  let url = change.newValue ?? nil
                  self?.updateCurrentURL(url)
              }
@@ -224,35 +222,37 @@ class Safari3BrowserViewController: UIViewController {
         webView.layer.removeAllAnimations()
         webView.layer.opacity = webViewOpacity
         
-        let errorLabelPpacity = errorLabel.layer.presentation()?.opacity ?? errorLabel.layer.opacity
-        errorLabel.layer.removeAllAnimations()
-        errorLabel.layer.opacity = errorLabelPpacity
+        let errorViewOpacity = errorView.layer.presentation()?.opacity ?? errorView.layer.opacity
+        errorView.layer.removeAllAnimations()
+        errorView.layer.opacity = errorViewOpacity
         
         switch self.presentationState {
         case .browsing:
-            errorLabel.alpha = 0
-        case let .error(error):
+            errorView.alpha = 0
+        case let .error(error, action):
             webView.alpha = 0
-            errorLabel.text = error.localizedDescription
         }
         
         switch presentationState {
         case .browsing:
             break
-        case let .error(error):
-            errorLabel.text = error.localizedDescription
+        case let .error(error, action):
+            errorView.model = .init(
+                text: error.localizedDescription,
+                action: action
+            )
         }
         
-        self.errorLabel.isHidden = false
+        self.errorView.isHidden = false
         self.webView.isHidden = false
         
         let animations = {
             switch presentationState {
             case .browsing:
-                self.errorLabel.alpha = 0
+                self.errorView.alpha = 0
                 self.webView.alpha = 1
             case .error:
-                self.errorLabel.alpha = 1
+                self.errorView.alpha = 1
                 self.webView.alpha = 0
             }
         }
@@ -260,11 +260,11 @@ class Safari3BrowserViewController: UIViewController {
         let completion = { (_ finished: Bool) in
             switch presentationState {
             case .browsing:
-                self.errorLabel.isHidden = true
+                self.errorView.isHidden = true
                 self.webView.isHidden = false
             case .error:
                 self.webView.isHidden = true
-                self.errorLabel.isHidden = false
+                self.errorView.isHidden = false
             }
         }
         
@@ -356,7 +356,22 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
         determinateTitle()
         update(
             presentationState: .error(
-                error: _error
+                error: _error,
+                action:  { [weak self] in
+                    guard let self = self
+                    else {
+                        return
+                    }
+                    
+                    if self.webView.canGoBack {
+                        self.webView.goBack()
+                    } else {
+                        self.delegate?.safari3Browser(
+                            self,
+                            wantsHomeWhileError: _error
+                        )
+                    }
+                }
             ),
             animated: true
         )

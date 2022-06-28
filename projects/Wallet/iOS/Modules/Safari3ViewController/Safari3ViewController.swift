@@ -423,6 +423,16 @@ extension Safari3ViewController: Safari3BrowserViewControllerDelegate {
             navigationView?.setLoading(false)
         }
     }
+    
+    func safari3Browser(
+        _ viewController: Safari3BrowserViewController,
+        wantsHomeWhileError error: Error?
+    ) {
+        exchangeLastPresentationState(
+            toPresentationState: .welcome,
+            animated: true
+        )
+    }
 }
 
 extension Safari3ViewController: AccountStackBrowserNavigationViewDelegate {
@@ -635,11 +645,16 @@ extension Safari3ViewController.NavigationAction {
 private extension URL {
     
     var favouriteURL: URL? {
-        guard let host = host,
+        guard var host = host,
               let scheme = scheme
         else {
             return nil
         }
+        
+        if host.hasSuffix("/") {
+            let _ = host.removeLast()
+        }
+        
         return URL(string: "\(scheme)://\(host)")
     }
 }
