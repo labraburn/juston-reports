@@ -66,8 +66,8 @@ extension PersistenceProcessedTransaction: TransactionDetailsViewable {
     var from: Address? {
         if !out.isEmpty {
             return account.convienceSelectedAddress
-        } else if let _ = self.in {
-            return account.convienceSelectedAddress
+        } else if let action = self.in {
+            return action.sourceAddress
         } else {
             return account.convienceSelectedAddress
         }

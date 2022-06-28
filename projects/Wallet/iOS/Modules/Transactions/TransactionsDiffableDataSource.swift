@@ -211,7 +211,7 @@ extension TransactionsTransactionCollectionViewCell.Model {
             kind = .out
             value = transaction.out.reduce(into: Currency(value: 0), { $0 += $1.value })
         } else if let action = transaction.in {
-            from = transaction.account.convienceSelectedAddress
+            from = action.sourceAddress
             to = [action].compactMap({ $0.destinationAddress })
             
             kind = .in
