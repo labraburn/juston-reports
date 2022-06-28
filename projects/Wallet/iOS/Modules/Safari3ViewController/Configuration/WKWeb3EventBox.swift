@@ -14,6 +14,7 @@ struct WKWeb3EventBox {
     let process: (
         _ account: PersistenceAccount?,
         _ context: UIViewController,
+        _ url: URL,
         _ value: Data,
         _ decoder: JSONDecoder,
         _ encoder: JSONEncoder
@@ -23,11 +24,12 @@ struct WKWeb3EventBox {
         _ value: T.Type
     ) where T: WKWeb3Event, T.B: Decodable, T.R: Encodable {
         names = T.names
-        process = { account, context, value, decoder, encoder in
+        process = { account, context, url, value, decoder, encoder in
             let decoded = try decoder.decode(T.B.self, from: value)
             let result = try await T.init().process(
                 account: account,
                 context: context,
+                url: url,
                 decoded
             )
             

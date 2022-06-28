@@ -148,8 +148,7 @@ extension AccountStackViewController: CameraViewControllerDelegate {
         
         switch convenienceURL {
         case let .transfer(destination, amount, text):
-            guard let account = cardStackViewController.selectedCard?.account,
-                  let key = account.keyIfAvailable
+            guard let account = cardStackViewController.selectedCard?.account
             else {
                 return
             }
@@ -158,7 +157,6 @@ extension AccountStackViewController: CameraViewControllerDelegate {
                 initialConfiguration: .init(
                     fromAccount: account,
                     toAddress: destination,
-                    key: key,
                     amount: amount,
                     message: text
                 )

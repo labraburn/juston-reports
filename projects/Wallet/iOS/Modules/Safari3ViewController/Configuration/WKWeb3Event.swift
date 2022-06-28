@@ -20,6 +20,7 @@ protocol WKWeb3Event {
     func process(
         account: PersistenceAccount?,
         context: UIViewController,
+        url: URL,
         _ body: B
     ) async throws -> R
 }

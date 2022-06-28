@@ -20,6 +20,7 @@ struct WKWeb3SignEvent: WKWeb3Event {
     func process(
         account: PersistenceAccount?,
         context: UIViewController,
+        url: URL,
         _ body: Body
     ) async throws -> String {
         guard let account = account,
@@ -28,6 +29,12 @@ struct WKWeb3SignEvent: WKWeb3Event {
             throw WKWeb3Error(.unauthorized)
         }
         
+        let confirmation = Safari3Confirmation(
+            .sign(host: url.host ?? url.absoluteString),
+            presentationContext: context
+        )
+        
+        try await confirmation.confirm()
         let boc = BOC(rawValue: body.data)
         
         let authentication = PasscodeAuthentication(inside: context)

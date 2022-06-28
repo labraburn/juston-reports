@@ -88,8 +88,7 @@ class ExploreViewController: TripleViewController {
         amount: Currency?,
         message: String?
     ) {
-        guard let account = accountStackViewController.selectedCard?.account,
-              let key = account.keyIfAvailable
+        guard let account = accountStackViewController.selectedCard?.account
         else {
             return
         }
@@ -98,7 +97,6 @@ class ExploreViewController: TripleViewController {
             initialConfiguration: .init(
                 fromAccount: account,
                 toAddress: destination,
-                key: key,
                 amount: amount,
                 message: message
             )

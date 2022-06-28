@@ -17,6 +17,7 @@ struct WKWeb3RequestAccountsEvent: WKWeb3Event {
     func process(
         account: PersistenceAccount?,
         context: UIViewController,
+        url: URL,
         _ body: Body
     ) async throws -> [String] {
         guard let account = account

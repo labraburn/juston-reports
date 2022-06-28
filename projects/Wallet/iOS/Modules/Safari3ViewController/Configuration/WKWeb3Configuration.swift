@@ -15,6 +15,7 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
         WKWeb3EventBox(WKWeb3RequestAccountsEvent.self),
         WKWeb3EventBox(WKWeb3RequestWalletsEvent.self),
         WKWeb3EventBox(WKWeb3BalanceEvent.self),
+        WKWeb3EventBox(WKWeb3SendTransactionEvent.self),
         WKWeb3EventBox(WKWeb3SignEvent.self),
         WKWeb3EventBox(WKWeb3UndefinedEvent.self),
     ].reduce(into: [:], { events, box in
@@ -223,7 +224,8 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
                 return
             }
             
-            guard let context = self?.dispatcher?.presentationContext
+            guard let context = self?.dispatcher?.presentationContext,
+                  let url = self?.dispatcher?.url
             else {
                 await self?.respond(
                     with: ResponseError(id: body.id, error: WKWeb3Error(.disconnected))
@@ -238,6 +240,7 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
                         result: try await type.process(
                             self?.account,
                             context,
+                            url,
                             body.request,
                             WKWeb3Configuration.decoder,
                             WKWeb3Configuration.encoder
@@ -270,66 +273,3 @@ extension WKWeb3Configuration: WKScriptMessageHandler {
         }
     }
 }
-
-// async onDappMessage(method, params) {
-//     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md
-//     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1102.md
-//     await this.whenReady;
-
-//     const needQueue = !popupPort;
-
-//     switch (method) {
-//         case 'ton_requestAccounts':
-//             return (this.myAddress ? [this.myAddress] : []);
-//         case 'ton_requestWallets':
-//             if (!this.myAddress) {
-//                 return [];
-//             }
-//             if (!this.publicKeyHex) {
-//                 await this.requestPublicKey(needQueue);
-//             }
-//             const walletVersion = await storage.getItem('walletVersion');
-//             return [{
-//                 address: this.myAddress,
-//                 publicKey: this.publicKeyHex,
-//                 walletVersion: walletVersion
-//             }];
-//         case 'ton_getBalance':
-//             await this.update(true);
-//             return (this.balance ? this.balance.toString() : '');
-//         case 'ton_sendTransaction':
-//             const param = params[0];
-//             await showExtensionWindow();
-
-//             if (param.data) {
-//                 if (param.dataType === 'hex') {
-//                     param.data = TonWeb.utils.hexToBytes(param.data);
-//                 } else if (param.dataType === 'base64') {
-//                     param.data = TonWeb.utils.base64ToBytes(param.data);
-//                 } else if (param.dataType === 'boc') {
-//                     param.data = TonWeb.boc.Cell.oneFromBoc(TonWeb.utils.base64ToBytes(param.data));
-//                 }
-//             }
-//             if (param.stateInit) {
-//                 param.stateInit = TonWeb.boc.Cell.oneFromBoc(TonWeb.utils.base64ToBytes(param.stateInit));
-//             }
-
-//             this.sendToView('showPopup', {
-//                 name: 'loader',
-//             });
-
-//             const result = await this.showSendConfirm(new BN(param.value), param.to, param.data, needQueue, param.stateInit);
-//             if (!result) {
-//                 this.sendToView('closePopup');
-//             }
-//             return result;
-//         case 'ton_rawSign':
-//             const signParam = params[0];
-//             await showExtensionWindow();
-
-//             return this.showSignConfirm(signParam.data, needQueue);
-//         case 'flushMemoryCache':
-//             await chrome.webRequest.handlerBehaviorChanged();
-//             return true;
-//     }
-// }

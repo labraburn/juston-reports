@@ -18,6 +18,7 @@ struct WKWeb3UndefinedEvent: WKWeb3Event {
     func process(
         account: PersistenceAccount?,
         context: UIViewController,
+        url: URL,
         _ body: Body
     ) async throws -> Response {
         throw WKWeb3Error(.unsupportedMethod)

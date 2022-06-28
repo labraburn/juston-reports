@@ -374,16 +374,10 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickSendControl control: UIControl,
         model: CardStackCard
     ) {
-        guard let key = model.account.keyIfAvailable
-        else {
-            return
-        }
-        
         let viewController = TransferNavigationController(
             initialConfiguration: .init(
                 fromAccount: model.account,
                 toAddress: nil,
-                key: key,
                 amount: nil,
                 message: nil
             )

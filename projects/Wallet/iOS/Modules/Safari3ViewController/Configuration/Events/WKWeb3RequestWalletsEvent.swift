@@ -24,6 +24,7 @@ struct WKWeb3RequestWalletsEvent: WKWeb3Event {
     func process(
         account: PersistenceAccount?,
         context: UIViewController,
+        url: URL,
         _ body: Body
     ) async throws -> [Response] {
         guard let account = account,

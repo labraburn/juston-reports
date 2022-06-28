@@ -210,47 +210,15 @@ class TransferDetailsViewController: UIViewController {
         sender: HuetonButton
     ) {
         let fromAccount = initialConfiguration.fromAccount
-        let key = initialConfiguration.key
-        let fromAddress = fromAccount.selectedContract.address
-        let selectedContractKind = fromAccount.selectedContract.kind
-        
         sender.startAsynchronousOperation({ [weak self] in
             do {
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
                 
-                var contract = try await Contract(rawAddress: fromAddress)
-                let selectedContractInfo = contract.info
-                
-                switch contract.kind {
-                case .none:
-                    throw ContractError.unknownContractType
-                case .uninitialized:
-                    switch selectedContractKind {
-                    case .none, .uninitialized, .walletV1R1, .walletV1R2, .walletV1R3:
-                        throw ContractError.unknownContractType
-                    default:
-                        contract = Contract(
-                            rawAddress: fromAddress,
-                            info: selectedContractInfo,
-                            kind: selectedContractKind,
-                            data: .zero
-                        )
-                    }
-                default:
-                    break
-                }
-                
-                guard let wallet = AnyWallet(contract: contract)
-                else {
-                    throw ContractError.unknownContractType
-                }
-
-                let message = try await wallet.transfer(
+                let message = try await fromAccount.transfer(
                     to: outAddress,
                     amount: amount,
                     message: message,
-                    key: key,
                     passcode: passcode
                 )
                 

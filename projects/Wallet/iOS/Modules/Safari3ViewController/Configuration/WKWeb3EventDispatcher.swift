@@ -11,6 +11,7 @@ import WebKit
 protocol WKWeb3EventDispatcher: AnyObject {
     
     var presentationContext: UIViewController? { get }
+    var url: URL? { get }
     
     func dispatch(
         name: String,

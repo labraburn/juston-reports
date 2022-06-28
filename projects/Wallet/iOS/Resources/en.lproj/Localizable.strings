@@ -268,6 +268,10 @@
 "Safari3SearchPlaceholder" = "Start typing to find favourites or just search";
 "Safari3ErrorButton" = "Go back";
 "Safari3SearchEmpty" = "Nothing found";
+"Safari3ConfirmationSignMessage" = "'%@' wants sign raw text.\nUsually it's just a check that you are owner of account, but be careful";
+"Safari3ConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nReview details carefully!\n";
+"Safari3ConfirmationTitle" = "Action requested";
+"Safari3ConfirmationConfirmButton" = "Confirm";
 /* END - Safari3 */
 
 

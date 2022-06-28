@@ -24,7 +24,7 @@ private extension Configuration {
     
     private static var defaultLogging: Logging {
         #if DEBUG
-        return .debug
+        return .info
         #else
         return .never
         #endif
