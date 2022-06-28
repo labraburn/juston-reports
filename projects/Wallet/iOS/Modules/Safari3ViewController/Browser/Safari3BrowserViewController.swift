@@ -308,21 +308,32 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction
     ) async -> WKNavigationActionPolicy {
+        let policy: WKNavigationActionPolicy
+        
         if let url = navigationAction.request.url,
             !url.absoluteString.hasPrefix("http://"),
             !url.absoluteString.hasPrefix("https://"),
             UIApplication.shared.canOpenURL(url)
         {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return .cancel
+            policy = .cancel
         } else {
             // _WKNavigationActionPolicyAllowWithoutTryingAppLink
-            if let policy = WKNavigationActionPolicy(rawValue: WKNavigationActionPolicy.allow.rawValue + 2) {
-                return policy
+            if let _policy = WKNavigationActionPolicy(rawValue: WKNavigationActionPolicy.allow.rawValue + 2) {
+                policy = _policy
             } else {
-                return .allow
+                policy = .allow
             }
         }
+        
+        switch policy {
+        case .cancel:
+            self.webView.updateUserAgetForURL(nil)
+        default:
+            self.webView.updateUserAgetForURL(navigationAction.request.url)
+        }
+        
+        return policy
     }
     
     public func webView(

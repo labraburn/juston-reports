@@ -34,7 +34,6 @@ class Safari3WebView: WKWebView {
         
         isOpaque = false
         backgroundColor = .clear
-        customUserAgent = "HUETON"
     }
     
     @available(*, unavailable)
@@ -55,5 +54,30 @@ class Safari3WebView: WKWebView {
     @objc(_scrollViewSystemContentInset) // css.env(safe-area-insets)
     func _scrollViewSystemContentInset() -> UIEdgeInsets {
         customSafeAreaInsets
+    }
+    
+    func updateUserAgetForURL(_ url: URL?) {
+        guard let host = url?.host
+        else {
+            customUserAgent = nil
+            return
+        }
+        
+        var hueton = false
+        let hosts = [
+            "scaleton",
+            "biton",
+            "getgems",
+            "disintar"
+        ]
+        
+        for value in hosts {
+            hueton = host.contains(value)
+            if hueton {
+                break
+            }
+        }
+        
+        customUserAgent = hueton ? "HUETON" : nil
     }
 }
