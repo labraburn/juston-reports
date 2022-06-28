@@ -298,14 +298,15 @@ public extension PersistenceAccount {
 extension PersistenceAccount {
     
     /// returns bouncable if contract inititalized, else - nonbouncable
-    public var convienceSelectedAddress: String {
-        let address = Address(rawValue: selectedContract.address)
+    public var convienceSelectedAddress: Address {
+        var address = Address(rawValue: selectedContract.address)
         switch contractKind {
         case .uninitialized:
-            return address.convert(to: .base64url(flags: []))
+            address.flags = []
         default:
-            return address.convert(to: .base64url(flags: [.bounceable]))
+            address.flags = [.bounceable]
         }
+        return address
     }
 }
 

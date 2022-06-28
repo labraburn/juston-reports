@@ -34,10 +34,9 @@ struct WKWeb3RequestWalletsEvent: WKWeb3Event {
             throw WKWeb3Error(.unauthorized)
         }
         
-        let address = Address(rawValue: account.selectedContract.address)
         return [
             Response(
-                address: address.convert(to: .base64url(flags: [.bounceable])),
+                address: account.convienceSelectedAddress.description,
                 publicKey: keyPublic,
                 walletVersion: kind.name
             )

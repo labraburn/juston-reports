@@ -25,7 +25,6 @@ struct WKWeb3RequestAccountsEvent: WKWeb3Event {
             throw WKWeb3Error(.unauthorized)
         }
         
-        let address = Address(rawValue: account.selectedContract.address)
-        return [address.convert(to: .base64url(flags: [.bounceable]))]
+        return [account.convienceSelectedAddress.description]
     }
 }

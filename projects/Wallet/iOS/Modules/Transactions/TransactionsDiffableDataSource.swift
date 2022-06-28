@@ -196,7 +196,7 @@ extension TransactionsDiffableDataSource.Section: Hashable {
 extension TransactionsTransactionCollectionViewCell.Model {
     
     init(transaction: PersistencePendingTransaction) {
-        from = Address(rawValue: transaction.account.selectedContract.address)
+        from = transaction.account.convienceSelectedAddress
         to = [transaction.destinationAddress]
         
         kind = .pending
@@ -205,21 +205,21 @@ extension TransactionsTransactionCollectionViewCell.Model {
     
     init(transaction: PersistenceProcessedTransaction) {
         if !transaction.out.isEmpty {
-            from = Address(rawValue: transaction.account.selectedContract.address)
+            from = transaction.account.convienceSelectedAddress
             to = transaction.out.compactMap({ $0.destinationAddress })
             
             kind = .out
             value = transaction.out.reduce(into: Currency(value: 0), { $0 += $1.value })
         } else if let action = transaction.in {
-            from = Address(rawValue: transaction.account.selectedContract.address)
+            from = transaction.account.convienceSelectedAddress
             to = [action].compactMap({ $0.destinationAddress })
             
             kind = .in
             value = action.value
         } else {
             // Possible just deploying or SMC run
-            from = Address(rawValue: transaction.account.selectedContract.address)
-            to = [Address(rawValue: transaction.account.selectedContract.address)]
+            from = transaction.account.convienceSelectedAddress
+            to = [transaction.account.convienceSelectedAddress]
             
             kind = .out
             value = Currency(value: 0)

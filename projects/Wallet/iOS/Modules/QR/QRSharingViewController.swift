@@ -82,7 +82,7 @@ class QRSharingViewController: UIViewController {
         view.addSubview(doneButton)
         
         let address = initialConfiguration.address
-        addressButton.setTitle(address.convert(to: .base64url(flags: [])), for: .normal)
+        addressButton.setTitle(address.description, for: .normal)
         
         let url = ConvenienceURL.transfer(
             destination: address,
@@ -157,7 +157,7 @@ class QRSharingViewController: UIViewController {
     
     @objc
     private func shareAddressButtonDidClick(_ sender: UIButton) {
-        let activityItems = [initialConfiguration.address.convert(to: .base64url(flags: []))]
+        let activityItems = [initialConfiguration.address.description]
         let activityViewController = UIActivityViewController(
             activityItems: activityItems,
             applicationActivities: nil
@@ -174,7 +174,7 @@ class QRSharingViewController: UIViewController {
     @objc
     private func addressButtonDidClick(_ sender: UIButton) {
         let address = initialConfiguration.address
-        UIPasteboard.general.string = address.convert(to: .base64url(flags: []))
+        UIPasteboard.general.string = address.description
         
         InAppAnnouncementCenter.shared.post(
             announcement: InAppAnnouncementInfo.self,

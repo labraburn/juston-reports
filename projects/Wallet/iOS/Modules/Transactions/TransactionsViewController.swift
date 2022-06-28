@@ -178,7 +178,7 @@ extension TransactionsViewController: TransactionsDiffableDataSourceDelegate {
         
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: Address(rawValue: account.selectedContract.address)
+                address: account.convienceSelectedAddress
             )
         )
         

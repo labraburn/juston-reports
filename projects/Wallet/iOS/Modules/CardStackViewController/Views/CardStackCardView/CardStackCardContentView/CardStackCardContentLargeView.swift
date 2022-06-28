@@ -214,7 +214,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
         accountCurrentAddressLabel.label.textColor = tintColor.withAlphaComponent(0.64)
-        accountCurrentAddressLabel.label.attributedText = .string(model.account.convienceSelectedAddress, with: .callout)
+        accountCurrentAddressLabel.label.attributedText = .string(model.account.convienceSelectedAddress.description, with: .callout)
         
         synchronizationLabel.textColor = tintColor.withAlphaComponent(0.7)
         

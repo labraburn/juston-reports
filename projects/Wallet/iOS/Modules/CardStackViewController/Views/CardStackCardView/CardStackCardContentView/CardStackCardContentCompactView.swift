@@ -72,14 +72,13 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         super.reload()
         
         let name = model.account.name
-        let address = Address(rawValue: model.account.selectedContract.address).convert(to: .base64url(flags: []))
         let tintColor = UIColor(rgba: model.account.appearance.tintColor)
         
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
         accountCurrentAddressLabel.textColor = tintColor.withAlphaComponent(0.3)
-        accountCurrentAddressLabel.attributedText = .string(address, with: .callout)
+        accountCurrentAddressLabel.attributedText = .string(model.account.convienceSelectedAddress.description, with: .callout)
         
         moreButton.tintColor = tintColor
         

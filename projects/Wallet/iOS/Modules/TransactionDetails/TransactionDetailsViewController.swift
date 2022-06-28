@@ -85,7 +85,7 @@ class TransactionDetailsViewController: UIViewController {
             case .out:
                 return (.hui_letter_red, "-", Set(transaction.to))
             case .in:
-                return (.hui_letter_green, "+", [transaction.from ?? Address(rawValue: account.selectedContract.address)])
+                return (.hui_letter_green, "+", [transaction.from ?? account.convienceSelectedAddress])
             }
         }()
         
@@ -115,7 +115,7 @@ class TransactionDetailsViewController: UIViewController {
         let recipientsOrSenders = recipientsOrSender.reduce(
             into: "",
             {
-                $0 = $0 + $1.convert(to: .base64url(flags: [])) + "\n"
+                $0 = $0 + $1.convert(to: .base64url(flags: [.bounceable])) + "\n"
             }
         )
         
@@ -172,7 +172,7 @@ class TransactionDetailsViewController: UIViewController {
             throw TransactionError.isPending
         }
         
-        let address = Address(rawValue: account.selectedContract.address).convert(to: .base64url(flags: []))
+        let address = account.convienceSelectedAddress.description
         let hash = id.hash.base64EncodedString()
         
         guard let url = URL(string: "https://tonscan.org/tx/\(id.logicalTime):\(hash):\(address)")

@@ -79,7 +79,7 @@ class CardStackCardContentView: UIView {
     
     @objc
     func copyAddressButtonDidClick(_ sender: UIControl?) {
-        UIPasteboard.general.string = model.account.convienceSelectedAddress
+        UIPasteboard.general.string = model.account.convienceSelectedAddress.description
         
         InAppAnnouncementCenter.shared.post(
             announcement: InAppAnnouncementInfo.self,

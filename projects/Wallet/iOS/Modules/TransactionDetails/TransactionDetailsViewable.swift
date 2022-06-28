@@ -59,17 +59,17 @@ extension PersistenceProcessedTransaction: TransactionDetailsViewable {
         } else if let action = self.in {
             return [action].compactMap({ $0.destinationAddress })
         } else {
-            return [Address(rawValue: account.selectedContract.address)]
+            return [account.convienceSelectedAddress]
         }
     }
     
     var from: Address? {
         if !out.isEmpty {
-            return Address(rawValue: account.selectedContract.address)
+            return account.convienceSelectedAddress
         } else if let _ = self.in {
-            return Address(rawValue: account.selectedContract.address)
+            return account.convienceSelectedAddress
         } else {
-            return Address(rawValue: account.selectedContract.address)
+            return account.convienceSelectedAddress
         }
     }
     

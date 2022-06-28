@@ -393,7 +393,7 @@ extension CardStackViewController: CardStackViewDelegate {
     ) {
         let viewController = QRSharingViewController(
             initialConfiguration: .init(
-                address: Address(rawValue: model.account.selectedContract.address)
+                address: model.account.convienceSelectedAddress
             )
         )
         

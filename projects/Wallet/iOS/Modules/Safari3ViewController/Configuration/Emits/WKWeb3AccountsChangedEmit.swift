@@ -21,8 +21,7 @@ extension WKWeb3AccountsChangedEmit: WKWeb3Emit {
     ) {
         self.init(
             accounts.map({
-                let address = $0.selectedContract.address
-                return Address(rawValue: address).convert(to: .base64url(flags: [.bounceable]))
+                return $0.convienceSelectedAddress.description
             })
         )
     }
