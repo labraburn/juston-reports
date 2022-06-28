@@ -9,11 +9,29 @@ final class SafariWebView: WKWebView {
     
     var additionalSafeAreaInsets: UIEdgeInsets = .zero {
         didSet {
+            scrollView.contentInsetAdjustmentBehavior = .never
+            scrollView.contentInset = additionalSafeAreaInsets
+            
             safeAreaInsetsDidChange()
         }
     }
 
     override var safeAreaInsets: UIEdgeInsets {
+        additionalSafeAreaInsets
+    }
+    
+    @objc(_computedContentInset) // css.env(safe-area-insets)
+    func _computedContentInset() -> UIEdgeInsets {
+        additionalSafeAreaInsets
+    }
+    
+    @objc(_computedObscuredInset) // css.env(safe-area-insets)
+    func _computedObscuredInset() -> UIEdgeInsets {
+        additionalSafeAreaInsets
+    }
+
+    @objc(_scrollViewSystemContentInset) // css.env(safe-area-insets)
+    func _scrollViewSystemContentInset() -> UIEdgeInsets {
         additionalSafeAreaInsets
     }
 }
