@@ -68,7 +68,9 @@ class Safari3WebView: WKWebView {
             "scaleton",
             "biton",
             "getgems",
-            "disintar"
+            "disintar",
+            "tonmarket",
+            "ton" // haha
         ]
         
         for value in hosts {
