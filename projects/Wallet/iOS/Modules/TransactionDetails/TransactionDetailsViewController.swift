@@ -175,7 +175,7 @@ class TransactionDetailsViewController: UIViewController {
         let address = Address(rawValue: account.selectedContract.address).convert(to: .base64url(flags: []))
         let hash = id.hash.base64EncodedString()
         
-        guard let url = URL(string: "https://ton.cx/tx/\(id.logicalTime):\(hash):\(address)")
+        guard let url = URL(string: "https://tonscan.org/tx/\(id.logicalTime):\(hash):\(address)")
         else {
             throw URLError(.badURL)
         }
