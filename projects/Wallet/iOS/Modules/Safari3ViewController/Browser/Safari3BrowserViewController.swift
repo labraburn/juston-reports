@@ -229,7 +229,7 @@ class Safari3BrowserViewController: UIViewController {
         switch self.presentationState {
         case .browsing:
             errorView.alpha = 0
-        case let .error(error, action):
+        case .error:
             webView.alpha = 0
         }
         
