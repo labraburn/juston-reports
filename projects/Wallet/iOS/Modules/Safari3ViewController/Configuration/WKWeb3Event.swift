@@ -5,18 +5,21 @@
 //  Created by Anton Spivak on 27.06.2022.
 //
 
-import Foundation
+import UIKit
+import HuetonCORE
 
 protocol WKWeb3Event {
     
     associatedtype B = Decodable
     associatedtype R = Encodable
     
-    static var name: String { get }
+    static var names: [String] { get }
     
     init()
     
     func process(
+        account: PersistenceAccount?,
+        context: UIViewController,
         _ body: B
     ) async throws -> R
 }

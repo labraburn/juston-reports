@@ -10,12 +10,18 @@ import WebKit
 
 protocol WKWeb3EventDispatcher: AnyObject {
     
+    var context: UIViewController? { get }
+    
     func dispatch(
         _ response: String
     ) async throws
 }
 
 extension WKWebView: WKWeb3EventDispatcher {
+    
+    var context: UIViewController? {
+        nil
+    }
     
     func dispatch(
         _ response: String

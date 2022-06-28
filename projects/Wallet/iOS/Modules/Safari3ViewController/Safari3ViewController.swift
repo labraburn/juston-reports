@@ -45,6 +45,7 @@ class Safari3ViewController: UIViewController {
         didSet {
             searchViewController.account = account
             welcomeViewController.account = account
+            browserViewController.account = account
         }
     }
 

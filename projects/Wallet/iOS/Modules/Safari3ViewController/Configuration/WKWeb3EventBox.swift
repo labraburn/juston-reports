@@ -5,12 +5,15 @@
 //  Created by Anton Spivak on 27.06.2022.
 //
 
-import Foundation
+import UIKit
+import HuetonCORE
 
 struct WKWeb3EventBox {
     
-    let name: String
+    let names: [String]
     let process: (
+        _ account: PersistenceAccount?,
+        _ context: UIViewController,
         _ value: Data,
         _ decoder: JSONDecoder,
         _ encoder: JSONEncoder
@@ -19,12 +22,18 @@ struct WKWeb3EventBox {
     init<T>(
         _ value: T.Type
     ) where T: WKWeb3Event, T.B: Decodable, T.R: Encodable {
-        name = T.name
-        process = { value, decoder, encoder in
+        names = T.names
+        process = { account, context, value, decoder, encoder in
             let decoded = try decoder.decode(T.B.self, from: value)
-            let result = try await T.init().process(decoded)
-            let encoded = try encoder.encode(result)
-            return encoded
+            let result = try await T.init().process(
+                account: account,
+                context: context,
+                decoded
+            )
+            
+            return try encoder.encode(
+                result
+            )
         }
     }
 }

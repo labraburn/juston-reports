@@ -17,7 +17,7 @@
 		F003FF062869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */; };
 		F003FF09286A121800623AC0 /* WKWeb3Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */; };
 		F003FF0B286A136100623AC0 /* WKWeb3Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF0A286A136100623AC0 /* WKWeb3Event.swift */; };
-		F003FF12286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */; };
+		F003FF12286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */; };
 		F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */; };
 		F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */; };
 		F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */; };
@@ -150,6 +150,10 @@
 		F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */; };
 		F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */; };
 		F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */; };
+		F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */; };
+		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
+		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
+		F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,7 +167,7 @@
 		F003FF052869FEE000623AC0 /* Safari3SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		F003FF08286A121800623AC0 /* WKWeb3Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Configuration.swift; sourceTree = "<group>"; };
 		F003FF0A286A136100623AC0 /* WKWeb3Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Event.swift; sourceTree = "<group>"; };
-		F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AuthenticateEvent.swift; sourceTree = "<group>"; };
+		F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestAccountsEvent.swift; sourceTree = "<group>"; };
 		F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SignEvent.swift; sourceTree = "<group>"; };
 		F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventBox.swift; sourceTree = "<group>"; };
 		F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventDispatcher.swift; sourceTree = "<group>"; };
@@ -302,6 +306,10 @@
 		F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.swift; sourceTree = "<group>"; };
 		F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3UndefinedEvent.swift; sourceTree = "<group>"; };
+		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
+		F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SendTransactionEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,8 +391,12 @@
 		F003FF10286A17A200623AC0 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				F003FF11286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift */,
+				F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */,
+				F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */,
+				F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */,
+				F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */,
 				F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */,
+				F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -842,11 +854,12 @@
 		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F0FDEFCD286A936400982A0A /* Confirmation */,
+				F0FDEFCC286A935C00982A0A /* Browser */,
 				F003FF07286A11A800623AC0 /* Configuration */,
 				F003FEFC2869F97D00623AC0 /* Search */,
 				F0C23D992868BB170052B2C5 /* Welcome */,
 				F0AAC13228654FA600F25C26 /* Safari3ViewController.swift */,
-				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
 				F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */,
 			);
 			path = Safari3ViewController;
@@ -1006,6 +1019,21 @@
 			path = Confirmation;
 			sourceTree = "<group>";
 		};
+		F0FDEFCC286A935C00982A0A /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				F0AAC1342865548700F25C26 /* Safari3BrowserViewController.swift */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		F0FDEFCD286A936400982A0A /* Confirmation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Confirmation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1108,6 +1136,7 @@
 				F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */,
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
+				F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */,
 				F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
@@ -1153,6 +1182,7 @@
 				F09E2A29283E929D00D7BC55 /* QRSharingViewController.InitialConfiguration.swift in Sources */,
 				F0F0714228329D74009AA6F9 /* TransferDetailsViewController.swift in Sources */,
 				F0909B6327E8DB1900FC8404 /* C42TextFieldCell.swift in Sources */,
+				F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */,
 				F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */,
 				F09E2A27283E925E00D7BC55 /* QRSharingViewController.swift in Sources */,
 				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
@@ -1172,7 +1202,7 @@
 				F0678149281AA51F00EB05F4 /* VerticalLabelContainerView.swift in Sources */,
 				F0909B5127E88D8200FC8404 /* C42ButtonCell.swift in Sources */,
 				F0AAC1372865549400F25C26 /* Safari3SearchViewController.swift in Sources */,
-				F003FF12286A17AC00623AC0 /* WKWeb3AuthenticateEvent.swift in Sources */,
+				F003FF12286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift in Sources */,
 				F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */,
 				F0AAC12C2864095200F25C26 /* AccountStackLogotypeView.swift in Sources */,
 				F0BC3C3D280391D10036F53A /* PasscodeCreation.swift in Sources */,
@@ -1194,6 +1224,7 @@
 				F0AAC12E28653A2600F25C26 /* AccountStackBrowserNavigationView.swift in Sources */,
 				F0A1514C280256FF00EF9F83 /* C42ViewController.swift in Sources */,
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
+				F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
 				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,
@@ -1209,6 +1240,7 @@
 				F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */,
 				F09E2A2E283FDF7100D7BC55 /* PermissionError.swift in Sources */,
 				F0995F9727A0B966003A090C /* main.swift in Sources */,
+				F0FDEFD3286A95E300982A0A /* WKWeb3SendTransactionEvent.swift in Sources */,
 				F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */,
 				F09D962D285A153300650047 /* CardStackCardLoadingView.swift in Sources */,
 				F0995F9B27A0B9C5003A090C /* ApplicationWindow.swift in Sources */,

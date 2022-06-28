@@ -288,23 +288,23 @@ extension Contract.Kind {
         case .uninitialized:
             return "AccountContracrtNameUninitialized".asLocalizedKey
         case .walletV1R1:
-            return "V1R1"
+            return "v1R1"
         case .walletV1R2:
-            return "V1R2"
+            return "v1R2"
         case .walletV1R3:
-            return "V1R3"
+            return "v1R3"
         case .walletV2R1:
-            return "V2R1"
+            return "v2R1"
         case .walletV2R2:
-            return "V2R2"
+            return "v2R2"
         case .walletV3R1:
-            return "V3R1"
+            return "v3R1"
         case .walletV3R2:
-            return "V3R2"
+            return "v3R2"
         case .walletV4R1:
-            return "V4R1"
+            return "v4R1"
         case .walletV4R2:
-            return "V4R2"
+            return "v4R2"
         }
     }
 }

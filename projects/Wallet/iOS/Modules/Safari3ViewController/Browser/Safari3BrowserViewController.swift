@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 import HuetonUI
+import HuetonCORE
 
 protocol Safari3BrowserViewControllerDelegate: AnyObject {
     
@@ -35,12 +36,11 @@ class Safari3BrowserViewController: UIViewController {
         case browsing
     }
     
-    private lazy var webView = Safari3WebView(
-        frame: .zero,
-        configuration: WKWeb3Configuration().with({
-            $0.dispatcher = self
-        })
-    ).with({
+    private lazy var configuration = WKWeb3Configuration().with({
+        $0.dispatcher = self
+    })
+    
+    private lazy var webView = Safari3WebView(frame: .zero, configuration: configuration).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.allowsBackForwardNavigationGestures = true
     })
@@ -82,6 +82,12 @@ class Safari3BrowserViewController: UIViewController {
             reload(
                 using: newValue
             )
+        }
+    }
+    
+    var account: PersistenceAccount? {
+        didSet {
+            configuration.account = account
         }
     }
     
@@ -360,6 +366,10 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
 }
 
 extension Safari3BrowserViewController: WKWeb3EventDispatcher {
+    
+    var context: UIViewController? {
+        self
+    }
     
     func dispatch(
         _ response: String

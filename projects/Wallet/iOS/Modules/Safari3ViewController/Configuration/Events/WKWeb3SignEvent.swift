@@ -5,29 +5,39 @@
 //  Created by Anton Spivak on 27.06.2022.
 //
 
-import Foundation
+import UIKit
+import HuetonCORE
 
 struct WKWeb3SignEvent: WKWeb3Event {
     
     struct Body: Decodable {
         
-        let value: String
+        let data: String
     }
     
-    struct Response: Encodable {
-        
-        let value2: Int
-    }
-    
-    typealias B = Body
-    typealias R = Response
-    
-    static let name = "sign"
+    static let names = ["ton_rawSign"]
     
     func process(
+        account: PersistenceAccount?,
+        context: UIViewController,
         _ body: Body
-    ) async throws -> Response {
-        throw WKWeb3Error(.chainDisconnected)
-//        Response(value2: 56)
+    ) async throws -> String {
+        guard let account = account,
+              let key = account.keyIfAvailable
+        else {
+            throw WKWeb3Error(.unauthorized)
+        }
+        
+        let boc = BOC(rawValue: body.data)
+        
+        let authentication = PasscodeAuthentication(inside: context)
+        let passcode = try await authentication.key()
+        
+        let signature = try await boc.signature(
+            with: key,
+            localUserPassword: passcode
+        )
+        
+        return signature.toHexString()
     }
 }
