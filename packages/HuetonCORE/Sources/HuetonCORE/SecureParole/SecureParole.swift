@@ -93,11 +93,13 @@ public struct SecureParole {
         let secAccessControl = try accessControl.secAccessControl
         
         let context = accessControl.context
+        #if !targetEnvironment(simulator)
         try await context.evaluate(
             operation: .useItem,
             accessControl: secAccessControl,
             localizedReason: "We should know it's really you"
         )
+        #endif
         
         let query = keychainQuery()
         query[kSecAttrAccount] = accessControl.secAttrAccount
