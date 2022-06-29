@@ -51,8 +51,10 @@ class C42ButtonCell: UICollectionViewCell {
     }
     
     private var button: HuetonButton? = nil {
-        didSet {
+        willSet {
             button?.removeFromSuperview()
+        }
+        didSet {
             guard let button = button
             else {
                 return
