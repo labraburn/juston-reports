@@ -22,10 +22,20 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
             case boc
         }
         
+        /// recepient
         let to: String
+        
+        /// amount in nanotons
         let value: String
-        let dataType: DataType
-        let data: String
+        
+        /// type of `data`
+        let dataType: DataType?
+        
+        /// depends on `dataType`
+        let data: String?
+        
+        /// boc
+        let stateInit: String?
     }
     
     static let names = ["ton_sendTransaction"]
@@ -65,19 +75,29 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         let passcode = try await authentication.key()
         
         var data: Data? = nil
-        switch body.dataType {
-        case .text:
-            data = body.data.data(using: .utf8, allowLossyConversion: true)
-        case .hex:
-            data = Data(hex: body.data)
-        case .base64, .boc:
-            data = Data(base64Encoded: body.data)
+        var initialState: Data? = nil
+        
+        if let bodyData = body.data,
+           let bodyDataType = body.dataType
+        {
+            switch bodyDataType {
+            case .text:
+                data = bodyData.data(using: .utf8, allowLossyConversion: true)
+            case .hex:
+                data = Data(hex: bodyData)
+            case .base64, .boc:
+                data = Data(base64Encoded: bodyData)
+            }
+        }
+        
+        if let bodyStateInit = body.stateInit {
+            initialState = Data(base64Encoded: bodyStateInit)
         }
         
         let message = try await account.transfer(
             to: address,
             amount: amount,
-            payload: data,
+            message: (data, initialState),
             passcode: passcode
         )
         

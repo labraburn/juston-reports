@@ -323,7 +323,7 @@ extension PersistenceAccount {
         try await transfer(
             to: destination,
             amount: amount,
-            payload: message?.data(using: .utf8),
+            message: (message?.data(using: .utf8), nil),
             passcode: passcode
         )
     }
@@ -331,7 +331,7 @@ extension PersistenceAccount {
     public func transfer(
         to destination: Address,
         amount: Currency,
-        payload: Data?,
+        message: (body: Data?, initial: Data?),
         passcode: Data
     ) async throws -> Message {
         guard let key = keyIfAvailable
@@ -342,17 +342,23 @@ extension PersistenceAccount {
         let fromAddress = selectedContract.address
         let selectedContractKind = selectedContract.kind
         
+        // Getting updated contract
         var contract = try await Contract(rawAddress: fromAddress)
+        
+        // Check updated contract info
         let selectedContractInfo = contract.info
         
         switch contract.kind {
         case .none:
             throw ContractError.unknownContractType
         case .uninitialized:
+            // Check kind selected by user
             switch selectedContractKind {
             case .none, .uninitialized, .walletV1R1, .walletV1R2, .walletV1R3:
+                // We don't have code of this contracts
                 throw ContractError.unknownContractType
             default:
+                // Use kind selected by user
                 contract = Contract(
                     rawAddress: fromAddress,
                     info: selectedContractInfo,
@@ -369,10 +375,10 @@ extension PersistenceAccount {
             throw ContractError.unknownContractType
         }
         
-        return try await wallet.transfer(
+        return try await wallet.subsequentTransferMessage(
             to: destination,
             amount: amount,
-            payload: payload,
+            message: message,
             key: key,
             passcode: passcode
         )
