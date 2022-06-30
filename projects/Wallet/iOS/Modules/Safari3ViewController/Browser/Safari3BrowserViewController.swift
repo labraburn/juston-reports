@@ -308,12 +308,16 @@ extension Safari3BrowserViewController: WKNavigationDelegate {
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction
     ) async -> WKNavigationActionPolicy {
-        let policy: WKNavigationActionPolicy
+        guard let url = navigationAction.request.url,
+              !Application.shared.openURLIfAvailable(url)
+        else {
+            return .cancel
+        }
         
-        if let url = navigationAction.request.url,
-            !url.absoluteString.hasPrefix("http://"),
-            !url.absoluteString.hasPrefix("https://"),
-            UIApplication.shared.canOpenURL(url)
+        let policy: WKNavigationActionPolicy
+        if !url.absoluteString.hasPrefix("http://"),
+           !url.absoluteString.hasPrefix("https://"),
+           UIApplication.shared.canOpenURL(url)
         {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             policy = .cancel

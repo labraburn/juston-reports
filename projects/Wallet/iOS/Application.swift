@@ -36,6 +36,17 @@ class Application: UIApplication {
         foregroundActiveApplicationWindowScenes.first
     }
     
+    func openURLIfAvailable(
+        _ url: URL
+    ) -> Bool {
+        guard let sceneDelegate = foregroundActiveApplicationWindowScene?.sceneDelegate
+        else {
+            return false
+        }
+        
+        return sceneDelegate.openURLIfAvailable(url)
+    }
+    
     /// Handle UITextView URLs
     @objc(_openURL:originatingView:completionHandler:)
     func _openURL(

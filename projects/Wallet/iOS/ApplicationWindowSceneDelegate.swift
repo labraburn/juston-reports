@@ -60,10 +60,8 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         openURLIfAvailable(URLContext.url)
     }
     
-    // Private
-    
     @discardableResult
-    private func openURLIfAvailable(
+    func openURLIfAvailable(
         _ url: URL
     ) -> Bool {
         guard let deeplinkURL = DeeplinkURL(url)
