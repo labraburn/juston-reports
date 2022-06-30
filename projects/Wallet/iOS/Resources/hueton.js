@@ -167,6 +167,8 @@ class Provider {
 const provider = new Provider();
 
 window.ton = provider;
+window.tonProtocolVersion = 1;
+
 window.hueton = provider;
 
 window.addEventListener("WKWeb3EventResponse", function(event) {
