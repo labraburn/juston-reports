@@ -21,7 +21,10 @@ public extension PersistenceProcessedAction {
                 return nil
             }
             
-            return Address(rawValue: rawAddress)
+            return Address(
+                rawValue: rawAddress,
+                flags: [.bounceable]
+            )
         }
         set {
             raw_source_address = newValue?.rawValue.rawValue
@@ -36,7 +39,10 @@ public extension PersistenceProcessedAction {
                 return nil
             }
             
-            return Address(rawValue: rawAddress)
+            return Address(
+                rawValue: rawAddress,
+                flags: [.bounceable]
+            )
         }
         set {
             raw_destination_address = newValue?.rawValue.rawValue

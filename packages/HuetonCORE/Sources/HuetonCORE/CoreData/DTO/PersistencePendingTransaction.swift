@@ -74,10 +74,11 @@ public extension PersistencePendingTransaction {
     
     var destinationAddress: Address {
         get {
-            guard let address = Address(string: raw_destination_address)
+            guard var address = Address(string: raw_destination_address)
             else {
                 fatalError("Looks like data is fault.")
             }
+            address.flags = [.bounceable]
             return address
         }
         set {
