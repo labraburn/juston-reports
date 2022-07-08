@@ -21,7 +21,7 @@
 
 /* START - Onboarding */
 "OnboardingWelcomeTitle" = "Hey!";
-"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-castodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
+"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-custodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
 
 "OnboardingAgreementsTitle" = "User agreements";
 "OnboardingAgreementsDescription" = "Please, review our %@ and %@ after tap accept button if you are satisfied";
@@ -175,7 +175,7 @@
 
 /* START - Developer */
 "DeveloperTitle" = "Developer";
-"DeveloperDescription" = "This is page only for developers. Some action can be dangerius!";
+"DeveloperDescription" = "This is page only for developers. Some action can be dangerous!";
 
 "DeveloperCopyAPNs" = "Copy APNs token";
 "DeveloperClearAllDataButton" = "Clear all data";
