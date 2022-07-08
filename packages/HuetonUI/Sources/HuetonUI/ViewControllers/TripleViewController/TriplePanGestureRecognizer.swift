@@ -34,7 +34,7 @@ internal final class TriplePanGestureRecognizer: UIPanGestureRecognizer {
         onto position: CGPoint
     ) -> CGPoint {
         // UIScrollView.DecelerationRate
-        let decelerationRate: Double = 0.995
+        let decelerationRate: Double = 0.9966
         let factor = -1 / (1000 * log(decelerationRate))
         return CGPoint(
             x: position.x + factor * velocity.x,
