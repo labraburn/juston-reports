@@ -55,6 +55,11 @@ open class TripleViewController: UIViewController {
         tripleView.presentation
     }
     
+    public var isGesturesEnabled: Bool {
+        get { tripleView.panGestureRecognizer.isEnabled }
+        set { tripleView.panGestureRecognizer.isEnabled = newValue }
+    }
+    
     public let viewControlles: (UIViewController, TripleMiddleViewController, UIViewController)
     
     public weak var delegate: TripleViewControllerDelegate?

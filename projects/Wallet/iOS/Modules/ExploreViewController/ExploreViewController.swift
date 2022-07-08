@@ -16,6 +16,14 @@ class ExploreViewController: TripleViewController {
     
     private var account: PersistenceAccount? = nil {
         didSet {
+            isGesturesEnabled = account != nil
+            if account == nil {
+                update(
+                    presentation: .middle,
+                    animated: viewIfLoaded?.window != nil
+                )
+            }
+            
             safari3ViewController.account = account
             transactionsViewController.account = account
             

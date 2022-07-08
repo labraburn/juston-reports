@@ -46,7 +46,7 @@ internal final class TripleView: UIView {
         )
     }
     
-    private lazy var panGestureRecognizer = TriplePanGestureRecognizer().with({
+    internal lazy var panGestureRecognizer = TriplePanGestureRecognizer().with({
         $0.maximumNumberOfTouches = 1
         $0.minimumNumberOfTouches = 1
         $0.delegate = self
