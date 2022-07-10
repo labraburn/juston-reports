@@ -18,17 +18,9 @@ public extension Configuration {
     
     static let main = Configuration(
         network: .main,
-        logging: Configuration.defaultLogging,
+        logging: .warning,
         keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore)
     )
-    
-    private static var defaultLogging: Logging {
-        #if DEBUG
-        return .info
-        #else
-        return .never
-        #endif
-    }
 }
 
 public struct HuetonCORE {
@@ -38,7 +30,7 @@ public struct HuetonCORE {
         AccountAppearanceTransformer.register()
         BrowserBannerActionTransformer.register()
         
-        SwiftyTON.configurate(with: .test)
+        SwiftyTON.configurate(with: .main)
         ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
         
         
