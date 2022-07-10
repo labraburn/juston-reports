@@ -42,9 +42,9 @@ extension BrowserBannerAction.InApp {
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
-                                title: "BITON",
+                                title: "ResistancePack",
                                 subtitle: nil,
-                                url: URL(string: "https://dex.biton.app")!,
+                                url: URL(string: "https://resistancepack.org")!,
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
