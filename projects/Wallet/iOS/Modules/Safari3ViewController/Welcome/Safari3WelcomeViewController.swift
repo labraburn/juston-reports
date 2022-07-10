@@ -30,6 +30,7 @@ protocol Safari3WelcomeViewControllerDelegate: AnyObject {
 class Safari3WelcomeViewController: UIViewController {
     
     private var fetchResultsController: FetchedResultsControllerCombination2<String, PersistenceBrowserBanner, String, PersistenceBrowserFavourite>?
+    private var ortohonalScrollViewTimer: Timer?
     
     private lazy var collectionViewLayout: Safari3WelcomeCollectionViewLayout = {
         let layout = Safari3WelcomeCollectionViewLayout()
@@ -63,6 +64,10 @@ class Safari3WelcomeViewController: UIViewController {
         }
     }
     
+    deinit {
+        ortohonalScrollViewTimer?.invalidate()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,6 +81,8 @@ class Safari3WelcomeViewController: UIViewController {
             bottom: 16,
             right: 0
         )
+        
+        ortohonalScrollViewTimerRestart()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,6 +136,74 @@ class Safari3WelcomeViewController: UIViewController {
             let object = PersistenceBrowserFavourite.writeableObject(id: id)
             try? object.delete()
         }
+    }
+    
+    private func ortohonalScrollViewTimerRestart() {
+        ortohonalScrollViewTimer?.invalidate()
+        ortohonalScrollViewTimer = nil
+        
+        ortohonalScrollViewTimer = Timer.scheduledTimer(
+            withTimeInterval: 12,
+            repeats: true,
+            block: { [weak self] _ in
+                self?.ortohonalScrollViewTimerDidUpdate()
+            }
+        )
+    }
+    
+    private func ortohonalScrollViewForItemAtIndexPath(
+        _ indexPath: IndexPath
+    ) -> UIScrollView? {
+        let collectionViewCell = collectionView.cellForItem(at: indexPath)
+        return collectionViewCell?.superview as? UIScrollView
+    }
+    
+    private func ortohonalScrollViewTimerDidUpdate() {
+        // scroll .banners section
+        
+        let visisbleSectionItems = collectionView.indexPathsForVisibleItems.filter({ $0.section == 0 })
+        guard visisbleSectionItems.count > 1
+        else {
+            return
+        }
+        
+        guard let ortohonalScrollView = ortohonalScrollViewForItemAtIndexPath(visisbleSectionItems[0]),
+              !ortohonalScrollView.isDragging,
+              !ortohonalScrollView.isTracking,
+              !ortohonalScrollView.isDecelerating
+        else {
+            return
+        }
+        
+        let minimumContentOffsetX = -CGFloat(ortohonalScrollView.contentInset.left)
+        let maximumContentOffsetX = (ortohonalScrollView.contentSize.width - ortohonalScrollView.bounds.width) + ortohonalScrollView.contentInset.right
+        let contentOffsetXStep = ortohonalScrollView.bounds.width + 12 // spacing `Safari3WelcomeCollectionViewLayout: .banners`
+        
+        var nextContentOffsetX = ortohonalScrollView.contentOffset.x + contentOffsetXStep
+        if nextContentOffsetX > maximumContentOffsetX {
+            nextContentOffsetX = minimumContentOffsetX
+        }
+        
+        ortohonalScrollView.setContentOffset(
+            CGPoint(x: nextContentOffsetX, y: ortohonalScrollView.contentOffset.y),
+            animated: true
+        )
+    }
+}
+
+extension Safari3WelcomeViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !decelerate
+        else {
+            return
+        }
+        
+        ortohonalScrollViewTimerRestart()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        ortohonalScrollViewTimerRestart()
     }
 }
 
