@@ -121,7 +121,7 @@ public extension PersistenceAccount {
             raw_selected_contract_kind = newValue.kind?.rawValue.rawValue
         }
         get {
-            guard let address = Address.RawAddress(rawValue: raw_selected_address)
+            guard let address = Address(rawValue: raw_selected_address)
             else {
                 fatalError("Looks like data is fault.")
             }
@@ -262,7 +262,7 @@ public extension PersistenceAccount {
     ) -> NSFetchRequest<PersistenceAccount> {
         let request = NSFetchRequest<PersistenceAccount>(entityName: "Account")
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-            NSPredicate(format: "raw_selected_address == %@", selectedAddress.rawValue.rawValue),
+            NSPredicate(format: "raw_selected_address == %@", selectedAddress.rawValue),
         ])
         return request
     }
@@ -298,13 +298,13 @@ public extension PersistenceAccount {
 extension PersistenceAccount {
     
     /// returns bouncable if contract inititalized, else - nonbouncable
-    public var convienceSelectedAddress: Address {
-        var address = Address(rawValue: selectedContract.address)
+    public var convienceSelectedAddress: ConcreteAddress {
+        var address = ConcreteAddress(address: selectedContract.address)
         switch contractKind {
         case .uninitialized:
-            address.flags = []
+            address.representation = .base64url(flags: [])
         default:
-            address.flags = [.bounceable]
+            address.representation = .base64url(flags: [.bounceable])
         }
         return address
     }
@@ -315,7 +315,7 @@ extension PersistenceAccount {
 extension PersistenceAccount {
     
     public func transfer(
-        to destination: Address,
+        to destination: ConcreteAddress,
         amount: Currency,
         message: String?,
         passcode: Data
@@ -329,7 +329,7 @@ extension PersistenceAccount {
     }
     
     public func transfer(
-        to destination: Address,
+        to destination: ConcreteAddress,
         amount: Currency,
         message: (body: Data?, initial: Data?),
         passcode: Data
@@ -343,7 +343,7 @@ extension PersistenceAccount {
         let selectedContractKind = selectedContract.kind
         
         // Getting updated contract
-        var contract = try await Contract(rawAddress: fromAddress)
+        var contract = try await Contract(address: fromAddress)
         
         // Check updated contract info
         let selectedContractInfo = contract.info
@@ -360,7 +360,7 @@ extension PersistenceAccount {
             default:
                 // Use kind selected by user
                 contract = Contract(
-                    rawAddress: fromAddress,
+                    address: fromAddress,
                     info: selectedContractInfo,
                     kind: selectedContractKind,
                     data: .zero

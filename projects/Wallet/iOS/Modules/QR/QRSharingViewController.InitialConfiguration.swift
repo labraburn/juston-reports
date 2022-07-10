@@ -12,6 +12,6 @@ extension QRSharingViewController {
     
     struct InitialConfiguration {
         
-        let address: Address
+        let address: ConcreteAddress
     }
 }

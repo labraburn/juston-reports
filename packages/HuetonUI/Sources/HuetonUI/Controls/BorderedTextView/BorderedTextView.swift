@@ -27,6 +27,8 @@ public class BorderedTextView: UIView {
         $0.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
         $0.textAlignment = .left
         $0.textColor = UIColor(rgb: 0xA6A0BB)
+        $0.numberOfLines = 0
+        $0.setContentCompressionResistancePriority(.required + 1, for: .vertical)
     })
     
     private let borderView = GradientBorderedView(colors: [UIColor(rgb: 0x85FFC4), UIColor(rgb: 0xBC85FF)]).with({
@@ -53,6 +55,7 @@ public class BorderedTextView: UIView {
     })
     
     private var textViewRightConstraint: NSLayoutConstraint? = nil
+    private var captionLabelRightConstraint: NSLayoutConstraint? = nil
     
     public var caption: String = "" {
         didSet {
@@ -65,6 +68,7 @@ public class BorderedTextView: UIView {
             if actions.isEmpty {
                 actionsStackView.removeFromSuperview()
                 textViewRightConstraint?.constant = 10
+                captionLabelRightConstraint?.constant = 16
             } else if actionsStackView.superview == nil {
                 addSubview(actionsStackView)
                 NSLayoutConstraint.activate({
@@ -72,8 +76,10 @@ public class BorderedTextView: UIView {
                     rightAnchor.pin(to: actionsStackView.rightAnchor, constant: 16)
                 })
                 textViewRightConstraint?.constant = 48
+                captionLabelRightConstraint?.constant = 52
             } else {
                 textViewRightConstraint?.constant = 48
+                captionLabelRightConstraint?.constant = 52
             }
             
             actionsStackView.arrangedSubviews.forEach({
@@ -125,14 +131,15 @@ public class BorderedTextView: UIView {
         addSubview(textView)
         
         let textViewRightConstraint = rightAnchor.constraint(equalTo: textView.rightAnchor, constant: 10)
-        
+        let captionLabelRightConstraint = rightAnchor.constraint(equalTo: captionLabel.rightAnchor, constant: 16)
         
         NSLayoutConstraint.activate({
             borderView.pin(edges: self)
             
             captionLabel.topAnchor.pin(to: topAnchor, constant: 12)
-            captionLabel.pin(horizontally: self, left: 16, right: 16)
-            captionLabel.heightAnchor.pin(to: 16)
+            captionLabel.leftAnchor.pin(to: leftAnchor, constant: 16)
+            captionLabelRightConstraint
+            captionLabel.heightAnchor.pin(greaterThan: 16)
 
             textView.topAnchor.pin(to: captionLabel.bottomAnchor, constant: 4)
             textView.leftAnchor.pin(to: leftAnchor, constant: 10)
@@ -142,6 +149,8 @@ public class BorderedTextView: UIView {
         })
         
         self.textViewRightConstraint = textViewRightConstraint
+        self.captionLabelRightConstraint = captionLabelRightConstraint
+        
         setFocused(false, animated: false)
     }
     

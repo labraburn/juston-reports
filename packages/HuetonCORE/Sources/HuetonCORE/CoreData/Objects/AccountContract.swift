@@ -7,11 +7,11 @@ import SwiftyTON
 
 public struct AccountContract {
     
-    public let address: Address.RawAddress
+    public let address: Address
     public let kind: Contract.Kind?
     
     public init(
-        address: Address.RawAddress,
+        address: Address,
         kind: Contract.Kind?
     ) {
         self.address = address

@@ -24,7 +24,7 @@ class TransferDetailsViewController: UIViewController {
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
     
-    private lazy var destinationAddressView = BorderedTextView(caption: "CommonAddress".asLocalizedKey).with({
+    private lazy var destinationAddressView = BorderedTextView(caption: "TransferDetailsAddressDescription".asLocalizedKey).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textView.delegate = self
         $0.textView.keyboardType = .asciiCapable
@@ -71,7 +71,7 @@ class TransferDetailsViewController: UIViewController {
 
     let initialConfiguration: InitialConfiguration
     
-    private var outDestinationAddress: Address?
+    private var outDestinationAddress: String?
     private var outAmount: Currency?
     private var outMessage: String?
     
@@ -105,7 +105,7 @@ class TransferDetailsViewController: UIViewController {
         view.addSubview(processButton)
         view.addSubview(cancelButton)
         
-        destinationAddressView.textView.text = initialConfiguration.toAddress?.description ?? ""
+        destinationAddressView.textView.text = initialConfiguration.toAddress?.displayName ?? ""
         destinationAddressView.actions = [
             .init(
                 image: .hui_scan20,
@@ -204,19 +204,27 @@ class TransferDetailsViewController: UIViewController {
     }
     
     private func prepareMessageAndConfirm(
-        outAddress: Address,
+        outAddress: String,
         amount: Currency,
         message: String?,
         sender: HuetonButton
     ) {
         let fromAccount = initialConfiguration.fromAccount
+        let fromAddress = fromAccount.selectedContract.address
+        
         sender.startAsynchronousOperation({ [weak self] in
             do {
+                guard let displayableAddress = await DisplayableAddress(string: outAddress),
+                      displayableAddress.concreteAddress.address != fromAddress
+                else {
+                    throw AddressError.unparsable
+                }
+                
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
                 
                 let message = try await fromAccount.transfer(
-                    to: outAddress,
+                    to: displayableAddress.concreteAddress,
                     amount: amount,
                     message: message,
                     passcode: passcode
@@ -226,14 +234,16 @@ class TransferDetailsViewController: UIViewController {
                 let confimationViewController = await TransferConfirmationViewController(
                     initialConfiguration: .init(
                         fromAccount: fromAccount,
-                        toAddress: outAddress,
+                        toAddress: displayableAddress,
                         amount: amount,
                         message: message,
                         estimatedFees: fees
                     )
                 )
-
+                
                 await self?.show(confimationViewController, sender: nil)
+            } catch AddressError.unparsable {
+                await self?.markTextViewAsError(await self?.destinationAddressView.textView)
             } catch is CancellationError {
             } catch {
                 await self?.present(error)
@@ -241,9 +251,9 @@ class TransferDetailsViewController: UIViewController {
         })
     }
     
-    fileprivate func markTextViewAsError(_ textView: UITextView) {
-        textView.superview?.shake()
-        textView.textColor = .hui_letter_red
+    fileprivate func markTextViewAsError(_ textView: UITextView?) {
+        textView?.superview?.shake()
+        textView?.textColor = .hui_letter_red
         errorFeedbackGenerator.impactOccurred()
     }
     
@@ -353,13 +363,7 @@ extension TransferDetailsViewController: UITextViewDelegate {
         
         switch textView {
         case destinationAddressView.textView:
-            guard let address = Address(string: textView.text),
-                  address != Address(rawValue: initialConfiguration.fromAccount.selectedContract.address)
-            else {
-                markTextViewAsError(textView)
-                return
-            }
-            outDestinationAddress = address
+            outDestinationAddress = textView.text
         case amountTextView.textView:
             guard let amount = Currency(value: textView.text),
                   amount > 0

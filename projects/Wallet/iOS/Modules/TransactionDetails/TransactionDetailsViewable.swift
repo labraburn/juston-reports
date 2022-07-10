@@ -15,8 +15,8 @@ protocol TransactionDetailsViewable {
     var fees: Currency { get }
     var kind: TransactionViewableKind { get }
     var date: Date { get }
-    var to: [Address] { get }
-    var from: Address? { get }
+    var to: [ConcreteAddress] { get }
+    var from: ConcreteAddress? { get }
     var message: String? { get }
 }
 
@@ -53,7 +53,7 @@ extension PersistenceProcessedTransaction: TransactionDetailsViewable {
         }
     }
     
-    var to: [Address] {
+    var to: [ConcreteAddress] {
         if !out.isEmpty {
             return out.compactMap({ $0.destinationAddress })
         } else if let action = self.in {
@@ -63,7 +63,7 @@ extension PersistenceProcessedTransaction: TransactionDetailsViewable {
         }
     }
     
-    var from: Address? {
+    var from: ConcreteAddress? {
         if !out.isEmpty {
             return account.convienceSelectedAddress
         } else if let action = self.in {
@@ -99,7 +99,7 @@ extension PersistencePendingTransaction: TransactionDetailsViewable {
     var kind: TransactionViewableKind { .pending }
     var fees: Currency { estimatedFees }
     var date: Date { dateCreated }
-    var to: [Address] { [destinationAddress] }
-    var from: Address? { nil }
+    var to: [ConcreteAddress] { [destinationAddress] }
+    var from: ConcreteAddress? { nil }
     var message: String? { nil }
 }

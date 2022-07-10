@@ -72,20 +72,28 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         switch deeplinkURL {
         case let .tonURL(convenienceURL):
             switch convenienceURL {
-            case let .transfer( destination, amount, text):
-                openTransferViewController(destination: destination, amount: amount, message: text)
+            case let .transfer(destination, amount, text):
+                openTransferViewController(
+                    destination: DisplayableAddress(rawValue: destination),
+                    amount: amount,
+                    message: text
+                )
             }
         case .address(_):
             break
         case let .transfer(destination, amount, text):
-            openTransferViewController(destination: destination, amount: amount, message: text)
+            openTransferViewController(
+                destination: DisplayableAddress(rawValue: destination),
+                amount: amount,
+                message: text
+            )
         }
         
         return true
     }
     
     private func openTransferViewController(
-        destination: Address,
+        destination: DisplayableAddress,
         amount: Currency?,
         message: String?
     ) {

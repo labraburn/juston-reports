@@ -52,7 +52,7 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         }
         
         guard let _amount = Int64(body.value),
-              let address = Address(string: body.to)
+              let address = await DisplayableAddress(string: body.to)
         else {
             throw WKWeb3Error(.internal)
         }
@@ -61,7 +61,7 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         let confirmation = Safari3Confirmation(
             .transaction(
                 host: url.host ?? url.absoluteString,
-                destination: body.to,
+                destination: address,
                 value: amount
             ),
             presentationContext: context
@@ -95,7 +95,7 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         }
         
         let message = try await account.transfer(
-            to: address,
+            to: address.concreteAddress,
             amount: amount,
             message: (data, initialState),
             passcode: passcode

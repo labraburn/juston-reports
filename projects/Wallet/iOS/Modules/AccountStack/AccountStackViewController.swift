@@ -156,7 +156,7 @@ extension AccountStackViewController: CameraViewControllerDelegate {
             let viewController = TransferDetailsViewController(
                 initialConfiguration: .init(
                     fromAccount: account,
-                    toAddress: destination,
+                    toAddress: DisplayableAddress(rawValue: destination),
                     amount: amount,
                     message: text
                 )

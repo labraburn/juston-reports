@@ -22,8 +22,8 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
         }
         
         let kind: Kind
-        let from: Address?
-        let to: [Address]
+        let from: ConcreteAddress?
+        let to: [ConcreteAddress]
         let value: Currency
     }
     

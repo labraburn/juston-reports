@@ -66,7 +66,7 @@ public final class SynchronizationLoop {
             try? context.save()
         }
 
-        let contract = try await Contract(rawAddress: address.rawValue)
+        let contract = try await Contract(address: address)
         try Task.checkCancellation()
         
         persistenceAccount.balance = contract.info.balance
@@ -155,8 +155,19 @@ private extension PersistenceProcessedAction {
     ) {
         self.init(context: context)
         
-        sourceAddress = message.sourceAccountAddress
-        destinationAddress = message.destinationAccountAddress
+        if let sourceAccountAddress = message.sourceAccountAddress {
+            sourceAddress = ConcreteAddress(
+                address: sourceAccountAddress.address,
+                representation: .base64url(flags: [.bounceable])
+            )
+        }
+        
+        if let destinationAccountAddress = message.destinationAccountAddress {
+            destinationAddress = ConcreteAddress(
+                address: destinationAccountAddress.address,
+                representation: .base64url(flags: [.bounceable])
+            )
+        }
         
         value = message.value
         fees = message.fees

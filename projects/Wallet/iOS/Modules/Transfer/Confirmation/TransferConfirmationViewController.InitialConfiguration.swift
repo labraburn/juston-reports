@@ -14,7 +14,7 @@ extension TransferConfirmationViewController {
     struct InitialConfiguration {
         
         let fromAccount: PersistenceAccount
-        let toAddress: Address
+        let toAddress: DisplayableAddress
         let amount: Currency
         var message: Message
         var estimatedFees: Currency

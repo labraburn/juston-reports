@@ -32,7 +32,7 @@ struct WKWeb3BalanceEvent: WKWeb3Event {
             throw WKWeb3Error(.unauthorized)
         }
         
-        let contract = try await Contract(rawAddress: account.selectedContract.address)
+        let contract = try await Contract(address: account.selectedContract.address)
         return "\(contract.info.balance.value)"
     }
 }

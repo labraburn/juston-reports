@@ -78,7 +78,7 @@ class TransactionDetailsViewController: UIViewController {
         view.addSubview(copyLinkButton)
         view.addSubview(doneButton)
         
-        let (textColor, valuePrefix, recipientsOrSender) = { () -> (UIColor, String, Set<Address>) in
+        let (textColor, valuePrefix, recipientsOrSender) = { () -> (UIColor, String, Set<ConcreteAddress>) in
             switch transaction.kind {
             case .pending:
                 return (.hui_textPrimary, "-", Set(transaction.to))
@@ -115,7 +115,7 @@ class TransactionDetailsViewController: UIViewController {
         let recipientsOrSenders = recipientsOrSender.reduce(
             into: "",
             {
-                $0 = $0 + $1.convert(to: .base64url(flags: [.bounceable])) + "\n"
+                $0 = $0 + "\($1)\n"
             }
         )
         

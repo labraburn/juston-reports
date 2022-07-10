@@ -13,39 +13,39 @@ public class PersistenceProcessedAction: PersistenceObject {}
 
 public extension PersistenceProcessedAction {
     
-    var sourceAddress: Address? {
+    var sourceAddress: ConcreteAddress? {
         get {
             guard let string = raw_source_address,
-                  let rawAddress = Address.RawValue(rawValue: string)
+                  let address = Address(rawValue: string)
             else {
                 return nil
             }
             
-            return Address(
-                rawValue: rawAddress,
-                flags: [.bounceable]
+            return ConcreteAddress(
+                address: address,
+                representation: .base64url(flags: [.bounceable])
             )
         }
         set {
-            raw_source_address = newValue?.rawValue.rawValue
+            raw_source_address = newValue?.address.rawValue
         }
     }
     
-    var destinationAddress: Address? {
+    var destinationAddress: ConcreteAddress? {
         get {
             guard let string = raw_destination_address,
-                  let rawAddress = Address.RawValue(rawValue: string)
+                  let address = Address(rawValue: string)
             else {
                 return nil
             }
             
-            return Address(
-                rawValue: rawAddress,
-                flags: [.bounceable]
+            return ConcreteAddress(
+                address: address,
+                representation: .base64url(flags: [.bounceable])
             )
         }
         set {
-            raw_destination_address = newValue?.rawValue.rawValue
+            raw_destination_address = newValue?.address.rawValue
         }
     }
     

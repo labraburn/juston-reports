@@ -13,7 +13,7 @@ actor Safari3Confirmation {
     enum ConfirmationAction {
         
         case sign(host: String)
-        case transaction(host: String, destination: String, value: Currency)
+        case transaction(host: String, destination: DisplayableAddress, value: Currency)
     }
     
     private var continuation: CheckedContinuation<(), Error>?
@@ -78,7 +78,7 @@ private extension Safari3Confirmation.ConfirmationAction {
                 format: "Safari3ConfirmationTransactionMessage".asLocalizedKey,
                 host.uppercased(),
                 value.string(with: .maximum9),
-                destination
+                destination.displayName
             )
         }
         

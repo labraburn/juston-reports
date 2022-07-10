@@ -14,7 +14,7 @@ extension TransferDetailsViewController {
     struct InitialConfiguration {
         
         let fromAccount: PersistenceAccount
-        let toAddress: Address?
+        let toAddress: DisplayableAddress?
         
         let amount: Currency?
         let message: String?

@@ -13,7 +13,7 @@ public class PersistencePendingTransaction: PersistenceObject {
     @PersistenceWritableActor
     public init(
         account: PersistenceAccount,
-        destinationAddress: Address,
+        destinationAddress: ConcreteAddress,
         value: Currency,
         estimatedFees: Currency,
         body: Data,
@@ -72,17 +72,20 @@ public class PersistencePendingTransaction: PersistenceObject {
 
 public extension PersistencePendingTransaction {
     
-    var destinationAddress: Address {
+    var destinationAddress: ConcreteAddress {
         get {
-            guard var address = Address(string: raw_destination_address)
+            guard let address = Address(rawValue: raw_destination_address)
             else {
                 fatalError("Looks like data is fault.")
             }
-            address.flags = [.bounceable]
-            return address
+            
+            return ConcreteAddress(
+                address: address,
+                representation: .base64url(flags: .bounceable)
+            )
         }
         set {
-            raw_destination_address = newValue.rawValue.rawValue
+            raw_destination_address = newValue.address.rawValue
         }
     }
     
@@ -114,7 +117,7 @@ public extension PersistencePendingTransaction {
     
     // MARK: Internal
     
-    /// Raw addresses like `[0:346576878]`
+    /// Raw addresses like `0:346576878`
     @NSManaged
     private var raw_destination_address: String
     

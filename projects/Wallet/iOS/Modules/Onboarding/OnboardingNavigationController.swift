@@ -233,12 +233,15 @@ extension C42CollectionViewController {
                                     deserializedPublicKey: try key.deserializedPublicKey()
                                 )
                                 
-                                let address = try await Address(initial: initial)
+                                guard let address = await Address(initial: initial)
+                                else {
+                                    throw ContractError.unknownContractType
+                                }
                                 
                                 viewController.onboardingNavigationController?.nextAccountCreate(
                                     key: key,
                                     selectedContract: AccountContract(
-                                        address: address.rawValue,
+                                        address: address,
                                         kind: .walletV3R2
                                     ),
                                     words: words
@@ -348,15 +351,20 @@ extension C42ConcreteViewController {
                 let context = PersistenceReadableActor.shared.managedObjectContext
                 
                 switch result {
-                case let .address(value):
-                    let contract = try await Contract(rawAddress: value.rawValue)
+                case let .address(string):
+                    guard let address = await DisplayableAddress(string: string)
+                    else {
+                        throw AddressError.unparsable
+                    }
+                    
+                    let contract = try await Contract(address: address.concreteAddress.address)
                     
                     if let wallet = AnyWallet(contract: contract) {
                         keyPublic = try await wallet.publicKey
                     }
                     
                     selectedContract = AccountContract(
-                        address: value.rawValue,
+                        address: address.concreteAddress.address,
                         kind: contract.kind
                     )
                 case let .words(value):
@@ -372,10 +380,13 @@ extension C42ConcreteViewController {
                         deserializedPublicKey: try key.deserializedPublicKey()
                     )
                     
-                    let address = try await Address(initial: initial)
+                    guard let address = await Address(initial: initial)
+                    else {
+                        throw ContractError.unknownContractType
+                    }
                     
                     selectedContract = AccountContract(
-                        address: address.rawValue,
+                        address: address,
                         kind: .walletV3R2
                     )
                 }
@@ -387,9 +398,7 @@ extension C42ConcreteViewController {
                     )
                 } else {
                     request = PersistenceAccount.fetchRequest(
-                        selectedAddress: Address(
-                            rawValue: selectedContract.address
-                        )
+                        selectedAddress: selectedContract.address
                     )
                 }
                 

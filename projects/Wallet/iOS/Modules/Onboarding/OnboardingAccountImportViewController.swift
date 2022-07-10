@@ -14,7 +14,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
     enum Result {
         
         case words(value: [String])
-        case address(value: Address)
+        case address(value: String)
     }
     
     typealias CompletionBlock = (
@@ -43,7 +43,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
         $0.textView.autocapitalizationType = .none
         $0.textView.minimumContentSizeHeight = 64
         $0.textView.maximumContentSizeHeight = 96
-        $0.heightAnchor.pin(lessThan: 128).isActive = true
+        $0.heightAnchor.pin(lessThan: 256).isActive = true
     })
     
     lazy var nextButton = PrimaryButton(title: "OnboardingNextButton".asLocalizedKey).with({
@@ -116,12 +116,13 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
             return nil
         }
         
-        let text = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let words = text.components(separatedBy: " ")
+        let words = (textView.text?.split(whereSeparator: { !$0.isLetter }) ?? []).map({ String($0)})
         if words.count == 24 {
             return .words(value: words)
-        } else if let address = Address(string: text) {
-            return .address(value: address)
+        } else if let _ = ConcreteAddress(string: textView.text) {
+            return .address(value: textView.text)
+        } else if DNSAddress.isTONDomain(string: textView.text) {
+            return .address(value: textView.text)
         } else {
             return nil
         }
@@ -133,6 +134,10 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
             return
         }
         
+        markTextViewError()
+    }
+    
+    fileprivate func markTextViewError() {
         inputTextView.shake()
         inputTextView.textView.textColor = .hui_letter_red
         errorFeedbackGenerator.impactOccurred()
@@ -159,6 +164,8 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
         nextButton.startAsynchronousOperation({ @MainActor in
             do {
                 try await self.completionBlock(self, result)
+            } catch AddressError.unparsable {
+                self.markTextViewError()
             } catch {
                 self.present(error)
             }
@@ -175,22 +182,24 @@ extension OnboardingAccountImportViewController: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
+        if text.count > 1 {
+            // copy/paste
+            
+            DispatchQueue.main.async(execute: {
+                if self.result(from: textView) != nil {
+                    textView.resignFirstResponder()
+                }
+            })
+            
+            return true
+        } else if text == "\n" {
             textView.resignFirstResponder()
             return false
         }
         return true
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        guard result(from: textView) != nil
-        else {
-            return
-        }
-        
-        inputTextView.setFocused(false)
-        textView.resignFirstResponder()
-    }
+    func textViewDidChange(_ textView: UITextView) {}
     
     func textViewDidEndEditing(_ textView: UITextView) {
         inputTextView.setFocused(false)
@@ -208,7 +217,7 @@ extension OnboardingAccountImportViewController: CameraViewControllerDelegate {
         
         switch convenienceURL {
         case let .transfer(destination, _, _):
-            inputTextView.textView.text = destination.description
+            inputTextView.textView.text = destination.displayName
         }
     }
 }

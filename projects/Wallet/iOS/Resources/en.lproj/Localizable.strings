@@ -42,7 +42,7 @@
 
 "OnboardingImportTitle" = "Account details";
 "OnboardingImportDescription" = "To import account you can use secret 24-word passphrase or account public address (will be added in read only mode)";
-"OnboardingImportTitleCaption" = "Address or 24-word passphrase";
+"OnboardingImportTitleCaption" = "Address, 24-word passphrase or .ton domain";
 
 "OnboardingAppearanceTitle" = "Finishing up";
 "OnboardingAppearanceDescription" = "Choose way how your account card will be looks like";
@@ -196,6 +196,7 @@
 
 "TransferDetailsTitle" = "Transfer details";
 "TransferDetailsDescription" = "Fill up destination address of transfer and amount and then press next";
+"TransferDetailsAddressDescription" = "Address or .ton domain";
 "TransferDetailsMessageDescription" = "Message (optional)";
 
 "TransferDestinationAddress" = "Destination address";

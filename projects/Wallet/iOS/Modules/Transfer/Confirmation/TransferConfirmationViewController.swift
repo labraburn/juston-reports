@@ -84,7 +84,7 @@ class TransferConfirmationViewController: UIViewController {
         textLabel.attributedText = NSMutableAttributedString({
             NSAttributedString("\("TransferDestinationAddress".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
-            NSAttributedString("\(initialConfiguration.toAddress)\n\n", with: .body)
+            NSAttributedString("\(initialConfiguration.toAddress.displayName)\n\n", with: .body)
             
             NSAttributedString("\("TransferDestinationAmount".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
             spacing
@@ -111,7 +111,7 @@ class TransferConfirmationViewController: UIViewController {
                 try await message.send()
                 try await PersistencePendingTransaction(
                     account: account,
-                    destinationAddress: initialConfiguration.toAddress,
+                    destinationAddress: initialConfiguration.toAddress.concreteAddress,
                     value: initialConfiguration.amount,
                     estimatedFees: initialConfiguration.estimatedFees,
                     body: initialConfiguration.message.body.data,

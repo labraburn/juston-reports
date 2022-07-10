@@ -98,7 +98,10 @@ class CardStackViewController: UIViewController {
                     initialCondition = try await Wallet4.initial(revision: .r2, deserializedPublicKey: deserializedPublicKey)
                 }
                 
-                let address = try await Address(initial: initialCondition)
+                guard let address = await Address(initial: initialCondition)
+                else {
+                    throw ContractError.unknownContractType
+                }
                 
                 if flags.contains(.isNotificationsEnabled) {
                     let installationID = await InstallationIdentifier.shared.value
@@ -122,7 +125,7 @@ class CardStackViewController: UIViewController {
                 
                 account.balance = 0
                 account.selectedContract = AccountContract(
-                    address: address.rawValue,
+                    address: address,
                     kind: kind
                 )
                 
@@ -204,13 +207,13 @@ class CardStackViewController: UIViewController {
 
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = Address(rawValue: model.account.selectedContract.address)
+        let address = model.account.selectedContract.address
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
             let request = AccountSettings.subscribeWalletTransactions(
                 installation_id: installationID.uuidString,
-                address: address.rawValue.rawValue
+                address: address.rawValue
             )
 
             do {
@@ -232,13 +235,13 @@ class CardStackViewController: UIViewController {
     func unsubscribePushNotifications(_ model: CardStackCard) {
         let id = model.account.objectID
         let flags = model.account.flags
-        let address = Address(rawValue: model.account.selectedContract.address)
+        let address = model.account.selectedContract.address
 
         Task { @PersistenceWritableActor in
             let installationID = await InstallationIdentifier.shared.value
             let request = AccountSettings.unsubscribeWalletTransactions(
                 installation_id: installationID.uuidString,
-                address: address.rawValue.rawValue
+                address: address.rawValue
             )
 
             do {

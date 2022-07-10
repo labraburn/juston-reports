@@ -28,8 +28,7 @@ class ExploreViewController: TripleViewController {
             transactionsViewController.account = account
             
             if let account = account {
-                let address = Address(rawValue: account.selectedContract.address)
-                synchronizationLoop.use(address: address)
+                synchronizationLoop.use(address: account.selectedContract.address)
             } else {
                 synchronizationLoop.use(address: nil)
             }
@@ -92,7 +91,7 @@ class ExploreViewController: TripleViewController {
     // MARK: API
     
     func showTransferViewControllerIfAvailable(
-        destination: Address,
+        destination: DisplayableAddress,
         amount: Currency?,
         message: String?
     ) {

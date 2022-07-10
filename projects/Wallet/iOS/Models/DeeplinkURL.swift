@@ -12,8 +12,8 @@ enum DeeplinkURL {
     
     case tonURL(ConvenienceURL)
     
-    case address(value: Address)
-    case transfer(destination: Address, amount: Currency?, text: String?)
+    case address(value: ConcreteAddress)
+    case transfer(destination: ConcreteAddress, amount: Currency?, text: String?)
     
     public var url: URL {
         switch self {
@@ -92,7 +92,7 @@ enum DeeplinkURL {
             switch components.host {
             case "transfer":
                 let lastPathComponent = (components.path as NSString).lastPathComponent
-                guard let address = Address(string: lastPathComponent)
+                guard let address = ConcreteAddress(string: lastPathComponent)
                 else {
                     return nil
                 }
@@ -120,7 +120,7 @@ enum DeeplinkURL {
                 self = .transfer(destination: address, amount: amount, text: text)
             case "address":
                 let lastPathComponent = (components.path as NSString).lastPathComponent
-                guard let address = Address(string: lastPathComponent)
+                guard let address = ConcreteAddress(string: lastPathComponent)
                 else {
                     return nil
                 }

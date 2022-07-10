@@ -12,7 +12,7 @@ private extension Configuration {
     
     static let test = Configuration(
         network: .test,
-        logging: Configuration.defaultLogging,
+        logging: .debug,
         keystoreURL: FileManager.default.directoryURL(with: .group(), with: .persistent, pathComponent: .glossyTONKeystore)
     )
     
@@ -38,7 +38,19 @@ public struct HuetonCORE {
         AccountAppearanceTransformer.register()
         BrowserBannerActionTransformer.register()
         
-        SwiftyTON.configurate(with: .main)
+        SwiftyTON.configurate(with: .test)
         ManagedObjectContextObjectsDidChangeObserver.startObservingIfNeccessary()
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            Task {
+                guard let address = await DNSAddress(string: "hueton.ton")
+                else {
+                    return
+                }
+                
+                print(address)
+            }
+        })
     }
 }
