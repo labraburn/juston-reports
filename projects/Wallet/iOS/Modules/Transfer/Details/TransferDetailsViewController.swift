@@ -220,6 +220,19 @@ class TransferDetailsViewController: UIViewController {
                     throw AddressError.unparsable
                 }
                 
+                if !displayableAddress.concreteAddress.representation.flags.contains(.bounceable) && amount > 5_000_000_000 {
+                    if let self = self {
+                        let confirmation = UserConfirmation(.largeTransactionUnbouncableAddress, presentationContext: self)
+                        do {
+                            try await confirmation.confirm()
+                        } catch {
+                            throw ApplicationError.userCancelled
+                        }
+                    } else {
+                        throw ApplicationError.userCancelled
+                    }
+                }
+                
                 let authentication = PasscodeAuthentication(inside: self!) // uhh
                 let passcode = try await authentication.key()
                 
@@ -245,6 +258,7 @@ class TransferDetailsViewController: UIViewController {
             } catch AddressError.unparsable {
                 await self?.markTextViewAsError(await self?.destinationAddressView.textView)
             } catch is CancellationError {
+            } catch ApplicationError.userCancelled {
             } catch {
                 await self?.present(error)
             }

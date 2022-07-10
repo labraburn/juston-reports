@@ -271,10 +271,6 @@
 "Safari3SearchPlaceholder" = "Start typing to find favourites or just search";
 "Safari3ErrorButton" = "Go back";
 "Safari3SearchEmpty" = "Nothing found";
-"Safari3ConfirmationSignMessage" = "'%@' wants sign raw text.\nUsually it's just a check that you are owner of account, but be careful";
-"Safari3ConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nReview details carefully!\n";
-"Safari3ConfirmationTitle" = "Action requested";
-"Safari3ConfirmationConfirmButton" = "Confirm";
 /* END - Safari3 */
 
 
@@ -283,3 +279,13 @@
 "Web3PromoTitle" = "Welcome, WEB3";
 "Web3PromoDescription" = "WEB3 — a future in our opinion, so we added a powerful browser directly to HUTON wallet application.\n\nYou can explore web and authenticate yourself through account that showing on main screen.\n\nEnjoy!";
 /* END - Web3Promo */
+
+
+
+/* START - UserConfirmation */
+"UserConfirmationSignMessage" = "'%@' wants sign raw text.\nUsually it's just a check that you are owner of account, but be careful";
+"UserConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nReview details carefully!\n";
+"UserConfirmationTitle" = "Action requested";
+"UserConfirmationConfirmButton" = "Confirm";
+"UserConfirmationLargeAmountUnbouncableAddress" = "You are trying to send large amount tokens to non-bounceable address. If address is incorrect you will loose all amount of transaction";
+/* END - UserConfirmation */

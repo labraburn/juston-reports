@@ -58,7 +58,7 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         }
         
         let amount = Currency(_amount)
-        let confirmation = Safari3Confirmation(
+        let confirmation = UserConfirmation(
             .transaction(
                 host: url.host ?? url.absoluteString,
                 destination: address,

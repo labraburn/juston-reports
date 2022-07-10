@@ -1,5 +1,5 @@
 //
-//  Safari3Confirmation.swift
+//  UserConfirmation.swift
 //  iOS
 //
 //  Created by Anton Spivak on 28.06.2022.
@@ -8,12 +8,13 @@
 import UIKit
 import SwiftyTON
 
-actor Safari3Confirmation {
+actor UserConfirmation {
     
     enum ConfirmationAction {
         
         case sign(host: String)
         case transaction(host: String, destination: DisplayableAddress, value: Currency)
+        case largeTransactionUnbouncableAddress
     }
     
     private var continuation: CheckedContinuation<(), Error>?
@@ -59,7 +60,7 @@ actor Safari3Confirmation {
     }
 }
 
-private extension Safari3Confirmation.ConfirmationAction {
+private extension UserConfirmation.ConfirmationAction {
     
     func viewController(
         with completionBlock: @escaping (_ allowed: Bool) -> ()
@@ -71,24 +72,27 @@ private extension Safari3Confirmation.ConfirmationAction {
         switch self {
         case let .sign(host):
             image = .image(.hui_warning42, tintColor: .hui_letter_yellow)
-            message = String(format: "Safari3ConfirmationSignMessage".asLocalizedKey, host.uppercased())
+            message = String(format: "UserConfirmationSignMessage".asLocalizedKey, host.uppercased())
         case let .transaction(host, destination, value):
             image = .image(.hui_warning42, tintColor: .hui_letter_red)
             message = String(
-                format: "Safari3ConfirmationTransactionMessage".asLocalizedKey,
+                format: "UserConfirmationTransactionMessage".asLocalizedKey,
                 host.uppercased(),
                 value.string(with: .maximum9),
                 destination.displayName
             )
+        case .largeTransactionUnbouncableAddress:
+            image = .image(.hui_warning42, tintColor: .hui_letter_yellow)
+            message = "UserConfirmationLargeAmountUnbouncableAddress".asLocalizedKey
         }
         
         return AlertViewController(
             image: image,
-            title: "Safari3ConfirmationTitle".asLocalizedKey,
+            title: "UserConfirmationTitle".asLocalizedKey,
             message: message,
             actions: [
                 .init(
-                    title: "Safari3ConfirmationConfirmButton".asLocalizedKey,
+                    title: "UserConfirmationConfirmButton".asLocalizedKey,
                     block: { viewController in
                         viewController.hide(animated: true)
                         completionBlock(true)

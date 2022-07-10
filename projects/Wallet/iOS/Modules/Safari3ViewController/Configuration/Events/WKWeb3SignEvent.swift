@@ -29,7 +29,7 @@ struct WKWeb3SignEvent: WKWeb3Event {
             throw WKWeb3Error(.unauthorized)
         }
         
-        let confirmation = Safari3Confirmation(
+        let confirmation = UserConfirmation(
             .sign(host: url.host ?? url.absoluteString),
             presentationContext: context
         )

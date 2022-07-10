@@ -159,7 +159,7 @@
 		F0FDEFD6286AB9F800982A0A /* WKWeb3Emit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */; };
 		F0FDEFD8286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */; };
 		F0FDEFDA286AC5E600982A0A /* Safari3BrowserErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */; };
-		F0FDEFDC286AD81000982A0A /* Safari3Confirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */; };
+		F0FDEFDC286AD81000982A0A /* UserConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFDB286AD81000982A0A /* UserConfirmation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -321,7 +321,7 @@
 		F0FDEFD5286AB9F800982A0A /* WKWeb3Emit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Emit.swift; sourceTree = "<group>"; };
 		F0FDEFD7286ABA3C00982A0A /* WKWeb3AccountsChangedEmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3AccountsChangedEmit.swift; sourceTree = "<group>"; };
 		F0FDEFD9286AC5E600982A0A /* Safari3BrowserErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3BrowserErrorView.swift; sourceTree = "<group>"; };
-		F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3Confirmation.swift; sourceTree = "<group>"; };
+		F0FDEFDB286AD81000982A0A /* UserConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfirmation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -724,6 +724,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F0FDEFCD286A936400982A0A /* Confirmation */,
 				F003FEF92869512400623AC0 /* PromoViewController */,
 				F0AAC13128654F8000F25C26 /* Safari3ViewController */,
 				F0E7D3172863A7590037DE46 /* ExploreViewController */,
@@ -870,7 +871,6 @@
 		F0AAC13128654F8000F25C26 /* Safari3ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F0FDEFCD286A936400982A0A /* Confirmation */,
 				F0FDEFCC286A935C00982A0A /* Browser */,
 				F003FF07286A11A800623AC0 /* Configuration */,
 				F003FEFC2869F97D00623AC0 /* Search */,
@@ -1047,7 +1047,7 @@
 		F0FDEFCD286A936400982A0A /* Confirmation */ = {
 			isa = PBXGroup;
 			children = (
-				F0FDEFDB286AD81000982A0A /* Safari3Confirmation.swift */,
+				F0FDEFDB286AD81000982A0A /* UserConfirmation.swift */,
 			);
 			path = Confirmation;
 			sourceTree = "<group>";
@@ -1257,7 +1257,7 @@
 				F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
-				F0FDEFDC286AD81000982A0A /* Safari3Confirmation.swift in Sources */,
+				F0FDEFDC286AD81000982A0A /* UserConfirmation.swift in Sources */,
 				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,
 				F0C23D9E2868BCFD0052B2C5 /* Safari3BannerCollectionViewCell.swift in Sources */,
 				F0A1513F280252DB00EF9F83 /* C42NavigationController.swift in Sources */,
