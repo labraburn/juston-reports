@@ -29,6 +29,7 @@ class OnboardingAccountAppearenceViewController: C42ConcreteViewController {
     
     init(
         title: String,
+        predefinedName: String?,
         completionBlock: @escaping CompletionBlock,
         isModalInPresentation: Bool = false,
         isBackActionAvailable: Bool = true,
@@ -41,6 +42,7 @@ class OnboardingAccountAppearenceViewController: C42ConcreteViewController {
             isBackActionAvailable: isBackActionAvailable,
             isNavigationBarHidden: isNavigationBarHidden
         )
+        self.appearanceViewController.name = predefinedName
     }
     
     @available(*, unavailable)

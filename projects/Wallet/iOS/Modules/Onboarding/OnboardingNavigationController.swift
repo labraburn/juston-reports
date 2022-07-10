@@ -88,12 +88,14 @@ class OnboardingNavigationController: C42NavigationController {
     }
     
     fileprivate func nextAccountAppearance(
+        name: String?,
         keyPublic: String?,
         keySecretEncrypted: String?,
         selectedContract: AccountContract
     ) {
         next(
             C42ConcreteViewController.appearance(
+                name: name,
                 keyPublic: keyPublic,
                 keySecretEncrypted: keySecretEncrypted,
                 selectedContract: selectedContract
@@ -323,6 +325,7 @@ extension C42CollectionViewController {
                             kind: .primary,
                             action: { viewController in
                                 viewController.onboardingNavigationController?.nextAccountAppearance(
+                                    name: nil,
                                     keyPublic: try key.deserializedPublicKey().toHexString(),
                                     keySecretEncrypted: key.encryptedSecretKey.toHexString(),
                                     selectedContract: selectedContract
@@ -344,6 +347,7 @@ extension C42ConcreteViewController {
     ) -> C42ConcreteViewController {
         OnboardingAccountImportViewController(
             completionBlock: { @MainActor viewController, result in
+                var predefinedName: String? = nil
                 var keyPublic: String? = nil
                 var keySecretEncrypted: String? = nil
                 let selectedContract: AccountContract
@@ -355,6 +359,10 @@ extension C42ConcreteViewController {
                     guard let address = await DisplayableAddress(string: string)
                     else {
                         throw AddressError.unparsable
+                    }
+                    
+                    if address.rawValue is DNSAddress {
+                        predefinedName = address.displayName
                     }
                     
                     let contract = try await Contract(address: address.concreteAddress.address)
@@ -408,6 +416,7 @@ extension C42ConcreteViewController {
                 }
                 
                 viewController.onboardingNavigationController?.nextAccountAppearance(
+                    name: predefinedName,
                     keyPublic: keyPublic,
                     keySecretEncrypted: keySecretEncrypted,
                     selectedContract: selectedContract
@@ -429,12 +438,14 @@ extension C42ConcreteViewController {
     }
     
     static func appearance(
+        name: String?,
         keyPublic: String?,
         keySecretEncrypted: String?,
         selectedContract: AccountContract
     ) -> C42ConcreteViewController {
         OnboardingAccountAppearenceViewController(
             title: "OnboardingAppearanceTitle".asLocalizedKey,
+            predefinedName: name,
             completionBlock: { viewController, name, appearence in
                 let account = await PersistenceAccount(
                     keyPublic: keyPublic,
