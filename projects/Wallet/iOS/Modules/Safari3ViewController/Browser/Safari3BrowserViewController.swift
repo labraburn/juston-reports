@@ -45,6 +45,14 @@ class Safari3BrowserViewController: UIViewController {
         $0.dispatcher = self
     })
     
+    private lazy var scrollView = UIScrollView().with({
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .hui_backgroundPrimary
+        $0.contentInsetAdjustmentBehavior = .never
+        $0.showsHorizontalScrollIndicator = false
+        $0.showsVerticalScrollIndicator = false
+    })
+    
     private lazy var webView = Safari3WebView(frame: .zero, configuration: configuration).with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.allowsBackForwardNavigationGestures = true
@@ -61,6 +69,8 @@ class Safari3BrowserViewController: UIViewController {
     private var presentationState: PresentationState = .browsing
     private var urlKeyValueObservation: NSKeyValueObservation?
     private var loadingKeyValueObservation: NSKeyValueObservation?
+    private var backgroundColorKeyValueObservation: NSKeyValueObservation?
+    
     private var _url: URL?
     
     override var title: String? {
@@ -107,7 +117,9 @@ class Safari3BrowserViewController: UIViewController {
         webView.navigationDelegate = self
         webView.uiDelegate = self
         
-        view.addSubview(webView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(webView)
+        
         view.addSubview(errorView)
         view.addSubview(blurView)
         
@@ -116,7 +128,7 @@ class Safari3BrowserViewController: UIViewController {
             blurView.pin(horizontally: view)
             blurView.bottomAnchor.pin(to: view.safeAreaLayoutGuide.topAnchor)
             
-            webView.pin(edges: view)
+            scrollView.pin(edges: view)
             errorView.pin(edges: view)
         })
         
@@ -150,7 +162,46 @@ class Safari3BrowserViewController: UIViewController {
              }
         )
         
+        if #available(iOS 15, *) {
+            backgroundColorKeyValueObservation = webView.observe(
+                \.underPageBackgroundColor,
+                 options: [.new],
+                 changeHandler: { [weak self] _, change in
+                     guard let self = self
+                     else {
+                         return
+                     }
+                     
+                     self.scrollView.backgroundColor = change.newValue ?? .hui_backgroundPrimary
+                 }
+            )
+        }
+        
         update(presentationState: presentationState, animated: false)
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .hui_textSecondary
+        refreshControl.addTarget(self, action: #selector(refreshControlDidChange(_:)), for: .valueChanged)
+        scrollView.refreshControl = refreshControl
+        
+        scrollView.bringSubviewToFront(refreshControl)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top)
+        scrollView.contentSize = CGSize(
+            width: view.bounds.width,
+            height: view.bounds.height - view.safeAreaInsets.top
+        )
+        
+        webView.frame = CGRect(
+            x: 0,
+            y: -view.safeAreaInsets.top,
+            width: view.bounds.width,
+            height: view.bounds.height
+        )
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -281,6 +332,21 @@ class Safari3BrowserViewController: UIViewController {
         }
         
         self.presentationState = presentationState
+    }
+    
+    // MARK: Actions
+    
+    @objc
+    private func refreshControlDidChange(_ sender: UIRefreshControl) {
+        guard url != nil
+        else {
+            return
+        }
+        
+        webView.reload()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.12, execute: {
+            sender.endRefreshing()
+        })
     }
 }
 
