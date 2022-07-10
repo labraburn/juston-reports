@@ -65,6 +65,12 @@ extension BrowserBannerAction.InApp {
                                 url: URL(string: "https://scaleton.io")!,
                                 account: account
                             ),
+                            PersistenceBrowserFavourite(
+                                title: "TON DNS",
+                                subtitle: nil,
+                                url: URL(string: "https://dns.ton.org")!,
+                                account: account
+                            ),
                         ]
                         
                         try? PersistenceWritableActor.shared.managedObjectContext.save()
