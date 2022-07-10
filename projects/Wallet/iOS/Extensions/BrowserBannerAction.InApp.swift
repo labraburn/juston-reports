@@ -42,7 +42,7 @@ extension BrowserBannerAction.InApp {
                                 account: account
                             ),
                             PersistenceBrowserFavourite(
-                                title: "ResistancePack",
+                                title: "DAO Pack",
                                 subtitle: nil,
                                 url: URL(string: "https://resistancepack.org")!,
                                 account: account
