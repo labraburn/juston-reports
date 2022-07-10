@@ -8,7 +8,7 @@ import Objective42
 
 @_exported import SwiftyTON
 
-private extension Configuration {
+public extension Configuration {
     
     static let test = Configuration(
         network: .test,

@@ -179,6 +179,8 @@
 
 "DeveloperCopyAPNs" = "Copy APNs token";
 "DeveloperClearAllDataButton" = "Clear all data";
+"DeveloperSwitchMainnetButton" = "Switch to mainnet";
+"DeveloperSwitchTestnetButton" = "Switch to testnet";
 /* END - Developer */
 
 

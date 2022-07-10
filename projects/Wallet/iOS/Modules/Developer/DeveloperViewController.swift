@@ -17,6 +17,15 @@ class DeveloperViewController: C42CollectionViewController {
         isBackActionAvailable: Bool = true,
         isNavigationBarHidden: Bool = false
     ) {
+        let configurationButtonTitle = { () -> String in
+            switch SwiftyTON.configuration.network {
+            case .main:
+                return "DeveloperSwitchTestnetButton".asLocalizedKey
+            case .test:
+                return "DeveloperSwitchMainnetButton".asLocalizedKey
+            }
+        }()
+        
         super.init(
             title: "DeveloperTitle".asLocalizedKey,
             sections: [
@@ -61,6 +70,20 @@ class DeveloperViewController: C42CollectionViewController {
                             kind: .secondary,
                             action: { viewController in
                                 (viewController as? DeveloperViewController)?.presentRemoveAllAction()
+                            }
+                        ),
+                        .synchronousButton(
+                            title: configurationButtonTitle,
+                            kind: .secondary,
+                            action: { viewController in
+                                switch SwiftyTON.configuration.network {
+                                case .main:
+                                    SwiftyTON.change(configuration: .test)
+                                case .test:
+                                    SwiftyTON.change(configuration: .main)
+                                }
+                                
+                                viewController.hide(animated: true)
                             }
                         ),
                     ]
