@@ -58,6 +58,32 @@ public extension PersistenceBrowserFavourite {
     /// url
     @NSManaged
     private var raw_url: String
+    
+    /// - parameter medium: `utm_medium`
+    func utmURL(
+        medium: String?
+    ) -> URL {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        else {
+            fatalError("Looks like data is fault.")
+        }
+        
+        var queryItems = [
+            URLQueryItem(name: "utm_source", value: "hueton")
+        ]
+        
+        if let medium = medium {
+            queryItems.append(URLQueryItem(name: "utm_medium", value: medium))
+        }
+        
+        components.queryItems = queryItems
+        guard let url = components.url
+        else {
+            fatalError("Can't create UTM URL from components.")
+        }
+        
+        return url
+    }
 }
 
 // MARK: - CoreData Methods

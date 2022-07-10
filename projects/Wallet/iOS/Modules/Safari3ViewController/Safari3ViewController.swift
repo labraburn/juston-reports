@@ -317,10 +317,13 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
         _ viewController: Safari3WelcomeViewController,
         didClickFavouritesEmptyView view: Safari3WelcomePlaceholderCollectionReusableView
     ) {
-        push(
-            presentationState: .search(query: nil),
-            animated: true
-        )
+        guard let account = account,
+              let viewController = BrowserBannerAction.InApp.web3promo.viewController(viewer: account)
+        else {
+            return
+        }
+        
+        topmostPresentedViewController.hui_present(viewController, animated: true)
     }
     
     func safari3WelcomeViewController(
@@ -329,7 +332,7 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
     ) {
         exchangeLastPresentationState(
             toPresentationState: .browsing(
-                url: favourite.url,
+                url: favourite.utmURL(medium: "browser_favourite_item"),
                 title: favourite.title
             ),
             animated: true
