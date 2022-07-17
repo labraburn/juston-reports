@@ -57,6 +57,7 @@
 		F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */; };
 		F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8778284FDFC7007476B8 /* TransactionError.swift */; };
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
+		F02FE8B52884C7C200D4F141 /* TopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FE8B42884C7C200D4F141 /* TopupViewController.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */; };
@@ -213,6 +214,7 @@
 		F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		F02C8778284FDFC7007476B8 /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
+		F02FE8B42884C7C200D4F141 /* TopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupViewController.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeNavigationView.swift; sourceTree = "<group>"; };
@@ -566,6 +568,14 @@
 			path = TransactionDetails;
 			sourceTree = "<group>";
 		};
+		F02FE8B32884C7B000D4F141 /* Topup */ = {
+			isa = PBXGroup;
+			children = (
+				F02FE8B42884C7C200D4F141 /* TopupViewController.swift */,
+			);
+			path = Topup;
+			sourceTree = "<group>";
+		};
 		F02FECEE27F315F700CC306C /* Entitlements */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +734,7 @@
 		F0995F9427A0B861003A090C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F02FE8B32884C7B000D4F141 /* Topup */,
 				F0FDEFCD286A936400982A0A /* Confirmation */,
 				F003FEF92869512400623AC0 /* PromoViewController */,
 				F0AAC13128654F8000F25C26 /* Safari3ViewController */,
@@ -1282,6 +1293,7 @@
 				F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
 				F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */,
+				F02FE8B52884C7C200D4F141 /* TopupViewController.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,

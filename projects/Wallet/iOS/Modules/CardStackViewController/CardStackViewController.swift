@@ -408,6 +408,14 @@ extension CardStackViewController: CardStackViewDelegate {
     
     func cardStackView(
         _ view: CardStackView,
+        didClickTopupControl control: UIControl,
+        model: CardStackCard
+    ) {
+        
+    }
+    
+    func cardStackView(
+        _ view: CardStackView,
         didClickMoreControl control: UIControl,
         model: CardStackCard
     ) {

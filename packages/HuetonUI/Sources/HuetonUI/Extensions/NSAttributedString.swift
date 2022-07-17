@@ -10,6 +10,7 @@ extension NSAttributedString {
         
         case `default`
         case four
+        case custom(value: CGFloat)
     }
     
     public convenience init(
@@ -34,6 +35,8 @@ extension NSAttributedString {
             break
         case .four:
             attributes[.kern] = 4
+        case let .custom(value):
+            attributes[.kern] = value
         }
         
         if let lineHeight = lineHeight {

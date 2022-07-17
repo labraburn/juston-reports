@@ -26,6 +26,12 @@ protocol CardStackCardViewDelegate: AnyObject {
     
     func cardStackCardView(
         _ view: UIView,
+        didClickTopupControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackCardView(
+        _ view: UIView,
         didClickMoreControl control: UIControl,
         model: CardStackCard
     )

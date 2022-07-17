@@ -51,6 +51,15 @@ class CardStackCardContentView: UIView {
     }
     
     @objc
+    func topupButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(
+            self,
+            didClickTopupControl: sender,
+            model: model
+        )
+    }
+    
+    @objc
     func moreButtonDidClick(_ sender: UIControl) {
         delegate?.cardStackCardView(
             self,

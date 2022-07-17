@@ -36,8 +36,8 @@ final class CardStackCardButton: UIButton {
         constraint.isActive = true
         
         button.setImage(image, for: .normal)
-        button.layer.cornerRadius = 26
-        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 24
+        button.layer.cornerCurve = .circular
         return button
     }
 }

@@ -42,12 +42,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.clipsToBounds = false
     })
     
-    private let accountCurrentAddressLabel = VerticalLabelContainerView().with({
+    private let accountCurrentAddressLabel = VerticalAddressLabelContainerView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.label.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-        $0.label.lineBreakMode = .byTruncatingMiddle
-        $0.label.numberOfLines = 1
-        $0.label.textAlignment = .left
     })
     
     private let balanceLabel = UILabel().with({
@@ -60,7 +56,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.spacing = 16
+        $0.spacing = 14
         $0.clipsToBounds = false
     })
     
@@ -69,9 +65,10 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
     private let versionButton = CardStackCardLabel.createTopButton("")
     private let readonlyButton = CardStackCardLabel.createTopButton("AccountCardReadonlyLabel".asLocalizedKey)
     
-    private let sendButton = CardStackCardButton.createBottomButton(.hui_send24)
-    private let receiveButton = CardStackCardButton.createBottomButton(.hui_receive24)
-    private let moreButton = CardStackCardButton.createBottomButton(.hui_more24)
+    private let sendButton = CardStackCardButton.createBottomButton(.hui_cardButtonSend55)
+    private let receiveButton = CardStackCardButton.createBottomButton(.hui_cardButtonReceive55)
+    private let topupButton = CardStackCardButton.createBottomButton(.hui_cardButtonCredit55)
+    private let moreButton = CardStackCardButton.createBottomButton(.hui_cardButtonMore55)
     
     private var synchronizationTimer: Timer? = nil
     private var synchronizationObserver: NSObjectProtocol?
@@ -98,6 +95,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             topButtonsHStackView.addArrangedSubview(readonlyButton)
         } else {
             bottomButtonsHStackView.addArrangedSubview(sendButton)
+            bottomButtonsHStackView.addArrangedSubview(topupButton)
         }
         bottomButtonsHStackView.addArrangedSubview(moreButton)
         
@@ -114,6 +112,7 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         accountCurrentAddressLabel.addTarget(self, action: #selector(copyAddressButtonDidClick(_:)), for: .touchUpInside)
         sendButton.addTarget(self, action: #selector(sendButtonDidClick(_:)), for: .touchUpInside)
         receiveButton.addTarget(self, action: #selector(receiveButtonDidClick(_:)), for: .touchUpInside)
+        topupButton.addTarget(self, action: #selector(topupButtonDidClick(_:)), for: .touchUpInside)
         moreButton.addTarget(self, action: #selector(moreButtonDidClick(_:)), for: .touchUpInside)
         
         synchronizationObserver = AnnouncementCenter.shared.observe(
@@ -149,17 +148,17 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             topButtonsHStackView.heightAnchor.pin(to: 24)
             accountCurrentAddressLabel.leftAnchor.pin(greaterThan: topButtonsHStackView.rightAnchor, constant: 12)
             
-            accountCurrentAddressLabel.topAnchor.pin(to: topAnchor, constant: 30)
+            accountCurrentAddressLabel.topAnchor.pin(to: topAnchor, constant: 28)
             accountCurrentAddressLabel.widthAnchor.pin(to: 16)
-            bottomAnchor.pin(to: accountCurrentAddressLabel.bottomAnchor, constant: 30)
+            bottomAnchor.pin(to: accountCurrentAddressLabel.bottomAnchor, constant: 28)
             rightAnchor.pin(to: accountCurrentAddressLabel.rightAnchor, constant: 20)
             
             balanceLabel.leftAnchor.pin(to: leftAnchor, constant: 26)
             accountCurrentAddressLabel.leftAnchor.pin(to: balanceLabel.rightAnchor, constant: 12)
             
-            bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 18)
+            bottomButtonsHStackView.topAnchor.pin(to: balanceLabel.bottomAnchor, constant: 16)
             bottomButtonsHStackView.leftAnchor.pin(to: leftAnchor, constant: 26)
-            bottomButtonsHStackView.heightAnchor.pin(to: 52)
+            bottomButtonsHStackView.heightAnchor.pin(to: 48)
             accountCurrentAddressLabel.leftAnchor.pin(greaterThan: bottomButtonsHStackView.rightAnchor, constant: 12, priority: .defaultHigh)
             bottomAnchor.pin(to: bottomButtonsHStackView.bottomAnchor, constant: 30)
             
@@ -205,6 +204,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         sendButton.backgroundColor = controlsBackgroundColor
         receiveButton.tintColor = controlsForegroundColor
         receiveButton.backgroundColor = controlsBackgroundColor
+        topupButton.tintColor = controlsForegroundColor
+        topupButton.backgroundColor = controlsBackgroundColor
         moreButton.tintColor = controlsForegroundColor
         moreButton.backgroundColor = controlsBackgroundColor
         
@@ -213,8 +214,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         accountNameLabel.textColor = tintColor
         accountNameLabel.attributedText = .string(name, with: .title1, kern: .four)
         
-        accountCurrentAddressLabel.label.textColor = tintColor.withAlphaComponent(0.64)
-        accountCurrentAddressLabel.label.attributedText = .string(model.account.convienceSelectedAddress.description, with: .callout)
+        accountCurrentAddressLabel.textColor = tintColor.withAlphaComponent(0.64)
+        accountCurrentAddressLabel.address = model.account.convienceSelectedAddress.description
         
         synchronizationLabel.textColor = tintColor.withAlphaComponent(0.7)
         

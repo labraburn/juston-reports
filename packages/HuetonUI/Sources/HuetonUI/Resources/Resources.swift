@@ -51,6 +51,11 @@ public extension UIImage {
     static let hui_copy24: UIImage = .named("Copy24")
     static let hui_done24: UIImage = .named("Done24")
     
+    static let hui_cardButtonCredit55: UIImage = .named("CardButtonCredit55")
+    static let hui_cardButtonMore55: UIImage = .named("CardButtonMore55")
+    static let hui_cardButtonReceive55: UIImage = .named("CardButtonReceive55")
+    static let hui_cardButtonSend55: UIImage = .named("CardButtonSend55")
+    
     static let hui_info42: UIImage = .named("Info42")
     static let hui_error42: UIImage = .named("Error42")
     static let hui_warning42: UIImage = .named("Warning42")
