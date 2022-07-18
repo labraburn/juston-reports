@@ -279,14 +279,14 @@ extension SafariViewController: WKUIDelegate {
 
 extension SafariViewController: WKNavigationDelegate {
     
-    public func webView(
+    open func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction
     ) async -> WKNavigationActionPolicy {
         .allow
     }
     
-    public func webView(
+    open func webView(
         _ webView: WKWebView,
         didStartProvisionalNavigation navigation: WKNavigation!
     ) {
@@ -298,7 +298,7 @@ extension SafariViewController: WKNavigationDelegate {
         updateBarViews()
     }
 
-    public func webView(
+    open func webView(
         _ webView: WKWebView,
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: Error

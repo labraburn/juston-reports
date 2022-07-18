@@ -7,6 +7,7 @@
 
 import UIKit
 import HuetonUI
+import WebKit
 
 protocol TopupViewControllerDelegate: AnyObject {
     
@@ -21,16 +22,27 @@ class TopupViewController: SafariViewController {
     weak var delegate: TopupViewControllerDelegate? = nil
     
     init() {
-        guard let url = URL(string: "https://iframe.venera.exchange/?theme=dark")
-        else {
-            fatalError("[TopupViewController]: Can't create URL.")
-        }
-        
         super.init(initial: .html(value: .venera), navigationItems: [.url], bottomItems: [])
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction
+    ) async -> WKNavigationActionPolicy {
+        if let iframe = navigationAction.targetFrame,
+           !iframe.isMainFrame,
+           let url = navigationAction.request.url,
+           let host = url.host,
+           host.contains("venera.exchange")
+        {
+            // TODO: Handle completion
+        }
+        
+        return await super.webView(webView, decidePolicyFor: navigationAction)
     }
 }
 
