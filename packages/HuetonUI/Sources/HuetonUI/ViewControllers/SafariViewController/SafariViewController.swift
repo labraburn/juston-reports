@@ -8,6 +8,12 @@ import WebKit
 
 open class SafariViewController: UIViewController {
     
+    public enum Initial {
+        
+        case url(value: URL)
+        case html(value: String)
+    }
+    
     public enum NavigationItem {
         
         case url
@@ -49,7 +55,7 @@ open class SafariViewController: UIViewController {
         $0.numberOfLines = 0
     })
 
-    private let initialURL: URL
+    private let initial: Initial
 
     private let navigationItems: [NavigationItem]
     private let bottomItems: [BottomItem]
@@ -67,11 +73,11 @@ open class SafariViewController: UIViewController {
     }
 
     public init(
-        url: URL,
+        initial: Initial,
         navigationItems: [NavigationItem] = [.url],
         bottomItems: [BottomItem] = [.back, .forward, .share, .safari]
     ) {
-        self.initialURL = url
+        self.initial = initial
 
         guard navigationItems.count == Set(navigationItems).count,
               bottomItems.count == Set(bottomItems).count
@@ -123,9 +129,14 @@ open class SafariViewController: UIViewController {
 
         bottomItemsView.items = bottomItems
         navigationView.items = navigationItems
-
-        let request = URLRequest(url: initialURL)
-        webView.load(request)
+        
+        switch initial {
+        case let .url(value):
+            let request = URLRequest(url: value)
+            webView.load(request)
+        case let .html(value):
+            webView.loadHTMLString(value, baseURL: nil)
+        }
 
         urlKeyValueObservation = webView.observe(
             \.url,
@@ -152,12 +163,16 @@ open class SafariViewController: UIViewController {
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        let additionalSafeAreaInsets = UIEdgeInsets(
+        var additionalSafeAreaInsets = UIEdgeInsets(
             top: navigationView.frame.maxY,
             left: 0,
-            bottom: view.bounds.height - bottomItemsView.frame.minY,
+            bottom: view.safeAreaInsets.bottom,
             right: 0
         )
+        
+        if bottomItemsView.superview == view {
+            additionalSafeAreaInsets.bottom = view.bounds.height - bottomItemsView.frame.minY
+        }
 
         guard webView.additionalSafeAreaInsets != additionalSafeAreaInsets
         else {

@@ -108,10 +108,10 @@ extension UIViewController {
         case .default:
             UIApplication.shared.open(url)
         case .internalBrowser:
-            let safariViewController = SafariViewController(url: url)
+            let safariViewController = SafariViewController(initial: .url(value: url))
             hui_present(safariViewController, animated: true)
         case .web3:
-            let web3ViewController = Web3ViewController(url: url)
+            let web3ViewController = Web3ViewController(initial: .url(value: url))
             hui_present(web3ViewController, animated: true)
         }
     }
