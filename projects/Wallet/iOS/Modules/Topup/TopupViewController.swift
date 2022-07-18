@@ -6,24 +6,30 @@
 //
 
 import UIKit
+import HuetonUI
 
-class TopupViewController: UIViewController {
+protocol TopupViewControllerDelegate: AnyObject {
+    
+    func topupViewController(
+        _ viewController: TopupViewControllerDelegate,
+        didFinishWithError error: Error?
+    )
+}
+
+class TopupViewController: SafariViewController {
+    
+    weak var delegate: TopupViewControllerDelegate? = nil
+    
+    init() {
+        guard let url = URL(string: "https://iframe.venera.exchange/?theme=dark")
+        else {
+            fatalError("[TopupViewController]: Can't create URL.")
+        }
+        
+        super.init(url: url, navigationItems: [.url], bottomItems: [])
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

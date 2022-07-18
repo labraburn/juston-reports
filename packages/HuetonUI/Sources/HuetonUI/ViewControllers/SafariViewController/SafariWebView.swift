@@ -44,10 +44,19 @@ final class SafariWebView: WKWebView {
             configuration: configuration
         )
         
+        // To avoid flash on start
+        
+        backgroundColor = .hui_backgroundPrimary
+        isOpaque = false
+        
         loadHTMLString(
             "<html style=\"background-color:#10080E\"></html>",
             baseURL: nil
         )
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.isOpaque = true
+        })
     }
     
     @available(*, unavailable)

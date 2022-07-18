@@ -101,7 +101,10 @@ open class SafariViewController: UIViewController {
         view.addSubview(errorLabel)
         view.addSubview(webView)
         view.addSubview(navigationView)
-        view.addSubview(bottomItemsView)
+        
+        if !bottomItems.isEmpty {
+            view.addSubview(bottomItemsView)
+        }
 
         NSLayoutConstraint.activate({
             webView.pin(edges: view)
@@ -111,9 +114,11 @@ open class SafariViewController: UIViewController {
 
             navigationView.topAnchor.pin(to: view.topAnchor)
             navigationView.pin(horizontally: view)
-
-            bottomItemsView.pin(horizontally: view)
-            view.bottomAnchor.pin(to: bottomItemsView.bottomAnchor)
+            
+            if !bottomItems.isEmpty {
+                bottomItemsView.pin(horizontally: view)
+                view.bottomAnchor.pin(to: bottomItemsView.bottomAnchor)
+            }
         })
 
         bottomItemsView.items = bottomItems
