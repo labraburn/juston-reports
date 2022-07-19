@@ -159,6 +159,7 @@
 		F0FCD8442887612E0047954F /* TopupNavigationController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */; };
 		F0FCD846288767150047954F /* TopupFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD845288767150047954F /* TopupFinishViewController.swift */; };
 		F0FCD84928876AE20047954F /* EasyConfetti in Frameworks */ = {isa = PBXBuildFile; productRef = F0FCD84828876AE20047954F /* EasyConfetti */; };
+		F0FCD84C2887730A0047954F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD84B2887730A0047954F /* Country.swift */; };
 		F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */; };
 		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
 		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
@@ -327,6 +328,7 @@
 		F0FCD841288743C80047954F /* PreferredContentSizeHeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredContentSizeHeightViewController.swift; sourceTree = "<group>"; };
 		F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupNavigationController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0FCD845288767150047954F /* TopupFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupFinishViewController.swift; sourceTree = "<group>"; };
+		F0FCD84B2887730A0047954F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3UndefinedEvent.swift; sourceTree = "<group>"; };
 		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F0FCD84A288772FC0047954F /* Country */,
 				F0FCD8402887439B0047954F /* PreferredContentSizeHeightViewController */,
 				F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
@@ -1068,6 +1071,14 @@
 				F0FCD841288743C80047954F /* PreferredContentSizeHeightViewController.swift */,
 			);
 			path = PreferredContentSizeHeightViewController;
+			sourceTree = "<group>";
+		};
+		F0FCD84A288772FC0047954F /* Country */ = {
+			isa = PBXGroup;
+			children = (
+				F0FCD84B2887730A0047954F /* Country.swift */,
+			);
+			path = Country;
 			sourceTree = "<group>";
 		};
 		F0FDEFCC286A935C00982A0A /* Browser */ = {
@@ -1298,6 +1309,7 @@
 				F01E2ADC2848F07900AA108F /* DeveloperViewController.swift in Sources */,
 				F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */,
 				F0A1514F280268F000EF9F83 /* ApplicationError.swift in Sources */,
+				F0FCD84C2887730A0047954F /* Country.swift in Sources */,
 				F0678142281AA48800EB05F4 /* CardStackCardContentCompactView.swift in Sources */,
 				F0FDEFDC286AD81000982A0A /* UserConfirmation.swift in Sources */,
 				F0AAC13C28674B6B00F25C26 /* ExploreSafari3ViewController.swift in Sources */,

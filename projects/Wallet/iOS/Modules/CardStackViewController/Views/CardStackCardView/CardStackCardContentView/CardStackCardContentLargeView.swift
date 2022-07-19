@@ -95,6 +95,8 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
             topButtonsHStackView.addArrangedSubview(readonlyButton)
         } else {
             bottomButtonsHStackView.addArrangedSubview(sendButton)
+        }
+        if !model.account.isReadonly && Country.shared.probably(in: .ru) {
             bottomButtonsHStackView.addArrangedSubview(topupButton)
         }
         bottomButtonsHStackView.addArrangedSubview(moreButton)
