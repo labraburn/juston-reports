@@ -82,16 +82,18 @@ extension UIViewController {
     
     func hide(
         animated: Bool,
-        popIfAvailable: Bool = true
+        popIfAvailable: Bool = true,
+        completion: (() -> Void)? = nil
     ) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.first == self || !popIfAvailable {
-                navigationController.dismiss(animated: animated)
+                navigationController.dismiss(animated: animated, completion: completion)
             } else {
                 navigationController.popViewController(animated: animated)
+                completion?()
             }
         } else {
-            dismiss(animated: animated)
+            dismiss(animated: animated, completion: completion)
         }
     }
     

@@ -57,7 +57,7 @@
 		F02C8774284FD8AA007476B8 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */; };
 		F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8778284FDFC7007476B8 /* TransactionError.swift */; };
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
-		F02FE8B52884C7C200D4F141 /* TopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FE8B42884C7C200D4F141 /* TopupViewController.swift */; };
+		F02FE8B52884C7C200D4F141 /* TopupProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FE8B42884C7C200D4F141 /* TopupProviderViewController.swift */; };
 		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
 		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */; };
@@ -153,6 +153,12 @@
 		F0F071452832DA72009AA6F9 /* TransferConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */; };
 		F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */; };
 		F0F0714A2832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */; };
+		F0FCD83B2887381A0047954F /* TopupNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD83A2887381A0047954F /* TopupNavigationController.swift */; };
+		F0FCD83F288741DA0047954F /* TopupAgreementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD83E288741DA0047954F /* TopupAgreementsViewController.swift */; };
+		F0FCD842288743C80047954F /* PreferredContentSizeHeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD841288743C80047954F /* PreferredContentSizeHeightViewController.swift */; };
+		F0FCD8442887612E0047954F /* TopupNavigationController.InitialConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */; };
+		F0FCD846288767150047954F /* TopupFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD845288767150047954F /* TopupFinishViewController.swift */; };
+		F0FCD84928876AE20047954F /* EasyConfetti in Frameworks */ = {isa = PBXBuildFile; productRef = F0FCD84828876AE20047954F /* EasyConfetti */; };
 		F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */; };
 		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
 		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
@@ -214,7 +220,7 @@
 		F02C8773284FD8AA007476B8 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		F02C8778284FDFC7007476B8 /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
-		F02FE8B42884C7C200D4F141 /* TopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupViewController.swift; sourceTree = "<group>"; };
+		F02FE8B42884C7C200D4F141 /* TopupProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupProviderViewController.swift; sourceTree = "<group>"; };
 		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
 		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeNavigationView.swift; sourceTree = "<group>"; };
@@ -316,6 +322,11 @@
 		F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.swift; sourceTree = "<group>"; };
 		F0F071472832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferDetailsViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0F071492832DADB009AA6F9 /* TransferConfirmationViewController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferConfirmationViewController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F0FCD83A2887381A0047954F /* TopupNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupNavigationController.swift; sourceTree = "<group>"; };
+		F0FCD83E288741DA0047954F /* TopupAgreementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupAgreementsViewController.swift; sourceTree = "<group>"; };
+		F0FCD841288743C80047954F /* PreferredContentSizeHeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredContentSizeHeightViewController.swift; sourceTree = "<group>"; };
+		F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupNavigationController.InitialConfiguration.swift; sourceTree = "<group>"; };
+		F0FCD845288767150047954F /* TopupFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupFinishViewController.swift; sourceTree = "<group>"; };
 		F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3UndefinedEvent.swift; sourceTree = "<group>"; };
 		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
@@ -339,6 +350,7 @@
 				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
 				F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
+				F0FCD84928876AE20047954F /* EasyConfetti in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +583,11 @@
 		F02FE8B32884C7B000D4F141 /* Topup */ = {
 			isa = PBXGroup;
 			children = (
-				F02FE8B42884C7C200D4F141 /* TopupViewController.swift */,
+				F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */,
+				F0FCD83A2887381A0047954F /* TopupNavigationController.swift */,
+				F0FCD83E288741DA0047954F /* TopupAgreementsViewController.swift */,
+				F02FE8B42884C7C200D4F141 /* TopupProviderViewController.swift */,
+				F0FCD845288767150047954F /* TopupFinishViewController.swift */,
 			);
 			path = Topup;
 			sourceTree = "<group>";
@@ -1015,6 +1031,7 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F0FCD8402887439B0047954F /* PreferredContentSizeHeightViewController */,
 				F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */,
 				F067814A281B36F100EB05F4 /* InAppAnnouncement */,
 				F0118D8C2810599500B518A9 /* C42 */,
@@ -1043,6 +1060,14 @@
 				F0F071442832DA72009AA6F9 /* TransferConfirmationViewController.swift */,
 			);
 			path = Confirmation;
+			sourceTree = "<group>";
+		};
+		F0FCD8402887439B0047954F /* PreferredContentSizeHeightViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F0FCD841288743C80047954F /* PreferredContentSizeHeightViewController.swift */,
+			);
+			path = PreferredContentSizeHeightViewController;
 			sourceTree = "<group>";
 		};
 		F0FDEFCC286A935C00982A0A /* Browser */ = {
@@ -1096,6 +1121,7 @@
 				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
 				F016607D284B5A5F00E4BE3F /* DefaultMOON */,
 				F003FEF52869441A00623AC0 /* GithubMOON */,
+				F0FCD84828876AE20047954F /* EasyConfetti */,
 			);
 			productName = Application;
 			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
@@ -1129,6 +1155,7 @@
 				F01E909B27A7A93E00BD1BDF /* XCRemoteSwiftPackageReference "SwiftyTON" */,
 				F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */,
 				F09E2A2A283E93E400D7BC55 /* XCRemoteSwiftPackageReference "QRCode" */,
+				F0FCD84728876AE20047954F /* XCRemoteSwiftPackageReference "EasyConfetti" */,
 			);
 			productRefGroup = F0995F6027A0B7CA003A090C /* Products */;
 			projectDirPath = "";
@@ -1161,6 +1188,7 @@
 			files = (
 				F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */,
 				F085969B285633D300CF9D3D /* CardStackCardLabel.swift in Sources */,
+				F0FCD83F288741DA0047954F /* TopupAgreementsViewController.swift in Sources */,
 				F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */,
 				F0678150281B378000EB05F4 /* InAppAnnouncement.swift in Sources */,
 				F0909B5327E88D9000FC8404 /* C42LabelCell.swift in Sources */,
@@ -1175,6 +1203,8 @@
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
 				F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */,
 				F0AAC13328654FA600F25C26 /* Safari3ViewController.swift in Sources */,
+				F0FCD8442887612E0047954F /* TopupNavigationController.InitialConfiguration.swift in Sources */,
+				F0FCD83B2887381A0047954F /* TopupNavigationController.swift in Sources */,
 				F0995F9D27A0B9E1003A090C /* ApplicationWindowScene.swift in Sources */,
 				F0118D9228105A9D00B518A9 /* C42CollectionViewCompositionalLayout.swift in Sources */,
 				F0995FAA27A0BE1A003A090C /* TransactionsViewController.swift in Sources */,
@@ -1227,6 +1257,7 @@
 				F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */,
 				F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */,
 				F0A1515A28032DCB00EF9F83 /* PasscodeNumberButton.swift in Sources */,
+				F0FCD842288743C80047954F /* PreferredContentSizeHeightViewController.swift in Sources */,
 				F0118DAB281075EB00B518A9 /* Web3ViewController.swift in Sources */,
 				F0C23DA22868BD6C0052B2C5 /* Safari3WelcomeCollectionViewLayout.swift in Sources */,
 				F0A151412802532B00EF9F83 /* C42CollectionViewController.swift in Sources */,
@@ -1277,6 +1308,7 @@
 				F0678140281AA45A00EB05F4 /* CardStackCardContentView.swift in Sources */,
 				F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */,
 				F01E2AD92847BF2C00AA108F /* UDS.swift in Sources */,
+				F0FCD846288767150047954F /* TopupFinishViewController.swift in Sources */,
 				F01E2AE228491A1600AA108F /* TransactionsPlaceholderCollectionReusableView.swift in Sources */,
 				F0A151542802727200EF9F83 /* PasscodeViewController.swift in Sources */,
 				F003FF032869FE7700623AC0 /* Safari3SearchPlaceholderCollectionReusableView.swift in Sources */,
@@ -1293,7 +1325,7 @@
 				F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */,
 				F01E2AD22847B43E00AA108F /* OnboardingNavigationController.InitialConfiguration.swift in Sources */,
 				F0C23DA52868BE200052B2C5 /* Safari3WelcomePlaceholderCollectionReusableView.swift in Sources */,
-				F02FE8B52884C7C200D4F141 /* TopupViewController.swift in Sources */,
+				F02FE8B52884C7C200D4F141 /* TopupProviderViewController.swift in Sources */,
 				F0909B6127E8CF6500FC8404 /* String.swift in Sources */,
 				F0995F6527A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift in Sources */,
 				F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */,
@@ -1547,6 +1579,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		F0FCD84728876AE20047954F /* XCRemoteSwiftPackageReference "EasyConfetti" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onmyway133/EasyConfetti";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1583,6 +1623,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F09E2A2A283E93E400D7BC55 /* XCRemoteSwiftPackageReference "QRCode" */;
 			productName = QRCodeStatic;
+		};
+		F0FCD84828876AE20047954F /* EasyConfetti */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FCD84728876AE20047954F /* XCRemoteSwiftPackageReference "EasyConfetti" */;
+			productName = EasyConfetti;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -32,7 +32,7 @@ final class CardStackCardButton: UIButton {
         
         // Inside UIStackView this helps tp avoid unnecessary errors
         let constraint = button.widthAnchor.pin(to: button.heightAnchor)
-        constraint.priority = .defaultHigh
+        constraint.priority = .required - 1
         constraint.isActive = true
         
         button.setImage(image, for: .normal)

@@ -14,6 +14,7 @@
 "CommonAddress" = "Address";
 "CommonAmount" = "Amount";
 "CommonNext" = "Next";
+"CommonClose" = "Close";
 "CommonUndoneAction" = "Are you sure? This action cannot being undone!";
 /* END - Common */
 
@@ -288,4 +289,16 @@
 "UserConfirmationTitle" = "Action requested";
 "UserConfirmationConfirmButton" = "Confirm";
 "UserConfirmationLargeAmountUnbouncableAddress" = "You are trying to send large amount tokens to non-bounceable address. If address is incorrect you will loose all amount of transaction";
+/* END - UserConfirmation */
+
+
+
+/* START - VeneraExhange */
+"VeneraExhangeTitle" = "VENERA";
+"VeneraExhangeDescription" = "You will be taken to VENERA. Services relating to payments are provided by VENERA, which is a separate platform owned by a third party.\n\nPlease review them %@ and %@ and after tap accept button if you are agree";
+"VeneraExhangeTermsOfUse" = "terms of use";
+"VeneraExhangePrivacy" = "privacy policy";
+"VeneraExhangeActionButton" = "ACCEPT";
+"VeneraExchangeFinishTitle" = "VENERA x JUSTON";
+"VeneraExchangeFinishDescription" = "You are awesome! Thanks for using VENERA :)\n\nNow you need to wait few seconds to receive $TON";
 /* END - UserConfirmation */

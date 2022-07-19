@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "EasyConfetti",
+        "repositoryURL": "https://github.com/onmyway133/EasyConfetti",
+        "state": {
+          "branch": null,
+          "revision": "fffe1b1969b91c6cde8f93744957cc6c23087275",
+          "version": "2.4.0"
+        }
+      },
+      {
         "package": "Lottie",
         "repositoryURL": "https://github.com/airbnb/lottie-ios.git",
         "state": {

@@ -411,8 +411,11 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickTopupControl control: UIControl,
         model: CardStackCard
     ) {
-        let viewController = TopupViewController()
-        viewController.delegate = self
+        let viewController = TopupNavigationController(
+            initialConfiguration: .init(
+                account: model.account
+            )
+        )
         
         hui_present(
             viewController,
@@ -545,15 +548,5 @@ extension CardStackViewController: CardStackViewDelegate {
         button.sui_presentMenuIfPossible(
             UIMenu(children: children)
         )
-    }
-}
-
-extension CardStackViewController: TopupViewControllerDelegate {
-    
-    func topupViewController(
-        _ viewController: TopupViewControllerDelegate,
-        didFinishWithError error: Error?
-    ) {
-        
     }
 }

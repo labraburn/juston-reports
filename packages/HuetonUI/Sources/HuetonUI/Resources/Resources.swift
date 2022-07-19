@@ -71,6 +71,8 @@ public extension UIImage {
     static let hui_placeholderV5512: UIImage = .named("PlaceholderV5512")
     
     static let hui_qrCodeOverlay512: UIImage = .named("QRCodeOverlay512")
+    static let hui_veneraExchange128: UIImage = .named("VeneraExchange")
+    static let hui_veneraJuston128: UIImage = .named("VeneraJuston")
     
     static let hui_cardGradient0: UIImage = .named("CardGradient0")
     static let hui_cardGradient1: UIImage = .named("CardGradient1")
