@@ -182,6 +182,14 @@ static void * kSUI13ShouldFullscreenKey = &kSUI13ShouldFullscreenKey;
             function block = (function)objc_msgSendSuper;
             return block(&super, @selector(isMemberOfClass:), klass);
         }];
+        
+        // [self invalidateDetents]
+        [registration registerInstanceMethodWithReference:[O42PatternReference referenceWithNamed:@"invalidateDetents" klass:self]
+                                           executionBlock:^(UIPresentationController *self) {
+            NSArray *detents = [[(id)self detents] copy];
+            [(id)self setDetents:@[[SUISheetPresentationControllerDetent mediumDetent]]];
+            [(id)self setDetents:detents];
+        }];
 
         _SUI13SheetPresentationControllerKlass = [registration registerClass];
     });
@@ -204,6 +212,7 @@ static void * kSUI13ShouldFullscreenKey = &kSUI13ShouldFullscreenKey;
 - (BOOL)shouldPresentInFullscreen { return NO; }
 - (void)performAnimatedChanges:(void (NS_NOESCAPE ^)(void))changes {};
 - (void)dimmingViewWasTapped:(UIView *)dimmingView {}
+- (void)invalidateDetents {}
 
 - (BOOL)isKindOfClass:(Class)aClass { return NO; }
 - (BOOL)isMemberOfClass:(Class)aClass { return NO; }

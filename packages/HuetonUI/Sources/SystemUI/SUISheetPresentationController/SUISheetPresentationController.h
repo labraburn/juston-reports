@@ -36,6 +36,11 @@ API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos, watchos) NS_SWIFT_UI_ACTOR
 // By the time this method returns, the receiver and all adjacent sheets in the sheet stack and their subviews will have been laid out.
 - (void)performAnimatedChanges:(void (NS_NOESCAPE ^)(void))changes;
 
+// If an external input (e.g. a captured property) to a custom detent changes, call this to notify the sheet to re-evaluate the detent in the next layout pass.
+// There is no need to call this if `detents` only contains system detents, or if custom detents only use information from the passed in context.
+// Call within an `animateChanges:` block to animate custom detents to their new heights.
+- (void)invalidateDetents;
+
 @end
 
 @interface SUISheetPresentationController (UNAVAILABLE)

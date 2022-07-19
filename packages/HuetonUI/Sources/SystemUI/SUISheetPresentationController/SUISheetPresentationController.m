@@ -37,4 +37,9 @@
 /// - `SUI15SheetPresentationController`
 - (void)performAnimatedChanges:(void (NS_NOESCAPE ^)(void))changes {}
 
+/// Implemented in:
+/// - `SUI13SheetPresentationController`
+/// - `SUI15SheetPresentationController`
+- (void)invalidateDetents {}
+
 @end

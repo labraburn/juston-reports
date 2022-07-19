@@ -65,4 +65,10 @@
     return [super isMemberOfClass:aClass];
 }
 
+- (void)invalidateDetents {
+    NSArray *detents = [[self detents] copy];
+    [self setDetents:@[[SUISheetPresentationControllerDetent mediumDetent]]];
+    [self setDetents:detents];
+}
+
 @end
