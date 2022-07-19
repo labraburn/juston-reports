@@ -179,7 +179,7 @@ const SUISheetPresentationControllerDetendIdentifier SUISheetPresentationControl
     } else {
         // Reversed BEFORE iOS 15
         CGFloat value = self.resulutionBlock(containerView, fullHeightFrameOfPresentedView) + containerView.safeAreaInsets.bottom;
-        return (fullHeightFrameOfPresentedView.size.height - value) + fullHeightFrameOfPresentedView.origin.y;
+        return MAX((fullHeightFrameOfPresentedView.size.height - value) + fullHeightFrameOfPresentedView.origin.y, fullHeightFrameOfPresentedView.origin.y);
     }
 }
 
