@@ -8,6 +8,7 @@
 
 #import <../SUISVGDecoder/SUISVGDecoder.h>
 #import <../SUINavigationController/SUINavigationController.h>
+#import <../SUISheetPresentationController/SUISheetPresentationController.h>
 #import <../SUINavigationController/SUINavigationControllerAnimatedTransitioning/SUINavigationControllerAnimatedTransitioning.h>
 
 #import <../Categories/UIKit/UIView+SUI.h>

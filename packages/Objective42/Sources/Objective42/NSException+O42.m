@@ -1,8 +1,5 @@
 //
-//  NSException+O42.m
-//  
-//
-//  Created by Anton Spivak on 02.04.2022.
+//  Created by Anton Spivak
 //
 
 #import "NSException+O42.h"
@@ -24,6 +21,13 @@ NSErrorDomain const O42ExceptionErrorDomain = @"O42ExceptionErrorDomain";
         NSDebugDescriptionErrorKey : [userInfo copy],
         NSLocalizedFailureReasonErrorKey : self.reason ?: @""
     }];
+}
+
++ (void)o42_raiseExceptionWithName:(NSExceptionName)name
+                            reason:(nullable NSString *)reason
+                          userInfo:(nullable NSDictionary *)userInfo
+{
+    [[NSException exceptionWithName:name reason:reason userInfo:userInfo] raise];
 }
 
 @end
