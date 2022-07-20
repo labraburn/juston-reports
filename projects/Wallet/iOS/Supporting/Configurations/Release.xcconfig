@@ -6,7 +6,7 @@ CODE_SIGN_IDENTITY = Apple Development
 CODE_SIGN_STYLE = Manual
 DEVELOPMENT_TEAM = RC58426QBN
 CODE_SIGN_IDENTITY = iPhone Distribution
-PROVISIONING_PROFILE_SPECIFIER = HUETON (AppStore)
+PROVISIONING_PROFILE_SPECIFIER = Wallet (AppStore)
 
 CODE_SIGN_ENTITLEMENTS = iOS/Supporting/Entitlements/Release.entitlements
 PRODUCT_BUNDLE_IDENTIFIER = com.hueton.application.wallet
