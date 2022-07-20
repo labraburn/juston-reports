@@ -184,12 +184,19 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
         let controlsBackgroundColor = UIColor(rgba: model.account.appearance.controlsBackgroundColor)
         
         UIView.performWithoutAnimation({
-            if let kind = model.account.contractKind {
+            if let selectedKind = model.account.selectedContract.kind,
+               selectedKind != .uninitialized
+            {
                 if !topButtonsHStackView.arrangedSubviews.contains(versionButton) {
                     topButtonsHStackView.insertArrangedSubview(versionButton, at: 0)
                 }
                 
-                versionButton.setTitle(kind.name, for: .normal)
+                var name = selectedKind.name
+                if let kind = model.account.contractKind, kind == .uninitialized {
+                    name = name + " (" + "AccountContracrtNameUninitialized".asLocalizedKey + ")"
+                }
+                
+                versionButton.setTitle(name, for: .normal)
                 versionButton.layoutIfNeeded()
             } else {
                 versionButton.removeFromSuperview()
