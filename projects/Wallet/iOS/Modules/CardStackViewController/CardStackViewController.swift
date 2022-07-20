@@ -10,6 +10,7 @@ import JustonUI
 import JustonCORE
 import CoreData
 
+@MainActor
 protocol CardStackViewControllerDelegate: AnyObject {
     
     func cardStackViewController(
