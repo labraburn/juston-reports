@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 extension UIViewController {
     
@@ -50,7 +50,7 @@ extension UIViewController {
         }
         
         let viewController = AlertViewController(
-            image: .image(.hui_error42, tintColor: .hui_letter_red),
+            image: .image(.jus_error42, tintColor: .jus_letter_red),
             title: ":(",
             message: errorToPresent.localizedDescription,
             actions: actions
@@ -64,7 +64,7 @@ extension UIViewController {
         completion: (() -> Void)? = nil
     ) {
         let viewController = AlertViewController(
-            image: .image(.hui_development42, tintColor: .hui_letter_purple),
+            image: .image(.jus_development42, tintColor: .jus_letter_purple),
             title: "UnderDevelopmentPromptTitle".asLocalizedKey,
             message: "UnderDevelopmentPromptMessage".asLocalizedKey,
             actions: [.ok]
@@ -111,10 +111,10 @@ extension UIViewController {
             UIApplication.shared.open(url)
         case .internalBrowser:
             let safariViewController = SafariViewController(initial: .url(value: url))
-            hui_present(safariViewController, animated: true)
+            jus_present(safariViewController, animated: true)
         case .web3:
             let web3ViewController = Web3ViewController(initial: .url(value: url))
-            hui_present(web3ViewController, animated: true)
+            jus_present(web3ViewController, animated: true)
         }
     }
 }

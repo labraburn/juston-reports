@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42LabelCell: UICollectionViewCell {
     
@@ -35,7 +35,7 @@ class C42LabelCell: UICollectionViewCell {
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.font = .font(for: .body)
         $0.setContentHuggingPriority(.required, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -46,7 +46,7 @@ class C42LabelCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .hui_backgroundPrimary
+        contentView.backgroundColor = .jus_backgroundPrimary
         contentView.addSubview(textLabel)
         
         textLabel.pinned(edges: contentView)

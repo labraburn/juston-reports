@@ -12,7 +12,7 @@ class C42ApplicationVersionHeaderView: UICollectionReusableView {
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .caption2)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .center
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
     })
@@ -22,7 +22,7 @@ class C42ApplicationVersionHeaderView: UICollectionReusableView {
         
         textLabel.text = "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))"
         
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         clipsToBounds = true
         
         addSubview(textLabel)

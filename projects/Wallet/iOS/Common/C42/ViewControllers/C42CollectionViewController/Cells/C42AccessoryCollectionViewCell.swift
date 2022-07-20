@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42AccessoryCollectionViewCell: UICollectionViewCell {
     
@@ -34,7 +34,7 @@ class C42AccessoryCollectionViewCell: UICollectionViewCell {
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .body)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .left
         $0.setContentCompressionResistancePriority(.required, for: .horizontal)
     })

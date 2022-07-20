@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 protocol Safari3WelcomeDataSourceDelegate: AnyObject {

@@ -22,7 +22,7 @@
 
 /* START - Onboarding */
 "OnboardingWelcomeTitle" = "Hey!";
-"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-custodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
+"OnboardingWelcomeDescription" = "This is a JUSTON, simple, non-custodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
 
 "OnboardingAgreementsTitle" = "User agreements";
 "OnboardingAgreementsDescription" = "Please, review our %@ and %@ after tap accept button if you are satisfied";
@@ -150,7 +150,7 @@
 
 
 /* START - Settings */
-"SettingsTitle" = "HUETON";
+"SettingsTitle" = "JUSTON";
 "SettingsDescription" = "We are strongly believe in future without bureaucratic and all centralized stuff. Our mission is a freedom and all products will be pointed to achieve it.\n\nEnjoy and feel free to contact us!";
 
 "SettingsShareButton" = "Share";

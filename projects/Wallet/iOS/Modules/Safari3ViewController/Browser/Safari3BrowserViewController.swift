@@ -7,8 +7,8 @@
 
 import UIKit
 import WebKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 protocol Safari3BrowserViewControllerDelegate: AnyObject {
     
@@ -47,7 +47,7 @@ class Safari3BrowserViewController: UIViewController {
     
     private lazy var scrollView = UIScrollView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundPrimary
+        $0.backgroundColor = .jus_backgroundPrimary
         $0.contentInsetAdjustmentBehavior = .never
         $0.showsHorizontalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
@@ -112,7 +112,7 @@ class Safari3BrowserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -172,7 +172,7 @@ class Safari3BrowserViewController: UIViewController {
                          return
                      }
                      
-                     self.scrollView.backgroundColor = change.newValue ?? .hui_backgroundPrimary
+                     self.scrollView.backgroundColor = change.newValue ?? .jus_backgroundPrimary
                  }
             )
         }
@@ -180,7 +180,7 @@ class Safari3BrowserViewController: UIViewController {
         update(presentationState: presentationState, animated: false)
         
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .hui_textSecondary
+        refreshControl.tintColor = .jus_textSecondary
         refreshControl.addTarget(self, action: #selector(refreshControlDidChange(_:)), for: .valueChanged)
         scrollView.refreshControl = refreshControl
         

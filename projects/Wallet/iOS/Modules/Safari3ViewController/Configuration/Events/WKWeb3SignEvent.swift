@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 struct WKWeb3SignEvent: WKWeb3Event {
     

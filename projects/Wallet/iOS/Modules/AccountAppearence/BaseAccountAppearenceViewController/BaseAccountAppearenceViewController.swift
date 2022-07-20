@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class BaseAccountAppearenceViewController: UIViewController {
     
@@ -18,7 +18,7 @@ class BaseAccountAppearenceViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "AccountAppearenceDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -32,7 +32,7 @@ class BaseAccountAppearenceViewController: UIViewController {
         $0.alwaysBounceHorizontal = true
         $0.alwaysBounceVertical = false
         $0.clipsToBounds = false
-        $0.backgroundColor = .hui_backgroundPrimary
+        $0.backgroundColor = .jus_backgroundPrimary
         $0.contentInset = UIEdgeInsets(top: 0, left: 16, right: 16, bottom: 0)
         
         $0.delegate = self
@@ -60,37 +60,37 @@ class BaseAccountAppearenceViewController: UIViewController {
     private let cardStyles: [AccountAppearance] = [
         .default,
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient0.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient0.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
         ),
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient1.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient1.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
         ),
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient2.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient2.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
         ),
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient3.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient3.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
         ),
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient4.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient4.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
         ),
         .init(
-            kind: .gradientImage(imageData: UIImage.hui_cardGradient5.pngData()!, strokeColor: 0xFEF6FF0A),
+            kind: .gradientImage(imageData: UIImage.jus_cardGradient5.pngData()!, strokeColor: 0xFEF6FF0A),
             tintColor: 0xFFFFFFFF,
             controlsForegroundColor: 0xFFFFFFFF,
             controlsBackgroundColor: 0xFFFFFF14
@@ -125,7 +125,7 @@ class BaseAccountAppearenceViewController: UIViewController {
         
         title = "AccountAppearenceTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(nameTextView)
@@ -159,7 +159,7 @@ class BaseAccountAppearenceViewController: UIViewController {
     
     func markNameTextViewAsError() {
         nameTextView.shake()
-        nameTextView.textView.textColor = .hui_letter_red
+        nameTextView.textView.textColor = .jus_letter_red
         errorFeedbackGenerator.impactOccurred()
     }
 }

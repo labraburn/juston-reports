@@ -156,7 +156,7 @@ class InAppAnnouncementWindow: UIWindow {
                     attributedString: NSAttributedString(
                         string: content.text,
                         attributes: [
-                            .foregroundColor : UIColor.hui_textPrimary,
+                            .foregroundColor : UIColor.jus_textPrimary,
                             .font : UIFont.font(for: .subheadline)
                         ]
                     ),

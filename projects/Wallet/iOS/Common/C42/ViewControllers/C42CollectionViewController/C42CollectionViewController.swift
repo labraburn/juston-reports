@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class C42CollectionViewController: C42ConcreteViewController {
     
@@ -64,7 +64,7 @@ class C42CollectionViewController: C42ConcreteViewController {
         collectionView.keyboardDismissMode = .onDrag
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .hui_backgroundPrimary
+        collectionView.backgroundColor = .jus_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         

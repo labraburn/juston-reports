@@ -8,7 +8,7 @@
 import Foundation
 
 import Foundation
-import HuetonCORE
+import JustonCORE
 
 @MainActor
 final class InstallationIdentifier {

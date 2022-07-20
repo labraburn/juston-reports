@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class AgreementsViewController: C42ConcreteViewController {
     
@@ -17,14 +17,14 @@ class AgreementsViewController: C42ConcreteViewController {
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .hui_placeholderV3512
+        $0.image = .jus_placeholderV3512
     })
     
     private let textView = UITextView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .body)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "OnboardingAgreementsDescription".asLocalizedKey
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
@@ -33,12 +33,12 @@ class AgreementsViewController: C42ConcreteViewController {
         $0.isSelectable = true
         $0.delaysContentTouches = false
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
-        $0.backgroundColor = .hui_backgroundPrimary
+        $0.backgroundColor = .jus_backgroundPrimary
         $0.isUserInteractionEnabled = true
         $0.linkTextAttributes = [
-            .foregroundColor : UIColor.hui_letter_violet,
+            .foregroundColor : UIColor.jus_letter_violet,
             .font : UIFont.font(for: .headline),
-            .underlineColor : UIColor.hui_letter_purple,
+            .underlineColor : UIColor.jus_letter_purple,
             .underlineStyle : NSUnderlineStyle.single.rawValue,
         ]
         
@@ -49,7 +49,7 @@ class AgreementsViewController: C42ConcreteViewController {
         let string = NSMutableAttributedString(
             string: pattern,
             attributes: [
-                .foregroundColor : UIColor.hui_textPrimary,
+                .foregroundColor : UIColor.jus_textPrimary,
                 .font : UIFont.font(for: .body),
                 .paragraphStyle : NSMutableParagraphStyle().with({
                     $0.alignment = .center
@@ -112,7 +112,7 @@ class AgreementsViewController: C42ConcreteViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(imageView)
         view.addSubview(textView)

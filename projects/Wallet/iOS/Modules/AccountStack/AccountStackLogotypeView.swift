@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 final class AccountStackLogotypeView: UIControl {
     
-    let huetonView = HuetonView().with({
+    let justonView = JustonView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.isUserInteractionEnabled = false
     })
@@ -19,8 +19,8 @@ final class AccountStackLogotypeView: UIControl {
         super.init(frame: .zero)
         
         backgroundColor = .clear
-        addSubview(huetonView)
-        huetonView.pinned(edges: self)
+        addSubview(justonView)
+        justonView.pinned(edges: self)
         
         insertHighlightingScaleAnimation()
         insertFeedbackGenerator(style: .light)

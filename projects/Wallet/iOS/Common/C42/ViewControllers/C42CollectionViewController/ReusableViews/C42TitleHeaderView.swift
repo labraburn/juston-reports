@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42TitleHeaderView: UICollectionReusableView {
     
@@ -22,7 +22,7 @@ class C42TitleHeaderView: UICollectionReusableView {
         }
     }
     
-    var foregroundColor: UIColor = .hui_textSecondary {
+    var foregroundColor: UIColor = .jus_textSecondary {
         didSet {
             titleLabel.textColor = foregroundColor
         }
@@ -36,7 +36,7 @@ class C42TitleHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         clipsToBounds = true
         addSubview(titleLabel)
     }
@@ -53,7 +53,7 @@ class C42ListGroupHeaderView: C42TitleHeaderView {
         super.init(frame: frame)
         
         titleLabel.font = .font(for: .caption1)
-        titleLabel.textColor = .hui_textSecondary
+        titleLabel.textColor = .jus_textSecondary
         
         NSLayoutConstraint.activate({
             titleLabel.pin(edges: self)
@@ -67,7 +67,7 @@ class C42SimpleGroupHeaderView: C42TitleHeaderView {
         super.init(frame: frame)
         
         titleLabel.font = .font(for: .headline)
-        titleLabel.textColor = .hui_textSecondary
+        titleLabel.textColor = .jus_textSecondary
         
         NSLayoutConstraint.activate({
             titleLabel.pin(edges: self, insets: UIEdgeInsets(top: 0, left: 0, right: 0, bottom: 16))

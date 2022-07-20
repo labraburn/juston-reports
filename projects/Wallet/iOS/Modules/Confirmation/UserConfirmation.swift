@@ -50,7 +50,7 @@ actor UserConfirmation {
                 }
             })
             
-            presentationContext.hui_present(
+            presentationContext.jus_present(
                 viewController,
                 animated: true
             )
@@ -71,10 +71,10 @@ private extension UserConfirmation.ConfirmationAction {
         
         switch self {
         case let .sign(host):
-            image = .image(.hui_warning42, tintColor: .hui_letter_yellow)
+            image = .image(.jus_warning42, tintColor: .jus_letter_yellow)
             message = String(format: "UserConfirmationSignMessage".asLocalizedKey, host.uppercased())
         case let .transaction(host, destination, value):
-            image = .image(.hui_warning42, tintColor: .hui_letter_red)
+            image = .image(.jus_warning42, tintColor: .jus_letter_red)
             message = String(
                 format: "UserConfirmationTransactionMessage".asLocalizedKey,
                 host.uppercased(),
@@ -82,7 +82,7 @@ private extension UserConfirmation.ConfirmationAction {
                 destination.displayName
             )
         case .largeTransactionUnbouncableAddress:
-            image = .image(.hui_warning42, tintColor: .hui_letter_yellow)
+            image = .image(.jus_warning42, tintColor: .jus_letter_yellow)
             message = "UserConfirmationLargeAmountUnbouncableAddress".asLocalizedKey
         }
         

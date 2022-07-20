@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class OnboardingAccountImportViewController: C42ConcreteViewController {
     
@@ -28,7 +28,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "OnboardingImportDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -76,7 +76,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(inputTextView)
@@ -84,7 +84,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
         
         inputTextView.actions = [
             .init(
-                image: .hui_scan20,
+                image: .jus_scan20,
                 block: { [weak self] in
                     self?.scanQRAndFill()
                 }
@@ -139,7 +139,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
     
     fileprivate func markTextViewError() {
         inputTextView.shake()
-        inputTextView.textView.textColor = .hui_letter_red
+        inputTextView.textView.textColor = .jus_letter_red
         errorFeedbackGenerator.impactOccurred()
     }
     
@@ -148,7 +148,7 @@ class OnboardingAccountImportViewController: C42ConcreteViewController {
         qrViewController.delegate = self
         
         let navigationController = NavigationController(rootViewController: qrViewController)
-        hui_present(navigationController, animated: true, completion: nil)
+        jus_present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: Actions

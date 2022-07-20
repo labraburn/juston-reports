@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class ApplicationWindowViewController: ContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
     }
 }
 

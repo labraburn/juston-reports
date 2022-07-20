@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 struct WKWeb3RequestAccountsEvent: WKWeb3Event {
     

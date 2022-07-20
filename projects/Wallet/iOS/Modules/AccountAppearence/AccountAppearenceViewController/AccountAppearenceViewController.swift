@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 class AccountAppearenceViewController: BaseAccountAppearenceViewController {
 

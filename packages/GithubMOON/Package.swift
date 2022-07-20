@@ -20,8 +20,8 @@ let package = Package(
             path: "../Objective42"
         ),
         .package(
-            name: "HuetonMOON",
-            path: "../HuetonMOON"
+            name: "JustonMOON",
+            path: "../JustonMOON"
         ),
     ],
     targets: [
@@ -29,7 +29,7 @@ let package = Package(
             name: "GithubMOON",
             dependencies: [
                 "Objective42",
-                "HuetonMOON",
+                "JustonMOON",
             ],
             path: "Sources/GithubMOON",
             swiftSettings: [

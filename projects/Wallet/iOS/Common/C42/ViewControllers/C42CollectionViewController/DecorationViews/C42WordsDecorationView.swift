@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42WordsDecorationView: UICollectionReusableView {
     
@@ -16,7 +16,7 @@ class C42WordsDecorationView: UICollectionReusableView {
         layer.cornerCurve = .continuous
         layer.cornerRadius = 16
         
-        backgroundColor = .hui_backgroundSecondary
+        backgroundColor = .jus_backgroundSecondary
     }
     
     @available(*, unavailable)

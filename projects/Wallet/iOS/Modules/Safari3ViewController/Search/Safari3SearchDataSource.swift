@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 class Safari3SearchDataSource: CollectionViewDiffableDataSource<Safari3SearchDataSource.Section, Safari3SearchDataSource.Item> {

@@ -21,7 +21,7 @@
 		F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */; };
 		F003FF16286A1CE100623AC0 /* WKWeb3EventBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */; };
 		F003FF1A286A26A200623AC0 /* WKWeb3EventDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */; };
-		F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */ = {isa = PBXBuildFile; fileRef = F003FF1B286A2CEF00623AC0 /* hueton.js */; };
+		F003FF1C286A2CEF00623AC0 /* juston.js in Resources */ = {isa = PBXBuildFile; fileRef = F003FF1B286A2CEF00623AC0 /* juston.js */; };
 		F003FF1E286A4C5600623AC0 /* WKWeb3Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */; };
 		F00BE9F227DCC20B0084FF1C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F127DCC20B0084FF1C /* CardStackView.swift */; };
 		F00BE9F527DE03190084FF1C /* CardStackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00BE9F427DE03190084FF1C /* CardStackCardView.swift */; };
@@ -39,7 +39,6 @@
 		F0118DB4281084D300B518A9 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB3281084D300B518A9 /* UIApplication.swift */; };
 		F0118DB6281085EC00B518A9 /* PushIdentificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0118DB5281085EC00B518A9 /* PushIdentificator.swift */; };
 		F014F19D285B84D100D82273 /* AgreementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014F19C285B84D100D82273 /* AgreementsViewController.swift */; };
-		F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */ = {isa = PBXBuildFile; productRef = F016607D284B5A5F00E4BE3F /* DefaultMOON */; };
 		F0166080284E05F000E4BE3F /* InstallationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */; };
 		F01E2ABE2846BE2700AA108F /* AccountError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2ABD2846BE2700AA108F /* AccountError.swift */; };
 		F01E2AC12846C46000AA108F /* BaseAccountAppearenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */; };
@@ -58,11 +57,8 @@
 		F02C8779284FDFC7007476B8 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C8778284FDFC7007476B8 /* TransactionError.swift */; };
 		F02C877B284FE9BD007476B8 /* TransactionDetailsViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */; };
 		F02FE8B52884C7C200D4F141 /* TopupProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FE8B42884C7C200D4F141 /* TopupProviderViewController.swift */; };
-		F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEA27F3153F00CC306C /* HuetonCORE */; };
-		F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F02FECEC27F3153F00CC306C /* HuetonUI */; };
 		F03DDB08286B418700927188 /* AccountStackLogotypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */; };
 		F03DDB0A286B45D500927188 /* AccountCardStackContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */; };
-		F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9827B23DDC00076245 /* DeclarativeUI */; };
 		F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */ = {isa = PBXBuildFile; productRef = F064CC9A27B23DDC00076245 /* SystemUI */; };
 		F0678139281AA1C100EB05F4 /* CardStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678138281AA1C100EB05F4 /* CardStackViewController.swift */; };
 		F067813C281AA2EC00EB05F4 /* CardStackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F067813B281AA2EC00EB05F4 /* CardStackCard.swift */; };
@@ -77,6 +73,7 @@
 		F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678152281B37F900EB05F4 /* InAppAnnouncementInfo.swift */; };
 		F0678155281B41F200EB05F4 /* InAppAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678154281B41F200EB05F4 /* InAppAnnouncementView.swift */; };
 		F0678157281B526500EB05F4 /* TransactionsDateReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0678156281B526500EB05F4 /* TransactionsDateReusableView.swift */; };
+		F06BDF3A28877F80003709F5 /* JustonCORE in Frameworks */ = {isa = PBXBuildFile; productRef = F06BDF3928877F80003709F5 /* JustonCORE */; };
 		F07C7F9828329A8700A10B41 /* TransferNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C7F9728329A8700A10B41 /* TransferNavigationController.swift */; };
 		F085969B285633D300CF9D3D /* CardStackCardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085969A285633D300CF9D3D /* CardStackCardLabel.swift */; };
 		F0909B4827E8862A00FC8404 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0909B4727E8862A00FC8404 /* OnboardingNavigationController.swift */; };
@@ -160,6 +157,7 @@
 		F0FCD846288767150047954F /* TopupFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD845288767150047954F /* TopupFinishViewController.swift */; };
 		F0FCD84928876AE20047954F /* EasyConfetti in Frameworks */ = {isa = PBXBuildFile; productRef = F0FCD84828876AE20047954F /* EasyConfetti */; };
 		F0FCD84C2887730A0047954F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FCD84B2887730A0047954F /* Country.swift */; };
+		F0FCD85128877EE00047954F /* JustonUI in Frameworks */ = {isa = PBXBuildFile; productRef = F0FCD85028877EE00047954F /* JustonUI */; };
 		F0FDEFC9286A759900982A0A /* WKWeb3UndefinedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */; };
 		F0FDEFCF286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */; };
 		F0FDEFD1286A954500982A0A /* WKWeb3BalanceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */; };
@@ -185,7 +183,7 @@
 		F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3SignEvent.swift; sourceTree = "<group>"; };
 		F003FF15286A1CE100623AC0 /* WKWeb3EventBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventBox.swift; sourceTree = "<group>"; };
 		F003FF19286A26A200623AC0 /* WKWeb3EventDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3EventDispatcher.swift; sourceTree = "<group>"; };
-		F003FF1B286A2CEF00623AC0 /* hueton.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = hueton.js; sourceTree = "<group>"; };
+		F003FF1B286A2CEF00623AC0 /* juston.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = juston.js; sourceTree = "<group>"; };
 		F003FF1D286A4C5600623AC0 /* WKWeb3Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3Error.swift; sourceTree = "<group>"; };
 		F00BE9F127DCC20B0084FF1C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		F00BE9F427DE03190084FF1C /* CardStackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardView.swift; sourceTree = "<group>"; };
@@ -202,8 +200,6 @@
 		F0118DB3281084D300B518A9 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		F0118DB5281085EC00B518A9 /* PushIdentificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushIdentificator.swift; sourceTree = "<group>"; };
 		F014F19C285B84D100D82273 /* AgreementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementsViewController.swift; sourceTree = "<group>"; };
-		F016607A284B56F300E4BE3F /* HuetonMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonMOON; path = ../../../packages/HuetonMOON; sourceTree = "<group>"; };
-		F016607C284B57E700E4BE3F /* DefaultMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DefaultMOON; path = ../../../packages/DefaultMOON; sourceTree = "<group>"; };
 		F016607F284E05F000E4BE3F /* InstallationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallationIdentifier.swift; sourceTree = "<group>"; };
 		F01E2ABD2846BE2700AA108F /* AccountError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountError.swift; sourceTree = "<group>"; };
 		F01E2AC02846C46000AA108F /* BaseAccountAppearenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAccountAppearenceViewController.swift; sourceTree = "<group>"; };
@@ -222,8 +218,6 @@
 		F02C8778284FDFC7007476B8 /* TransactionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
 		F02C877A284FE9BD007476B8 /* TransactionDetailsViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewable.swift; sourceTree = "<group>"; };
 		F02FE8B42884C7C200D4F141 /* TopupProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupProviderViewController.swift; sourceTree = "<group>"; };
-		F02FECE827F3143600CC306C /* HuetonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonUI; path = ../../../packages/HuetonUI; sourceTree = "<group>"; };
-		F02FECE927F3145800CC306C /* HuetonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HuetonCORE; path = ../../../packages/HuetonCORE; sourceTree = "<group>"; };
 		F03DDB07286B418700927188 /* AccountStackLogotypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStackLogotypeNavigationView.swift; sourceTree = "<group>"; };
 		F03DDB09286B45D500927188 /* AccountCardStackContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardStackContainerView.swift; sourceTree = "<group>"; };
 		F041A57927F5D0A700213489 /* SwiftyTON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyTON; path = ../../../../SwiftyTON; sourceTree = "<group>"; };
@@ -251,7 +245,7 @@
 		F0909B5E27E8CF5100FC8404 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F0909B6027E8CF6500FC8404 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		F0909B6227E8DB1900FC8404 /* C42TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C42TextFieldCell.swift; sourceTree = "<group>"; };
-		F0995F5F27A0B7CA003A090C /* H3000.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = H3000.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0995F5F27A0B7CA003A090C /* J42.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = J42.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0995F6227A0B7CA003A090C /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		F0995F6427A0B7CA003A090C /* ApplicationWindowSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowSceneDelegate.swift; sourceTree = "<group>"; };
 		F0995F6B27A0B7CB003A090C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -329,6 +323,9 @@
 		F0FCD8432887612E0047954F /* TopupNavigationController.InitialConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupNavigationController.InitialConfiguration.swift; sourceTree = "<group>"; };
 		F0FCD845288767150047954F /* TopupFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopupFinishViewController.swift; sourceTree = "<group>"; };
 		F0FCD84B2887730A0047954F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		F0FCD84D28877D260047954F /* JustonCORE */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JustonCORE; path = ../../../packages/JustonCORE; sourceTree = "<group>"; };
+		F0FCD84E28877D260047954F /* JustonUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JustonUI; path = ../../../packages/JustonUI; sourceTree = "<group>"; };
+		F0FCD84F28877D260047954F /* JustonMOON */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JustonMOON; path = ../../../packages/JustonMOON; sourceTree = "<group>"; };
 		F0FDEFC8286A759900982A0A /* WKWeb3UndefinedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3UndefinedEvent.swift; sourceTree = "<group>"; };
 		F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestWalletsEvent.swift; sourceTree = "<group>"; };
 		F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3BalanceEvent.swift; sourceTree = "<group>"; };
@@ -344,13 +341,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F064CC9927B23DDC00076245 /* DeclarativeUI in Frameworks */,
-				F02FECED27F3153F00CC306C /* HuetonUI in Frameworks */,
-				F02FECEB27F3153F00CC306C /* HuetonCORE in Frameworks */,
+				F06BDF3A28877F80003709F5 /* JustonCORE in Frameworks */,
 				F064CC9B27B23DDC00076245 /* SystemUI in Frameworks */,
-				F016607E284B5A5F00E4BE3F /* DefaultMOON in Frameworks */,
 				F09E2A2C283E93E500D7BC55 /* QRCodeStatic in Frameworks */,
 				F003FEF62869441A00623AC0 /* GithubMOON in Frameworks */,
+				F0FCD85128877EE00047954F /* JustonUI in Frameworks */,
 				F0118DA52810699100B518A9 /* Nuke in Frameworks */,
 				F0FCD84928876AE20047954F /* EasyConfetti in Frameworks */,
 			);
@@ -703,7 +698,7 @@
 		F0995F6027A0B7CA003A090C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F0995F5F27A0B7CA003A090C /* H3000.app */,
+				F0995F5F27A0B7CA003A090C /* J42.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -744,7 +739,7 @@
 			children = (
 				F0909B5F27E8CF5100FC8404 /* Localizable.strings */,
 				F0995F6B27A0B7CB003A090C /* Assets.xcassets */,
-				F003FF1B286A2CEF00623AC0 /* hueton.js */,
+				F003FF1B286A2CEF00623AC0 /* juston.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -788,11 +783,10 @@
 		F0995FA027A0BA7C003A090C /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				F02FECE827F3143600CC306C /* HuetonUI */,
-				F02FECE927F3145800CC306C /* HuetonCORE */,
-				F016607A284B56F300E4BE3F /* HuetonMOON */,
+				F0FCD84E28877D260047954F /* JustonUI */,
+				F0FCD84D28877D260047954F /* JustonCORE */,
+				F0FCD84F28877D260047954F /* JustonMOON */,
 				F003FEF4286940F700623AC0 /* GithubMOON */,
-				F016607C284B57E700E4BE3F /* DefaultMOON */,
 				F0DBFA5527F7C4C600956DC9 /* Objective42 */,
 				F0995FA227A0BAD6003A090C /* GIEL */,
 				F041A57927F5D0A700213489 /* SwiftyTON */,
@@ -1124,18 +1118,16 @@
 			);
 			name = iOS;
 			packageProductDependencies = (
-				F064CC9827B23DDC00076245 /* DeclarativeUI */,
 				F064CC9A27B23DDC00076245 /* SystemUI */,
-				F02FECEA27F3153F00CC306C /* HuetonCORE */,
-				F02FECEC27F3153F00CC306C /* HuetonUI */,
 				F0118DA42810699100B518A9 /* Nuke */,
 				F09E2A2B283E93E500D7BC55 /* QRCodeStatic */,
-				F016607D284B5A5F00E4BE3F /* DefaultMOON */,
 				F003FEF52869441A00623AC0 /* GithubMOON */,
 				F0FCD84828876AE20047954F /* EasyConfetti */,
+				F0FCD85028877EE00047954F /* JustonUI */,
+				F06BDF3928877F80003709F5 /* JustonCORE */,
 			);
 			productName = Application;
-			productReference = F0995F5F27A0B7CA003A090C /* H3000.app */;
+			productReference = F0995F5F27A0B7CA003A090C /* J42.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1182,7 +1174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F003FF1C286A2CEF00623AC0 /* hueton.js in Resources */,
+				F003FF1C286A2CEF00623AC0 /* juston.js in Resources */,
 				F0909B5D27E8CF5100FC8404 /* Localizable.strings in Resources */,
 				F0995F6F27A0B7CB003A090C /* Launch.storyboard in Resources */,
 				F0995F6C27A0B7CB003A090C /* Assets.xcassets in Resources */,
@@ -1611,25 +1603,13 @@
 			package = F0118DA32810699100B518A9 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
 		};
-		F016607D284B5A5F00E4BE3F /* DefaultMOON */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DefaultMOON;
-		};
-		F02FECEA27F3153F00CC306C /* HuetonCORE */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HuetonCORE;
-		};
-		F02FECEC27F3153F00CC306C /* HuetonUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = HuetonUI;
-		};
-		F064CC9827B23DDC00076245 /* DeclarativeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DeclarativeUI;
-		};
 		F064CC9A27B23DDC00076245 /* SystemUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SystemUI;
+		};
+		F06BDF3928877F80003709F5 /* JustonCORE */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = JustonCORE;
 		};
 		F09E2A2B283E93E500D7BC55 /* QRCodeStatic */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1640,6 +1620,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0FCD84728876AE20047954F /* XCRemoteSwiftPackageReference "EasyConfetti" */;
 			productName = EasyConfetti;
+		};
+		F0FCD85028877EE00047954F /* JustonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = JustonUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

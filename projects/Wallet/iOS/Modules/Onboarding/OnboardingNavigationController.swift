@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import SystemUI
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 class OnboardingNavigationController: C42NavigationController {
@@ -123,7 +122,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV2512
+                            image: .jus_placeholderV2512
                         ),
                         .label(
                             text: "OnboardingWelcomeDescription".asLocalizedKey,
@@ -160,7 +159,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV1512
+                            image: .jus_placeholderV1512
                         ),
                         .label(
                             text: "OnboardingPasscodeDescription".asLocalizedKey,
@@ -200,7 +199,7 @@ extension C42CollectionViewController {
                     ),
                     items: [
                         .image(
-                            image: .hui_placeholderV5512
+                            image: .jus_placeholderV5512
                         ),
                         .label(
                             text: "OnboardingIOCDescription".asLocalizedKey,

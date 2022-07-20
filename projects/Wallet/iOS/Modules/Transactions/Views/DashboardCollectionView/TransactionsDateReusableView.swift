@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
-import DeclarativeUI
+import JustonUI
+import JustonCORE
 
 class TransactionsDateReusableView: UICollectionReusableView {
     
@@ -30,14 +29,14 @@ class TransactionsDateReusableView: UICollectionReusableView {
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .caption1)
-        $0.textColor = .hui_textPrimary.withAlphaComponent(0.38)
+        $0.textColor = .jus_textPrimary.withAlphaComponent(0.38)
         $0.textAlignment = .center
     })
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         
         addSubview(textLabel)
         NSLayoutConstraint.activate({

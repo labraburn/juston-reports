@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import HuetonMOON
+import JustonMOON
 
 public struct Configurations {}
 

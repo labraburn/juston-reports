@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 protocol TopupAgreementsViewControllerDelegate: AnyObject {
     
@@ -24,7 +24,7 @@ class TopupAgreementsViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .title3)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "VeneraExhangeTitle".asLocalizedKey
         $0.numberOfLines = 1
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -33,7 +33,7 @@ class TopupAgreementsViewController: UIViewController {
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .hui_veneraExchange128
+        $0.image = .jus_veneraExchange128
         $0.contentMode = .center
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     })
@@ -42,7 +42,7 @@ class TopupAgreementsViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .body)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.showsVerticalScrollIndicator = false
         $0.showsHorizontalScrollIndicator = false
         $0.isEditable = false
@@ -51,12 +51,12 @@ class TopupAgreementsViewController: UIViewController {
         $0.delaysContentTouches = false
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setContentHuggingPriority(.required, for: .vertical)
-        $0.backgroundColor = .hui_backgroundPrimary
+        $0.backgroundColor = .jus_backgroundPrimary
         $0.isUserInteractionEnabled = true
         $0.linkTextAttributes = [
-            .foregroundColor : UIColor.hui_letter_violet,
+            .foregroundColor : UIColor.jus_letter_violet,
             .font : UIFont.font(for: .headline),
-            .underlineColor : UIColor.hui_letter_purple,
+            .underlineColor : UIColor.jus_letter_purple,
             .underlineStyle : NSUnderlineStyle.single.rawValue,
         ]
         
@@ -67,7 +67,7 @@ class TopupAgreementsViewController: UIViewController {
         let string = NSMutableAttributedString(
             string: pattern,
             attributes: [
-                .foregroundColor : UIColor.hui_textPrimary,
+                .foregroundColor : UIColor.jus_textPrimary,
                 .font : UIFont.font(for: .body),
                 .paragraphStyle : NSMutableParagraphStyle().with({
                     $0.alignment = .center
@@ -111,7 +111,7 @@ class TopupAgreementsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(titleLabel)
         view.addSubview(imageView)

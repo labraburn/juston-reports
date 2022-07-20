@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import HuetonCORE
+import JustonCORE
 import WebKit
 
 final class WKWeb3Configuration: WKWebViewConfiguration {
@@ -54,7 +54,7 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
     }
     
     private func load() {
-        guard let fileURL = Bundle.main.url(forResource: "hueton", withExtension: "js"),
+        guard let fileURL = Bundle.main.url(forResource: "juston", withExtension: "js"),
               let string = try? String(contentsOf: fileURL)
         else {
             fatalError("[WKWeb3Configuration]: Can't being happend.")

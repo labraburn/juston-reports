@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 protocol Safari3SearchCollectionViewLayoutDelegate: AnyObject {
     

@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import MessageUI
 
 class DeveloperViewController: C42CollectionViewController {
@@ -54,7 +54,7 @@ class DeveloperViewController: C42CollectionViewController {
                             action: { viewController in
                                 InAppAnnouncementCenter.shared.post(
                                     announcement: InAppAnnouncementInfo.self,
-                                    with: .init(text: "Token copied", icon: .copying, tintColor: .hui_letter_blue)
+                                    with: .init(text: "Token copied", icon: .copying, tintColor: .jus_letter_blue)
                                 )
                                 
                                 guard let token = await PushIdentificator.shared.value
@@ -126,7 +126,7 @@ extension DeveloperViewController {
         }
         
         let alertViewController = AlertViewController(
-            image: .image(.hui_warning42, tintColor: .hui_letter_red),
+            image: .image(.jus_warning42, tintColor: .jus_letter_red),
             title: "CommonAttention".asLocalizedKey,
             message: "CommonUndoneAction".asLocalizedKey,
             actions: [
@@ -141,7 +141,7 @@ extension DeveloperViewController {
             ]
         )
         
-        hui_present(alertViewController, animated: true)
+        jus_present(alertViewController, animated: true)
     }
 }
 

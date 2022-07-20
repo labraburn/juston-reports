@@ -3,12 +3,12 @@
 //
 
 import Foundation
-import HuetonMOON
+import JustonMOON
 
-public struct GithubMOON: HuetonMOON {
+public struct GithubMOON: JustonMOON {
     
     public var endpoint: URL {
-        guard let url = URL(string: "https://hueton.github.io/configurations/wallet/mobile")
+        guard let url = URL(string: "https://juston.github.io/configurations/wallet/mobile")
         else {
             fatalError("Can't happend.")
         }

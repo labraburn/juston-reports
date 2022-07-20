@@ -9,20 +9,20 @@ import Foundation
 
 extension URL {
     
-    static let hueton = URL(string: "https://hueton.com")!
+    static let juston = URL(string: "https://juston.io")!
     
-    static let privacyPolicy = URL(string: "https://hueton.com/privacy")!
-    static let termsOfUse = URL(string: "https://hueton.com/terms")!
+    static let privacyPolicy = URL(string: "https://juston.io/privacy")!
+    static let termsOfUse = URL(string: "https://juston.io/terms")!
     
     static let veneraPrivacyPolicy = URL(string: "https://venera.exchange/docs/Policy.pdf")!
     static let veneraTermsOfUse = URL(string: "https://venera.exchange/docs/Agreement.pdf")!
     
     static let appStore = URL(string: "itms-apps://apple.com/app/id1629214799")!
     
-    static let telegramChat = URL(string: "https://t.me/hueton_ru_chat")!
-    static let telegramChannel = URL(string: "https://t.me/hueton_ru")!
+    static let telegramChat = URL(string: "https://t.me/juston_ru_chat")!
+    static let telegramChannel = URL(string: "https://t.me/juston_ru")!
     
-    static let twitter = URL(string: "https://twitter.com/thehueton")!
+    static let twitter = URL(string: "https://twitter.com/thejuston")!
     
     static let blank = URL(string:"about:blank")!
     

@@ -6,15 +6,9 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
-import DefaultMOON
+import JustonUI
+import JustonCORE
 import CoreData
-
-extension DefaultMOON {
-    
-    static let shared = DefaultMOON()
-}
 
 protocol CardStackViewControllerDelegate: AnyObject {
     
@@ -103,20 +97,20 @@ class CardStackViewController: UIViewController {
                     throw ContractError.unknownContractType
                 }
                 
-                if flags.contains(.isNotificationsEnabled) {
-                    let installationID = await InstallationIdentifier.shared.value
-                    let unsubsribeRequest = AccountSettings.unsubscribeWalletTransactions(
-                        installation_id: installationID.uuidString,
-                        address: previousContract.address.rawValue
-                    )
-                    let subscribeRequest = AccountSettings.subscribeWalletTransactions(
-                        installation_id: installationID.uuidString,
-                        address: previousContract.address.rawValue
-                    )
-                    
-                    let _ = try? await DefaultMOON.shared.do(unsubsribeRequest)
-                    let _ = try? await DefaultMOON.shared.do(subscribeRequest)
-                }
+//                if flags.contains(.isNotificationsEnabled) {
+//                    let installationID = await InstallationIdentifier.shared.value
+//                    let unsubsribeRequest = AccountSettings.unsubscribeWalletTransactions(
+//                        installation_id: installationID.uuidString,
+//                        address: previousContract.address.rawValue
+//                    )
+//                    let subscribeRequest = AccountSettings.subscribeWalletTransactions(
+//                        installation_id: installationID.uuidString,
+//                        address: previousContract.address.rawValue
+//                    )
+//
+//                    let _ = try? await DefaultMOON.shared.do(unsubsribeRequest)
+//                    let _ = try? await DefaultMOON.shared.do(subscribeRequest)
+//                }
                 
                 let account = PersistenceAccount.writeableObject(id: id)
                 
@@ -144,8 +138,8 @@ class CardStackViewController: UIViewController {
     func showIsReadonlyViewController() {
         let viewController = AlertViewController(
             image: .image(
-                .hui_info42,
-                tintColor: .hui_letter_blue
+                .jus_info42,
+                tintColor: .jus_letter_blue
             ),
             title: "ReadonlyAccountTitle".asLocalizedKey,
             message: "ReadonlyAccountMessage".asLocalizedKey,
@@ -154,7 +148,7 @@ class CardStackViewController: UIViewController {
             ]
         )
         
-        hui_present(viewController, animated: true)
+        jus_present(viewController, animated: true)
     }
     
     func removeAccount(_ model: CardStackCard) {
@@ -167,8 +161,8 @@ class CardStackViewController: UIViewController {
 
         let viewController = AlertViewController(
             image: .image(
-                .hui_warning42,
-                tintColor: .hui_letter_red
+                .jus_warning42,
+                tintColor: .jus_letter_red
             ),
             title: "CommonAttention".asLocalizedKey,
             message: prompt,
@@ -189,7 +183,7 @@ class CardStackViewController: UIViewController {
             ]
         )
         
-        hui_present(
+        jus_present(
             viewController,
             animated: true
         )
@@ -209,27 +203,27 @@ class CardStackViewController: UIViewController {
         let flags = model.account.flags
         let address = model.account.selectedContract.address
 
-        Task { @PersistenceWritableActor in
-            let installationID = await InstallationIdentifier.shared.value
-            let request = AccountSettings.subscribeWalletTransactions(
-                installation_id: installationID.uuidString,
-                address: address.rawValue
-            )
-
-            do {
-                let _ = try await DefaultMOON.shared.do(request)
-            } catch {
-                print(error)
-                return
-            }
-
-            var mflags = flags
-            mflags.insert(.isNotificationsEnabled)
-
-            let object = PersistenceAccount.writeableObject(id: id)
-            object.flags = mflags
-            try? object.save()
-        }
+//        Task { @PersistenceWritableActor in
+//            let installationID = await InstallationIdentifier.shared.value
+//            let request = AccountSettings.subscribeWalletTransactions(
+//                installation_id: installationID.uuidString,
+//                address: address.rawValue
+//            )
+//
+//            do {
+//                let _ = try await DefaultMOON.shared.do(request)
+//            } catch {
+//                print(error)
+//                return
+//            }
+//
+//            var mflags = flags
+//            mflags.insert(.isNotificationsEnabled)
+//
+//            let object = PersistenceAccount.writeableObject(id: id)
+//            object.flags = mflags
+//            try? object.save()
+//        }
     }
 
     func unsubscribePushNotifications(_ model: CardStackCard) {
@@ -237,27 +231,27 @@ class CardStackViewController: UIViewController {
         let flags = model.account.flags
         let address = model.account.selectedContract.address
 
-        Task { @PersistenceWritableActor in
-            let installationID = await InstallationIdentifier.shared.value
-            let request = AccountSettings.unsubscribeWalletTransactions(
-                installation_id: installationID.uuidString,
-                address: address.rawValue
-            )
-
-            do {
-                let _ = try await DefaultMOON.shared.do(request)
-            } catch {
-                print(error)
-                return
-            }
-
-            var mflags = flags
-            mflags.remove(.isNotificationsEnabled)
-
-            let object = PersistenceAccount.writeableObject(id: id)
-            object.flags = mflags
-            try? object.save()
-        }
+//        Task { @PersistenceWritableActor in
+//            let installationID = await InstallationIdentifier.shared.value
+//            let request = AccountSettings.unsubscribeWalletTransactions(
+//                installation_id: installationID.uuidString,
+//                address: address.rawValue
+//            )
+//
+//            do {
+//                let _ = try await DefaultMOON.shared.do(request)
+//            } catch {
+//                print(error)
+//                return
+//            }
+//
+//            var mflags = flags
+//            mflags.remove(.isNotificationsEnabled)
+//
+//            let object = PersistenceAccount.writeableObject(id: id)
+//            object.flags = mflags
+//            try? object.save()
+//        }
     }
     
     func changeAppearance(_ model: CardStackCard) {
@@ -267,7 +261,7 @@ class CardStackViewController: UIViewController {
             )
         )
 
-        hui_present(
+        jus_present(
             NavigationController(rootViewController: viewController),
             animated: true
         )
@@ -386,7 +380,7 @@ extension CardStackViewController: CardStackViewDelegate {
             )
         )
         
-        hui_present(viewController, animated: true)
+        jus_present(viewController, animated: true)
     }
     
     func cardStackView(
@@ -400,7 +394,7 @@ extension CardStackViewController: CardStackViewDelegate {
             )
         )
         
-        hui_present(
+        jus_present(
             NavigationController(rootViewController: viewController),
             animated: true
         )
@@ -417,7 +411,7 @@ extension CardStackViewController: CardStackViewDelegate {
             )
         )
         
-        hui_present(
+        jus_present(
             viewController,
             animated: true
         )

@@ -7,8 +7,8 @@
 
 import UIKit
 import WebKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 class Safari3ViewController: UIViewController {
@@ -145,7 +145,7 @@ class Safari3ViewController: UIViewController {
                 break
             }
 
-            hui_present(
+            jus_present(
                 UIActivityViewController(
                     activityItems: [url],
                     applicationActivities: nil
@@ -323,7 +323,7 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
             return
         }
         
-        topmostPresentedViewController.hui_present(viewController, animated: true)
+        topmostPresentedViewController.jus_present(viewController, animated: true)
     }
     
     func safari3WelcomeViewController(
@@ -352,7 +352,7 @@ extension Safari3ViewController: Safari3WelcomeViewControllerDelegate {
             else {
                 break
             }
-            topmostPresentedViewController.hui_present(viewController, animated: true)
+            topmostPresentedViewController.jus_present(viewController, animated: true)
         case let .url(value):
             exchangeLastPresentationState(
                 toPresentationState: .browsing(

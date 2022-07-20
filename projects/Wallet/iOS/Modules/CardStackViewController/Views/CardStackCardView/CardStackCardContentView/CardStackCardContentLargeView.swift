@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 final class CardStackCardContentLargeView: CardStackCardContentView {
     
@@ -65,10 +65,10 @@ final class CardStackCardContentLargeView: CardStackCardContentView {
     private let versionButton = CardStackCardLabel.createTopButton("")
     private let readonlyButton = CardStackCardLabel.createTopButton("AccountCardReadonlyLabel".asLocalizedKey)
     
-    private let sendButton = CardStackCardButton.createBottomButton(.hui_cardButtonSend55)
-    private let receiveButton = CardStackCardButton.createBottomButton(.hui_cardButtonReceive55)
-    private let topupButton = CardStackCardButton.createBottomButton(.hui_cardButtonCredit55)
-    private let moreButton = CardStackCardButton.createBottomButton(.hui_cardButtonMore55)
+    private let sendButton = CardStackCardButton.createBottomButton(.jus_cardButtonSend55)
+    private let receiveButton = CardStackCardButton.createBottomButton(.jus_cardButtonReceive55)
+    private let topupButton = CardStackCardButton.createBottomButton(.jus_cardButtonCredit55)
+    private let moreButton = CardStackCardButton.createBottomButton(.jus_cardButtonMore55)
     
     private var synchronizationTimer: Timer? = nil
     private var synchronizationObserver: NSObjectProtocol?

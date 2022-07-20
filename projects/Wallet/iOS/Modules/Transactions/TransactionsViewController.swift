@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 class TransactionsViewController: UIViewController {
@@ -28,7 +28,7 @@ class TransactionsViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(reusableCellClass: TransactionsTransactionCollectionViewCell.self)
-        collectionView.backgroundColor = .hui_backgroundPrimary
+        collectionView.backgroundColor = .jus_backgroundPrimary
         return collectionView
     }()
     
@@ -58,7 +58,7 @@ class TransactionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         
@@ -158,7 +158,7 @@ extension TransactionsViewController: UICollectionViewDelegate {
         )
         
         let navigationController = NavigationController(rootViewController: viewController)
-        hui_present(
+        jus_present(
             navigationController,
             animated: true
         )
@@ -183,7 +183,7 @@ extension TransactionsViewController: TransactionsDiffableDataSourceDelegate {
         )
         
         let navigationController = NavigationController(rootViewController: viewController)
-        hui_present(navigationController, animated: true)
+        jus_present(navigationController, animated: true)
     }
 }
 

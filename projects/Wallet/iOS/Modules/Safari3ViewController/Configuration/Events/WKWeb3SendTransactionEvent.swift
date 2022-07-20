@@ -8,7 +8,7 @@
 // https://github.com/toncenter/ton-wallet/blob/3ef80a23ce120f3eeabaca06955cb8f767525104/src/js/Controller.js#L1130
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 struct WKWeb3SendTransactionEvent: WKWeb3Event {
     

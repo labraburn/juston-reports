@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 typealias C42SynchronousButtonAction = (_ viewController: C42ViewController) throws -> ()
 typealias C42AsynchronousButtonAction = (_ viewController: C42ViewController) async throws -> ()
@@ -20,7 +20,7 @@ struct C42Section {
         case title(
             value: String,
             textAligment: NSTextAlignment = .left,
-            foregroundColor: UIColor = .hui_textSecondary
+            foregroundColor: UIColor = .jus_textSecondary
         )
         
         case logo(

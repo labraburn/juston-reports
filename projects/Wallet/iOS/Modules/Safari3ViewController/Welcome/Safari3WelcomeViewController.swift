@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 protocol Safari3WelcomeViewControllerDelegate: AnyObject {
     
@@ -44,7 +44,7 @@ class Safari3WelcomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .hui_backgroundPrimary
+        collectionView.backgroundColor = .jus_backgroundPrimary
         return collectionView
     }()
     
@@ -71,7 +71,7 @@ class Safari3WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         

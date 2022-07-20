@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 import EasyConfetti
 
 protocol TopupFinishViewControllerDelegate: AnyObject {
@@ -24,7 +24,7 @@ class TopupFinishViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .title3)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "VeneraExchangeFinishTitle".asLocalizedKey
         $0.numberOfLines = 1
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -33,7 +33,7 @@ class TopupFinishViewController: UIViewController {
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .hui_veneraJuston128
+        $0.image = .jus_veneraJuston128
         $0.contentMode = .center
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     })
@@ -42,7 +42,7 @@ class TopupFinishViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .body)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "VeneraExchangeFinishDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -67,12 +67,12 @@ class TopupFinishViewController: UIViewController {
             })
         }
         $0.config.colors = [
-            .hui_letter_red,
-            .hui_letter_yellow,
-            .hui_letter_blue,
-            .hui_letter_green,
-            .hui_letter_violet,
-            .hui_letter_purple,
+            .jus_letter_red,
+            .jus_letter_yellow,
+            .jus_letter_blue,
+            .jus_letter_green,
+            .jus_letter_violet,
+            .jus_letter_purple,
         ]
     })
     
@@ -93,7 +93,7 @@ class TopupFinishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(titleLabel)
         view.addSubview(imageView)

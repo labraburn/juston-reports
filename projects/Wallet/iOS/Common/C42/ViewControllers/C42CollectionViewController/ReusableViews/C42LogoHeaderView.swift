@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class C42LogoHeaderView: UICollectionReusableView {
     
@@ -17,13 +17,13 @@ class C42LogoHeaderView: UICollectionReusableView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.heightAnchor.pin(to: 128).isActive = true
         $0.widthAnchor.pin(to: 128).isActive = true
-        $0.image = .hui_appIcon128
+        $0.image = .jus_appIcon128
     })
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         clipsToBounds = true
         
         addSubview(imageView)
