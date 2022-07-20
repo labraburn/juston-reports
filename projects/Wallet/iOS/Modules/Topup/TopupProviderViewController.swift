@@ -99,7 +99,7 @@ private extension String {
     </head>
     <body>
     <div>
-    <iframe class="iframe" src="https://iframe.venera.exchange/?dark&theme=hueton&address=\(address)&disableAddr=true" frameborder="0"></iframe>
+    <iframe class="iframe" src="https://iframe.venera.exchange/?dark&theme=juston&address=\(address)&disableAddr=true" frameborder="0"></iframe>
     </div>
     </body>
     </html>
