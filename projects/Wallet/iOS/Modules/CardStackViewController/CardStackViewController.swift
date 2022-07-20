@@ -69,8 +69,8 @@ class CardStackViewController: UIViewController {
         
         let id = model.account.objectID
         let deserializedPublicKey = Data(hex: publicKey)
-        let flags = model.account.flags
-        let previousContract = model.account.selectedContract
+//        let flags = model.account.flags
+//        let previousContract = model.account.selectedContract
         
         Task { @PersistenceWritableActor [weak self] in
             do {
@@ -199,9 +199,9 @@ class CardStackViewController: UIViewController {
     func subscribePushNotifications(_ model: CardStackCard) {
         UIApplication.shared.requestNotificationsPermissionIfNeeded()
 
-        let id = model.account.objectID
-        let flags = model.account.flags
-        let address = model.account.selectedContract.address
+//        let id = model.account.objectID
+//        let flags = model.account.flags
+//        let address = model.account.selectedContract.address
 
 //        Task { @PersistenceWritableActor in
 //            let installationID = await InstallationIdentifier.shared.value
@@ -227,9 +227,9 @@ class CardStackViewController: UIViewController {
     }
 
     func unsubscribePushNotifications(_ model: CardStackCard) {
-        let id = model.account.objectID
-        let flags = model.account.flags
-        let address = model.account.selectedContract.address
+//        let id = model.account.objectID
+//        let flags = model.account.flags
+//        let address = model.account.selectedContract.address
 
 //        Task { @PersistenceWritableActor in
 //            let installationID = await InstallationIdentifier.shared.value
