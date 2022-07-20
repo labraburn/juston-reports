@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
-               BuildableName = "HUETON.app"
+               BuildableName = "JUSTON.app"
                BlueprintName = "iOS"
                ReferencedContainer = "container:Wallet.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
-            BuildableName = "HUETON.app"
+            BuildableName = "JUSTON.app"
             BlueprintName = "iOS"
             ReferencedContainer = "container:Wallet.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F0995F5E27A0B7CA003A090C"
-            BuildableName = "HUETON.app"
+            BuildableName = "JUSTON.app"
             BlueprintName = "iOS"
             ReferencedContainer = "container:Wallet.xcodeproj">
          </BuildableReference>
