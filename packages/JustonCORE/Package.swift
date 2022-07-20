@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/hueton/SwiftyTON",
+            url: "https://github.com/juston-io/SwiftyTON",
             branch: "main"
         ),
         .package(

@@ -8,7 +8,7 @@ import JustonMOON
 public struct GithubMOON: JustonMOON {
     
     public var endpoint: URL {
-        guard let url = URL(string: "https://juston.github.io/configurations/wallet/mobile")
+        guard let url = URL(string: "https://juston-io.github.io/configurations/wallet/mobile")
         else {
             fatalError("Can't happend.")
         }
