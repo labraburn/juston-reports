@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import SwiftyTON
-import DeclarativeUI
 
 class TransferConfirmationViewController: UIViewController {
     
@@ -17,7 +16,7 @@ class TransferConfirmationViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "TransferConformationDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -57,7 +56,7 @@ class TransferConfirmationViewController: UIViewController {
         
         title = "TransferConformationTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(textLabel)
@@ -82,15 +81,15 @@ class TransferConfirmationViewController: UIViewController {
         
         let spacing = NSAttributedString("\n\u{200A}\n", with: .body, lineHeight: 2)
         textLabel.attributedText = NSMutableAttributedString({
-            NSAttributedString("\("TransferDestinationAddress".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationAddress".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.toAddress.displayName)\n\n", with: .body)
             
-            NSAttributedString("\("TransferDestinationAmount".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationAmount".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.amount.string(with: .maximum9))\n\n", with: .body)
             
-            NSAttributedString("\("TransferDestinationEstimatedFees".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransferDestinationEstimatedFees".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             spacing
             NSAttributedString("\(initialConfiguration.estimatedFees.string(with: .maximum9))\n\n", with: .body)
         })
@@ -99,7 +98,7 @@ class TransferConfirmationViewController: UIViewController {
     // MARK: Actions
     
     @objc
-    private func processButtonDidClick(_ sender: HuetonButton) {
+    private func processButtonDidClick(_ sender: JustonButton) {
         let initialConfiguration = initialConfiguration
         let accoundID = initialConfiguration.fromAccount.objectID
         let message = initialConfiguration.message

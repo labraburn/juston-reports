@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42ButtonCell: UICollectionViewCell {
     
@@ -50,7 +50,7 @@ class C42ButtonCell: UICollectionViewCell {
         }
     }
     
-    private var button: HuetonButton? = nil {
+    private var button: JustonButton? = nil {
         willSet {
             button?.removeFromSuperview()
         }

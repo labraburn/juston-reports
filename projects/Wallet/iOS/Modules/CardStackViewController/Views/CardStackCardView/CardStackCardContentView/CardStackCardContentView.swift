@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class CardStackCardContentView: UIView {
     
@@ -46,6 +46,15 @@ class CardStackCardContentView: UIView {
         delegate?.cardStackCardView(
             self,
             didClickReceiveControl: sender,
+            model: model
+        )
+    }
+    
+    @objc
+    func topupButtonDidClick(_ sender: UIControl) {
+        delegate?.cardStackCardView(
+            self,
+            didClickTopupControl: sender,
             model: model
         )
     }

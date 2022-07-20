@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class ApplicationDelegate: UIResponder, UIApplicationDelegate {
     
@@ -15,7 +15,7 @@ class ApplicationDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        HuetonCORE.initialize()
+        JustonCORE.initialize()
         UIApplication.cleanLaunchScreenCache()
         
         application.requestRegisterForRemoteNotificationsIfNeeded()

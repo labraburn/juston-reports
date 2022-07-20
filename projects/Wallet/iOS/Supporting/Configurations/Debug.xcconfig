@@ -10,7 +10,7 @@ PROVISIONING_PROFILE_SPECIFIER =
 
 CODE_SIGN_ENTITLEMENTS = iOS/Supporting/Entitlements/Debug.entitlements
 PRODUCT_BUNDLE_IDENTIFIER = com.hueton.debug.application.wallet
-PRODUCT_NAME = H3000
+PRODUCT_NAME = J42
 
 VERSIONING_SYSTEM = apple-generic
 MARKETING_VERSION = 1.2

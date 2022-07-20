@@ -1,8 +1,5 @@
 //
-//  O42NSExceptionHandler.m
-//  
-//
-//  Created by Anton Spivak on 02.04.2022.
+//  Created by Anton Spivak
 //
 
 #import "O42NSExceptionHandler.h"

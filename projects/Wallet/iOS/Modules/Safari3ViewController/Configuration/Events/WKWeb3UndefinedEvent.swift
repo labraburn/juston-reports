@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 struct WKWeb3UndefinedEvent: WKWeb3Event {
     

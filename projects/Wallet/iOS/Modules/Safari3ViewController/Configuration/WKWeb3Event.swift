@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 
 protocol WKWeb3Event {
     

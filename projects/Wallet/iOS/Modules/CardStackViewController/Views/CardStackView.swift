@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 protocol CardStackViewDelegate: AnyObject {
     
@@ -31,6 +31,12 @@ protocol CardStackViewDelegate: AnyObject {
     func cardStackView(
         _ view: CardStackView,
         didClickReceiveControl control: UIControl,
+        model: CardStackCard
+    )
+    
+    func cardStackView(
+        _ view: CardStackView,
+        didClickTopupControl control: UIControl,
         model: CardStackCard
     )
     
@@ -560,6 +566,18 @@ extension CardStackView: CardStackCardViewDelegate {
         delegate?.cardStackView(
             self,
             didClickReceiveControl: control,
+            model: model
+        )
+    }
+    
+    func cardStackCardView(
+        _ view: UIView,
+        didClickTopupControl control: UIControl,
+        model: CardStackCard
+    ) {
+        delegate?.cardStackView(
+            self,
+            didClickTopupControl: control,
             model: model
         )
     }

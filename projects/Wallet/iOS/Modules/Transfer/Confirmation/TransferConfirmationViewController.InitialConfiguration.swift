@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import HuetonCORE
+import JustonCORE
 import SwiftyTON
 
 extension TransferConfirmationViewController {

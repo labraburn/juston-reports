@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class AccountStackLogotypeNavigationView: UIStackView {
     
@@ -19,7 +19,7 @@ class AccountStackLogotypeNavigationView: UIStackView {
         $0.insertHighlightingScaleAnimation()
         $0.insertFeedbackGenerator(style: .light)
         $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
-        $0.tintColor = .hui_textPrimary
+        $0.tintColor = .jus_textPrimary
     })
     
     let rightButton = UIButton().with({
@@ -27,7 +27,7 @@ class AccountStackLogotypeNavigationView: UIStackView {
         $0.insertHighlightingScaleAnimation()
         $0.insertFeedbackGenerator(style: .light)
         $0.sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -12)
-        $0.tintColor = .hui_textPrimary
+        $0.tintColor = .jus_textPrimary
     })
 
     init() {
@@ -38,14 +38,14 @@ class AccountStackLogotypeNavigationView: UIStackView {
         alignment = .top
         distribution = .equalCentering
         sui_touchAreaInsets = UIEdgeInsets(top: -24, left: -24, right: -24, bottom: -24)
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         
         addArrangedSubview(leftButton)
         addArrangedSubview({
             let touchAreaInsets = UIEdgeInsets(top: -24, left: 0, right: 0, bottom: -24)
             let wrapperView = UIView()
             wrapperView.addSubview(logotypeView)
-            wrapperView.heightAnchor.pin(to: HuetonView.applicationHeight).isActive = true
+            wrapperView.heightAnchor.pin(to: JustonView.applicationHeight).isActive = true
             logotypeView.pinned(edges: wrapperView)
             
             wrapperView.sui_touchAreaInsets = touchAreaInsets

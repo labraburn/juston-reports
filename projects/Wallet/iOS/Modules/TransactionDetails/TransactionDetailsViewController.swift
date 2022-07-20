@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonCORE
-import HuetonUI
+import JustonCORE
+import JustonUI
 import SafariServices
 
 class TransactionDetailsViewController: UIViewController {
@@ -70,7 +70,7 @@ class TransactionDetailsViewController: UIViewController {
         
         title = "TransactionDetailsTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(valueLabel)
         view.addSubview(textLabel)
@@ -81,11 +81,11 @@ class TransactionDetailsViewController: UIViewController {
         let (textColor, valuePrefix, recipientsOrSender) = { () -> (UIColor, String, Set<ConcreteAddress>) in
             switch transaction.kind {
             case .pending:
-                return (.hui_textPrimary, "-", Set(transaction.to))
+                return (.jus_textPrimary, "-", Set(transaction.to))
             case .out:
-                return (.hui_letter_red, "-", Set(transaction.to))
+                return (.jus_letter_red, "-", Set(transaction.to))
             case .in:
-                return (.hui_letter_green, "+", [transaction.from ?? account.convienceSelectedAddress])
+                return (.jus_letter_green, "+", [transaction.from ?? account.convienceSelectedAddress])
             }
         }()
         
@@ -123,23 +123,23 @@ class TransactionDetailsViewController: UIViewController {
         textLabel.attributedText = NSMutableAttributedString({
             switch transaction.kind {
             case .pending, .out:
-                NSAttributedString("\("TransactionDetailsRecipients".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+                NSAttributedString("\("TransactionDetailsRecipients".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             case .in:
-                NSAttributedString("\("TransactionDetailsSender".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+                NSAttributedString("\("TransactionDetailsSender".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             }
             spacing
             NSAttributedString("\(recipientsOrSenders)\n", with: .body)
             
-            NSAttributedString("\("TransactionDetailsDate".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransactionDetailsDate".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             spacing
             NSAttributedString("\(formatter.string(from: transaction.date))\n\n", with: .body)
             
-            NSAttributedString("\("TransactionDetailsFees".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+            NSAttributedString("\("TransactionDetailsFees".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
             spacing
             NSAttributedString("\(transaction.fees.string(with: .maximum9))\n\n", with: .body)
             
             if let message = transaction.message {
-                NSAttributedString("\("TransactionDetailsMessage".asLocalizedKey):", with: .subheadline, foregroundColor: .hui_textSecondary)
+                NSAttributedString("\("TransactionDetailsMessage".asLocalizedKey):", with: .subheadline, foregroundColor: .jus_textSecondary)
                 spacing
                 NSAttributedString("\(message)\n\n", with: .body)
             }

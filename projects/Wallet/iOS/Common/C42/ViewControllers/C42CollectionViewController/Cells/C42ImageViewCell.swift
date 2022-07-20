@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42ImageViewCell: UICollectionViewCell {
     
@@ -23,7 +23,7 @@ class C42ImageViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .hui_backgroundPrimary
+        contentView.backgroundColor = .jus_backgroundPrimary
         contentView.addSubview(imageView)
         
         imageView.pinned(edges: contentView)

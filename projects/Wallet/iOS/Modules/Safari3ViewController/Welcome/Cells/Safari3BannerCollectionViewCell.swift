@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 import Nuke
 
 class Safari3BannerCollectionViewCell: UICollectionViewCell {
@@ -38,14 +38,14 @@ class Safari3BannerCollectionViewCell: UICollectionViewCell {
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
     })
     
     private let textsSubstrateView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundPrimary.withAlphaComponent(0.8)
+        $0.backgroundColor = .jus_backgroundPrimary.withAlphaComponent(0.8)
     })
     
     private let titleLabel = UILabel().with({
@@ -54,7 +54,7 @@ class Safari3BannerCollectionViewCell: UICollectionViewCell {
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
         $0.numberOfLines = 0
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
     })
 
     private let subtitleLabel = UILabel().with {
@@ -63,7 +63,7 @@ class Safari3BannerCollectionViewCell: UICollectionViewCell {
         $0.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         $0.numberOfLines = 0
         $0.font = .font(for: .footnote)
-        $0.textColor = .hui_textPrimary.withAlphaComponent(0.8)
+        $0.textColor = .jus_textPrimary.withAlphaComponent(0.8)
     }
     
     private var titleConstraints: [NSLayoutConstraint] = []

@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
-import SystemUI
+import JustonUI
 
 final class AccountStackBrowserSearchField: UIControl {
     
@@ -37,7 +36,7 @@ final class AccountStackBrowserSearchField: UIControl {
     private let substrateView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.isUserInteractionEnabled = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
         $0.layer.cornerRadius = 16
         $0.layer.cornerCurve = .continuous
     })
@@ -50,12 +49,12 @@ final class AccountStackBrowserSearchField: UIControl {
         $0.textAlignment = .center
         $0.layer.cornerRadius = 16
         $0.layer.cornerCurve = .continuous
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
     })
     
     private let gradientImageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .hui_searchFieldGradient
+        $0.image = .jus_searchFieldGradient
     })
     
     private let loadingView = UIView().with({
@@ -70,7 +69,7 @@ final class AccountStackBrowserSearchField: UIControl {
     let textField = UITextField().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.placeholder = "Search or enter web3site"
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.isUserInteractionEnabled = false
         $0.textContentType = .URL
         $0.autocorrectionType = .no
@@ -83,7 +82,7 @@ final class AccountStackBrowserSearchField: UIControl {
     
     let actionsButton = UIButton().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.tintColor = .hui_letter_purple
+        $0.tintColor = .jus_letter_purple
         $0.insertHighlightingScaleAnimation()
         $0.insertFeedbackGenerator(style: .soft)
         $0.sui_touchAreaInsets = UIEdgeInsets(top: -12, left: -12, bottom: -12, right: -64)
@@ -209,7 +208,7 @@ final class AccountStackBrowserSearchField: UIControl {
     
     func setFocused(_ flag: Bool, animated: Bool = true) {
         let changes = {
-            self.borderView.gradientColors = flag ? [UIColor(rgb: 0x85FFC4), UIColor(rgb: 0xBC85FF)] : [.hui_textSecondary, .hui_textSecondary]
+            self.borderView.gradientColors = flag ? [UIColor(rgb: 0x85FFC4), UIColor(rgb: 0xBC85FF)] : [.jus_textSecondary, .jus_textSecondary]
             self.borderView.gradientAngle = flag ? 12 : 68
             
             if flag {

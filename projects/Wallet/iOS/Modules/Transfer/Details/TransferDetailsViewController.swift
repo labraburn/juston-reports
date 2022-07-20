@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import SwiftyTON
 
 class TransferDetailsViewController: UIViewController {
@@ -18,7 +18,7 @@ class TransferDetailsViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "TransferDetailsDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -96,7 +96,7 @@ class TransferDetailsViewController: UIViewController {
         
         title = "TransferDetailsTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(destinationAddressView)
@@ -108,7 +108,7 @@ class TransferDetailsViewController: UIViewController {
         destinationAddressView.textView.text = initialConfiguration.toAddress?.displayName ?? ""
         destinationAddressView.actions = [
             .init(
-                image: .hui_scan20,
+                image: .jus_scan20,
                 block: { [weak self] in
                     self?.scanQRAndFill()
                 }
@@ -207,7 +207,7 @@ class TransferDetailsViewController: UIViewController {
         outAddress: String,
         amount: Currency,
         message: String?,
-        sender: HuetonButton
+        sender: JustonButton
     ) {
         let fromAccount = initialConfiguration.fromAccount
         let fromAddress = fromAccount.selectedContract.address
@@ -267,7 +267,7 @@ class TransferDetailsViewController: UIViewController {
     
     fileprivate func markTextViewAsError(_ textView: UITextView?) {
         textView?.superview?.shake()
-        textView?.textColor = .hui_letter_red
+        textView?.textColor = .jus_letter_red
         errorFeedbackGenerator.impactOccurred()
     }
     
@@ -278,11 +278,11 @@ class TransferDetailsViewController: UIViewController {
         qrViewController.delegate = self
         
         let navigationController = NavigationController(rootViewController: qrViewController)
-        hui_present(navigationController, animated: true, completion: nil)
+        jus_present(navigationController, animated: true, completion: nil)
     }
     
     @objc
-    private func nextButtonDidClick(_ sender: HuetonButton) {
+    private func nextButtonDidClick(_ sender: JustonButton) {
         guard let address = outDestinationAddress
         else {
             markTextViewAsError(destinationAddressView.textView)

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 import Nuke
 
 class RemoteImageView: UIView {

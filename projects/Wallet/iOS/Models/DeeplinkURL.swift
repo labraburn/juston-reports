@@ -21,7 +21,7 @@ enum DeeplinkURL {
             return convenienceURL.url
         case let .address(value):
             let path = value.description
-            guard let components = URLComponents(string: "https://hueton.com/action/address/\(path)")
+            guard let components = URLComponents(string: "https://juston.io/action/address/\(path)")
             else {
                 fatalError("Can't create URL from \(self)")
             }
@@ -34,7 +34,7 @@ enum DeeplinkURL {
             return url
         case let .transfer(destination, amount, text):
             let path = destination.description
-            guard var components = URLComponents(string: "https://hueton.com/action/transfer/\(path)")
+            guard var components = URLComponents(string: "https://juston.io/action/transfer/\(path)")
             else {
                 fatalError("Can't create URL from \(self)")
             }
@@ -88,7 +88,7 @@ enum DeeplinkURL {
         
         if let tonURL = ConvenienceURL(components) {
             self = .tonURL(tonURL)
-        } else if components.scheme == "hueton" {
+        } else if components.scheme == "juston" {
             switch components.host {
             case "transfer":
                 let lastPathComponent = (components.path as NSString).lastPathComponent
@@ -142,13 +142,13 @@ enum DeeplinkURL {
             .replacingOccurrences(of: "https://", with: "")
             .replacingOccurrences(of: "http://", with: "")
         
-        let prefex = "hueton.com/action/"
+        let prefex = "juston.com/action/"
         guard replaced.hasPrefix(prefex)
         else {
             return nil
         }
         
         replaced = replaced.replacingOccurrences(of: prefex, with: "")
-        return URL(string: "hueton://\(replaced)")
+        return URL(string: "juston://\(replaced)")
     }
 }

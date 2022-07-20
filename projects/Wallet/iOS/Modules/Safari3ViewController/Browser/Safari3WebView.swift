@@ -32,10 +32,19 @@ class Safari3WebView: WKWebView {
             configuration: configuration
         )
         
+        // To avoid flash on start
+        
+        backgroundColor = .jus_backgroundPrimary
+        isOpaque = false
+        
         loadHTMLString(
             "<html style=\"background-color:#10080E\"></html>",
             baseURL: nil
         )
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.isOpaque = true
+        })
     }
     
     @available(*, unavailable)
@@ -65,7 +74,7 @@ class Safari3WebView: WKWebView {
             return
         }
         
-        var hueton = false
+        var juston = false
         let hosts = [
             "scaleton",
             "biton",
@@ -76,12 +85,12 @@ class Safari3WebView: WKWebView {
         ]
         
         for value in hosts {
-            hueton = host.contains(value)
-            if hueton {
+            juston = host.contains(value)
+            if juston {
                 break
             }
         }
         
-        customUserAgent = hueton ? "HUETON" : nil
+        customUserAgent = juston ? "JUSTON" : nil
     }
 }

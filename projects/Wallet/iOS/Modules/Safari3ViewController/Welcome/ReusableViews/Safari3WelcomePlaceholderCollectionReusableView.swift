@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class Safari3WelcomePlaceholderCollectionReusableView: UICollectionReusableView {
     
@@ -16,7 +16,7 @@ class Safari3WelcomePlaceholderCollectionReusableView: UICollectionReusableView 
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .body)
         $0.text = "Safari3FavouritesEmptyTitle".asLocalizedKey
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .center
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -33,7 +33,7 @@ class Safari3WelcomePlaceholderCollectionReusableView: UICollectionReusableView 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .hui_backgroundPrimary
+        backgroundColor = .jus_backgroundPrimary
         
         addSubview(textLabel)
         addSubview(button)

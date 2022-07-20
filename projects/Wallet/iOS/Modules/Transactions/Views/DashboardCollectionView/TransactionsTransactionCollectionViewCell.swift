@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
-import DeclarativeUI
+import JustonUI
+import JustonCORE
 
 class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
     
@@ -66,14 +65,14 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
     private let addressLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .caption1)
-        $0.textColor = .hui_textSecondary
+        $0.textColor = .jus_textSecondary
         $0.lineBreakMode = .byTruncatingMiddle
     })
     
     private let balanceLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = .font(for: .body)
-        $0.textColor = .hui_textSecondary
+        $0.textColor = .jus_textSecondary
         $0.lineBreakMode = .byTruncatingMiddle
     })
     
@@ -83,7 +82,7 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
         insertFeedbackGenerator()
         insertHighlightingScaleAnimation()
         
-        contentView.backgroundColor = .hui_backgroundPrimary
+        contentView.backgroundColor = .jus_backgroundPrimary
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
         
@@ -115,7 +114,7 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
         let value = CurrencyFormatter.string(from: model.value, options: .maximum9)
         switch model.kind {
         case .in:
-            imageView.image = .hui_receiveColor51
+            imageView.image = .jus_receiveColor51
             
             if let from = model.from {
                 addressLabel.text = "from \(from.description)"
@@ -124,9 +123,9 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
             }
             
             balanceLabel.text = "\(value)"
-            balanceLabel.textColor = .hui_letter_green
+            balanceLabel.textColor = .jus_letter_green
         case .out:
-            imageView.image = .hui_sendColor51
+            imageView.image = .jus_sendColor51
             
             if let to = model.to.first { // TODO: Fixme and show all addresses
                 addressLabel.text = "to \(to.description)"
@@ -135,9 +134,9 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
             }
             
             balanceLabel.text = "\(value)"
-            balanceLabel.textColor = .hui_letter_red
+            balanceLabel.textColor = .jus_letter_red
         case .pending:
-            imageView.image = .hui_sendColor51
+            imageView.image = .jus_sendColor51
             
             if let to = model.to.first { // TODO: Fixme and show all addresses
                 addressLabel.text = "to \(to.description)"
@@ -146,7 +145,7 @@ class TransactionsTransactionCollectionViewCell: UICollectionViewCell {
             }
             
             balanceLabel.text = "\(value)"
-            balanceLabel.textColor = .hui_textPrimary
+            balanceLabel.textColor = .jus_textPrimary
         }
         
         startLoadingAnimationIfNeeded(model: model)

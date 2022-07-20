@@ -1,8 +1,5 @@
 //
-//  NSException+O42.h
-//  
-//
-//  Created by Anton Spivak on 02.04.2022.
+//  Created by Anton Spivak
 //
 
 #import "Objective42.h"
@@ -15,6 +12,11 @@ O42_EXPORT NSErrorDomain const O42ExceptionErrorDomain;
 
 /// Converts NSException to NSError object with `NSExceptionErrorDomain`
 - (NSError *)o42_error;
+
+/// Raises exeception
++ (void)o42_raiseExceptionWithName:(NSExceptionName)name
+                            reason:(nullable NSString *)reason
+                          userInfo:(nullable NSDictionary *)userInfo;
 
 @end
 

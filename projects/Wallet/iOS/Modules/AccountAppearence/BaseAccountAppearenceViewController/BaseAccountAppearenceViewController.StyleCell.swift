@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonCORE
-import HuetonUI
+import JustonCORE
+import JustonUI
 
 extension BaseAccountAppearenceViewController {
     
@@ -18,7 +18,7 @@ extension BaseAccountAppearenceViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.heightAnchor.pin(to: 20).isActive = true
             $0.tintColor = .white
-            $0.image = .hui_radioButtonDeselected20
+            $0.image = .jus_radioButtonDeselected20
         })
         
         override init(frame: CGRect) {
@@ -35,7 +35,7 @@ extension BaseAccountAppearenceViewController {
         
         override var isSelected: Bool {
             didSet {
-                pin.image = isSelected ? .hui_radioButtonSelected20 : .hui_radioButtonDeselected20
+                pin.image = isSelected ? .jus_radioButtonSelected20 : .jus_radioButtonDeselected20
             }
         }
         

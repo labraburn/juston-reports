@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import MessageUI
 
 class SettingsViewController: C42CollectionViewController {
@@ -54,16 +54,16 @@ class SettingsViewController: C42CollectionViewController {
                     items: [
                         .settingsButton(
                             title: "SettingsShareButton".asLocalizedKey,
-                            titleColor: .hui_letter_blue,
+                            titleColor: .jus_letter_blue,
                             action: { viewController in
-                                let items = [URL.hueton]
+                                let items = [URL.juston]
                                 let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                                viewController.hui_present(activityViewController, animated: true)
+                                viewController.jus_present(activityViewController, animated: true)
                             }
                         ),
                         .settingsButton(
                             title: "SettingsRateButton".asLocalizedKey,
-                            titleColor: .hui_letter_blue,
+                            titleColor: .jus_letter_blue,
                             action: { viewController in
                                 viewController.open(url: .appStore)
                             }
@@ -77,13 +77,13 @@ class SettingsViewController: C42CollectionViewController {
                         header: .title(
                             value: "SettingsSystemSettingsTitle".asLocalizedKey,
                             textAligment: .center,
-                            foregroundColor: .hui_textPrimary
+                            foregroundColor: .jus_textPrimary
                         )
                     ),
                     items: [
                         .settingsButton(
                             title: "SettingsNotificationsButton".asLocalizedKey,
-                            titleColor: .hui_letter_purple,
+                            titleColor: .jus_letter_purple,
                             action: { viewController in
                                 let url = URL(string: UIApplication.openSettingsURLString)
                                 viewController.open(url: url)
@@ -98,13 +98,13 @@ class SettingsViewController: C42CollectionViewController {
                         header: .title(
                             value: "SettingsAgreementsTitle".asLocalizedKey,
                             textAligment: .center,
-                            foregroundColor: .hui_textPrimary
+                            foregroundColor: .jus_textPrimary
                         )
                     ),
                     items: [
                         .settingsButton(
                             title: "SettingsPrivacyPolicyButton".asLocalizedKey,
-                            titleColor: .hui_letter_violet,
+                            titleColor: .jus_letter_violet,
                             action: { viewController in
                                 viewController.open(
                                     url: .privacyPolicy,
@@ -114,7 +114,7 @@ class SettingsViewController: C42CollectionViewController {
                         ),
                         .settingsButton(
                             title: "SettingsTermsOfUseButton".asLocalizedKey,
-                            titleColor: .hui_letter_violet,
+                            titleColor: .jus_letter_violet,
                             action: { viewController in
                                 viewController.open(
                                     url: .termsOfUse,
@@ -131,20 +131,20 @@ class SettingsViewController: C42CollectionViewController {
                         header: .title(
                             value: "SettingsSupportTitle".asLocalizedKey,
                             textAligment: .center,
-                            foregroundColor: .hui_textPrimary
+                            foregroundColor: .jus_textPrimary
                         )
                     ),
                     items: [
                         .settingsButton(
                             title: "SettingsContactDeveloperButton".asLocalizedKey,
-                            titleColor: .hui_letter_yellow,
+                            titleColor: .jus_letter_yellow,
                             action: { viewController in
                                 (viewController as? SettingsViewController)?.openMailComposeViewControllerIfAvailable()
                             }
                         ),
                         .settingsButton(
                             title: "SettingsCommunityChatButton".asLocalizedKey,
-                            titleColor: .hui_letter_yellow,
+                            titleColor: .jus_letter_yellow,
                             action: { viewController in
                                 viewController.open(url: .telegramChat)
                             }
@@ -158,20 +158,20 @@ class SettingsViewController: C42CollectionViewController {
                         header: .title(
                             value: "SettingsSocialTitle".asLocalizedKey,
                             textAligment: .center,
-                            foregroundColor: .hui_textPrimary
+                            foregroundColor: .jus_textPrimary
                         )
                     ),
                     items: [
                         .settingsButton(
                             title: "SettingsTelegramButton".asLocalizedKey,
-                            titleColor: .hui_letter_green,
+                            titleColor: .jus_letter_green,
                             action: { viewController in
                                 viewController.open(url: .telegramChannel)
                             }
                         ),
                         .settingsButton(
                             title: "SettingsTwitterButton".asLocalizedKey,
-                            titleColor: .hui_letter_green,
+                            titleColor: .jus_letter_green,
                             action: { viewController in
                                 viewController.open(
                                     url: .twitter,
@@ -199,12 +199,12 @@ extension SettingsViewController {
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
     
     func openMailComposeViewControllerIfAvailable() {
-        let email = "hello@hueton.com"
+        let email = "hello@juston.io"
         if MFMailComposeViewController.canSendMail() {
             let mailComposeViewController = MFMailComposeViewController()
             mailComposeViewController.mailComposeDelegate = self
             mailComposeViewController.setToRecipients([email])
-            hui_present(mailComposeViewController, animated: true)
+            jus_present(mailComposeViewController, animated: true)
         } else {
             let url = URL(string: "mailto:\(email)")
             open(url: url)

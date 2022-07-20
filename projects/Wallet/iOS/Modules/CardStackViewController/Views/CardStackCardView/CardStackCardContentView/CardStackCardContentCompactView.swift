@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 final class CardStackCardContentCompactView: CardStackCardContentView {
     
@@ -32,7 +32,7 @@ final class CardStackCardContentCompactView: CardStackCardContentView {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.insertHighlightingScaleAnimation()
         $0.insertFeedbackGenerator(style: .medium)
-        $0.setImage(.hui_more24, for: .normal)
+        $0.setImage(.jus_more24, for: .normal)
     })
     
     private let loadingIndicatorView = CardStackCardLoadingView()

@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import HuetonCORE
-import DefaultMOON
+import JustonCORE
 
 @MainActor
 final class PushIdentificator {
@@ -27,15 +26,6 @@ final class PushIdentificator {
     
     func update(_ value: String) {
         Task {
-            let installationID = await InstallationIdentifier.shared.value
-            let request = AccountSettings.updateDeviceToken(installation_id: installationID.uuidString, token: value)
-            
-            do {
-                let _ = try await DefaultMOON.shared.do(request)
-            } catch {
-                print(error)
-            }
-            
             try? await storage.save(value: value, forKey: .pushIdentificatorAPNSToken)
         }
     }

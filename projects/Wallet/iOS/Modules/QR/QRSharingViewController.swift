@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftyTON
-import HuetonUI
+import JustonUI
 import QRCode
 
 class QRSharingViewController: UIViewController {
@@ -16,7 +16,7 @@ class QRSharingViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "Share this QR code to others receive coins into account"
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -29,7 +29,7 @@ class QRSharingViewController: UIViewController {
     private lazy var addressButton = UIButton().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.addTarget(self, action: #selector(addressButtonDidClick(_:)), for: .touchUpInside)
-        $0.setTitleColor(.hui_textPrimary, for: .normal)
+        $0.setTitleColor(.jus_textPrimary, for: .normal)
         $0.titleLabel?.font = .font(for: .subheadline)
         $0.titleLabel?.numberOfLines = 0
         $0.titleLabel?.textAlignment = .center
@@ -71,7 +71,7 @@ class QRSharingViewController: UIViewController {
         
         title = "Your address"
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         view.addSubview(descriptionLabel)
         view.addSubview(qrImageView)
@@ -105,7 +105,7 @@ class QRSharingViewController: UIViewController {
         let rect = CGRect(origin: .zero, size: CGSize(width: 512, height: 512))
         qrImageView.image = UIGraphicsImageRenderer(size: rect.size).image(actions: { context in
             qr.draw(ctx: context.cgContext, rect: rect)
-            guard let cgImage = UIImage.hui_qrCodeOverlay512.cgImage
+            guard let cgImage = UIImage.jus_qrCodeOverlay512.cgImage
             else {
                 return
             }
@@ -152,7 +152,7 @@ class QRSharingViewController: UIViewController {
             applicationActivities: nil
         )
         
-        hui_present(activityViewController, animated: true)
+        jus_present(activityViewController, animated: true)
     }
     
     @objc
@@ -163,7 +163,7 @@ class QRSharingViewController: UIViewController {
             applicationActivities: nil
         )
         
-        hui_present(activityViewController, animated: true)
+        jus_present(activityViewController, animated: true)
     }
     
     @objc

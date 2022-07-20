@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 final class AccountStackView: UIView {
     
@@ -40,7 +40,7 @@ final class AccountStackView: UIView {
     
     let browserNavigationView = AccountStackBrowserNavigationView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundPrimary
+        $0.backgroundColor = .jus_backgroundPrimary
     })
     
     private var compactTopConstraints: [NSLayoutConstraint] = []
@@ -87,8 +87,8 @@ final class AccountStackView: UIView {
         super.init(frame: .zero)
         backgroundColor = .clear
         
-        scanQRButton.setImage(.hui_scan20, for: .normal)
-        addAccountButton.setImage(.hui_addCircle20, for: .normal)
+        scanQRButton.setImage(.jus_scan20, for: .normal)
+        addAccountButton.setImage(.jus_addCircle20, for: .normal)
         
         addSubview(topLineView)
         addSubview(bottomLineView)
@@ -228,7 +228,7 @@ final class AccountStackView: UIView {
     }
     
     func perfromApperingAnimation() {
-        logotypeTopNavigationView.logotypeView.huetonView.perfromLoadingAnimationAndStartInfinity()
+        logotypeTopNavigationView.logotypeView.justonView.perfromLoadingAnimationAndStartInfinity()
     }
     
     // MARK: Actions
@@ -267,7 +267,7 @@ final class AccountStackView: UIView {
     }
 }
 
-extension HuetonView {
+extension JustonView {
     
     static var applicationHeight = CGFloat(20)
 }

@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 import GithubMOON
-import HuetonCORE
+import JustonCORE
 
 extension UIApplication {
     

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class AlertViewController: UIViewController {
     
@@ -91,7 +91,7 @@ class AlertViewController: UIViewController {
         
         view.layer.cornerCurve = .continuous
         view.layer.cornerRadius = 24
-        view.backgroundColor = .hui_backgroundSecondary
+        view.backgroundColor = .jus_backgroundSecondary
         view.addSubview(verticalStackView)
         NSLayoutConstraint.activate {
             verticalStackView.pin(vertically: view, top: 24, bottom: 24)
@@ -147,14 +147,14 @@ class AlertViewController: UIViewController {
             button.addTarget(self, action: #selector(actionButtonDidClick(_:)), for: .touchUpInside)
             switch action.style {
             case .`default`:
-                button.tintColor = .hui_textPrimary
-                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .hui_textPrimary), for: .normal)
+                button.tintColor = .jus_textPrimary
+                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .jus_textPrimary), for: .normal)
             case .destructive:
-                button.tintColor = .hui_letter_red
-                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .hui_letter_red), for: .normal)
+                button.tintColor = .jus_letter_red
+                button.setAttributedTitle(.string(action.title, with: .body, foregroundColor: .jus_letter_red), for: .normal)
             case .cancel:
-                button.tintColor = .hui_textPrimary
-                button.setAttributedTitle(.string(action.title, with: .headline, foregroundColor: .hui_textPrimary), for: .normal)
+                button.tintColor = .jus_textPrimary
+                button.setAttributedTitle(.string(action.title, with: .headline, foregroundColor: .jus_textPrimary), for: .normal)
             }
             verticalStackView.addArrangedSubview(button)
             index += 1

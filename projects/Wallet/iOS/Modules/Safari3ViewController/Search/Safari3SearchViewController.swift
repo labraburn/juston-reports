@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 import CoreData
 
 protocol Safari3SearchViewControllerDelegate: AnyObject {
@@ -34,7 +34,7 @@ class Safari3SearchViewController: UIViewController {
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .hui_backgroundPrimary
+        collectionView.backgroundColor = .jus_backgroundPrimary
         return collectionView
     }()
     
@@ -66,7 +66,7 @@ class Safari3SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         view.addSubview(collectionView)
         collectionView.pinned(edges: view)
         

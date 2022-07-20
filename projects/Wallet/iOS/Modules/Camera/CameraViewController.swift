@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 import SwiftyTON
-import HuetonUI
+import JustonUI
 
 protocol CameraViewControllerDelegate: AnyObject {
     
@@ -36,7 +36,7 @@ class CameraViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textAlignment = .center
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.text = "CameraDescription".asLocalizedKey
         $0.numberOfLines = 0
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -44,7 +44,7 @@ class CameraViewController: UIViewController {
     
     private let cameraView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
     })
     
     private lazy var cancelButton = TeritaryButton(title: "CommonCancel".asLocalizedKey.uppercased()).with({
@@ -54,7 +54,7 @@ class CameraViewController: UIViewController {
     
     private var session: AVCaptureSession?
     private var layer: AVCaptureVideoPreviewLayer?
-    private let queue = DispatchQueue(label: "com.hueton.capture-session")
+    private let queue = DispatchQueue(label: "com.juston.capture-session")
     private var convenienceURL: ConvenienceURL? = nil
     
     weak var delegate: CameraViewControllerDelegate?
@@ -64,7 +64,7 @@ class CameraViewController: UIViewController {
         
         title = "CameraTitle".asLocalizedKey
         navigationItem.backButtonTitle = ""
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         
         cameraView.layer.cornerRadius = 12

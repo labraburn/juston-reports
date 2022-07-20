@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DeclarativeUI
 
 final class InAppAnnouncementView: UIView {
     
@@ -15,7 +14,7 @@ final class InAppAnnouncementView: UIView {
     
     private let tintView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary.withAlphaComponent(0.04)
+        $0.backgroundColor = .jus_backgroundSecondary.withAlphaComponent(0.04)
         $0.clipsToBounds = true
     })
     

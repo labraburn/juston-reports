@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 import Nuke
 
 class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionViewPreviewCell {
@@ -39,7 +39,7 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
     
     private var imageViewWrapperView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
         
         $0.layer.cornerRadius = 12
         $0.layer.cornerCurve = .continuous
@@ -48,7 +48,7 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
     
     private let imageView = UIImageView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
         $0.contentMode = .scaleAspectFill
     })
     
@@ -58,7 +58,7 @@ class Safari3FavouriteCollectionViewCell: UICollectionViewCell, UICollectionView
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
         $0.numberOfLines = 2
         $0.font = .font(for: .footnote)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .center
     })
     

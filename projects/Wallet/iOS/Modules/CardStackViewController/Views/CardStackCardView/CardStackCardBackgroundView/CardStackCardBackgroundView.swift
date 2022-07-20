@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 final class CardStackCardBackgroundView: UIView {
     
@@ -17,7 +17,7 @@ final class CardStackCardBackgroundView: UIView {
     
     private let overlayView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundSecondary
+        $0.backgroundColor = .jus_backgroundSecondary
     })
     
     var cornerRadius: CGFloat {

@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 protocol AccountStackViewControllerDelegate: CardStackViewControllerDelegate {}
 
@@ -111,7 +111,7 @@ class AccountStackViewController: UIViewController {
                 initialConfiguration: await .dependsUserDefaults()
             )
 
-            hui_present(navigationController, animated: true, completion: nil)
+            jus_present(navigationController, animated: true, completion: nil)
         }
     }
 
@@ -123,7 +123,7 @@ class AccountStackViewController: UIViewController {
             rootViewController: SettingsViewController()
         )
         
-        hui_present(settingsNavigationController, animated: true)
+        jus_present(settingsNavigationController, animated: true)
     }
 
     @objc
@@ -134,7 +134,7 @@ class AccountStackViewController: UIViewController {
         qrViewController.delegate = self
 
         let navigationController = NavigationController(rootViewController: qrViewController)
-        hui_present(navigationController, animated: true, completion: nil)
+        jus_present(navigationController, animated: true, completion: nil)
     }
 }
 

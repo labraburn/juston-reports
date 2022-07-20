@@ -14,6 +14,7 @@
 "CommonAddress" = "Address";
 "CommonAmount" = "Amount";
 "CommonNext" = "Next";
+"CommonClose" = "Close";
 "CommonUndoneAction" = "Are you sure? This action cannot being undone!";
 /* END - Common */
 
@@ -21,7 +22,7 @@
 
 /* START - Onboarding */
 "OnboardingWelcomeTitle" = "Hey!";
-"OnboardingWelcomeDescription" = "This is a HUETON, simple, non-custodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
+"OnboardingWelcomeDescription" = "This is a JUSTON, simple, non-custodial (we don’t store your keys on our side) and truly WEB3 wallet for TON network. You can create any accounts as you want as well add not yours wallet by public address and look up it's content";
 
 "OnboardingAgreementsTitle" = "User agreements";
 "OnboardingAgreementsDescription" = "Please, review our %@ and %@ after tap accept button if you are satisfied";
@@ -149,7 +150,7 @@
 
 
 /* START - Settings */
-"SettingsTitle" = "HUETON";
+"SettingsTitle" = "JUSTON";
 "SettingsDescription" = "We are strongly believe in future without bureaucratic and all centralized stuff. Our mission is a freedom and all products will be pointed to achieve it.\n\nEnjoy and feel free to contact us!";
 
 "SettingsShareButton" = "Share";
@@ -288,4 +289,16 @@
 "UserConfirmationTitle" = "Action requested";
 "UserConfirmationConfirmButton" = "Confirm";
 "UserConfirmationLargeAmountUnbouncableAddress" = "You are trying to send large amount tokens to non-bounceable address. If address is incorrect you will loose all amount of transaction";
+/* END - UserConfirmation */
+
+
+
+/* START - VeneraExhange */
+"VeneraExhangeTitle" = "VENERA";
+"VeneraExhangeDescription" = "You will be taken to VENERA. Services relating to payments are provided by VENERA, which is a separate platform owned by a third party.\n\nPlease review them %@ and %@ and after tap accept button if you are agree";
+"VeneraExhangeTermsOfUse" = "terms of use";
+"VeneraExhangePrivacy" = "privacy policy";
+"VeneraExhangeActionButton" = "ACCEPT";
+"VeneraExchangeFinishTitle" = "VENERA x JUSTON";
+"VeneraExchangeFinishDescription" = "You are awesome! Thanks for using VENERA :)\n\nNow you need to wait few seconds to receive $TON";
 /* END - UserConfirmation */

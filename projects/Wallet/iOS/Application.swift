@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class Application: UIApplication {
 
@@ -55,15 +55,30 @@ class Application: UIApplication {
         completionHandler completion: ((Bool) -> ())?
     ) {
         let window = originatingView?.applicationWindow ?? foregroundActiveApplicationWindowScene?.window
-        switch url.host {
-        case "hueton.com":
-            window?
-                .windowRootViewController
-                .topmostPresentedViewController
-                .open(url: url, options: .internalBrowser)
-        default:
-            open(url)
+        let host = url.host ?? ""
+        
+        let inAppable = ["hueton", "juston", "venera"]
+        var canOpenInApp = false
+        
+        inAppable.forEach({
+            guard !canOpenInApp
+            else {
+                return
+            }
+            
+            canOpenInApp = host.contains($0)
+        })
+        
+        guard canOpenInApp
+        else {
+            open(url, completionHandler: completion)
+            return
         }
+        
+        window?
+            .windowRootViewController
+            .topmostPresentedViewController
+            .open(url: url, options: .internalBrowser)
         
         completion?(true)
     }

@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 class ExploreViewController: TripleViewController {
     
@@ -60,7 +60,7 @@ class ExploreViewController: TripleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         safari3ViewController.attach(accountStackViewController.browserNavigationView)
         
@@ -109,7 +109,7 @@ class ExploreViewController: TripleViewController {
             )
         )
         
-        topmostPresentedViewController.hui_present(
+        topmostPresentedViewController.jus_present(
             viewController,
             animated: true
         )
@@ -132,7 +132,7 @@ class ExploreViewController: TripleViewController {
                 initialConfiguration: initialConfiguration
             )
             
-            hui_present(navigationController, animated: true, completion: nil)
+            jus_present(navigationController, animated: true, completion: nil)
         }
     }
 }

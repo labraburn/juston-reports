@@ -8,19 +8,18 @@
 import UIKit
 
 import UIKit
-import HuetonUI
-import SystemUI
+import JustonUI
 
 class NavigationController: SUINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
-        navigationBar.standardAppearance = .hue_standardAppearance
-        navigationBar.scrollEdgeAppearance = .hue_scrollEdgeAppearance
-        navigationBar.tintColor = .hui_textPrimary
+        navigationBar.standardAppearance = .jus_standardAppearance
+        navigationBar.scrollEdgeAppearance = .jus_scrollEdgeAppearance
+        navigationBar.tintColor = .jus_textPrimary
         
         navigationBar.prefersLargeTitles = false
         navigationBar.layer.masksToBounds = true

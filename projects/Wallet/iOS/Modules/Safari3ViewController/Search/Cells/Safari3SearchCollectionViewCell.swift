@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 import Nuke
 
 class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPreviewCell {
@@ -41,7 +41,7 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
     
     private var imageViewWrapperView = UIView().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .hui_backgroundPrimary.withAlphaComponent(0.7)
+        $0.backgroundColor = .jus_backgroundPrimary.withAlphaComponent(0.7)
         
         $0.layer.cornerRadius = 12
         $0.layer.cornerCurve = .continuous
@@ -59,7 +59,7 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
         $0.numberOfLines = 1
         $0.font = .font(for: .headline)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .left
     })
     
@@ -69,7 +69,7 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
         $0.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         $0.numberOfLines = 1
         $0.font = .font(for: .footnote)
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.textAlignment = .left
     })
     
@@ -87,7 +87,7 @@ class Safari3SearchCollectionViewCell: UICollectionViewCell, UICollectionViewPre
         insertFeedbackGenerator(style: .soft)
         insertHighlightingScaleAnimation()
         
-        contentView.backgroundColor = .hui_backgroundSecondary
+        contentView.backgroundColor = .jus_backgroundSecondary
         contentView.layer.cornerRadius = 12
         contentView.layer.cornerCurve = .continuous
         contentView.layer.masksToBounds = true

@@ -6,15 +6,34 @@
 //
 
 import UIKit
+import JustonUI
 
-final class VerticalLabelContainerView: UIControl {
+final class VerticalAddressLabelContainerView: UIControl {
     
-    let label: UILabel = UILabel()
+    private let label: UILabel = VerticalAddressLabel()
+    
+    var textColor: UIColor = .white {
+        didSet {
+            label.textColor = textColor
+        }
+    }
+    
+    var address: String = "" {
+        didSet {
+            label.text = address
+        }
+    }
     
     init() {
         super.init(frame: .zero)
+        
         clipsToBounds = true
         addSubview(label)
+        
+        label.font = .monospacedSystemFont(ofSize: 16, weight: .regular)
+        label.lineBreakMode = .byClipping
+        label.numberOfLines = 1
+        label.textAlignment = .left
     }
     
     @available(*, unavailable)
@@ -31,19 +50,35 @@ final class VerticalLabelContainerView: UIControl {
     
     override var intrinsicContentSize: CGSize {
         let intrinsicContentSize = label.intrinsicContentSize
-        return CGSize(width: intrinsicContentSize.height, height: intrinsicContentSize.width)
+        return CGSize(width: intrinsicContentSize.height, height: UIView.layoutFittingExpandedSize.height)
     }
+}
+
+private class VerticalAddressLabel: UILabel {
     
-    override func systemLayoutSizeFitting(
-        _ targetSize: CGSize,
-        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-        verticalFittingPriority: UILayoutPriority
-    ) -> CGSize {
-        let systemLayoutSizeFitting = label.systemLayoutSizeFitting(
-            targetSize,
-            withHorizontalFittingPriority: horizontalFittingPriority,
-            verticalFittingPriority: verticalFittingPriority
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard let text = text,
+              bounds.width > 0
+        else {
+            return
+        }
+        
+        let glyphsCount = CGFloat(text.count)
+        guard glyphsCount > 1
+        else {
+            return
+        }
+        
+        let font = self.font ?? .monospacedSystemFont(ofSize: 16, weight: .regular)
+        let glyphWidth = NSAttributedString(string: "s", attributes: [ .font : font ]).size().width
+        let kern = (bounds.width - (glyphsCount * glyphWidth)) / (glyphsCount - 1)
+        
+        attributedText = .string(
+            text,
+            with: .callout,
+            kern: kern > 0 ? .custom(value: kern) : .default
         )
-        return CGSize(width: systemLayoutSizeFitting.height, height: systemLayoutSizeFitting.width)
     }
 }

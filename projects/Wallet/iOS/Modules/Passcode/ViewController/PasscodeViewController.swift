@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import HuetonUI
-import HuetonCORE
+import JustonUI
+import JustonCORE
 
 protocol PasscodeViewControllerDelegate: AnyObject {
     
@@ -88,7 +88,7 @@ class PasscodeViewController: UIViewController {
         super.viewDidLoad()
         
         titleLabel.font = .font(for: .headline)
-        view.backgroundColor = .hui_backgroundPrimary
+        view.backgroundColor = .jus_backgroundPrimary
         
         faceIDButton.setImage(
             UIImage(

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import HuetonCORE
+import JustonCORE
 import UIKit
 
 extension BrowserBannerAction.InApp {
@@ -19,7 +19,7 @@ extension BrowserBannerAction.InApp {
             let viewController = PromoViewController(
                 title: "Web3PromoTitle".asLocalizedKey,
                 description: "Web3PromoDescription".asLocalizedKey,
-                image: .hui_placeholderV4512,
+                image: .jus_placeholderV4512,
                 completion: { @MainActor in
                     let accountID = account.objectID
                     let request = PersistenceBrowserFavourite.fetchRequest(

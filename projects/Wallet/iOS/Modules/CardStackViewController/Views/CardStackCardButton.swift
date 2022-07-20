@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 final class CardStackCardButton: UIButton {
     
@@ -32,12 +32,12 @@ final class CardStackCardButton: UIButton {
         
         // Inside UIStackView this helps tp avoid unnecessary errors
         let constraint = button.widthAnchor.pin(to: button.heightAnchor)
-        constraint.priority = .defaultHigh
+        constraint.priority = .required - 1
         constraint.isActive = true
         
         button.setImage(image, for: .normal)
-        button.layer.cornerRadius = 26
-        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 24
+        button.layer.cornerCurve = .circular
         return button
     }
 }

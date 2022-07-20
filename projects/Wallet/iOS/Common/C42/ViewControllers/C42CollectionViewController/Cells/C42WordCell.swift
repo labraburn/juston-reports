@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonUI
+import JustonUI
 
 class C42WordCell: UICollectionViewCell {
     
@@ -25,15 +25,15 @@ class C42WordCell: UICollectionViewCell {
             }
             
             textLabel.attributedText = NSMutableAttributedString({
-                NSAttributedString("\(model.index).", with: .caption2, foregroundColor: .hui_textSecondary)
-                NSAttributedString("\(model.word)", with: .headline, foregroundColor: .hui_textPrimary)
+                NSAttributedString("\(model.index).", with: .caption2, foregroundColor: .jus_textSecondary)
+                NSAttributedString("\(model.word)", with: .headline, foregroundColor: .jus_textPrimary)
             })
         }
     }
     
     private let textLabel = UILabel().with({
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .hui_textPrimary
+        $0.textColor = .jus_textPrimary
         $0.font = .font(for: .subheadline)
         $0.textAlignment = .left
         $0.numberOfLines = 1
@@ -43,7 +43,7 @@ class C42WordCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentView.backgroundColor = .hui_backgroundSecondary
+        contentView.backgroundColor = .jus_backgroundSecondary
         contentView.addSubview(textLabel)
         
         textLabel.pinned(

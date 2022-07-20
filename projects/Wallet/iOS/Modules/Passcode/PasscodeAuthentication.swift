@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import HuetonCORE
+import JustonCORE
 import LocalAuthentication
 
 actor PasscodeAuthentication {
@@ -59,7 +59,7 @@ actor PasscodeAuthentication {
             let viewController = PasscodeViewController(mode: .get)
             viewController.delegate = self
             viewController.isModalInPresentation = true
-            containerViewController.hui_present(viewController, animated: true)
+            containerViewController.jus_present(viewController, animated: true)
         })
         
         return try await task.value
