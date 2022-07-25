@@ -406,16 +406,37 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickTopupControl control: UIControl,
         model: CardStackCard
     ) {
-        let viewController = TopupNavigationController(
-            initialConfiguration: .init(
-                account: model.account
-            )
-        )
-        
-        jus_present(
-            viewController,
-            animated: true
-        )
+        Task {
+            do {
+                let authentication = PasscodeAuthentication(inside: self) // uhh
+                let passcode = try await authentication.key()
+                
+                let uuid = UUID(uuidString: "68b696d7-320b-4402-a412-d9cee10fc6a3")!
+                let message = try await model.account.deel(
+                    uuid: uuid,
+                    address: ConcreteAddress(string: "EQC8fQqm9L1OJrjpYAUN4Fxy8s7PGg6OMS33gXcc3dZs6LC8")!.address,
+                    amount: Currency(value: "0.1")!,
+                    royalty: (ConcreteAddress(string: "UQBLLCn4PxWt6HDtOjJTZFheXzL0x7PchwQmyrbS405nK_-k")!.address, Currency(value: "0.05")!),
+                    passcode: passcode
+                )
+                
+                let fees = try await message.fees()
+                print(fees)
+                try await message.send()
+            } catch {
+                print(error)
+            }
+        }
+//        let viewController = TopupNavigationController(
+//            initialConfiguration: .init(
+//                account: model.account
+//            )
+//        )
+//
+//        jus_present(
+//            viewController,
+//            animated: true
+//        )
     }
     
     func cardStackView(

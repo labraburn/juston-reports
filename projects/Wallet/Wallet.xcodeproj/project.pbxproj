@@ -133,6 +133,7 @@
 		F0BC3C48280AB3690036F53A /* GradientImageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */; };
 		F0BC3C4B280AB4E30036F53A /* CardStackCardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */; };
 		F0BC3C4D280AB5120036F53A /* CardStackCardBackgroundContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */; };
+		F0BC4018288DCFA4008892CD /* Deal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC4017288DCFA4008892CD /* Deal.swift */; };
 		F0C23D962867A85A0052B2C5 /* Safari3WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */; };
 		F0C23D982867B4F50052B2C5 /* Safari3WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */; };
 		F0C23D9B2868BB280052B2C5 /* Safari3WelcomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */; };
@@ -299,6 +300,7 @@
 		F0BC3C47280AB3690036F53A /* GradientImageBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4A280AB4E30036F53A /* CardStackCardBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundView.swift; sourceTree = "<group>"; };
 		F0BC3C4C280AB5120036F53A /* CardStackCardBackgroundContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackCardBackgroundContentView.swift; sourceTree = "<group>"; };
+		F0BC4017288DCFA4008892CD /* Deal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deal.swift; sourceTree = "<group>"; };
 		F0C23D952867A85A0052B2C5 /* Safari3WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeViewController.swift; sourceTree = "<group>"; };
 		F0C23D972867B4F50052B2C5 /* Safari3WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WebView.swift; sourceTree = "<group>"; };
 		F0C23D9A2868BB280052B2C5 /* Safari3WelcomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Safari3WelcomeDataSource.swift; sourceTree = "<group>"; };
@@ -962,6 +964,14 @@
 			path = CardStackCardBackgroundView;
 			sourceTree = "<group>";
 		};
+		F0BC4016288DCF99008892CD /* Deel */ = {
+			isa = PBXGroup;
+			children = (
+				F0BC4017288DCFA4008892CD /* Deal.swift */,
+			);
+			path = Deel;
+			sourceTree = "<group>";
+		};
 		F0C23D992868BB170052B2C5 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1027,6 +1037,7 @@
 		F0EA237E27AE6FE900D682B2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F0BC4016288DCF99008892CD /* Deel */,
 				F0FCD84A288772FC0047954F /* Country */,
 				F0FCD8402887439B0047954F /* PreferredContentSizeHeightViewController */,
 				F003FEF12869323B00623AC0 /* UICollectionViewPreviewCell */,
@@ -1220,6 +1231,7 @@
 				F0A457A3283D79910039F6CA /* NavigationController.swift in Sources */,
 				F0118D842810335300B518A9 /* C42AccessoryCollectionViewCell.swift in Sources */,
 				F01E2AE02849004100AA108F /* OnboardingAccountImportViewController.swift in Sources */,
+				F0BC4018288DCFA4008892CD /* Deal.swift in Sources */,
 				F003FEFB2869513900623AC0 /* PromoViewController.swift in Sources */,
 				F003FEFE2869FA3C00623AC0 /* Safari3SearchDataSource.swift in Sources */,
 				F0678144281AA4A000EB05F4 /* CardStackCardContentLargeView.swift in Sources */,
