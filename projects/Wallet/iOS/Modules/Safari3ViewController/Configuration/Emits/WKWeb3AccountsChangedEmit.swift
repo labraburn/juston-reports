@@ -8,21 +8,24 @@
 import Foundation
 import JustonCORE
 
-typealias WKWeb3AccountsChangedEmit = [String]
-
-extension WKWeb3AccountsChangedEmit: WKWeb3Emit {
+struct WKWeb3AccountsChangedEmit: WKWeb3Emit {
     
     static var names: [String] {
-        ["ton_accounts", "accountsChanged"]
+        ["accountsChanged"]
     }
+    
+    let accounts: [String]
     
     init(
         accounts: [PersistenceAccount]
     ) {
-        self.init(
-            accounts.map({
-                return $0.convienceSelectedAddress.description
-            })
-        )
+        self.accounts = accounts.map({
+            return $0.convienceSelectedAddress.description
+        })
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(accounts)
     }
 }

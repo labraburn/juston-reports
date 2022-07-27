@@ -211,13 +211,12 @@ extension OnboardingAccountImportViewController: CameraViewControllerDelegate {
     
     func qrViewController(
         _ viewController: CameraViewController,
-        didRecognizeConvenienceURL convenienceURL: ConvenienceURL
+        didRecognizeSchemeURL schemeURL: SchemeURL
     ) {
         viewController.hide(animated: true)
-        
-        switch convenienceURL {
-        case let .transfer(destination, _, _):
-            inputTextView.textView.text = destination.displayName
+        switch schemeURL {
+        case let .transfer(_, configuration):
+            inputTextView.textView.text = configuration.destination.displayName
         }
     }
 }

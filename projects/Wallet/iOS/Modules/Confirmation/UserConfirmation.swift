@@ -86,28 +86,12 @@ private extension UserConfirmation.ConfirmationAction {
             message = "UserConfirmationLargeAmountUnbouncableAddress".asLocalizedKey
         }
         
-        return AlertViewController(
+        return ConfirmationViewController(
             image: image,
-            title: "UserConfirmationTitle".asLocalizedKey,
             message: message,
-            actions: [
-                .init(
-                    title: "UserConfirmationConfirmButton".asLocalizedKey,
-                    block: { viewController in
-                        viewController.hide(animated: true)
-                        completionBlock(true)
-                    },
-                    style: .default
-                ),
-                .init(
-                    title: "CommonCancel".asLocalizedKey,
-                    block: { viewController in
-                        viewController.hide(animated: true)
-                        completionBlock(false)
-                    },
-                    style: .cancel
-                )
-            ]
+            completion: { confirmed in
+                completionBlock(confirmed)
+            }
         )
     }
 }

@@ -375,9 +375,8 @@ extension CardStackViewController: CardStackViewDelegate {
         let viewController = TransferNavigationController(
             initialConfiguration: .init(
                 fromAccount: model.account,
-                toAddress: nil,
-                amount: nil,
-                message: nil
+                isEditable: true,
+                configuration: nil
             )
         )
         
@@ -389,16 +388,25 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickReceiveControl control: UIControl,
         model: CardStackCard
     ) {
-        let viewController = QRSharingViewController(
-            initialConfiguration: .init(
-                address: model.account.convienceSelectedAddress
-            )
-        )
+//        let viewController = QRSharingViewController(
+//            initialConfiguration: .init(
+//                address: model.account.convienceSelectedAddress
+//            )
+//        )
+//
+//        jus_present(
+//            NavigationController(rootViewController: viewController),
+//            animated: true
+//        )
         
-        jus_present(
-            NavigationController(rootViewController: viewController),
-            animated: true
+        let vc = ConfirmationViewController(
+            image: .image(.jus_warning42, tintColor: .jus_letter_yellow),
+            message: String(format: "UserConfirmationSignMessage".asLocalizedKey, "scaleton.io"),
+            completion: { confirmed in
+                
+            }
         )
+        jus_present(vc, animated: true)
     }
     
     func cardStackView(
@@ -411,7 +419,7 @@ extension CardStackViewController: CardStackViewDelegate {
                 account: model.account
             )
         )
-        
+
         jus_present(
             viewController,
             animated: true

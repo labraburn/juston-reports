@@ -21,7 +21,7 @@ public class SelfSizingTextView: UITextView {
             }
             
             let animate = (_heightAnchor?.constant ?? 0) != contentSize.height
-            _heightAnchor?.constant = contentSize.height
+            _heightAnchor?.constant = estimateHeight(contentSize.height)
             
             setNeedsLayout()
             if animate {
@@ -51,7 +51,7 @@ public class SelfSizingTextView: UITextView {
     
     public override var intrinsicContentSize: CGSize {
         var intrinsicContentSize = super.intrinsicContentSize
-        intrinsicContentSize.height = min(max(minimumContentSizeHeight, intrinsicContentSize.height), maximumContentSizeHeight)
+        intrinsicContentSize.height = estimateHeight(intrinsicContentSize.height)
         return intrinsicContentSize
     }
     
@@ -65,7 +65,11 @@ public class SelfSizingTextView: UITextView {
             withHorizontalFittingPriority: horizontalFittingPriority,
             verticalFittingPriority: verticalFittingPriority
         )
-        systemLayoutSizeFitting.height = min(max(minimumContentSizeHeight, systemLayoutSizeFitting.height), maximumContentSizeHeight)
+        systemLayoutSizeFitting.height = estimateHeight(systemLayoutSizeFitting.height)
         return systemLayoutSizeFitting
+    }
+    
+    private func estimateHeight(_ height: CGFloat) -> CGFloat {
+        min(max(minimumContentSizeHeight, height), maximumContentSizeHeight)
     }
 }

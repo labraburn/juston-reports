@@ -142,12 +142,12 @@ extension AccountStackViewController: CameraViewControllerDelegate {
     
     func qrViewController(
         _ viewController: CameraViewController,
-        didRecognizeConvenienceURL convenienceURL: ConvenienceURL
+        didRecognizeSchemeURL schemeURL: SchemeURL
     ) {
         let navigationController = viewController.navigationController
         
-        switch convenienceURL {
-        case let .transfer(destination, amount, text):
+        switch schemeURL {
+        case let .transfer(scheme, configuration):
             guard let account = cardStackViewController.selectedCard?.account
             else {
                 return
@@ -156,9 +156,8 @@ extension AccountStackViewController: CameraViewControllerDelegate {
             let viewController = TransferDetailsViewController(
                 initialConfiguration: .init(
                     fromAccount: account,
-                    toAddress: DisplayableAddress(rawValue: destination),
-                    amount: amount,
-                    message: text
+                    isEditable: scheme.isEditableParameters,
+                    configuration: configuration
                 )
             )
             

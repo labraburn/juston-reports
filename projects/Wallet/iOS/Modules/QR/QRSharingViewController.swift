@@ -84,10 +84,11 @@ class QRSharingViewController: UIViewController {
         let address = initialConfiguration.address
         addressButton.setTitle(address.description, for: .normal)
         
-        let url = ConvenienceURL.transfer(
-            destination: address,
-            amount: nil,
-            text: nil
+        let url = SchemeURL.transfer(
+            scheme: .ton,
+            configuration: TransferConfiguration(
+                destination: DisplayableAddress(rawValue: address)
+            )
         ).url
         
         let qr = QRCode.Document(

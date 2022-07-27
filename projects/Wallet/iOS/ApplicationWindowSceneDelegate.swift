@@ -64,38 +64,25 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func openURLIfAvailable(
         _ url: URL
     ) -> Bool {
-        guard let deeplinkURL = DeeplinkURL(url)
+        guard let schemeURL = SchemeURL(url)
         else {
             return false
         }
         
-        switch deeplinkURL {
-        case let .tonURL(convenienceURL):
-            switch convenienceURL {
-            case let .transfer(destination, amount, text):
-                openTransferViewController(
-                    destination: DisplayableAddress(rawValue: destination),
-                    amount: amount,
-                    message: text
-                )
-            }
-        case .address(_):
-            break
-        case let .transfer(destination, amount, text):
-            openTransferViewController(
-                destination: DisplayableAddress(rawValue: destination),
-                amount: amount,
-                message: text
+        switch schemeURL {
+        case let .transfer(scheme, configuration):
+            showTransferViewControllerIfAvailable(
+                with: configuration,
+                isEditable: scheme.isEditableParameters
             )
         }
         
         return true
     }
     
-    private func openTransferViewController(
-        destination: DisplayableAddress,
-        amount: Currency?,
-        message: String?
+    private func showTransferViewControllerIfAvailable(
+        with configuration: TransferConfiguration?,
+        isEditable: Bool
     ) {
         guard let exploreViewController = window?.windowRootViewController.child as? ExploreViewController
         else {
@@ -103,9 +90,8 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         exploreViewController.showTransferViewControllerIfAvailable(
-            destination: destination,
-            amount: amount,
-            message: message
+            with: configuration,
+            isEditable: isEditable
         )
     }
 }

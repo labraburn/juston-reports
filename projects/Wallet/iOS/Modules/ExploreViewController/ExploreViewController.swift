@@ -91,9 +91,8 @@ class ExploreViewController: TripleViewController {
     // MARK: API
     
     func showTransferViewControllerIfAvailable(
-        destination: DisplayableAddress,
-        amount: Currency?,
-        message: String?
+        with configuration: TransferConfiguration?,
+        isEditable: Bool
     ) {
         guard let account = accountStackViewController.selectedCard?.account
         else {
@@ -103,9 +102,8 @@ class ExploreViewController: TripleViewController {
         let viewController = TransferNavigationController(
             initialConfiguration: .init(
                 fromAccount: account,
-                toAddress: destination,
-                amount: amount,
-                message: message
+                isEditable: isEditable,
+                configuration: configuration
             )
         )
         
