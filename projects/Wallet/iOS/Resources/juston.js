@@ -86,9 +86,7 @@ class Provider {
     constructor() {
         this.dispatcher = new Dispatcher();
         this.listeners = {};
-
-        this.type = "JUSTON";
-
+        
         this.isTonWallet = true;
         this.isHUETON = true;
     }
