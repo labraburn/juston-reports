@@ -18,6 +18,7 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
         WKWeb3EventBox(WKWeb3SendTransactionEvent.self),
         WKWeb3EventBox(WKWeb3SignEvent.self),
         WKWeb3EventBox(WKWeb3UndefinedEvent.self),
+        WKWeb3EventBox(WKWeb3RequestChainEvent.self),
     ].reduce(into: [:], { events, box in
         box.names.forEach({ events[$0] = box })
     })

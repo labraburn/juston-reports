@@ -152,6 +152,7 @@
 		F0CC9C4D2890CB1400FB5C00 /* FormTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC9C4C2890CB1400FB5C00 /* FormTextCollectionViewCell.swift */; };
 		F0CC9C4F28919ACF00FB5C00 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC9C4E28919ACF00FB5C00 /* ConfirmationViewController.swift */; };
 		F0CC9C512891AF9700FB5C00 /* WKWeb3ChainChangedEmit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC9C502891AF9700FB5C00 /* WKWeb3ChainChangedEmit.swift */; };
+		F0CC9C532891B77800FB5C00 /* WKWeb3RequestChainEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CC9C522891B77800FB5C00 /* WKWeb3RequestChainEvent.swift */; };
 		F0DBFA5127F6081200956DC9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5027F6081200956DC9 /* AlertViewController.swift */; };
 		F0DBFA5327F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */; };
 		F0DBFA5727F7DEB000956DC9 /* AlertViewControllerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DBFA5627F7DEB000956DC9 /* AlertViewControllerImage.swift */; };
@@ -328,6 +329,7 @@
 		F0CC9C4C2890CB1400FB5C00 /* FormTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0CC9C4E28919ACF00FB5C00 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F0CC9C502891AF9700FB5C00 /* WKWeb3ChainChangedEmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3ChainChangedEmit.swift; sourceTree = "<group>"; };
+		F0CC9C522891B77800FB5C00 /* WKWeb3RequestChainEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWeb3RequestChainEvent.swift; sourceTree = "<group>"; };
 		F0DBFA5027F6081200956DC9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		F0DBFA5227F6083400956DC9 /* AlertViewControllerTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewControllerTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F0DBFA5527F7C4C600956DC9 /* Objective42 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Objective42; path = ../../../packages/Objective42; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 			children = (
 				F003FF11286A17AC00623AC0 /* WKWeb3RequestAccountsEvent.swift */,
 				F0FDEFCE286A940C00982A0A /* WKWeb3RequestWalletsEvent.swift */,
+				F0CC9C522891B77800FB5C00 /* WKWeb3RequestChainEvent.swift */,
 				F0FDEFD0286A954500982A0A /* WKWeb3BalanceEvent.swift */,
 				F0FDEFD2286A95E300982A0A /* WKWeb3SendTransactionEvent.swift */,
 				F003FF13286A18B000623AC0 /* WKWeb3SignEvent.swift */,
@@ -1264,6 +1267,7 @@
 				F0F071482832DA8E009AA6F9 /* TransferDetailsViewController.InitialConfiguration.swift in Sources */,
 				F0678153281B37F900EB05F4 /* InAppAnnouncementInfo.swift in Sources */,
 				F0909B5727E8B2D000FC8404 /* C42WordCell.swift in Sources */,
+				F0CC9C532891B77800FB5C00 /* WKWeb3RequestChainEvent.swift in Sources */,
 				F003FF14286A18B000623AC0 /* WKWeb3SignEvent.swift in Sources */,
 				F0118D8B28103AF800B518A9 /* C42LogoHeaderView.swift in Sources */,
 				F067814C281B371C00EB05F4 /* InAppAnnouncementWindow.swift in Sources */,
