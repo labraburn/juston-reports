@@ -284,10 +284,11 @@
 
 
 /* START - UserConfirmation */
-"UserConfirmationSignMessage" = "'%@' wants sign raw text.\nUsually it's just a check that you are owner of account, but be careful";
-"UserConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nReview details carefully!\n";
+"UserConfirmationSignMessage" = "'%@' wants sign raw text.\n\nUsually it's just a check that you are owner of account, but be careful";
+"UserConfirmationTransactionMessage" = "'%@' wants send %@ $TON to %@.\n\nPlease, review details carefully";
 "UserConfirmationTitle" = "Action requested";
 "UserConfirmationConfirmButton" = "Confirm";
+"UserConfirmationDenyButton" = "Cancel";
 "UserConfirmationLargeAmountUnbouncableAddress" = "You are trying to send large amount tokens to non-bounceable address. If address is incorrect you will loose all amount of transaction";
 /* END - UserConfirmation */
 

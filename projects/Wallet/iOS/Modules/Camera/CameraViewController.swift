@@ -14,7 +14,7 @@ protocol CameraViewControllerDelegate: AnyObject {
     
     func qrViewController(
         _ viewController: CameraViewController,
-        didRecognizeConvenienceURL convenienceURL: ConvenienceURL
+        didRecognizeSchemeURL schemeURL: SchemeURL
     )
 }
 
@@ -55,7 +55,7 @@ class CameraViewController: UIViewController {
     private var session: AVCaptureSession?
     private var layer: AVCaptureVideoPreviewLayer?
     private let queue = DispatchQueue(label: "com.juston.capture-session")
-    private var convenienceURL: ConvenienceURL? = nil
+    private var schemeURL: SchemeURL? = nil
     
     weak var delegate: CameraViewControllerDelegate?
 
@@ -99,7 +99,7 @@ class CameraViewController: UIViewController {
         super.viewDidAppear(animated)
         
         cameraView.startLoadingAnimation(delay: 0.1, fade: false, width: 3)
-        convenienceURL = nil
+        schemeURL = nil
         
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .denied, .restricted:
@@ -194,7 +194,7 @@ extension CameraViewController: AVCaptureMetadataOutputObjectsDelegate {
         didOutput metadataObjects: [AVMetadataObject],
         from connection: AVCaptureConnection
     ) {
-        guard !metadataObjects.isEmpty, self.convenienceURL == nil
+        guard !metadataObjects.isEmpty, self.schemeURL == nil
         else {
             return
         }
@@ -205,16 +205,16 @@ extension CameraViewController: AVCaptureMetadataOutputObjectsDelegate {
         
         guard let readableCodeObject = readableCodeObjects.first,
               let stringValue = readableCodeObject.stringValue,
-              let convenienceURL = ConvenienceURL(stringValue)
+              let schemeURL = SchemeURL(stringValue)
         else {
             return
         }
         
-        self.convenienceURL = convenienceURL
+        self.schemeURL = schemeURL
         DispatchQueue.main.async {
             self.delegate?.qrViewController(
                 self,
-                didRecognizeConvenienceURL: convenienceURL
+                didRecognizeSchemeURL: schemeURL
             )
         }
     }
