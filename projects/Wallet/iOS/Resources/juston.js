@@ -87,6 +87,7 @@ class Provider {
         this.dispatcher = new Dispatcher();
         this.listeners = {};
 
+        // backward, depricated
         this.type = "JUSTON";
 
         this.isTonWallet = true;
