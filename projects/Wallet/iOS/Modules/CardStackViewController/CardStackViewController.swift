@@ -388,25 +388,16 @@ extension CardStackViewController: CardStackViewDelegate {
         didClickReceiveControl control: UIControl,
         model: CardStackCard
     ) {
-//        let viewController = QRSharingViewController(
-//            initialConfiguration: .init(
-//                address: model.account.convienceSelectedAddress
-//            )
-//        )
-//
-//        jus_present(
-//            NavigationController(rootViewController: viewController),
-//            animated: true
-//        )
-        
-        let vc = ConfirmationViewController(
-            image: .image(.jus_warning42, tintColor: .jus_letter_yellow),
-            message: String(format: "UserConfirmationSignMessage".asLocalizedKey, "scaleton.io"),
-            completion: { confirmed in
-                
-            }
+        let viewController = QRSharingViewController(
+            initialConfiguration: .init(
+                address: model.account.convienceSelectedAddress
+            )
         )
-        jus_present(vc, animated: true)
+
+        jus_present(
+            NavigationController(rootViewController: viewController),
+            animated: true
+        )
     }
     
     func cardStackView(
