@@ -10,6 +10,11 @@ import JustonCORE
 
 struct WKWeb3ChainChangedEmit: WKWeb3Emit {
     
+    enum CodingKeys: CodingKey {
+        
+        case chainId
+    }
+    
     static var names: [String] {
         ["chainChanged"]
     }
@@ -23,7 +28,7 @@ struct WKWeb3ChainChangedEmit: WKWeb3Emit {
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode([chain])
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(chain, forKey: .chainId)
     }
 }
