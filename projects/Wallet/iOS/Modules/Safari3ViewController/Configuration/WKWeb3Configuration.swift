@@ -23,6 +23,7 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
     })
     
     weak var dispatcher: WKWeb3EventDispatcher?
+    private var configurationObserver: NSObjectProtocol?
     
     var account: PersistenceAccount? {
         didSet {
@@ -33,24 +34,31 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
                 accounts = []
             }
             
-            Task {
-                await emit(
-                    value: WKWeb3AccountsChangedEmit(
-                        accounts: accounts
-                    )
-                )
-            }
+            emitAccountsChanged(accounts)
         }
     }
     
     override init() {
         super.init()
+        
         load()
+        configurationObserver = AnnouncementCenter.shared.observe(
+            of: AnnouncementConfiguration.self,
+            using: { [weak self] value in
+                self?.emitConfigurationChanged(value)
+            }
+        )
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        if let configurationObserver = configurationObserver {
+            AnnouncementCenter.shared.removeObserver(configurationObserver)
+        }
     }
     
     private func load() {
@@ -77,6 +85,30 @@ final class WKWeb3Configuration: WKWebViewConfiguration {
         
         processPool = WKProcessPool()
         websiteDataStore = WKWebsiteDataStore.nonPersistent()
+    }
+    
+    private func emitConfigurationChanged(
+        _ configuration: Configuration
+    ) {
+        Task {
+            await emit(
+                value: WKWeb3ChainChangedEmit(
+                    chain: configuration.network.rawValue
+                )
+            )
+        }
+    }
+    
+    private func emitAccountsChanged(
+        _ accounts: [PersistenceAccount]
+    ) {
+        Task {
+            await emit(
+                value: WKWeb3AccountsChangedEmit(
+                    accounts: accounts
+                )
+            )
+        }
     }
 }
 
