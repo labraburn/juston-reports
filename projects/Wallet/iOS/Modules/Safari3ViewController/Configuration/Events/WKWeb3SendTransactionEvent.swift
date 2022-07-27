@@ -102,6 +102,17 @@ struct WKWeb3SendTransactionEvent: WKWeb3Event {
         )
         
         try await message.send()
+        
+        let writableAccount = await PersistenceAccount.writeableObject(id: account.objectID)
+        try await PersistencePendingTransaction(
+            account: writableAccount,
+            destinationAddress: address.concreteAddress,
+            value: amount,
+            estimatedFees: 0,
+            body: message.body.data,
+            bodyHash: message.bodyHash
+        ).save()
+        
         return true
     }
 }
