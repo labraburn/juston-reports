@@ -8,7 +8,7 @@
 	<array>
 		<string>applinks:juston.io</string>
 		<string>applinks:pay.juston.io</string>
-		<string>applinks:toggle.juston.io</string>
+		<string>applinks:yap.juston.io</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
