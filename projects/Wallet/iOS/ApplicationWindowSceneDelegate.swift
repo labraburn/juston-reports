@@ -12,7 +12,11 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: ApplicationWindow?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         guard let windowScene = scene as? ApplicationWindowScene
         else {
             return
@@ -28,6 +32,23 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let inAppAnnouncementWindow = InAppAnnouncementWindow(windowScene: windowScene)
         inAppAnnouncementWindow.isHidden = false
+        
+        // Shluld be last operation in current delegate method
+        guard let userActivity = connectionOptions.userActivities.first
+        else {
+            return
+        }
+        
+        // Here we should start and only after run url handler
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + 0.42,
+            execute: {
+                self.scene(
+                    scene,
+                    continue: userActivity
+                )
+            }
+        )
     }
     
     // Universal Links and etc.
@@ -64,6 +85,10 @@ class ApplicationWindowSceneDelegate: UIResponder, UIWindowSceneDelegate {
     func openURLIfAvailable(
         _ url: URL
     ) -> Bool {
+        if let fulrsURL = FulrsURL(url) {
+            return openURLIfAvailable(fulrsURL.originalURL)
+        }
+        
         guard let schemeURL = SchemeURL(url)
         else {
             return false
